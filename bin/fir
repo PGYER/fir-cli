@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require 'fir-cli'
+
+Fir::Cli.load_extends
+
+# begin
+	Fir::Cli.start ARGV
+# rescue Exception => e
+# 	puts "! 错误[#{ e.errno }]: #{ Paint[e.to_s, :red] }"
+# end
+
