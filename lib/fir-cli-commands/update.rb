@@ -1,6 +1,6 @@
 module Fir
   class Cli < Thor
-    desc 'update IPA_FILE_PATH|BUNDLE_ID', '更新 fir.im 的应用信息'
+    desc 'update APP_FILE_PATH|BUNDLE_ID', '更新 FIR.im 的应用信息'
     option :short, :aliases => '-s', :desc => '自定义短地址'
     option :token, :aliases => '-t', :desc => '用户令牌，不写则使用已经登陆信息'
     option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'
@@ -15,7 +15,7 @@ module Fir
 
       post.each { |i| post.delete i[0] if i[1] == fir_app[i[0]] }
 
-      if post.length == 0 then _puts '> 没有可以更新的项目'; return end
+      if post.length == 0 then _puts '> 没有什么可以更新的'; return end
       _fir_put fir_app[:id], post
 
       fir_app = _fir_info identifier

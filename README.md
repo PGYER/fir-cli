@@ -26,13 +26,13 @@ fir help COMMAND
 fir login USER_TOKEN
 ```
 
-####获取 ipa 文件的信息
-> 以下指令可以显示 ipa 文件的信息。
+####获取应用文件的信息
+> 以下指令可以显示应用文件的信息，支持 ipa 和 apk 文件。
 
 - `-v`：可选，显示更多信息
-- `-f`：可选，显示托管在 [fir.im](http://fir.im) 的信息
+- `-f`：可选，显示托管在 [FIR.im](http://fir.im) 的信息
 ```shell
-fir info IPA_FILE [-f] [-v]
+fir info APP_FILE_PATH [-f] [-v]
 ```
 
 ####设置全局信息
@@ -55,15 +55,15 @@ fir config [-r] [-t TOKEN] [-e EMAIL]
 fir resign INTPUT_IPA_FILE OUTPUT_IPA_FILE [-e EMAIL]
 ```
 
-####发布应用至 [fir.im](http://fir.im)
-> 以下指令将指定 ipa 文件发布到 [fir.im](http://fir.im)
+####发布应用至 [FIR.im](http://fir.im)
+> 以下指令将指定应用文件发布到 [FIR.im](http://fir.im)，支持 ipa 和 apk 文件。
 
-- `-r`：可选，设置此开关将首先企业签名，之后发布到 [fir.im](http://fir.im)
+- `-r`：可选，设置此开关将首先企业签名，之后发布到 [FIR.im](http://fir.im)
 - `-s SHORT`：可选，指定发布应用的短地址
 - `-t USER_TOKEN`：可选，设定发布应用的帐号，未设置则使用全局设置
 - `-c CHANGE_LOG`：可选，设置发布的发布日志
 ```shell
-fir publish IPA_FILE [-r] [-s SHORT] [-t USER_TOKEN] [-c CHANGE_LOG]
+fir publish APP_FILE_PATH [-r] [-s SHORT] [-t USER_TOKEN] [-c CHANGE_LOG]
 ```
 
 
