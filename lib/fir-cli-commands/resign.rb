@@ -15,9 +15,9 @@ module Fir
       if _opt_email == nil
         @email = _prompt '请输入你的邮件地址：'
         if !@email || @email.length == 0
-          _puts "! #{ Paint['你需要提供邮件地址才能使用 resign.tapbeta.com', :red] }"
-          _puts "! #{ Paint['的签名服务, 请输入:', :red] } fir config --email=EMAIL"
-          _puts "! #{ Paint['进行设置', :red] }"
+          _puts "! #{ Paint['你需要提供邮件地址才能使用 resign.tapbeta.com 的', :red] }"
+          _puts "! #{ Paint['签名服务, 请使用', :red] } fir config --email=EMAIL #{ Paint['进行设', :red] }"
+          _puts "! #{ Paint['置', :red] }"
           exit 1
         elsif !_is_email @email
           _puts_invalid_email

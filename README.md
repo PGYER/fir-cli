@@ -27,12 +27,12 @@ Commands:
 ```shell
 $ fir publish 应用路径
 ```
-这时系统会提示输入用户令牌
+这时系统会提示输入用户 token
 ```shell
 > 欢迎使用 FIR.im 命令行工具，如需帮助请输入: fir help
 > 正在解析 ipa 文件...
 > 正在获取 im.fir.juo@FIR.im 的应用信息...
-请输入用户令牌：
+请输入用户 token：
 > 上传应用...
 > 上传应用成功
 > 正在更新 fir 的应用信息...
@@ -42,16 +42,16 @@ $ fir publish 应用路径
 > http://fir.im/xxxxx
 ```
 
-用户令牌可在[这里](http://fir.im/user/info)查看
+用户 token 可在[这里](http://fir.im/user/info)查看
 
 ### 方便一点
-如果觉得每次都输入用户令牌很不方便，那么可使用登录命令
+如果觉得每次都输入用户 token 很不方便，那么可使用登录命令
 
 ```shell
-$ fir login 用户令牌
+$ fir login 用户 token
 > 欢迎使用 FIR.im 命令行工具，如需帮助请输入: fir help
 > 设置用户邮件地址为: xx@xx.xx
-> 当前登陆用户为：用户令牌
+> 当前登陆用户为：用户 token
 ```
 
 
@@ -116,7 +116,7 @@ fir help COMMAND
 ```
 
 ### 登录
-> 以下指令用于设置用户令牌：`USER_TOKEN`，已登录用户在[这里](http://fir.im/user/info)上查可以看自己的令牌。
+> 以下指令用于设置用户 token：`USER_TOKEN`，已登录用户在[这里](http://fir.im/user/info)上查可以看自己的令牌。
 
 ```shell
 fir login USER_TOKEN

@@ -2,7 +2,7 @@
 #   class Cli < Thor
 #     desc 'update APP_FILE_PATH|BUNDLE_ID', '更新 FIR.im 的应用信息'
 #     option :short, :aliases => '-s', :desc => '自定义短地址'
-#     option :token, :aliases => '-t', :desc => '用户令牌，不写则使用已经登陆信息'
+#     option :token, :aliases => '-t', :desc => '用户 token'
 #     option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'
 #     option :quiet, :aliases => '-q', :desc => '安静模式，不输出任何选项'
 #     def update(path)
