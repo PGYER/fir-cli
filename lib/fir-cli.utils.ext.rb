@@ -58,7 +58,7 @@ module Fir
         @token = token if token.length > 0
       end
       if !@token
-        _puts "! #{ Paint['您需要提供用户令牌', :red] }"
+        _puts "! #{ Paint['你需要提供用户令牌', :red] }"
         exit 1
       elsif !_user(@token)
         _puts "! #{ Paint['你提供的用户令牌是错误的', :red] }"
@@ -84,6 +84,12 @@ module Fir
     end
     def _puts_welcome
       _puts "> #{ Paint['欢迎使用 FIR.im 命令行工具，如需帮助请输入:', :green] } fir help"
+    end
+    def _puts_invalid_token
+      _puts "! #{ Paint['输入的令牌不合法', :red] }"
+    end
+    def _puts_invalid_email
+      _puts "! #{ Paint['输入的邮件地址不合法', :red] }"
     end
     def _info(path, more = false)
       if _is_ipa path

@@ -6,7 +6,8 @@ module Fir
     def login(token)
       user = _user token
       if !user
-        _puts "! #{ Paint['您输入的令牌不合法', :red] }"
+        _puts_invalid_token
+        
         exit 1
       end
     	if _opt_token && _opt_token != token

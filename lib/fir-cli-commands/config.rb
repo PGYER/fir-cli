@@ -13,7 +13,7 @@ module Fir
           @config[option[0].to_s] = option[1]
         end
         if @config['token'] && !_user(@config['token'])
-          _puts "! #{ Paint['你输入的令牌不合法', :red] }"
+          _puts_invalid_token
           exit 1
         end
         @config.save

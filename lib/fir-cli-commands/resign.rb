@@ -6,21 +6,21 @@ module Fir
     option :quiet, :aliases => '-q', :desc => '安静模式，不输出任何选项'
     def resign(ipath, opath)
       _puts "! #{ Paint['resign.tapbeta.com 签名服务风险提示', :red] }"
-      _puts '! 无法保证签名证书的长期有效性，当某种条件满足后'
-      _puts '! 苹果会禁止该企业账号，所有由该企业账号所签发的'
-      _puts '! 证书都会失效。您如果使用该网站提供的服务进行应'
-      _puts "! 用分发，请注意：#{ Paint['当证书失效后，所有安装了已失效', :red ] }"
-      _puts "! #{ Paint['证书签名的用户都会无法正常运行应用；同时托管在', :red ] }"
-      _puts "! #{ Paint['fir.im 的应用将无法正常安装。', :red ] }"
+      _puts '! tapbeta 无法保证签名证书的长期有效性，苹果随时可'
+      _puts '! 能封杀他们的企业账号，所有由这个企业账号签发的证'
+      _puts '! 书都会失效。你如果使用该网站提供的证书进行应用签'
+      _puts "! 发，请注意：#{ Paint['当证书失效后，所有通过已失效证书签名', :red ] }"
+      _puts "! #{ Paint['的应用都会无法正常运行；同时托管在 fir.im 的应用', :red ] }"
+      _puts "! #{ Paint['将无法正常安装。', :red ] }"
       if _opt_email == nil
-        @email = _prompt '请输入您的邮件地址：'
+        @email = _prompt '请输入你的邮件地址：'
         if !@email || @email.length == 0
-          _puts "! #{ Paint['您需要提供邮件地址才能使用 resign.tapbeta.com', :red] }"
+          _puts "! #{ Paint['你需要提供邮件地址才能使用 resign.tapbeta.com', :red] }"
           _puts "! #{ Paint['的签名服务, 请输入:', :red] } fir config --email=EMAIL"
           _puts "! #{ Paint['进行设置', :red] }"
           exit 1
         elsif !_is_email @email
-          _puts "! #{ Paint['您输入的邮件地址不合法', :red] }"
+          _puts_invalid_email
           exit 1
         end
       end

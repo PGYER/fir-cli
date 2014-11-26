@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |s|
   s.name          = 'fir-cli'
-  s.version       = '0.1.1'
+  s.version       = '0.1.2'
   s.date          = '2014-11-20'
   s.summary       = 'FIR.im 命令行工具'
   s.description   = 'FIR.im 命令行工具，支持 ios 和 android'
