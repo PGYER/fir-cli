@@ -13,17 +13,19 @@ $ gem install fir-cli
 $ fir
 > 欢迎使用 FIR.im 命令行工具，如需帮助请输入: fir help
 Commands:
+  fir batpub FOLDER_1, FOLDER_2, ...    # 批量上传指定文件夹中的全部文件
+  fir batres FOLDER_1, FOLDER_2, ...    # 批量上传指定文件夹中的全部文件
   fir config                            # 配置全局设置
-  fir help [COMMAND]                    # Describe available commands or one specific ...
+  fir help [COMMAND]                    # Describe available commands or one specific command
   fir info APP_FILE_PATH                # 获取应用文件的信息（支持 ipa 文件和 apk 文件）
-  fir login USER_TOKEN                  # 以 USER_TOKEN 身份登陆
+  fir login                             # 登录
   fir publish APP_FILE_PATH             # 将应用文件发布至 FIR.im（支持 ipa 文件和 apk 文件）
   fir resign IPA_FILE_PATH OUTPUT_PATH  # 使用 resign.tapbeta.com 进行企业签名
   fir upgrade all fir-cli toolbelts     # 更新 fir-cli 的所有组件
 ```
 
 ### 发布一个应用
-输入下面的指令便可发布应用
+输入下面的指令便可轻松发布应用
 ```shell
 $ fir publish 应用路径
 ```
@@ -33,6 +35,10 @@ $ fir publish 应用路径
 > 正在解析 ipa 文件...
 > 正在获取 im.fir.juo@FIR.im 的应用信息...
 请输入用户 token：
+```
+输入用户 token 后，系统会自动上传
+```shell
+请输入用户 token：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 > 上传应用...
 > 上传应用成功
 > 正在更新 fir 的应用信息...
@@ -48,20 +54,28 @@ $ fir publish 应用路径
 如果觉得每次都输入用户 token 很不方便，那么可使用登录命令
 
 ```shell
-$ fir login 用户 token
+$ fir login
+```
+这时系统会提示输入用户 token
+```shell
 > 欢迎使用 FIR.im 命令行工具，如需帮助请输入: fir help
-> 设置用户邮件地址为: xx@xx.xx
-> 当前登陆用户为：用户 token
+输入你的用户 token： 
+```
+输入用户 token，系统会自动获取你的用户 email
+```shell
+输入你的用户 token：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+> 设置用户邮件地址为: dy@fir.im
+> 当前登陆用户为：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 
 ### 需要企业签名？
-很多开发者需要一个企业签名的应用，来让更多的用户参与到测试中，这种行为并不符合企业证书的使用规范。但是我们还是集成了第三方签名网站 [resign.tapbeta.com](http://resign.tapbeta.com) 帮助我们的用户更方便的进行测试。
+很多开发者需要一个企业签名的应用，来让更多的用户参与到测试中，这种行为并不符合企业证书的使用规范。但是我们还是集成了第三方签名网站 [resign.tapbeta.com](http://resign.tapbeta.com) 来帮助我们的用户更方便的进行测试。
 
 ```shell
 $ fir resign ipa文件路径 输出文件路径
 ```
-这条指令会输出一段风险提示，如果没有设置邮件地址，这里会让你输入邮件地址，等全部完成之后，便开始进行企业签名了
+这条指令会输出一段风险提示；如果没有设置邮件地址，这里会让你输入邮件地址。输入邮件地址后，便开始进行企业签名了
 ```
 > 欢迎使用 FIR.im 命令行工具，如需帮助请输入: fir help
 ! resign.tapbeta.com 签名服务风险提示
@@ -116,10 +130,10 @@ fir help COMMAND
 ```
 
 ### 登录
-> 以下指令用于设置用户 token：`USER_TOKEN`，已登录用户在[这里](http://fir.im/user/info)上查可以看自己的令牌。
+> 以下指令用于登录，登录后系统会从 FIR.im 自动获取你的邮件等信息。已登录用户在[这里](http://fir.im/user/info)可以找到自己的用户 token。
 
 ```shell
-fir login USER_TOKEN
+fir login
 ```
 
 ### 获取应用文件的信息
@@ -130,7 +144,7 @@ fir login USER_TOKEN
 - `-v`：可选，设置输出级别，级别分为三个：`v`、`vv`、`vvv`，默认为`vv`
 - `-q`：可选，安静模式，不输出任何信息
 ```shell
-fir info APP_FILE_PATH [-f] [-v]
+fir info APP_FILE_PATH [-a] [-f] [-v v|vv|vvv] [-q]
 ```
 
 ### 设置全局信息
@@ -142,7 +156,7 @@ fir info APP_FILE_PATH [-f] [-v]
 - `-t TOKEN`：可选，设置登录用户的令牌（作用和`fir loging USER_TOKEN`一样）
 - `-e EMAIL`：可选，设置用户使用企业签名服务的默认邮件地址
 ```shell
-fir config [-r] [-t TOKEN] [-e EMAIL]
+fir config [-r] [-v v|vv|vvv] [-q] [-t TOKEN] [-e EMAIL]
 ```
 
 ### 第三方企业证书签名服务
@@ -161,7 +175,7 @@ fir resign INTPUT_IPA_FILE OUTPUT_IPA_FILE [-e EMAIL]
 - `-r`：可选，此开关控制是否使用第三方企业签名服务，仅支持 ipa 文件
 - `-s SHORT`：可选，指定发布应用的短地址
 - `-t USER_TOKEN`：可选，设定发布应用的帐号，未设置则使用全局设置
-- `-c CHANGE_LOG`：可选，设置发布的发布日志
+- `-c CHANGE_LOG`：可选，设置更新日志
 ```shell
 fir publish APP_FILE_PATH [-r] [-s SHORT] [-t USER_TOKEN] [-c CHANGE_LOG]
 ```
