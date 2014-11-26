@@ -11,10 +11,10 @@ Gem::Specification.new do |s|
   s.homepage      = 'http://blog.fir.im/2014/fir-cli'
   s.author        = 'FIR.im'
   s.email         = 'fir-cli@fir.im'
-  s.license       = 'GPL'
-  s.executables   << 'fir'
+  s.license       = 'GPLv3'
   s.files         = `git ls-files -z`.split("\x0")
-  s.require_paths = ['./']
+  s.executables   << 'fir'
+  s.require_paths << './'
 
   s.add_dependency 'lagunitas', '0.0.1'
   s.add_dependency 'user_config', '0.0.4'
