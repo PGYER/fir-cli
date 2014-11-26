@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 require 'fir-cli'
 
-Fir::Cli.load_extends
+Fir::Cli.find_extends.each { |g| require g }
 
-# begin
+begin
 	Fir::Cli.start ARGV
-# rescue Exception => e
-# 	puts "! 错误[#{ e.errno }]: #{ Paint[e.to_s, :red] }"
-# end
+rescue Exception => e
+	puts "! 错误: #{ Paint[e.to_s, :red] }"
+end
 
