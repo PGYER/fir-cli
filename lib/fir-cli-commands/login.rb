@@ -1,13 +1,17 @@
 module Fir
   class Cli < Thor
-		desc 'login USER_TOKEN', '以 USER_TOKEN 身份登陆'
+		desc 'login', '登录'
 		option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'
     option :quite, :aliases => '-q', :desc => '安静模式，不输出任何选项'
-    def login(token)
+    def login
+      token = _prompt_secret('输入你的用户 token：')
+      if token.empty?
+        _puts_require_token
+        exit 1
+      end
       user = _user token
       if !user
         _puts_invalid_token
-        
         exit 1
       end
     	if _opt_token && _opt_token != token
