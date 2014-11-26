@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    fir-cli (0.1.0)
+    fir-cli (0.1.1)
+      highline (~> 1.6.21)
       lagunitas (= 0.0.1)
       paint (~> 0.9.0)
       pngdefry (= 0.1.1)
@@ -14,6 +15,7 @@ GEM
   remote: https://ruby.taobao.org/
   specs:
     CFPropertyList (2.2.8)
+    highline (1.6.21)
     lagunitas (0.0.1)
       CFPropertyList
       pngdefry (>= 0.1.0)
