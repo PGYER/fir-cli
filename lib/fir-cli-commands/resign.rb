@@ -13,10 +13,16 @@ module Fir
       _puts "! #{ Paint['证书签名的用户都会无法正常运行应用；同时托管在', :red ] }"
       _puts "! #{ Paint['fir.im 的应用将无法正常安装。', :red ] }"
       if _opt_email == nil
-        _puts "! #{ Paint['您需要提供邮件地址才能使用 resign.tapbeta.com', :red] }"
-        _puts "! #{ Paint['的签名服务, 请输入:', :red] } fir config --email=EMAIL"
-        _puts "! #{ Paint['进行设置', :red] }"
-        exit 1
+        @email = _prompt '请输入您的邮件地址：'
+        if !@email || @email.length == 0
+          _puts "! #{ Paint['您需要提供邮件地址才能使用 resign.tapbeta.com', :red] }"
+          _puts "! #{ Paint['的签名服务, 请输入:', :red] } fir config --email=EMAIL"
+          _puts "! #{ Paint['进行设置', :red] }"
+          exit 1
+        elsif !_is_email @email
+          _puts "! #{ Paint['您输入的邮件地址不合法', :red] }"
+          exit 1
+        end
       end
       if !/\.ipa$/.match ipath
         _puts Paint['! 只能给以 ipa 为扩展名的文件签名', :red]
