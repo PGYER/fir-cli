@@ -1,16 +1,16 @@
-FIR.im Toolbelt
+FIR.im CLI
 ---
-> FIR.im Toolbelt 提供了您使用中的一些基本功能，同时还集成了第三方网站 [resign.tapbeta.com](http://resign.tapbeta.com) 进行企业签名，方便开发者测试。更多功能还在开发中
+> FIR.im CLI 提供了您使用中的一些基本功能，同时还集成了第三方网站 [resign.tapbeta.com](http://resign.tapbeta.com) 进行企业签名，方便开发者测试。更多功能还在开发中。
 
-##使用说明
-###从安装入手
-FIR.im Toolbelt 是用 ruby 构建，只要安装相应 ruby gem 即可：
+## 使用说明
+### 从安装入手
+FIR.im CLI 是用 ruby 构建，只要安装相应 ruby gem 即可：
 
 ```shell
 gem install fir-cli
 ```
 
-###发布一个应用
+### 发布一个应用
 输入下面的指令便可以发布一个 ipa 文件
 ```shell
 fir publish ipa文件路径
@@ -33,7 +33,7 @@ fir publish ipa文件路径
 
 用户令牌可以在[这里](http://fir.im/user/info)查看
 
-###方便一点
+### 方便一点
 如果觉得每次都输入用户令牌很不方便，那么可以使用登录命令
 
 ```shell
@@ -44,7 +44,7 @@ $ fir login 用户令牌
 ```
 
 
-###需要企业签名？
+### 需要企业签名？
 很多开发者需要一个企业签名的应用，来让更多的用户参与到测试中，这种行为并不符合企业证书的使用规范。但是我们还是集成了第三方签名网站 [resign.tapbeta.com](http://resign.tapbeta.com) 帮助我们的用户更方便的进行测试。
 
 ```shell
@@ -69,27 +69,27 @@ $ fir resign ipa文件路径 输出文件路径
 ```
 
 
-###一步到位
+### 一步到位
 企业签名后自动发布到 [FIR.im](http://fir.im)
 ```shell
 $ fir publish ipa文件路径 -r
 ```
 
-###需要帮助？
+### 需要帮助？
 输入下面的指令可以获得全面的功能介绍
 ```shell
 $ fir help
 ```
 如果还有不清楚的欢迎随时发邮件至[fir-cli](mailto:fir-cli@fir.im)提出您的疑惑
 
-###永远使用最新的功能
+### 永远使用最新的功能
 下面的指令会自动更新 fir-cli 及所有扩展组件至最新状态
 ```shell
 $ fir upgrade
 ```
 
-##指令文档
-###帮助
+## 指令文档
+### 帮助
 > 以下指令可以获取帮助
 
 ```shell
@@ -103,7 +103,7 @@ fir help
 fir help COMMAND
 ```
 
-###登录
+### 登录
 > 以下指令用于设置用户令牌：`USER_TOKEN`，已登录用户可以在[这里](http://fir.im/user/info)
 上可以查看自己的令牌。
 
@@ -111,7 +111,7 @@ fir help COMMAND
 fir login USER_TOKEN
 ```
 
-###获取应用文件的信息
+### 获取应用文件的信息
 > 以下指令可以显示应用文件的信息，支持 ipa 和 apk 文件。
 
 - `-a`：可选，现实全部信息
@@ -122,7 +122,7 @@ fir login USER_TOKEN
 fir info APP_FILE_PATH [-f] [-v]
 ```
 
-###设置全局信息
+### 设置全局信息
 > 以下指令可以进行全局设置。执行指令时如过不指明相应选项，会读区全局设置。
 
 - `-r`：可选，如果设置了全局企业签名，发布默认将使用第三方企业签名服务
@@ -134,7 +134,7 @@ fir info APP_FILE_PATH [-f] [-v]
 fir config [-r] [-t TOKEN] [-e EMAIL]
 ```
 
-###第三方企业证书签名服务
+### 第三方企业证书签名服务
 > 以下指令使用 [resign.tapbeta.com](http://resign.tapbeta.com) 进行企业证书签名
 
 - `INPUT_IPA_PATH`：待签名的 ipa 文件路径
@@ -144,7 +144,7 @@ fir config [-r] [-t TOKEN] [-e EMAIL]
 fir resign INTPUT_IPA_FILE OUTPUT_IPA_FILE [-e EMAIL]
 ```
 
-###发布应用至 [FIR.im](http://fir.im)
+### 发布应用至 [FIR.im](http://fir.im)
 > 以下指令将指定应用文件发布到 [FIR.im](http://fir.im)，支持 ipa 和 apk 文件。
 
 - `-r`：可选，此开关控制是否使用第三方企业签名服务，仅支持 ipa 文件
@@ -155,7 +155,7 @@ fir resign INTPUT_IPA_FILE OUTPUT_IPA_FILE [-e EMAIL]
 fir publish APP_FILE_PATH [-r] [-s SHORT] [-t USER_TOKEN] [-c CHANGE_LOG]
 ```
 
-###更新全部指令
+### 更新全部指令
 > 以下指令将更新所有安装的 fir-cli 指令集
 
 ```shell
