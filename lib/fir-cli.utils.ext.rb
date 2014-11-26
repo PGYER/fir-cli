@@ -1,17 +1,3 @@
-require 'uri'
-require 'json'
-require 'pathname'
-require 'tempfile'
-require 'securerandom'
-
-require 'thor'
-require 'paint'
-require 'pngdefry'
-require 'user_config'
-require 'rest_client'
-require 'lagunitas'
-require 'ruby_apk'
-
 module Fir
   class Cli < Thor
     def initialize(*args)
@@ -19,13 +5,16 @@ module Fir
       _init_config
       _puts_welcome
     end
-    def self.load_extends
-      `gem list --local`.each_line("\n") do |gem|
-        gem_name = /^[^\s]+/.match(gem)[0]
-        require gem_name if gem_name.start_with? 'fir-cli-'
-      end
+    def self.find_extends
+      `gem list --local`
+        .each_line("\n")
+        .map { |gem| /^[^\s]+/.match(gem)[0] }
+        .select { |gem| true if gem.start_with? 'fir-cli-' }
     end
   	private
+    def _extends
+      @extends ||= Cli.find_extends
+    end
     def _init_config
       @uconfig = UserConfig.new '.fir'
       @config = @uconfig['default.yaml']
@@ -60,14 +49,27 @@ module Fir
     def _is_identifier(str)
       /^(?:(?:[a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*(?:[A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/.match str
     end
-    def _chk_login
-      if !_opt_token
-        _puts "! #{ Paint['您还没有登录, 请输入:', :red] } fir login USER_TOKEN #{ Paint['进行登录', :red] }"
+    def _is_email(str)
+      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/i.match str
+    end
+    def _chk_login(prompt = true)
+      if !_opt_token && prompt == true
+        token = _prompt_secret('请输入用户令牌：')
+        @token = token if token.length > 0
+      end
+      if !@token
+        _puts "! #{ Paint['您需要提供用户令牌', :red] }"
+        exit 1
+      elsif !_user(@token)
+        _puts "! #{ Paint['你提供的用户令牌是错误的', :red] }"
         exit 1
       end
     end
-    def _puts_welcome
-      _puts "> #{ Paint['欢迎使用 FIR.im 命令行工具，如需帮助请输入:', :green] } fir help"
+    def _prompt_secret(prompt)
+      ask(prompt) {|q| q.echo = false}
+    end
+    def _prompt(prompt)
+      ask(prompt) {|q| q}
     end
     def _puts(text)
       return if _opt_quiet
@@ -80,13 +82,16 @@ module Fir
         puts text if text.start_with?('!') || text.start_with?('>') || text.start_with?('-')
       end
     end
+    def _puts_welcome
+      _puts "> #{ Paint['欢迎使用 FIR.im 命令行工具，如需帮助请输入:', :green] } fir help"
+    end
     def _info(path, more = false)
       if _is_ipa path
         _ipa_info path, more
       elsif _is_apk path
         _apk_info path, more
       else
-        _puts "! #{ Paint['只能支持后缀为 ipa 和 apk 地文件', :red] }"
+        _puts "! #{ Paint['只能支持后缀为 ipa 和 apk 的文件', :red] }"
       end
     end
     def _apk_info(path, more = false)
@@ -146,27 +151,6 @@ module Fir
       end
       ipa.cleanup
       info
-    end
-    def _fir_info(identifier, type = 'ios')
-      _puts "> 正在获取 #{ identifier }@FIR.im 的应用信息..."
-      _chk_login
-      body = { :token => @token, :type => type }
-      res = RestClient.get "http://fir.im/api/v2/app/info/#{ identifier }?#{ URI.encode_www_form body }"
-      JSON.parse res.body, :symbolize_names => true
-    end
-    def _fir_put(id, body)
-      _chk_login
-      body[:token] = @token
-      _puts '> 正在更新 fir 的应用信息...'
-      RestClient.put "http://fir.im/api/v2/app/#{ id }?#{ URI.encode_www_form body }", body
-      _puts '> 更新成功'
-    end
-    def _fir_vput(id, body)
-      _chk_login
-      body[:token] = @token
-      _puts '> 正在更新 fir 的应用版本信息...'
-      RestClient.put "http://fir.im/api/v2/appVersion/#{ id }/complete?#{ URI.encode_www_form body }", body
-      _puts '> 更新成功'
     end
   end
 end
