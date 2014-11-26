@@ -8,9 +8,13 @@ module Fir
     option :quiet, :aliases => '-q', :desc => '安静模式', :type => :boolean
     def config
       if options.length > 0
-        options.each do |conf|
-          puts "> #{ Paint[conf[0].to_s.rjust(10), :blue] } : #{ @config[conf[0].to_s] } => #{ conf[1] }"
-          @config[conf[0]] = conf[1]
+        options.each do |option|
+          puts "> #{ Paint[option[0].to_s.rjust(10), :blue] } : #{ @config[option[0].to_s] } => #{ option[1] }"
+          @config[option[0].to_s] = option[1]
+        end
+        if @config['token'] && !_user(@config['token'])
+          _puts "! #{ Paint['你输入的令牌不合法', :red] }"
+          exit 1
         end
         @config.save
       end
