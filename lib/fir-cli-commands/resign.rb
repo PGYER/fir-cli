@@ -24,8 +24,8 @@ module Fir
           exit 1
         end
       end
-      if !/\.ipa$/.match ipath
-        _puts Paint['! 只能给以 ipa 为扩展名的文件签名', :red]
+      if !_is_ipa ipath
+        _puts "! #{ Paint['只能给以 ipa 为扩展名的文件签名', :red] }"
         exit 1
       end
       _puts '> 正在申请上传令牌...'
@@ -55,11 +55,15 @@ module Fir
       info = {}
       loop do
         res = RestClient.get "http://api.resign.tapbeta.com/public/#{ tapbeta[:tb_upload_key] }", 
-                             :params => { :__mr => 'eyJ1cmwiOiIkKHVybCkiLCAicmVzaWduU3RhdHVzIjogIiQocmVzaWduU3RhdHVzKSJ9' }
+                             :params => { :__mr => 'eyJ1cmwiOiIkKHVybCkiLCAicmVzaWduU3RhdHVzIjogIiQocmVzaWduU3RhdHVzKSIsICJzdGF0dXMiOiAiJChzdGF0dXMpIn0=' }
         info = JSON.parse res.body, :symbolize_names => true
         if nped && info[:resignStatus] == 'doing'
           _puts '> 正在签名...'
           nped = false
+        end
+        if info[:status] == 'error'
+          _puts "! #{ Paint['签名失败', :red] }"
+          exit 1
         end
         break if info[:url] != ''
         sleep 5
