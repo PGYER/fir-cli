@@ -1,5 +1,4 @@
 require 'uri'
-require 'thor'
 require 'json'
 require 'pathname'
 require 'tempfile'
