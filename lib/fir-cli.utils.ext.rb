@@ -11,7 +11,7 @@ module Fir
         .map { |gem| /^[^\s]+/.match(gem)[0] }
         .select { |gem| true if gem.start_with? 'fir-cli-' }
     end
-  	private
+    private
     def _extends
       @extends ||= Cli.find_extends
     end

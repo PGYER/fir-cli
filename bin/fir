@@ -4,10 +4,10 @@ require 'fir-cli'
 Fir::Cli.find_extends.each { |g| require g }
 
 begin
-	Fir::Cli.start ARGV
+  Fir::Cli.start ARGV
 rescue Exception => e
-	s = e.to_s
-	s = ": #{ s }" if !s.empty?
-	puts "! #{ Paint[ "错误#{ s }", :red] }"
+  s = e.to_s
+  s = ": #{ s }" if !s.empty?
+  puts "! #{ Paint[ "错误#{ s }", :red] }"
 end
 
