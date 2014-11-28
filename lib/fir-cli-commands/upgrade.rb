@@ -7,8 +7,8 @@ module Fir
       _puts '> gem update fir-cli'
       `gem update fir-cli`
       _extends.each do |gem|
-        _puts "> gem update #{ gem }"
-        `gem update #{ gem }`
+        _puts "> gem update #{gem}"
+        `gem update #{gem}`
       end
     end
   end

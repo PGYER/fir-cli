@@ -20,9 +20,9 @@
 
 #       fir_app = _fir_info identifier
 #       if opt_short && opt_short != fir_app[:short]
-#         _puts "> 短地址 #{ opt_short } 被占用，FIR.im 自动更新短地址为 #{ fir_app[:short] }"
+#         _puts "> 短地址 #{opt_short} 被占用，FIR.im 自动更新短地址为 #{fir_app[:short]}"
 #       end
-#       _puts "> http://fir.im/#{ fir_app[:short] }"
+#       _puts "> http://fir.im/#{fir_app[:short]}"
 #     end
 #   end
 # end

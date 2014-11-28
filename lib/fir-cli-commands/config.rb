@@ -9,7 +9,7 @@ module Fir
     def config
       if options.length > 0
         options.each do |option|
-          puts "> #{ Paint[option[0].to_s.rjust(10), :blue] } : #{ @config[option[0].to_s] } => #{ option[1] }"
+          puts "> #{Paint[option[0].to_s.rjust(10), :blue]} : #{@config[option[0].to_s]} => #{option[1]}"
           @config[option[0].to_s] = option[1]
         end
         if @config['token'] && !_user(@config['token'])
@@ -19,7 +19,7 @@ module Fir
         @config.save
       end
       puts '> 设置完成，您现在使用的设置是'
-      @config.each {|conf| puts "> #{ Paint[conf[0].to_s.rjust(10), :blue] } => #{ conf[1] }"}
+      @config.eac { |conf| puts "> #{Paint[conf[0].to_s.rjust(10), :blue]} => #{conf[1]}"}
     end
   end
 end

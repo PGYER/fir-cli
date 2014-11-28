@@ -22,7 +22,7 @@ module Lagunitas
     end
     def distribution_name
       # mobileprovision['DeveloperCertificates'] if mobileprovision
-      "#{ mobileprovision['Name'] }: #{ mobileprovision['TeamName'] }" if mobileprovision
+      "#{mobileprovision['Name']}: #{mobileprovision['TeamName']}" if mobileprovision
     end
     def metadata
       return if !metadata?

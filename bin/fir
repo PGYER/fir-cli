@@ -7,7 +7,7 @@ begin
   Fir::Cli.start ARGV
 rescue Exception => e
   s = e.to_s
-  s = ": #{ s }" if !s.empty?
-  puts "! #{ Paint[ "错误#{ s }", :red] }"
+  s = ": #{s}" if !s.empty?
+  puts "! #{Paint["错误#{s}", :red]}"
 end
 

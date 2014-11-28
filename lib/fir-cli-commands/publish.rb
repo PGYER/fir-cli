@@ -9,7 +9,7 @@ module Fir
     option :quiet, :aliases => '-q', :desc => '安静模式，不输出任何选项'
     def publish(path)
       if _opt_resign && _is_ipa(path)
-        tfile = Tempfile.new ["resign-#{ SecureRandom.hex }", '.ipa']
+        tfile = Tempfile.new ["resign-#{SecureRandom.hex}", '.ipa']
         resign path, tfile.path
         path = tfile.path
       end

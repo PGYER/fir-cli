@@ -66,10 +66,10 @@ module Fir
       end
     end
     def _prompt_secret(prompt)
-      ask(prompt) {|q| q.echo = false}
+      ask(prompt { |q| q.echo = false}
     end
     def _prompt(prompt)
-      ask(prompt) {|q| q}
+      ask(prompt { |q| q}
     end
     def _puts(text)
       return if _opt_quiet
@@ -83,16 +83,16 @@ module Fir
       end
     end
     def _puts_welcome
-      _puts "> #{ Paint['欢迎使用 FIR.im 命令行工具，如需帮助请输入:', :green] } fir help"
+      _puts "> #{Paint['欢迎使用 FIR.im 命令行工具，如需帮助请输入:', :green]} fir help"
     end
     def _puts_require_token
-      _puts "! #{ Paint['用户 token 不能为空', :red] }"
+      _puts "! #{Paint['用户 token 不能为空', :red]}"
     end
     def _puts_invalid_token
-      _puts "! #{ Paint['输入的用户 token 不合法', :red] }"
+      _puts "! #{Paint['输入的用户 token 不合法', :red]}"
     end
     def _puts_invalid_email
-      _puts "! #{ Paint['输入的邮件地址不合法', :red] }"
+      _puts "! #{Paint['输入的邮件地址不合法', :red]}"
     end
     def _info(path, more = false)
       if _is_ipa path
@@ -100,7 +100,7 @@ module Fir
       elsif _is_apk path
         _apk_info path, more
       else
-        _puts "! #{ Paint['只能支持后缀为 ipa 和 apk 的文件', :red] }"
+        _puts "! #{Paint['只能支持后缀为 ipa 和 apk 的文件', :red]}"
       end
     end
     def _apk_info(path, more = false)
@@ -115,7 +115,7 @@ module Fir
       }
       if more
         info[:icons] = apk.icon.map do |name, data|
-          tfile = Tempfile.new ["icon-#{ SecureRandom.hex }", '.png']
+          tfile = Tempfile.new ["icon-#{SecureRandom.hex}", '.png']
           tfile.write data
           @tmpfiles.push tfile
           {
@@ -145,7 +145,7 @@ module Fir
       if more
         if app.icons
           info[:icons] = app.icons.map do |icon|
-            tfile = Tempfile.new ["icon-#{ SecureRandom.hex }", '.png']
+            tfile = Tempfile.new ["icon-#{SecureRandom.hex}", '.png']
             @tmpfiles.push tfile
             FileUtils.cp icon[:path], tfile.path
             {
