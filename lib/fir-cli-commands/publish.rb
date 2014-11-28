@@ -49,14 +49,17 @@ module Fir
       _fir_put fir_app[:id],
               :name => app[:display_name] || app[:name],
               :short => options[:short] || fir_app[:short],
-              :version => app[:version],
-              :versionShort => app[:short_version]
+              # :desc => options[:describe] || fir_app[:desc]
+              # :show => options[:public] || fir_app[:show]
+              :source => 'fir-cli'
               
+      _fir_vput_complete upload_res[:versionOid],
+                         :version => app[:version],
+                         :versionShort => app[:short_version],
+                         :devices => app[:devices],
+                         :release_type => app[:release_type]
+
       _fir_vput upload_res[:versionOid],
-               :version => app[:version],
-               :versionShort => app[:short_version],
-               :devices => app[:devices],
-               :release_type => app[:release_type],
                :changelog => options[:changelog]
 
 
