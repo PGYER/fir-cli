@@ -66,10 +66,10 @@ module Fir
       end
     end
     def _prompt_secret(prompt)
-      ask(prompt { |q| q.echo = false}
+      ask(prompt { |q| q.echo = false })
     end
     def _prompt(prompt)
-      ask(prompt { |q| q}
+      ask(prompt { |q| q })
     end
     def _puts(text)
       return if _opt_quiet
