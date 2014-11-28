@@ -17,7 +17,6 @@ module Fir
       fir_app = _fir_info app[:identifier], app[:type]
 
       id = fir_app[:id]
-      short = fir_app[:short]
       bundle_app = fir_app[:bundle][:pkg]
       bundle_icon = fir_app[:bundle][:icon]
       
@@ -62,8 +61,9 @@ module Fir
       _fir_vput upload_res[:versionOid],
                :changelog => options[:changelog]
 
-
-      _puts "> http://fir.im/#{short}"
+      # Get updated app info
+      fir_app = _fir_info app[:identifier]
+      _puts "> http://fir.im/#{fir_app[:short]}"
     end
   end
 end
