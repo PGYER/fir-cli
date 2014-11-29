@@ -1,5 +1,5 @@
 module Fir
-  class Cli < Thor    
+  class Cli
     desc 'resign IPA_FILE_PATH OUTPUT_PATH', '使用 resign.tapbeta.com 进行企业签名'
     option :email, :aliases => '-e', :desc => '邮件地址'
     option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'

@@ -33,11 +33,11 @@ module Fir
       @verbose ||= options[:verbose] || @config['verbose']
     end
     def _opt_resign
-      return options[:resign] if defined? options[:resign]
+      return false if options[:resign] == false
       @resign ||= options[:resign] || @config['resign']
     end
     def _opt_quiet
-      return options[:quiet] if defined? options[:quiet]
+      return false if options[:quiet] == false
       @quiet ||= options[:quiet] || @config['quiet']
     end
     def _is_ipa(path)
@@ -66,10 +66,10 @@ module Fir
       end
     end
     def _prompt_secret(prompt)
-      ask(prompt { |q| q.echo = false })
+      ask(prompt) { |q| q.echo = false }
     end
     def _prompt(prompt)
-      ask(prompt { |q| q })
+      ask(prompt) { |q| q }
     end
     def _puts(text)
       return if _opt_quiet

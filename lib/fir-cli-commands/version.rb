@@ -1,5 +1,5 @@
 module Fir
-  class Cli < Thor
+  class Cli
     desc 'version', '当前版本'
     def version
       _puts "> FIR Cli #{VERSION}"

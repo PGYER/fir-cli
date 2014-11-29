@@ -1,5 +1,5 @@
 module Fir
-  class Cli < Thor
+  class Cli
     desc 'info APP_FILE_PATH', '获取应用文件的信息（支持 ipa 文件和 apk 文件）'
     option :all, :aliases => '-a', :desc => '显示全部应用信息', :type => :boolean
     option :fir, :aliases => '-f', :desc => '显示托管在 fir.im 的应用信息', :type => :boolean

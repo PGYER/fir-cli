@@ -1,5 +1,5 @@
 module Fir
-  class Cli < Thor
+  class Cli
     desc 'config', '配置全局设置'
     option :token, :aliases => '-t', :desc => '用户 token'
     option :email, :aliases => '-e', :desc => '邮件地址'
@@ -9,7 +9,7 @@ module Fir
     def config
       if options.length > 0
         options.each do |option|
-          puts "> #{Paint[option[0].to_s.rjust(10), :blue]} : #{@config[option[0].to_s]} => #{option[1]}"
+          _puts "> #{Paint[option[0].to_s.rjust(10), :blue]} : #{@config[option[0].to_s]} => #{option[1]}"
           @config[option[0].to_s] = option[1]
         end
         if @config['token'] && !_user(@config['token'])
@@ -18,8 +18,9 @@ module Fir
         end
         @config.save
       end
-      puts '> 设置完成，您现在使用的设置是'
-      @config.eac { |conf| puts "> #{Paint[conf[0].to_s.rjust(10), :blue]} => #{conf[1]}"}
+      _puts '> 设置完成，您现在使用的设置是'
+      @config.save 
+      @config.each { |conf| _puts "> #{Paint[conf[0].to_s.rjust(10), :blue]} => #{conf[1]}"}
     end
   end
 end

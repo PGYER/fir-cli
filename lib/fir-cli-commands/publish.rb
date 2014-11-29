@@ -1,5 +1,5 @@
 module Fir
-  class Cli < Thor
+  class Cli
     desc 'publish APP_FILE_PATH', '将应用文件发布至 FIR.im（支持 ipa 文件和 apk 文件）'
     option :resign, :aliases => '-r', :desc => '进行企业签名', :type => :boolean
     option :short, :aliases => '-s', :desc => '自定义短地址'

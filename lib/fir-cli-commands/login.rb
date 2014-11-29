@@ -1,5 +1,5 @@
 module Fir
-  class Cli < Thor
+  class Cli
     desc 'login', '登录'
     option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'
     option :quite, :aliases => '-q', :desc => '安静模式，不输出任何选项'
