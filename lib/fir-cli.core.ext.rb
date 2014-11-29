@@ -1,5 +1,5 @@
 module Fir
-  class Cli < Thor
+  class Cli
     private
     def _fir_info(identifier, type = 'ios')
       _puts "> 正在获取 #{identifier}@FIR.im 的应用信息..."

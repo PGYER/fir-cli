@@ -22,11 +22,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'lagunitas', '0.0.1'
   s.add_dependency 'user_config', '0.0.4'
   s.add_dependency 'pngdefry', '0.1.1'
-  s.add_dependency 'rest_client', '~> 1.8.2'
-  s.add_dependency 'paint', '~> 0.9.0'
-  s.add_dependency 'thor', '~> 0.19.1'
-  s.add_dependency 'ruby_apk', '~> 0.7.1'
-  s.add_dependency 'highline', '~> 1.6.21'
+  s.add_dependency 'rest_client', '~> 1.8'
+  s.add_dependency 'paint', '~> 0.9'
+  s.add_dependency 'thor', '~> 0.19'
+  s.add_dependency 'ruby_apk', '~> 0.7'
+  s.add_dependency 'highline', '~> 1.6'
 
   s.add_development_dependency "bundler", "~> 1.7"
   s.add_development_dependency "rake", "~> 10.0"

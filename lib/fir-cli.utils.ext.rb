@@ -1,5 +1,5 @@
 module Fir
-  class Cli < Thor
+  class Cli
     def initialize(*args)
       super
       _init_config
