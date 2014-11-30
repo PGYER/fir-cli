@@ -63,6 +63,9 @@ module Fir
         if info[:status] == 'error'
           _puts "! #{Paint['签名失败', :red]}"
           exit 1
+        elsif info[:status] == 'timeout'
+          _puts "! #{Paint['签名超时', :red]}"
+          exit 1
         end
         break if info[:url] != ''
         sleep 5
