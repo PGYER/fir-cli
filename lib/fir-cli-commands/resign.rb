@@ -2,8 +2,7 @@ module Fir
   class Cli
     desc 'resign IPA_FILE_PATH OUTPUT_PATH', '使用 resign.tapbeta.com 进行企业签名'
     option :email, :aliases => '-e', :desc => '邮件地址'
-    option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'
-    option :quiet, :aliases => '-q', :desc => '安静模式，不输出任何选项'
+    output_options
     def resign(ipath, opath)
       _puts "! #{Paint['resign.tapbeta.com 签名服务风险提示', :red]}"
       _puts '! tapbeta 无法保证签名证书的长期有效性，苹果随时可'

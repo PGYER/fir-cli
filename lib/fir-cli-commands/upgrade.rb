@@ -1,8 +1,7 @@
 module Fir
   class Cli
     desc 'upgrade', '更新 fir-cli 的所有组件'
-    option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'
-    option :quiet, :aliases => '-q', :desc => '安静模式，不输出任何选项'
+    output_options
     def upgrade
       _puts '> gem update fir-cli'
       `gem update fir-cli`

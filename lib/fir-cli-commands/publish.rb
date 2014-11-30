@@ -5,8 +5,7 @@ module Fir
     option :short, :aliases => '-s', :desc => '自定义短地址'
     option :token, :aliases => '-t', :desc => '用户 token'
     option :changelog, :aliases => '-c', :desc => '修改纪录，默认为空字符串', :default => ''
-    option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'
-    option :quiet, :aliases => '-q', :desc => '安静模式，不输出任何选项'
+    output_options
     def publish(path)
       if _opt_resign && _is_ipa(path)
         tfile = Tempfile.new ["resign-#{SecureRandom.hex}", '.ipa']

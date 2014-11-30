@@ -1,8 +1,7 @@
 module Fir
   class Cli
     desc 'login', '登录'
-    option :verbose, :aliases => '-v', :desc => '设置输出级别 v, vv, vvv'
-    option :quite, :aliases => '-q', :desc => '安静模式，不输出任何选项'
+    output_options
     def login
       token = _prompt_secret('输入你的用户 token：')
       if token.empty?

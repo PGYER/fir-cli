@@ -11,6 +11,19 @@ module Fir
         .map { |gem| /^[^\s]+/.match(gem)[0] }
         .select { |gem| true if gem.start_with? 'fir-cli-' }
     end
+    def self.output_options
+      option :verbose,
+             :desc => '设置输出辅助信息的详细程度: v, vv, vvv',
+             :type => :string,
+             :enum => ['v', 'vv', 'vvv']
+      option :quiet,
+             :aliases => '-q',
+             :desc => '安静模式，不输出任何辅助信息',
+             :type => 'boolean'
+      option :color,
+             :desc => '设置输出带有颜色的信息',
+             :type => 'boolean'
+    end
     private
     def _extends
       @extends ||= Cli.find_extends
