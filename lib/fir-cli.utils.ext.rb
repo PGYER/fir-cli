@@ -36,22 +36,22 @@ module Fir
     def _path(path)
       path = Pathname.new(Dir.pwd).join(path).cleanpath
     end
-    def _opt_token
-      @token ||= options[:token] || @config['token']
+    %w(token, email, verbose).each do |_m|
+      define_method "_opt_#{_m}" do
+        unless instance_variable_get("@#{_m}")
+          instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
+        end
+        instance_variable_get("@#{_m}")
+      end
     end
-    def _opt_email
-      @email ||= options[:email] || @config['email']
-    end
-    def _opt_verbose
-      @verbose ||= options[:verbose] || @config['verbose']
-    end
-    def _opt_resign
-      return false if options[:resign] == false
-      @resign ||= options[:resign] || @config['resign']
-    end
-    def _opt_quiet
-      return false if options[:quiet] == false
-      @quiet ||= options[:quiet] || @config['quiet']
+    %w(resign quiet color trim).each do |_m|
+      define_method "_opt_#{_m}" do
+        return false if options[_m.to_sym] == false
+        unless instance_variable_get("@#{_m}")
+          instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
+        end
+        instance_variable_get("@#{_m}")
+      end
     end
     def _is_ipa(path)
       path.end_with? '.ipa'
