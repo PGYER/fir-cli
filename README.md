@@ -6,7 +6,7 @@ FIR.im CLI
 ### 从安装入手
 FIR.im CLI 使用 ruby 构建，只要安装相应 ruby gem 即可：
 ```shell
-$ gem install fir-cli
+$ sudo gem install fir-cli
 ```
 安装后，你可以在命令行执行指令
 ```shell
