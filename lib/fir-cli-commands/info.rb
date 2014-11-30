@@ -1,3 +1,4 @@
+# coding: utf-8
 module Fir
   class Cli
     desc 'info APP_FILE_PATH', '获取应用文件的信息（支持 ipa 文件和 apk 文件）'

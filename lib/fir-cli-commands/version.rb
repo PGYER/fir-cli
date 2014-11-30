@@ -1,3 +1,4 @@
+# coding: utf-8
 module Fir
   class Cli
     desc 'version', '当前版本'

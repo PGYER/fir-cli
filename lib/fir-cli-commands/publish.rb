@@ -1,3 +1,4 @@
+# coding: utf-8
 module Fir
   class Cli
     desc 'publish APP_FILE_PATH', '将应用文件发布至 FIR.im（支持 ipa 文件和 apk 文件）'

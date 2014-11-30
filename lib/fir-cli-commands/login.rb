@@ -1,3 +1,4 @@
+# coding: utf-8
 module Fir
   class Cli
     desc 'login', '登录'

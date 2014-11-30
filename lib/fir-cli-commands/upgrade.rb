@@ -1,3 +1,4 @@
+# coding: utf-8
 module Fir
   class Cli
     desc 'upgrade', '更新 fir-cli 的所有组件'

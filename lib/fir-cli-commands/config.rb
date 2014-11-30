@@ -1,3 +1,4 @@
+# coding: utf-8
 module Fir
   class Cli
     desc 'config', '配置全局设置'

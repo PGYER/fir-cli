@@ -1,3 +1,4 @@
+# coding: utf-8
 module Fir
   class Cli
     desc 'resign IPA_FILE_PATH OUTPUT_PATH', '使用 resign.tapbeta.com 进行企业签名'
