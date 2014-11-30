@@ -163,7 +163,7 @@ module Fir
       }
       if more
         if app.icons
-          info[:icons] = app.icons.map do |icon|
+          info[:icons] = app.icons.reverse.map do |icon|
             tfile = Tempfile.new ["icon-#{SecureRandom.hex}", '.png']
             @tmpfiles.push tfile
             FileUtils.cp icon[:path], tfile.path
