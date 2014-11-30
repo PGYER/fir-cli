@@ -37,7 +37,7 @@ module Fir
     def _path(path)
       path = Pathname.new(Dir.pwd).join(path).cleanpath
     end
-    %w(token, email, verbose).each do |_m|
+    %w(token email verbose).each do |_m|
       define_method "_opt_#{_m}" do
         unless instance_variable_get("@#{_m}")
           instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
