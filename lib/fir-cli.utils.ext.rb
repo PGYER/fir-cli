@@ -85,15 +85,20 @@ module Fir
       ask(prompt) { |q| q }
     end
     def _puts(text)
+      return puts _format text if !/^[->!] /.match text
       return if _opt_quiet
       case _opt_verbose || 'vv' # If nothing about log is set, use the default option - vv
       when 'v'
-        puts text if text.start_with?('!')
+        puts _format text if text.start_with?('!')
       when 'vv'
-        puts text if text.start_with?('!') || text.start_with?('>')
+        puts _format text if text.start_with?('!') || text.start_with?('>')
       when 'vvv'
-        puts text if text.start_with?('!') || text.start_with?('>') || text.start_with?('-')
+        puts _format text if text.start_with?('!') || text.start_with?('>') || text.start_with?('-')
       end
+    end
+    def _format(text)
+      return text.gsub /\e\[\d+(?:;\d+)*m/, '' if _opt_color == false
+      text
     end
     def _puts_welcome
       _puts "> #{Paint['欢迎使用 FIR.im 命令行工具，如需帮助请输入:', :green]} fir help"
