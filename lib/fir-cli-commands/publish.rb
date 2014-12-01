@@ -3,6 +3,7 @@ module Fir
   class Cli
     desc 'publish APP_FILE_PATH', '将应用文件发布至 FIR.im（支持 ipa 文件和 apk 文件）'
     option :resign, :aliases => '-r', :desc => '进行企业签名', :type => :boolean
+    option :email, :aliases => '-e', :desc => '企业签名所需的邮件地址'
     option :short, :aliases => '-s', :desc => '自定义短地址'
     option :token, :aliases => '-t', :desc => '用户 token'
     option :changelog, :aliases => '-c', :desc => '修改纪录，默认为空字符串', :default => ''
