@@ -16,7 +16,7 @@ module Fir
     end
     def self.output_options
       option :verbose,
-             :desc => '设置输出辅助信息的详细程度: v, vv, vvv',
+             :desc => '设置输出辅助信息的详细程度',
              :type => :string,
              :enum => ['v', 'vv', 'vvv']
       option :quiet,
