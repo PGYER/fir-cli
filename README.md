@@ -141,47 +141,47 @@ fir profile PROFILE [-d]
 ```shell
 fir login
 ```
+### 设置全局信息
+> 以下指令用于全局设置。执行指令时如果不指明相应选项，会读取全局设置。
+
+- `--token=TOKEN`：见`登录`
+- `--resign`：见`第三方企业证书签名服务`
+- `--email=EMAIL`：见`第三方企业证书签名服务`
+- `--verbose=v|vv|vvv`：见`控制输出参数`
+- `--quiet` 与 `--no-quiet`：见`控制输出参数`
+- `--color` 与 `--no-color`：见`控制输出参数`
+```shell
+fir config [options]
+```
 
 ### 获取应用文件的信息
 > 以下指令用于显示应用信息，支持 ipa 和 apk 文件。
 
-- `-a`：可选，现实全部信息
-- `-f`：可选，显示托管在 [FIR.im](http://fir.im) 的信息
-- `-v`：可选，设置输出级别，级别分为三个：`v`、`vv`、`vvv`，默认为`vv`
-- `-q`：可选，安静模式，不输出任何信息
+- `--all` 与 `--no-all`：可选，现实全部信息
+- `--fir` 与 `--no-fir`：可选，显示托管在 [FIR.im](http://fir.im) 的信息
 ```shell
 fir info APP_FILE_PATH [-a] [-f] [-v v|vv|vvv] [-q]
 ```
 
-### 设置全局信息
-> 以下指令用于全局设置。执行指令时如果不指明相应选项，会读取全局设置。
 
-- `-r`：可选，如果设置了全局企业签名，发布默认将使用第三方企业签名服务
-- `-v`：可选，如果设置了全局输出级别，各指令都采用该级别输出
-- `-q`：可选，如果设置了全局静默模式，各指令均不输出辅助信息
-- `-t TOKEN`：可选，设置登录用户的令牌（作用和`fir loging USER_TOKEN`一样）
-- `-e EMAIL`：可选，设置用户使用企业签名服务的默认邮件地址
-```shell
-fir config [-r] [-v v|vv|vvv] [-q] [-t TOKEN] [-e EMAIL]
-```
 
 ### 第三方企业证书签名服务
 > 以下指令使用 [resign.tapbeta.com](http://resign.tapbeta.com) 进行企业证书签名
 
 - `INPUT_IPA_PATH`：待签名的 ipa 文件路径
 - `OUTPUT_IPA_PATH`：签名后的输出文件路径
-- `-e EMAIL`：可选，设置使用签名服务的邮件地址
+- `--email=EMAIL`：可选，设置使用签名服务的邮件地址
 ```shell
-fir resign INTPUT_IPA_FILE OUTPUT_IPA_FILE [-e EMAIL]
+fir resign INTPUT_IPA_FILE OUTPUT_IPA_FILE [--email=EMAIL]
 ```
 
 ### 发布应用至 [FIR.im](http://fir.im)
 > 以下指令用于发布应用到 [FIR.im](http://fir.im)，支持 ipa 和 apk 文件。
 
-- `-r`：可选，此开关控制是否使用第三方企业签名服务，仅支持 ipa 文件
-- `-s SHORT`：可选，指定发布应用的短地址
-- `-t USER_TOKEN`：可选，设定发布应用的帐号，未设置则使用全局设置
-- `-c CHANGE_LOG`：可选，设置更新日志
+- `--resign` 与 `--no-resign`：可选，此开关控制是否使用第三方企业签名服务，仅支持 ipa 文件
+- `--short=SHORT`：可选，指定发布应用的短地址
+- `--token=USER_TOKEN`：可选，设定发布应用的帐号，未设置则使用全局设置
+- `--changelog=CHANGE_LOG`：可选，设置更新日志
 ```shell
 fir publish APP_FILE_PATH [-r] [-s SHORT] [-t USER_TOKEN] [-c CHANGE_LOG]
 ```
@@ -193,3 +193,10 @@ fir publish APP_FILE_PATH [-r] [-s SHORT] [-t USER_TOKEN] [-c CHANGE_LOG]
 fir upgrade
 ```
 
+### 通用参数
+#### 控制输出参数
+> 几乎全部 FIR-cli 指令都支持下面的控制输出参数
+
+- `--verbose=v|vv|vvv`：用于控制输出级别，`v`只输出以`!`开始的内容；`vv`输出以`!`或`>`开始的内容；`vvv`输出全部辅助信息。
+- `--quiet` 与 `--no-quiet`：设置是否不输出全部辅助信息
+- `--color` 与 `--no-color`：设置输出信息是否包含命令行颜色信息
