@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'fir-cli'
+# coding: utf-8
 
 Fir::Cli.find_extends.each { |g| require g }
 
