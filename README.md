@@ -13,15 +13,13 @@ $ sudo gem install fir-cli
 $ fir
 > 欢迎使用 FIR.im 命令行工具，如需帮助请输入: fir help
 Commands:
-  fir batpub FOLDER_1, FOLDER_2, ...    # 批量上传指定文件夹中的全部文件
-  fir batres FOLDER_1, FOLDER_2, ...    # 批量上传指定文件夹中的全部文件
   fir config                            # 配置全局设置
   fir help [COMMAND]                    # Describe available commands or one specific command
   fir info APP_FILE_PATH                # 获取应用文件的信息（支持 ipa 文件和 apk 文件）
   fir login                             # 登录
   fir publish APP_FILE_PATH             # 将应用文件发布至 FIR.im（支持 ipa 文件和 apk 文件）
   fir resign IPA_FILE_PATH OUTPUT_PATH  # 使用 resign.tapbeta.com 进行企业签名
-  fir upgrade all fir-cli toolbelts     # 更新 fir-cli 的所有组件
+  fir upgrade                           # 更新 fir-cli 的所有组件
 ```
 
 ### 发布一个应用
