@@ -3,6 +3,7 @@ module Fir
   class Cli
     def initialize(*args)
       super
+      @tmpfiles = []
       _init_config
       _load_config
       _puts_welcome
