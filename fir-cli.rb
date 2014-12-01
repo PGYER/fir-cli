@@ -14,8 +14,7 @@ require 'ruby_apk'
 require 'highline/import'
 
 module Fir
-  class Cli < Thor
-  end
+  class Cli < Thor; end
 end
 
 Dir[File.dirname(__FILE__) + '/lib/fir-cli/*.rb'].each { |f| require f }
