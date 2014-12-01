@@ -44,21 +44,25 @@ module Fir
     def _path(path)
       path = Pathname.new(Dir.pwd).join(path).cleanpath
     end
-    %w(token email verbose).each do |_m|
-      define_method "_opt_#{_m}" do
-        unless instance_variable_get("@#{_m}")
-          instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
+    no_commands do
+      %w(token email verbose).each do |_m| 
+        define_method "_opt_#{_m}" do
+          unless instance_variable_get("@#{_m}")
+            instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
+          end
+          instance_variable_get("@#{_m}")
         end
-        instance_variable_get("@#{_m}")
+        private "_opt_#{_m}".to_sym
       end
-    end
-    %w(resign quiet color trim).each do |_m|
-      define_method "_opt_#{_m}" do
-        return false if options[_m.to_sym] == false
-        unless instance_variable_get("@#{_m}")
-          instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
+      %w(resign quiet color trim).each do |_m|
+        define_method "_opt_#{_m}" do
+          return false if options[_m.to_sym] == false
+          unless instance_variable_get("@#{_m}")
+            instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
+          end
+          instance_variable_get("@#{_m}")
         end
-        instance_variable_get("@#{_m}")
+        private "_opt_#{_m}".to_sym
       end
     end
     def _is_ipa(path)
