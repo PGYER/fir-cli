@@ -4,6 +4,7 @@ module Fir
     def initialize(*args)
       super
       _init_config
+      _load_config
       _puts_welcome
     end
     def self.find_extends
@@ -31,8 +32,13 @@ module Fir
     end
     def _init_config
       @uconfig = UserConfig.new '.fir'
-      @config = @uconfig['default.yaml']
-      @tmpfiles = []
+      @global_config = @uconfig['global.yaml']
+    end
+    def _load_config
+      @config = @uconfig[_profile]
+    end
+    def _profile
+      @global_config['profile'] || 'default.yaml'
     end
     def _path(path)
       path = Pathname.new(Dir.pwd).join(path).cleanpath
@@ -179,6 +185,17 @@ module Fir
       end
       ipa.cleanup
       info
+    end
+    def _base_path
+      @base_path ||= begin
+        path = @config['base_path'] || 'http://fir.im'
+        path = path.strip
+        if path.end_with? '/'
+          path.chop
+        else
+          path
+        end
+      end
     end
   end
 end

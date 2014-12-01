@@ -63,7 +63,7 @@ module Fir
 
       # Get updated app info
       fir_app = _fir_info app[:identifier]
-      _puts "> http://fir.im/#{fir_app[:short]}"
+      _puts "> #{_base_path}/#{fir_app[:short]}"
     end
   end
 end
