@@ -2,6 +2,16 @@ FIR.im CLI
 ---
 > FIR.im CLI 可以通过指令查看、上传、编译应用，同时还集成了第三方网站 [resign.tapbeta.com](http://resign.tapbeta.com) 进行企业签名以方便 inhouse 测试。
 
+## Changelog
+### FIR-cli 0.1.8
+- 支持 ruby 1.9.x
+- 规范输出参数选项，支持无颜色信息输出
+  -`--verbose=v|vv|vvv`：设置输出级别
+  -`--quiet` 与 `--no-quiet`：设置是否不输出辅助信息
+  -`--color` 与 `--no-color`：设置输出是否携带颜色信息
+- 修复 ipa 应用图标不清晰问题
+- 增加切换配置文件功能：使用此功能可以在多个用户中切换使用
+
 ## 使用说明
 ### 从安装入手
 FIR.im CLI 使用 ruby 构建，只要安装相应 ruby gem 即可：
@@ -36,7 +46,7 @@ $ fir publish 应用路径
 ```
 输入用户 token 后，系统会自动上传
 ```shell
-请输入用户 token：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+请输入用户 token：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 > 上传应用...
 > 上传应用成功
 > 正在更新 fir 的应用信息...
