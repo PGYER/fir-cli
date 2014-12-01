@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.email         = 'fir-cli@fir.im'
   s.license       = 'GPLv3'
 
-  s.files         = `git ls-files -z`.split("\x0")
+  s.files         = `git ls-files | grep -Ev ".dev."`.split("\n")
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths << './'
