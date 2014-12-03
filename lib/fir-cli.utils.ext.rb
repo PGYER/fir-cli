@@ -202,5 +202,17 @@ module Fir
         end
       end
     end
+    def _os
+      return 'mac' if /darwin/ =~ RUBY_PLATFORM
+      return 'windows' if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
+      return 'linux'
+    end
+    def _exec(cmd, code=1)
+      output = `#{cmd}`
+      if $?.exitstatus != 0
+        puts output
+        exit code
+      end
+    end
   end
 end
