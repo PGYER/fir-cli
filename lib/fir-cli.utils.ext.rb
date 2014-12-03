@@ -45,7 +45,7 @@ module Fir
       path = Pathname.new(Dir.pwd).join(path).cleanpath
     end
     no_commands do
-      %w(token email verbose).each do |_m| 
+      %w(token email verbose origin branch).each do |_m| 
         define_method "_opt_#{_m}" do
           unless instance_variable_get("@#{_m}")
             instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
@@ -54,7 +54,7 @@ module Fir
         end
         private "_opt_#{_m}".to_sym
       end
-      %w(resign quiet color trim).each do |_m|
+      %w(publish resign quiet color trim).each do |_m|
         define_method "_opt_#{_m}" do
           return false if options[_m.to_sym] == false
           unless instance_variable_get("@#{_m}")
