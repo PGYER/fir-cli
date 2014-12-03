@@ -5,6 +5,8 @@ module Fir
     option :token, :aliases => '-t', :desc => '用户 token'
     option :email, :aliases => '-e', :desc => '邮件地址'
     option :resign, :aliases => '-r', :desc => '是否以企业签名发布 ios 应用', :type => :boolean
+    option :publish, :aliases => '-p', :desc => '编译打包自动发布至 FIR.im', :type => :boolean
+    git_options
     output_options
     def config
       if options.length > 0
@@ -19,8 +21,8 @@ module Fir
         @config.save
       end
       _puts '> 设置完成，您现在使用的设置是'
-      @config.save 
-      @config.each { |conf| _puts "> #{Paint[conf[0].to_s.rjust(10), :blue]} => #{conf[1]}"}
+      @config.save
+      @config.each { |conf| _puts "> #{Paint[conf[0].to_s.rjust(10), :blue]} => #{conf[1]}" }
     end
   end
 end

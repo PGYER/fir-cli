@@ -1,8 +1,11 @@
 # coding: utf-8
 module Fir
   class Cli
+    def self.resign_options
+      option :email, :aliases => '-e', :desc => '邮件地址'
+    end
     desc 'resign IPA_FILE_PATH OUTPUT_PATH', '使用 resign.tapbeta.com 进行企业签名'
-    option :email, :aliases => '-e', :desc => '邮件地址'
+    resign_options
     output_options
     def resign(ipath, opath)
       _puts "! #{Paint['resign.tapbeta.com 签名服务风险提示', :red]}"
