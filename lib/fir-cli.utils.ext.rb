@@ -131,6 +131,7 @@ module Fir
         _apk_info path, more
       else
         _puts "! #{Paint['只能支持后缀为 ipa 和 apk 的文件', :red]}"
+        exit 1
       end
     end
     def _apk_info(path, more = false)
