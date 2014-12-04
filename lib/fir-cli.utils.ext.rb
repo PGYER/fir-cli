@@ -215,5 +215,12 @@ module Fir
         exit code
       end
     end
+    def _convert_settings(*settings)
+      settings.reduce({}) do |hash, setting|
+        key,val = setting.split('=', 2).map(&:strip)
+        hash[key.to_sym] = val
+        hash
+      end
+    end
   end
 end
