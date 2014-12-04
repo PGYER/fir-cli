@@ -6,17 +6,29 @@ module Lagunitas
       @root = root
     end
     def icons
-      @icons ||= begin
-        icons = []
-        info['CFBundleIcons']['CFBundlePrimaryIcon']['CFBundleIconFiles'].each do |name|
-          icons << get_image(name)
-          icons << get_image("#{name}@2x")
-        end
-        icons.delete_if { |i| !i }
-      rescue
-        # info['CFBundleIcons'] might be nil
-        nil
+      icons = []
+      info['CFBundleIcons']['CFBundlePrimaryIcon']['CFBundleIconFiles'].each do |name|
+        icons << get_image(name)
+        icons << get_image("#{name}.png")
+        icons << get_image("#{name}@2x.png")
+        icons << get_image("#{name}@3x.png")
       end
+      icons.delete_if { |i| !i }
+    rescue
+      nil
+    end
+    def get_image(name)
+      path = File.join @path, name
+      return nil unless File.exist? path
+
+      dimensions = Pngdefry.dimensions(path)
+      {
+        path: path,
+        width: dimensions.first,
+        height: dimensions.last
+      }
+    rescue Errno::ENOENT
+      nil
     end
   end
   class IPA
