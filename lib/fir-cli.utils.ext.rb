@@ -175,7 +175,7 @@ module Fir
       }
       if more
         if app.icons
-          info[:icons] = app.icons.reverse.map do |icon|
+          info[:icons] = app.icons.sort { |a,b| -(a[:width] <=> b[:width]) }.map do |icon|
             tfile = Tempfile.new ["icon-#{SecureRandom.hex}", '.png']
             @tmpfiles.push tfile
             FileUtils.cp icon[:path], tfile.path
