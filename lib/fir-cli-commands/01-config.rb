@@ -6,7 +6,6 @@ module Fir
     option :email, :aliases => '-e', :desc => '邮件地址'
     option :resign, :aliases => '-r', :desc => '是否以企业签名发布 ios 应用', :type => :boolean
     option :publish, :aliases => '-p', :desc => '编译打包自动发布至 FIR.im', :type => :boolean
-    git_options
     output_options
     def config
       if options.length > 0
