@@ -71,6 +71,12 @@ module Fir
     def _is_apk(path)
       path.end_with? '.apk'
     end
+    def _is_workspace(path)
+      path.end_with? '.xcworkspace'
+    end
+    def _is_xcodeproject(path)
+      path.end_with? '.xcodeproj'
+    end
     def _is_identifier(str)
       /^(?:(?:[a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*(?:[A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/.match str
     end
