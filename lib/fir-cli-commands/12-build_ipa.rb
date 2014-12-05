@@ -48,47 +48,93 @@ module Fir
     end
 
     private
+    # *args 的每一个参数必须为 hash, 可以以任何顺序包含 settings, arguments, opts 的参数
+    # settings 的特点是 key 全部为大写字母
+    # arguments 的特点是 key 为 x_ 开头
+    # 不符合 settings 及 arguments 的为 opts
     def _build_ipa(project_dir, *args)
-      settings = {}
-      vars = {}
-      if args.length == 1
-        args[0].each { |_k, _v| if _k.match /^[A-Z]+$/ then settings[_k] = _v else vars[_k] = _v end }
-      else
-        settings, vars = args[0..1]
-      end
+      ignore_args = %w(:project :workspace :sdk :scheme)
+      ignore_sets = %w(TARGET_BUILD_DIR)
 
-      settings = settings.select { |_k| _k != 'TARGET_BUILD_DIR' }
-                         .map { |_k, _v| "#{_k}=\"#{_v}\"" }
-                         .join(' ')
-      arguments = '-sdk iphoneos'
-      options.each do |_k, _v|
-        break if !_k.start_with? 'x_'
-        arguments += " -#{_k[2..-1]}" if _v
-        arguments += " #{_v}" if _v.class == String
-      end
-      Dir.mktmpdir do |_d|
-        settings += " TARGET_BUILD_DIR=#{_d}"
-        Dir.chdir(project_dir) do
-          _puts '> 正在清除缓存'
-          _exec "xcodebuild clean 2>&1"
-          _puts '> 正在编译'
-          _exec "xcodebuild build #{arguments} #{settings} 2>&1"
-        end
-        Dir.chdir(_d) do
-          ipa_path = vars[:ipa_path]
-          if ipa_path
-            basename = File.basename Dir['*.app'][0], '.app'
-            ipa_path = File.join(ipa_path, 'build_ipa.ipa') if Dir.exist? ipa_path
-            _puts '> 正在打包'
-            _exec 'mkdir Payload'
-            _exec 'mv *.app ./Payload'
-            _exec "rm #{ipa_path}" if File.exist? ipa_path
-            _exec "zip -qr #{ipa_path} Payload"
+      setstr, argstr, opts = begin
+        _setstr, _argstr, _opts = ['', '-sdk iphoneos', {}]
+        args.inject(&:merge).each do |_k, _v|
+          _k = _k.to_s
+          if _k.match /^[_A-Z0-9]$/
+            next if ignore_settings.include? _k
+            _setstr += " #{_k}"
+            _setstr += "=#{_v}" if _v
+          elsif _k.start_with? ':'
+            next if ignore_args.include? _k
+            _argstr += " -#{_k[1..-1]}"
+            _argstr += " #{_v}" if _v.class == 'String' && !_v.empty?
+          else
+            _opts[_k.to_sym] = _v
           end
+        end
+        [_setstr, _argstr, _opts]
+      end
+      project = begin
+        if _is_xcodeproject project_dir
+          project_dir
+        elsif _is_workspace project_dir
+          opts[:workspace] = true
+          project_dir
+        elsif opts[:workspace]
+          _spaces = Dir["#{project_dir}/*.xcworkspace"]
+          if _spaces.length == 0
+            _puts "! #{Paint['指定目录中找不到 workspace 文件，无法编译', :red]}"
+            exit 1
+          end
+          _spaces[0]
+        else
+          _projs = Dir["#{project_dir}/*.xcodeproj"]
+          if _projs.length == 0
+            _puts "! #{Paint['指定目录中找不到 project 文件，无法编译', :red]}"
+            exit 1
+          else
+            _projs[0]
+          end
+        end
+      end
 
-          if vars[:app_path]
-            _puts '> 正在复制 app 文件'
-            _exec "mv ./Payload/*.app #{vars[:app_path]}"
+      Dir.mktmpdir do |_d|
+        setstr += " TARGET_BUILD_DIR=#{_d} CONFIGURATION_BUILD_DIR=#{_d}"
+        if opts[:workspace]
+          unless opts[:scheme]
+            _puts "! #{Paint['如果编译 workspace, 则必须指定一个 scheme', :red]}"
+            exit 1
+          end
+          argstr += " -workspace \"#{project}\" -scheme \"#{opts[:scheme]}\""
+        else
+          argstr += " -project \"#{project}\""
+        end
+        puts "argstr => #{argstr}"
+        puts "setstr => #{setstr}"
+
+        # _puts '> 正在清除缓存'
+        # _exec "xcodebuild clean #{argstr} 2>&1"
+        _puts '> 正在编译'
+        _exec "xcodebuild build #{argstr} #{setstr} 2>&1"
+        Dir.chdir(_d) do
+          apps = Dir['*.app']
+          if opts[:ipa_path]
+            ipa_path = opts[:ipa_path]
+            if Dir.exist? ipa_path
+              apps.each do |app|
+                _ipa_path = File.join ipa_path, "#{File.basename app, '.app'}.ipa"
+                _zip_ipa File.join(_d, app), _ipa_path
+              end
+            elsif apps.length > 1
+              _puts "! #{Paint['项目编译输出了多个 app，需要指定一个已经存在的目录作为输出目录', :red]}"
+              exit 1
+            elsif apps.length == 0
+              _puts "! #{Paint['项目编译没有输出 app，无法打包 ipa', :red]}"
+              exit 1
+            else
+              ipa_path += '.ipa' unless ipa_path.end_with? '.ipa'
+              _zip_ipa File.join(_d, apps[0]), ipa_path
+            end
           end
         end
         _puts '> 完成'
