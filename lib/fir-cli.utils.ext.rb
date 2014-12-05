@@ -228,5 +228,20 @@ module Fir
         hash
       end
     end
+    def _batch_publish(*dirs)
+      _puts "! #{ Paint['至少需要提供一个文件夹', :red] }" if dirs.length == 0
+      dirs.each do |dir|
+        Dir.foreach(dir) do |_f|
+          if _is_ipa(_f) || _is_apk(_f)
+            _puts "> 正在发布 #{ _f }"
+            begin
+              publish File.join dir, _f
+            rescue Exception => e
+              _puts "! #{ _f } 失败：#{ e.to_s }"
+            end
+          end
+        end
+      end
+    end
   end
 end
