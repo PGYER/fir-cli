@@ -2,49 +2,47 @@
 module Fir
   class Cli
     def self.build_ipa_options
-      option :x_project, :desc => '选择编译的项目文件'
-      option :x_scheme, :desc => '选择使用的 Scheme'
-      option :x_target, :desc => '选择编译的 Target'
-      option :x_alltarget, :desc => '编译全部 Target', :type => :boolean
-      option :x_configuration, :desc => '选择编译使用的配置'
-      option :output_ipa, :aliases => '-o', :desc => '指定 ipa 的输出路径'
-      option :output_app, :desc => '指定 app 的输出路径'
-      option :publish, :aliases => '-p', :desc => '设置是否直接发布到 FIR.im', :type => :boolean
+      option :workspace, :aliases => '-w', :desc => '编译指定路径中的 workspace', :type => :boolean
+      option :scheme, :aliases => '-s', :desc => '如果编译 workspace 则必须指定 scheme'
+      option :configuration, :aliases => '-C', :desc => '选择编译的配置，如 Release'
+      option :output, :aliases => '-o', :desc => '指定 ipa 的输出路径'
+      option :publish, :aliases => '-p', :desc => '设置是否发布到 FIR.im', :type => :boolean
     end
-    desc 'build_ipa PATH [options] [settings]', '编译 ios app 项目，输出至 ODIR'
+    desc 'build_ipa PATH [options] [settings]', '编译 ios app 项目'
     build_ipa_options
     publish_options
     output_options
-    def build_ipa(path, *settings)
+    def build_ipa(path, *args)
       if _os != 'mac'
         _puts "! #{Paint['不支持在非 mac 系统上编译打包', :red]}"
         exit 1
       end
-      settings = _convert_settings *settings
-      ipa_path = _path options[:output_ipa] if options[:output_ipa]
-      if !ipa_path
-        use_tmpfile = true
-        ipa_path = Tempfile.new(["#{SecureRandom.hex}", '.ipa']).path
-      end
-      app_path = _path options[:output_app] if options[:output_app]
-      mp_path = _path options[:mobileprovision] if options[:mobileprovision]
+      settings = _convert_settings *args
 
-      vars = {
-        :ipa_path => ipa_path,
-        :app_path => app_path
-      }
-      # TODO: pull from a git repo
-      # if options[:git] != nil
-      #   git(path) { |_d| _build_ipa _d, settings, vars }
-      # else
-      # end
-      
-      path = _path path
+      path = _path(path).to_s
       project_dir = (Dir.exist? path) ? path : (File.dirname path)
-      _build_ipa project_dir, settings, vars
 
+      ipa_path = _path(options[:output]).to_s if options[:output]
+      if !ipa_path && !_opt_publish
+        _puts "! #{Paint['如果不发布到 FIR.im，则需要指定 ipa 文件的输出路径', :red]}"
+        exit 1
+      end
+      if !ipa_path
+        Dir.mktmpdir do |_d|
+          ipa_path = _d.to_s
+          _build_ipa project_dir, settings, options,
+                     :ipa_path => ipa_path
+          return _batch_publish ipa_path
+        end
+      end
+      _build_ipa project_dir, settings, options,
+                 :ipa_path => ipa_path
       return if !_opt_publish
-      publish ipa_path.to_s
+      if Dir.exists? ipa_path
+        _batch_publish ipa_path
+      elsif File.exists? ipa_path
+        publish ipa_path
+      end
     end
 
     private
@@ -60,14 +58,14 @@ module Fir
         _setstr, _argstr, _opts = ['', '-sdk iphoneos', {}]
         args.inject(&:merge).each do |_k, _v|
           _k = _k.to_s
-          if _k.match /^[_A-Z0-9]$/
-            next if ignore_settings.include? _k
+          if _k.match /^[_A-Z0-9]+$/
+            next if ignore_sets.include? _k
             _setstr += " #{_k}"
-            _setstr += "=#{_v}" if _v
+            _setstr += "=\"#{_v}\"" if _v
           elsif _k.start_with? ':'
             next if ignore_args.include? _k
             _argstr += " -#{_k[1..-1]}"
-            _argstr += " #{_v}" if _v.class == 'String' && !_v.empty?
+            _argstr += " \"#{_v}\"" if _v.class == String && !_v.empty?
           else
             _opts[_k.to_sym] = _v
           end
@@ -109,8 +107,8 @@ module Fir
         else
           argstr += " -project \"#{project}\""
         end
-        puts "argstr => #{argstr}"
-        puts "setstr => #{setstr}"
+
+        argstr += " -configuration \"#{opts[:configuration]}\"" if opts[:configuration]
 
         # _puts '> 正在清除缓存'
         # _exec "xcodebuild clean #{argstr} 2>&1"
