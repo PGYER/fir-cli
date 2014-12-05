@@ -140,5 +140,19 @@ module Fir
         _puts '> 完成'
       end
     end
+    def _zip_ipa(app_path, ipa_path)
+      Dir.mktmpdir do |_d|
+        Dir.chdir(_d) do
+          Dir.mkdir "Payload"
+          FileUtils.cp_r app_path, 'Payload'
+          if File.exist? ipa_path
+            _puts "> 删除已有文件 #{ipa_path}"
+            _exec "rm -r #{ipa_path}"
+          end
+          _puts "> 正在打包 app： #{File.basename app_path} 到 #{ipa_path}"
+          _exec "zip -qr #{ipa_path} Payload"
+        end
+      end
+    end
   end
 end
