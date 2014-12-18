@@ -19,8 +19,7 @@ module Lagunitas
     end
     def get_image(name)
       path = File.join @path, name
-      return nil unless File.exist? path
-
+      return nil unless File.file? path
       dimensions = Pngdefry.dimensions(path)
       {
         path: path,
@@ -42,7 +41,7 @@ module Lagunitas
           zip_file.each do |f|
             f_path = File.join tmp_path, f.name
             FileUtils.mkdir_p File.dirname f_path
-            zip_file.extract f, f_path unless File.exist? f_path
+            zip_file.extract f, f_path unless File.file? f_path
           end
         end
         tmp_path
