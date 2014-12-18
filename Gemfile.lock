@@ -8,6 +8,7 @@ PATH
       pngdefry (= 0.1.1)
       rest_client (~> 1.8)
       ruby_apk (~> 0.7)
+      rubyzip (~> 0.9.9)
       thor (~> 0.19)
       user_config (= 0.0.4)
 
