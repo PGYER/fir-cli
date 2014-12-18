@@ -7,20 +7,9 @@ module Fir
     option :resign, :aliases => '-r', :desc => '是否以企业签名发布 ios 应用', :type => :boolean
     option :publish, :aliases => '-p', :desc => '编译打包自动发布至 FIR.im', :type => :boolean
     output_options
-    def config
-      if options.length > 0
-        options.each do |option|
-          _puts "> #{Paint[option[0].to_s.rjust(10), :blue]} : #{@config[option[0].to_s]} => #{option[1]}"
-          @config[option[0].to_s] = option[1]
-        end
-        if @config['token'] && !_user(@config['token'])
-          _puts_invalid_token
-          exit 1
-        end
-        @config.save
-      end
+    def config(*args)
+      _set_config options.merge _convert_settings *args
       _puts '> 设置完成，您现在使用的设置是'
-      @config.save
       @config.each { |conf| _puts "> #{Paint[conf[0].to_s.rjust(10), :blue]} => #{conf[1]}" }
     end
   end

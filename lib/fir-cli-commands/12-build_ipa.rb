@@ -13,19 +13,16 @@ module Fir
     publish_options
     output_options
     def build_ipa(path, *args)
-      if _os != 'mac'
-        _puts "! #{Paint['不支持在非 mac 系统上编译打包', :red]}"
-        exit 1
-      end
+      _chk_os! 'mac'
       settings = _convert_settings *args
 
       path = _path(path).to_s
-      project_dir = (Dir.exist? path) ? path : (File.dirname path)
+      project_dir = (File.directory? path) ? path : (File.dirname path)
 
       ipa_path = _path(options[:output]).to_s if options[:output]
       if !ipa_path && !_opt_publish
         _puts "! #{Paint['如果不发布到 FIR.im，则需要指定 ipa 文件的输出路径', :red]}"
-        exit 1
+        _exit
       end
       if !ipa_path
         Dir.mktmpdir do |_d|
@@ -38,9 +35,9 @@ module Fir
       _build_ipa project_dir, settings, options,
                  :ipa_path => ipa_path
       return if !_opt_publish
-      if Dir.exists? ipa_path
+      if File.directory? ipa_path
         _batch_publish ipa_path
-      elsif File.exists? ipa_path
+      elsif File.file? ipa_path
         publish ipa_path
       end
     end
@@ -73,23 +70,23 @@ module Fir
         [_setstr, _argstr, _opts]
       end
       project = begin
-        if _is_xcodeproject project_dir
+        if _is_xcodeproject? project_dir
           project_dir
-        elsif _is_workspace project_dir
+        elsif _is_workspace? project_dir
           opts[:workspace] = true
           project_dir
         elsif opts[:workspace]
           _spaces = Dir["#{project_dir}/*.xcworkspace"]
           if _spaces.length == 0
             _puts "! #{Paint['指定目录中找不到 workspace 文件，无法编译', :red]}"
-            exit 1
+            _exit
           end
           _spaces[0]
         else
           _projs = Dir["#{project_dir}/*.xcodeproj"]
           if _projs.length == 0
             _puts "! #{Paint['指定目录中找不到 project 文件，无法编译', :red]}"
-            exit 1
+            _exit
           else
             _projs[0]
           end
@@ -101,7 +98,7 @@ module Fir
         if opts[:workspace]
           unless opts[:scheme]
             _puts "! #{Paint['如果编译 workspace, 则必须指定一个 scheme', :red]}"
-            exit 1
+            _exit
           end
           argstr += " -workspace \"#{project}\" -scheme \"#{opts[:scheme]}\""
         else
@@ -118,17 +115,17 @@ module Fir
           apps = Dir['*.app']
           if opts[:ipa_path]
             ipa_path = opts[:ipa_path]
-            if Dir.exist? ipa_path
+            if File.directory? ipa_path
               apps.each do |app|
                 _ipa_path = File.join ipa_path, "#{File.basename app, '.app'}.ipa"
                 _zip_ipa File.join(_d, app), _ipa_path
               end
             elsif apps.length > 1
               _puts "! #{Paint['项目编译输出了多个 app，需要指定一个已经存在的目录作为输出目录', :red]}"
-              exit 1
+              _exit
             elsif apps.length == 0
               _puts "! #{Paint['项目编译没有输出 app，无法打包 ipa', :red]}"
-              exit 1
+              _exit
             else
               ipa_path += '.ipa' unless ipa_path.end_with? '.ipa'
               _zip_ipa File.join(_d, apps[0]), ipa_path
@@ -143,7 +140,7 @@ module Fir
         Dir.chdir(_d) do
           Dir.mkdir "Payload"
           FileUtils.cp_r app_path, 'Payload'
-          if File.exist? ipa_path
+          if File.file? ipa_path
             _puts "> 删除已有文件 #{ipa_path}"
             _exec "rm -r #{ipa_path}"
           end
