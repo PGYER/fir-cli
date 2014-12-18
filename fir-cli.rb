@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'uri'
 require 'json'
 require 'pathname'
@@ -12,6 +13,10 @@ require 'rest_client'
 require 'lagunitas'
 require 'ruby_apk'
 require 'highline/import'
+
+require 'zip'
+require 'zip/zip'
+
 
 module Fir
   class Cli < Thor; end

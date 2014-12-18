@@ -15,7 +15,7 @@ module Lagunitas
     end
     def mobileprovision?
       return true if @mobileprovision
-      File.exists? File.join @path, 'embedded.mobileprovision'
+      File.file? File.join @path, 'embedded.mobileprovision'
     end
     def devices
       mobileprovision['ProvisionedDevices'] if mobileprovision
@@ -30,7 +30,7 @@ module Lagunitas
     end
     def metadata?
       return true if @metadata
-      File.exists? File.join @root, 'iTunesMetadata.plist'
+      File.file? File.join @root, 'iTunesMetadata.plist'
     end
     def release_type
       @release_type ||= begin

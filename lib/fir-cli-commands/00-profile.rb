@@ -7,7 +7,7 @@ module Fir
     def profile(prof)
       if prof == 'global'
         _puts '! 不能使用 global 作为配置文件名'
-        exit 1
+        _exit
       end
       prof = "#{prof}.yaml"
       if options[:delete]
@@ -16,7 +16,7 @@ module Fir
       else
         if _profile == prof
           _puts "! #{Paint["你正在使用该配置：#{prof}", :red]}"
-          exit 1
+          _exit
         end
         _puts "> 正在使用配置文件：#{_profile}"
         _puts "> 即将替换为：#{prof}"

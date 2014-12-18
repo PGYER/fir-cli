@@ -1,13 +1,13 @@
 # coding: utf-8
 module Fir
   class Cli
-    def self.resign_options
+    def self.resign_tapbeta_options
       option :email, :aliases => '-e', :desc => '邮件地址'
     end
-    desc 'resign IPA_FILE_PATH OUTPUT_PATH', '使用 resign.tapbeta.com 进行企业签名'
-    resign_options
+    desc 'resign_tapbeta IPA_FILE_PATH OUTPUT_PATH', '使用 resign.tapbeta.com 进行企业签名'
+    resign_tapbeta_options
     output_options
-    def resign(ipath, opath)
+    def resign_tapbeta(ipath, opath)
       _puts "! #{Paint['resign.tapbeta.com 签名服务风险提示', :red]}"
       _puts '! tapbeta 无法保证签名证书的长期有效性，苹果随时可'
       _puts '! 能封杀他们的企业账号，所有由这个企业账号签发的证'
@@ -21,15 +21,15 @@ module Fir
           _puts "! #{Paint['你需要提供邮件地址才能使用 resign.tapbeta.com 的', :red]}"
           _puts "! #{Paint['签名服务, 请使用', :red]} fir config --email=EMAIL #{Paint['进行设', :red]}"
           _puts "! #{Paint['置', :red]}"
-          exit 1
-        elsif !_is_email @email
+          _exit
+        elsif !_is_email? @email
           _puts_invalid_email
-          exit 1
+          _exit
         end
       end
-      if !_is_ipa ipath
+      if !_is_ipa? ipath
         _puts "! #{Paint['只能给以 ipa 为扩展名的文件签名', :red]}"
-        exit 1
+        _exit
       end
       _puts '> 正在申请上传令牌...'
       upload_res = RestClient.post 'http://api.resign.tapbeta.com/public/upload',
@@ -66,10 +66,10 @@ module Fir
         end
         if info[:status] == 'error'
           _puts "! #{Paint['签名失败', :red]}"
-          exit 1
+          _exit
         elsif info[:status] == 'timeout'
           _puts "! #{Paint['签名超时', :red]}"
-          exit 1
+          _exit
         end
         break if info[:url] != ''
         sleep 5

@@ -7,12 +7,12 @@ module Fir
       token = _prompt_secret('输入你的用户 token：')
       if token.empty?
         _puts_require_token
-        exit 1
+        _exit
       end
       user = _user token
       if !user
         _puts_invalid_token
-        exit 1
+        _exit
       end
       if _opt_token && _opt_token != token
         _puts "> 已登陆用户: #{_opt_token}"

@@ -1,13 +1,14 @@
 PATH
   remote: .
   specs:
-    fir-cli (0.2.0)
+    fir-cli (0.2.1.a)
       highline (~> 1.6)
       lagunitas (= 0.0.1)
       paint (~> 0.9)
       pngdefry (= 0.1.1)
       rest_client (~> 1.8)
       ruby_apk (~> 0.7)
+      rubyzip (~> 0.9.9)
       thor (~> 0.19)
       user_config (= 0.0.4)
 

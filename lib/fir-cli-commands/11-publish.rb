@@ -12,7 +12,7 @@ module Fir
     resign_options
     output_options
     def publish(path)
-      if _opt_resign && _is_ipa(path)
+      if _opt_resign && _is_ipa?(path)
         tfile = Tempfile.new ["resign-#{SecureRandom.hex}", '.ipa']
         resign path, tfile.path
         path = tfile.path
@@ -27,7 +27,7 @@ module Fir
       if app[:icons] != nil && app[:icons].length > 0
         icon_path = app[:icons][0][:path]
 
-        if _is_ipa path
+        if _is_ipa? path
           _puts '> 转换图标...'
           Pngdefry.defry icon_path, icon_path
         end
@@ -67,7 +67,7 @@ module Fir
 
       # Get updated app info
       fir_app = _fir_info app[:identifier]
-      _puts "> #{_base_path}/#{fir_app[:short]}"
+      _puts "> #{_fir_url}/#{fir_app[:short]}"
     end
   end
 end
