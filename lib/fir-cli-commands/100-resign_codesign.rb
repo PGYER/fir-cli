@@ -37,13 +37,6 @@ module Fir
               _exec "codesign -f -s \"#{sign_name}\""
             end
           end
-          # Dir["Payload/#{app}/*.nib"].each do |_nib|
-          #   _exec "codesign -f -s \"#{sign_name}\"
-          # end
-          # cs_dir = "Payload/#{app}/_CodeSignature"
-          # cr_dir = "Payload/#{app}/CodeResources"
-          # Dir.rmdir cs_dir if File.directory? cs_dir
-          # Dir.rmdir cr_dir if File.directory? cr_dir
           _puts "> 重签名 #{app}"
           _exec "codesign -f -s \"#{sign_name}\" \"#{app}\" --deep"
         end
