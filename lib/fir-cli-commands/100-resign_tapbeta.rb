@@ -3,6 +3,7 @@ module Fir
   class Cli
     def self.resign_tapbeta_options
       option :email, :aliases => '-e', :desc => '邮件地址'
+      option :private_key, :desc => '私密通道'
     end
     desc 'resign_tapbeta IPA_FILE_PATH OUTPUT_PATH', '使用 resign.tapbeta.com 进行企业签名'
     resign_tapbeta_options
@@ -34,6 +35,7 @@ module Fir
       _puts '> 正在申请上传令牌...'
       upload_res = RestClient.post 'http://api.resign.tapbeta.com/public/upload',
                                    :email => @email,
+                                   :private_key => _opt_private_key,
                                    :file => File.basename(ipath)
       form = JSON.parse upload_res.body, :symbolize_names => true
       tapbeta = {}
