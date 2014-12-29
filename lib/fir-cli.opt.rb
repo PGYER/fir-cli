@@ -2,7 +2,7 @@
 module Fir
   class Cli
     no_commands do
-      %w(token email verbose origin branch mobile_provision sign entitlements).each do |_m| 
+      %w(token email verbose origin branch mobile_provision sign entitlements private_key).each do |_m| 
         define_method "_opt_#{_m}" do
           unless instance_variable_get("@#{_m}")
             instance_variable_set("@#{_m}", options[_m.to_sym] || @config[_m] )
