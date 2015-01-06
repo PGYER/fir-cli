@@ -11,7 +11,7 @@ module Lagunitas
     end
     def mobileprovision
       return if !mobileprovision?
-      @mobileprovision ||= CFPropertyList.native_types CFPropertyList::List.new(:data => `security cms -D -i #{File.join @path, 'embedded.mobileprovision'}`).value
+      @mobileprovision ||= CFPropertyList.native_types CFPropertyList::List.new(:data => `security cms -D -i "#{File.join @path, 'embedded.mobileprovision'}"`).value
     end
     def mobileprovision?
       return true if @mobileprovision
