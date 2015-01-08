@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fir-cli (0.2.1.c)
+    fir-cli (0.2.1.d)
       highline (~> 1.6)
       lagunitas (= 0.0.1)
       paint (~> 0.9)
