@@ -34,7 +34,19 @@ module Fir
           if File.directory? frmwrk_dir
             _puts "> 重签名 dylibs"
             Dir["#{frmwrk_dir}/*.dylib"].each do |_dylib|
-              _exec "codesign -f -s \"#{sign_name}\""
+              _exec "codesign -f -s \"#{sign_name}\" \"#{_dylib}\""
+            end
+            _puts "> 重签名 frameworks"
+            Dir["#{frmwrk_dir}/*.framework"].each do |_framework|
+              _exec "codesign -f -s \"#{sign_name}\" \"#{_framework}\""
+            end
+          end
+
+          plugin_dir = "#{app}/PlugIns"
+          if File.directory? plugin_dir
+            _puts "> 重签名 plugins"
+            Dir["#{plugin_dir}/*"].each do |_plugin|
+              _exec "codesign -f -s \"#{sign_name}\" \"#{_plugin}\""
             end
           end
           _puts "> 重签名 #{app}"
