@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'lagunitas', '0.0.1'
   s.add_dependency 'user_config', '0.0.4'
   s.add_dependency 'pngdefry', '0.1.1'
-  s.add_dependency 'rest_client', '~> 1.8'
+  s.add_dependency 'rest-client', '~> 1.7'
   s.add_dependency 'paint', '~> 0.9'
   s.add_dependency 'thor', '~> 0.19'
   s.add_dependency 'ruby_apk', '~> 0.7'
