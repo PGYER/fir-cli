@@ -1,6 +1,6 @@
 FIR.im CLI
 ---
-> FIR.im CLI 可以通过指令查看、上传、编译应用，同时还集成了第三方网站 [resign.tapbeta.com](http://resign.tapbeta.com) 进行企业签名以方便 inhouse 测试。
+> FIR.im CLI 可以通过指令查看、上传、编译应用。
 
 ## 新指令 `build_ipa`
 > 这个指令对 `xcodebuild` 这个原生指令进行了包装，将常用的参数名简化，同时支持全部的自带参数和设置。
@@ -66,7 +66,6 @@ Commands:
   fir login                                # 登录
   fir profile                              # 切换配置文件
   fir publish APP_FILE_PATH                # 将应用文件发布至 FIR.im（支持 ipa 文件和 apk 文件）
-  fir resign IPA_FILE_PATH OUTPUT_PATH     # 使用 resign.tapbeta.com 进行企业签名
   fir upgrade                              # 更新 fir-cli 的所有组件
   fir version                              # 当前版本
 ```
@@ -115,50 +114,13 @@ $ fir login
 
 ```shell
 > 欢迎使用 FIR.im 命令行工具，如需帮助请输入: fir help
-输入你的用户 token： 
+输入你的用户 token：
 ```
 输入用户 token，系统会自动获取你的用户 email
 ```shell
 输入你的用户 token：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 > 设置用户邮件地址为: dy@fir.im
 > 当前登陆用户为：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
-
-### 需要企业签名？
-
-很多开发者需要一个企业签名的应用，来让更多的用户参与到测试中，这种行为并不符合企业证书的使用规范。但是我们还是集成了第三方签名网站 [resign.tapbeta.com](http://resign.tapbeta.com) 来帮助我们的用户更方便的进行测试。
-
-```shell
-$ fir resign ipa文件路径 输出文件路径
-```
-
-这条指令会输出一段风险提示；如果没有设置邮件地址，这里会让你输入邮件地址。输入邮件地址后，便开始进行企业签名了
-
-```
-> 欢迎使用 FIR.im 命令行工具，如需帮助请输入: fir help
-! resign.tapbeta.com 签名服务风险提示
-! 无法保证签名证书的长期有效性，当某种条件满足后
-! 苹果会禁止该企业账号，所有由该企业账号所签发的
-! 证书都会失效。你如果使用该网站提供的服务进行应
-! 用分发，请注意：当证书失效后，所有安装了已失效
-! 证书签名的用户都会无法正常运行应用；同时托管在
-! fir.im 的应用将无法正常安装。
-请输入你的邮件地址： dy@fir.im
-> 正在申请上传令牌...
-> 正在上传...
-> 正在排队...
-> 正在签名...
-> 正在下载到 /path/to/output.ipa...
-```
-
-
-### 一步到位
-
-企业签名后自动发布到 [FIR.im](http://fir.im)
-
-```shell
-$ fir publish ipa文件路径 -r
 ```
 
 ## 需要帮助？
