@@ -11,6 +11,7 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
+*.tags*
 
 ## Specific to RubyMotion:
 .dat*
@@ -50,7 +51,8 @@ build/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
