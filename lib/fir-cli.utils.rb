@@ -59,6 +59,9 @@ module Fir
     def _is_email?(str)
       /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/i.match str
     end
+    def _extends
+      @extends ||= Cli.find_extends
+    end
     def _os
       return 'mac' if /darwin/ =~ RUBY_PLATFORM
       return 'windows' if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
