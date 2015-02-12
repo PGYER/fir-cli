@@ -66,7 +66,7 @@ module Fir
                :changelog => options[:changelog]
 
       # Get updated app info
-      fir_app = _fir_info app[:identifier]
+      fir_app = _fir_info app[:identifier], app[:type]
       _puts "> #{_fir_url}/#{fir_app[:short]}"
     end
   end
