@@ -3,12 +3,8 @@
 module FIR
   module Build
 
-    def build args, options
-      check_osx
-
-    end
-
     def build_ipa args, options
+      check_osx
     end
 
     def build_apk args, options

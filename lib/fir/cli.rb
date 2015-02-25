@@ -8,9 +8,9 @@ module FIR
     class_option :quiet,   type: :boolean, aliases: "-q", desc: "Silence commands"
     class_option :help,    type: :boolean, aliases: "-h", desc: "Show this help message and quit"
 
-    desc "build_ipa", "Build iOS application (alias: 'b')."
+    desc "build_ipa PATH [options] [settings]", "Build iOS application (alias: 'b')."
     long_desc "You use `man xcodebuild` to get more information"
-    map "b bi build" => :build_ipa
+    map "b build" => :build_ipa
     method_option :workspace,     type: :boolean, aliases: "-w", desc: "Build the workspace specified by workspacename"
     method_option :scheme,        type: :string,  aliases: "-s", desc: "Build the scheme NAME"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
@@ -21,7 +21,7 @@ module FIR
     def build_ipa *args
       prepare :build_ipa
 
-      FIR.build(args, options)
+      FIR.build_ipa(args, options)
     end
 
     desc "info APP_FILE_PATH", "Show iOS/Android application's information, support ipa/apk file (aliases: 'i')."

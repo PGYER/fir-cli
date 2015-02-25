@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 require_relative './util/login'
-require_relative './util/app_info'
+require_relative './util/info'
 require_relative './util/build'
-require_relative './util/publish_app'
+require_relative './util/publish'
 
 module FIR
   module Util
