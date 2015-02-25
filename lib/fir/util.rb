@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require_relative './util/app_info'
-require_relative './util/build_ipa'
+require_relative './util/build'
 require_relative './util/publish_app'
 
 module FIR
@@ -9,9 +9,9 @@ module FIR
 
     def self.included base
       base.extend ClassMethods
-      base.extend AppInfo
-      base.extend BuildIPA
-      base.extend PublishApp
+      base.extend Info
+      base.extend Build
+      base.extend Publish
     end
 
     module ClassMethods

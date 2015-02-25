@@ -1,11 +1,12 @@
 # encoding: utf-8
 
 module FIR
-  module PublishApp
+  module Publish
 
-    def publish_app args, options
+    def publish args, options
       file_path = args.first
       token     = options[:token] || current_token
+      changelog = options[:changelog].to_s
 
       check_supported_file file_path
       check_token_cannot_be_blank token
@@ -38,7 +39,7 @@ module FIR
                                           versionShort: app_info[:short_version],
                                           devices:      app_info[:devices],
                                           release_type: app_info[:release_type],
-                                          changelog:    options[:changelog],
+                                          changelog:    changelog,
                                           token:        token)
       published_app_info = fetch_app_info(app_id, token)
 

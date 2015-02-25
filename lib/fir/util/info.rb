@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 module FIR
-  module AppInfo
+  module Info
 
-    def app_info args, options
+    def info args, options
       file_path = args.first
       is_all    = !!options[:all]
 

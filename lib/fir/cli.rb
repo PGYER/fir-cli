@@ -10,16 +10,18 @@ module FIR
 
     desc "build_ipa", "Build iOS application (alias: 'b')."
     long_desc "You use `man xcodebuild` to get more information"
-    map "b" => :build_ipa
+    map "b bi build" => :build_ipa
     method_option :workspace,     type: :boolean, aliases: "-w", desc: "Build the workspace specified by workspacename"
     method_option :scheme,        type: :string,  aliases: "-s", desc: "Build the scheme NAME"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
     method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path"
     method_option :publish,       type: :boolean, aliases: "-p", desc: "Set true/false if publish to FIR.im"
+    method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
+    method_option :changelog,     type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"
     def build_ipa *args
       prepare :build_ipa
 
-      FIR.build_ipa(args, options)
+      FIR.build(args, options)
     end
 
     desc "info APP_FILE_PATH", "Show iOS/Android application's information, support ipa/apk file (aliases: 'i')."
@@ -28,17 +30,17 @@ module FIR
     def info *args
       prepare :info
 
-      FIR.app_info(args, options)
+      FIR.info(args, options)
     end
 
     desc "publish APP_FILE_PATH", "Publish iOS/Android application to FIR.im, support ipa/apk file (aliases: 'p')."
     map "p" => :publish
-    method_option :short,     type: :string, aliases: "-s", desc: "Custom short link"
-    method_option :changelog, type: :string, aliases: "-c", desc: "Changelog (default: '')", default: ""
+    method_option :short,     type: :string, aliases: "-s", desc: "Set custom short link"
+    method_option :changelog, type: :string, aliases: "-c", desc: "Set changelog"
     def publish *args
       prepare :publish
 
-      FIR.publish_app(args, options)
+      FIR.publish(args, options)
     end
 
     desc "login", "Login FIR.im (aliases: 'l')."
