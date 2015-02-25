@@ -66,16 +66,8 @@ module FIR
 
     desc "help", "Describe available commands or one specific command."
     map Thor::HELP_MAPPINGS => :help
-    def help(command = nil, subcommand = false)
-      if command
-        if self.class.subcommands.include? command
-          self.class.subcommand_classes[command].help(shell, true)
-        else
-          self.class.command_help(shell, command)
-        end
-      else
-        self.class.help(shell, subcommand)
-      end
+    def help command = nil, subcommand = false
+      super
     end
 
     no_commands do
