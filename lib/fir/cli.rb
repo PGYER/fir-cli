@@ -9,8 +9,16 @@ module FIR
     class_option :help,    type: :boolean, aliases: "-h", desc: "Show this help message and quit"
 
     desc "build_ipa PATH [options] [settings]", "Build iOS application (alias: 'b')."
-    long_desc "You use `man xcodebuild` to get more information"
-    map "b build" => :build_ipa
+    long_desc <<-LONGDESC
+      `build_ipa` command will auto build your project/workspace to an ipa file
+      and it also can auto publish your built ipa to FIR.im if use `-p` flag.
+      Internally, it use `xcodebuild` to accomplish these things, use `man xcodebuild` to get more information.
+
+      Example:
+
+      fir build_ipa xxx
+    LONGDESC
+    map ["b", "build"] => :build_ipa
     method_option :workspace,     type: :boolean, aliases: "-w", desc: "Build the workspace specified by workspacename"
     method_option :scheme,        type: :string,  aliases: "-s", desc: "Build the scheme NAME"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
