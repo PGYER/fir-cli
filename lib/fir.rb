@@ -24,7 +24,7 @@ require 'fir/cli'
 
 module FIR
   CONFIG_PATH   = "#{ENV['HOME']}/.fir-cli"
-  API_YML_PATH  = "./lib/fir/api.yml"
+  API_YML_PATH  = "#{File.dirname(__FILE__)}/fir/api.yml"
   APP_FILE_TYPE = %w(.ipa .apk).freeze
 
   include Util
