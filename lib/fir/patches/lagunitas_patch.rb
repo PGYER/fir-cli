@@ -44,11 +44,12 @@ module Lagunitas
 
     def mobileprovision
       return unless has_mobileprovision?
-      return unless OS.mac?
+      return @mobileprovision if @mobileprovision
 
-      @mobileprovision ||= CFPropertyList.native_types(
-        CFPropertyList::List.new(data: `security cms -D -i "#{mobileprovision_path}"`).value
-      )
+      if data = symtem("security cms -D -i #{mobileprovision_path}")
+        @mobileprovision = CFPropertyList.native_types(
+          CFPropertyList::List.new(data: data).value)
+      end
     end
 
     def has_mobileprovision?
