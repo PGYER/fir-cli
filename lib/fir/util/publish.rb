@@ -47,13 +47,54 @@ module FIR
       logger.info "Published succeed: #{api[:base_url]}/#{published_app_info[:short]}"
     end
 
-  private
+    private
 
-    def convert_icon origin_path, output_path
-      logger.info "Converting icon......"
-      Pngdefry.defry(origin_path, output_path)
-      output_path
-    end
+      def convert_icon origin_path, output_path
+        logger.info "Converting icon......"
+        Pngdefry.defry(origin_path, output_path)
+        output_path
+      end
 
+      def upload_app_icon bundle_icon, icon_path
+        logger.info "Uploading app's icon......"
+        hash = {
+          key:   bundle_icon[:key],
+          token: bundle_icon[:token],
+          file:  File.new(icon_path, 'rb')
+        }
+        post bundle_icon[:url], hash, 'multipart/form-data'
+      end
+
+      def upload_app_file bundle_app, file_path
+        logger.info "Uploading app......"
+        hash = {
+          key:   bundle_app[:key],
+          token: bundle_app[:token],
+          file:  File.new(file_path, 'rb')
+        }
+        post bundle_app[:url], hash, 'multipart/form-data'
+      end
+
+      def update_app_info id, hash
+        logger.info "Updating app info......"
+        put api[:app_url] + "/#{id}?#{URI.encode_www_form hash}", hash
+      end
+
+      def update_app_version_info id, hash
+        logger.info "Updating app's version info......"
+        put api[:version_url] + "/#{id}/complete?#{URI.encode_www_form hash}", hash
+        put api[:version_url] + "/#{id}?#{URI.encode_www_form hash}", hash
+      end
+
+      def fetch_uploading_info app_info, token
+        logger.info "Fetching #{app_info[:identifier]}@FIR.im uploading info......"
+        get api[:uploading_info_url] + "/#{app_info[:identifier]}", type:  app_info[:type],
+                                                                    token: token
+      end
+
+      def fetch_app_info id, token
+        logger.info "Fetch app info from FIR.im"
+        get api[:app_url] + "/#{id}", token: token
+      end
   end
 end
