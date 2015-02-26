@@ -58,9 +58,8 @@ module FIR
       logger.info "Build Success"
 
       if options.publish?
-        Dir["#{output_path}/*.ipa"].each do |app_path|
-          publish(app_path, short: options[:short], changelog: options[:changelog], token: options[:token])
-        end
+        ipa_path = Dir["#{output_path}/*.ipa"].first
+        publish(ipa_path, short: options[:short], changelog: options[:changelog], token: options[:token])
       end
     end
 
