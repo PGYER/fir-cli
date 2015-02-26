@@ -8,7 +8,7 @@ module FIR
       build_cmd       = "xcodebuild build -sdk iphoneos"
       build_dir       = File.absolute_path(args.shift.to_s) # pop the first param
       build_tmp_dir   = Dir.mktmpdir
-      custom_settings = parse_custom_settings(args)          # ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
+      custom_settings = parse_custom_settings(args)         # ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
       configuration   = options[:configuration]
       target_name     = options[:target]
       scheme_name     = options[:scheme]
@@ -36,7 +36,7 @@ module FIR
       build_cmd += " #{setting_str} 2>&1"
       puts build_cmd if $DEBUG
 
-      logger.info "building......"
+      logger.info "Building......"
       logger_info_dividing_line
 
       system(build_cmd)
@@ -58,7 +58,7 @@ module FIR
       logger.info "Build Success"
 
       if options.publish?
-        Dir["#{output_path}/*.app"].each do |app_path|
+        Dir["#{output_path}/*.ipa"].each do |app_path|
           publish(app_path, short: options[:short], changelog: options[:changelog], token: options[:token])
         end
       end

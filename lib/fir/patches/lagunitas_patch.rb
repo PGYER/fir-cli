@@ -46,10 +46,8 @@ module Lagunitas
       return unless has_mobileprovision?
       return @mobileprovision if @mobileprovision
 
-      if data = system("security cms -D -i #{mobileprovision_path}")
-        @mobileprovision = CFPropertyList.native_types(
-          CFPropertyList::List.new(data: data).value)
-      end
+      @mobileprovision = CFPropertyList.native_types(
+        CFPropertyList::List.new(data: `security cms -D -i #{mobileprovision_path}`).value)
     end
 
     def has_mobileprovision?
