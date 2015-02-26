@@ -86,30 +86,38 @@ module FIR
       end
 
       def check_and_find_project path
-        unless is_project?(path)
+        unless File.exist?(path)
           logger.error "The first param BUILD_DIR must be a xcodeproj directory"
           exit 1
         end
 
-        project = Dir["#{path}/*.xcodeproj"].first
-        if project.blank?
-          logger.error "The project file is missing, check the BUILD_DIR"
-          exit 1
+        if is_project?(path)
+          project = path
+        else
+          project = Dir["#{path}/*.xcodeproj"].first
+          if project.blank?
+            logger.error "The xcodeproj file is missing, check the BUILD_DIR"
+            exit 1
+          end
         end
 
         project
       end
 
       def check_and_find_workspace path
-        unless is_workspace?(path)
+        unless File.exist?(path)
           logger.error "The first param BUILD_DIR must be a xcworkspace directory"
           exit 1
         end
 
-        workspace = Dir["#{path}/*.xcworkspace"].first
-        if workspace.blank?
-          logger.error "The workspace file is missing, check the BUILD_DIR"
-          exit 1
+        if is_workspace?(path)
+          workspace = path
+        else
+          workspace = Dir["#{path}/*.xcworkspace"].first
+          if workspace.blank?
+            logger.error "The xcworkspace file is missing, check the BUILD_DIR"
+            exit 1
+          end
         end
 
         workspace
@@ -123,11 +131,11 @@ module FIR
       end
 
       def is_project? path
-        File.exist?(path) && File.extname(path) == '.xcodeproj'
+        File.extname(path) == '.xcodeproj'
       end
 
       def is_workspace? path
-        File.exist?(path) && File.extname(path) == '.xcworkspace'
+        File.extname(path) == '.xcworkspace'
       end
 
       def zip_app2ipa app_path, ipa_path
