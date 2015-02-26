@@ -6,13 +6,14 @@ module FIR
     def build_ipa *args, options
       check_osx
 
-      # path = args.first
-      p args
+      path     = File.absolute_path(args.shift)
+      settings = parse_custom_settings(*args)
+
       if options.workspace?
+        check_workspace
       else
+        check_project
       end
-
-
 
     end
 
@@ -27,8 +28,19 @@ module FIR
         end
       end
 
-      def parse_custom_settings *args
+      def check_project path
+      end
 
+      def check_workspace path
+      end
+
+      def parse_custom_settings *args
+        hash = {}
+        args.each do |setting|
+          k, v = setting.split('=', 2).map(&:strip)
+          hash[k.to_sym] = v
+        end
+        hash
       end
 
     def zip_app2ipa app_path, ipa_path

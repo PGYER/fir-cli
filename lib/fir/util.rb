@@ -23,7 +23,6 @@ module FIR
       end
 
       def check_supported_file path
-        path = path.to_s
         unless File.file?(path) || APP_FILE_TYPE.include?(File.extname(path))
           logger.error "File does not exist or unsupported file type"
           exit 1
