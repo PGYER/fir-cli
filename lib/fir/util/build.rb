@@ -32,6 +32,7 @@ module FIR
       custom_settings.delete('CONFIGURATION_BUILD_DIR')
       setting_str = custom_settings.collect { |k, v| "#{k}='#{v}'" }.join(' ') # { "a" => "1", "b" => "2" } => "a='1' b='2'"
       setting_str += " TARGET_BUILD_DIR='#{build_tmp_dir}' CONFIGURATION_BUILD_DIR='#{build_tmp_dir}'"
+      setting_str += " DWARF_DSYM_FOLDER_PATH='#{output_path}'"
 
       build_cmd += " #{setting_str} 2>&1"
       puts build_cmd if $DEBUG
