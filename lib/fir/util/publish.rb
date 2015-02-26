@@ -3,7 +3,7 @@
 module FIR
   module Publish
 
-    def publish args, options
+    def publish *args, options
       file_path = args.first
       token     = options[:token] || current_token
       changelog = options[:changelog].to_s

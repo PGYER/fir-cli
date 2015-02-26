@@ -3,19 +3,32 @@
 module FIR
   module Build
 
-    def build_ipa args, options
+    def build_ipa *args, options
       check_osx
+
+      # path = args.first
+      p args
+      if options.workspace?
+      else
+      end
+
+
+
     end
 
-    def build_apk args, options
+    def build_apk *args, options
     end
 
     private
 
       def check_osx
         unless OS.mac?
-          logger.info "Unsupported OS type"
+          logger.error "Unsupported OS type, `build_ipa` only support for OSX"
         end
+      end
+
+      def parse_custom_settings *args
+
       end
 
     def zip_app2ipa app_path, ipa_path

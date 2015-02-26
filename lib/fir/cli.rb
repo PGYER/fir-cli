@@ -32,7 +32,7 @@ module FIR
     def build_ipa *args
       prepare :build_ipa
 
-      FIR.build_ipa(args, options)
+      FIR.build_ipa(*args, options)
     end
 
     desc "info APP_FILE_PATH", "Show iOS/Android application's information, support ipa/apk file (aliases: 'i')."
@@ -41,7 +41,7 @@ module FIR
     def info *args
       prepare :info
 
-      FIR.info(args, options)
+      FIR.info(*args, options)
     end
 
     desc "publish APP_FILE_PATH", "Publish iOS/Android application to FIR.im, support ipa/apk file (aliases: 'p')."
@@ -51,7 +51,7 @@ module FIR
     def publish *args
       prepare :publish
 
-      FIR.publish(args, options)
+      FIR.publish(*args, options)
     end
 
     desc "login", "Login FIR.im (aliases: 'l')."

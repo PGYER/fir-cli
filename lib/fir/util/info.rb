@@ -3,9 +3,9 @@
 module FIR
   module Info
 
-    def info args, options
+    def info *args, options
       file_path = args.first
-      is_all    = !!options[:all]
+      is_all    = options.all?
 
       check_supported_file file_path
 
