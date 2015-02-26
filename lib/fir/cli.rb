@@ -8,7 +8,7 @@ module FIR
     class_option :quiet,   type: :boolean, aliases: "-q", desc: "Silence commands"
     class_option :help,    type: :boolean, aliases: "-h", desc: "Show this help message and quit"
 
-    desc "build_ipa PATH [options] [settings]", "Build iOS application (alias: 'b')."
+    desc "build_ipa BUILD_DIR [options] [settings]", "Build iOS application (alias: 'b')."
     long_desc <<-LONGDESC
       `build_ipa` command will auto build your project/workspace to an ipa package
       and it also can auto publish your built ipa to FIR.im if use `-p` option.
@@ -25,7 +25,7 @@ module FIR
     method_option :scheme,        type: :string,  aliases: "-s", desc: "Set the scheme NAME if build workspace"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
     method_option :target,        type: :string,  aliases: "-t", desc: "Build the target specified by targetname"
-    method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path"
+    method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path, the default is: BUILD_DIR/build_ipa"
     method_option :publish,       type: :boolean, aliases: "-p", desc: "Set true/false if publish to FIR.im"
     method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
     method_option :changelog,     type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"

@@ -36,7 +36,7 @@ module FIR
 
       if is_all
         app.icons.sort_by { |i| -i[:width] }.each_with_index do |icon, index|
-          tmp_icon_path = "/tmp/icon-#{SecureRandom.hex[4..9]}.png"
+          tmp_icon_path = "#{Dir.tmpdir}/icon-#{SecureRandom.hex[4..9]}.png"
           FileUtils.cp(icon[:path], tmp_icon_path)
           info["icon_#{index}".to_sym] = tmp_icon_path
         end
@@ -64,7 +64,7 @@ module FIR
       # apk.icon is a hash, { icon_name: icon_data }
       if is_all
         apk.icon.each_with_index do |name_with_data, index|
-          tmp_icon_path = "/tmp/icon-#{SecureRandom.hex[4..9]}.png"
+          tmp_icon_path = "#{Dir.tmpdir}/icon-#{SecureRandom.hex[4..9]}.png"
           File.open(tmp_icon_path, 'w+') { |f| f << name_with_data[1] }
           info["icon_#{index}".to_sym] = tmp_icon_path
         end

@@ -4,17 +4,64 @@ module FIR
   module Build
 
     def build_ipa *args, options
+      # initialize build options
+      build_cmd       = "xcodebuild build -sdk iphoneos"
+      build_dir       = File.absolute_path(args.shift.to_s) # pop the first param
+      build_tmp_dir   = Dir.mktmpdir
+      custom_settings = parse_custom_settings(args)          # ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
+      configuration   = options[:configuration]
+      target_name     = options[:target]
+      scheme_name     = options[:scheme]
+      output_path     = options[:output].blank? ? "#{build_dir}/build_ipa" : File.absolute_path(options[:output].to_s)
+
+      # check build environment and make build cmd
       check_osx
-
-      path     = File.absolute_path(args.shift)
-      settings = parse_custom_settings(*args)
-
       if options.workspace?
-        check_workspace
+        workspace = check_and_find_workspace(build_dir)
+        check_scheme(scheme_name)
+        build_cmd += " -workspace '#{workspace}' -scheme '#{scheme_name}'"
       else
-        check_project
+        project = check_and_find_project(build_dir)
+        build_cmd += " -project '#{project}'"
       end
 
+      build_cmd += " -configuration '#{configuration}'" unless configuration.blank?
+      build_cmd += " -target '#{target_name}'" unless target_name.blank?
+
+      custom_settings.delete('TARGET_BUILD_DIR')
+      custom_settings.delete('CONFIGURATION_BUILD_DIR')
+      setting_str = custom_settings.collect { |k, v| "#{k}='#{v}'" }.join(' ') # { "a" => "1", "b" => "2" } => "a='1' b='2'"
+      setting_str += " TARGET_BUILD_DIR='#{build_tmp_dir}' CONFIGURATION_BUILD_DIR='#{build_tmp_dir}'"
+
+      build_cmd += " #{setting_str} 2>&1"
+      puts build_cmd if $DEBUG
+
+      logger.info "building......"
+      logger_info_dividing_line
+
+      system(build_cmd)
+
+      FileUtils.mkdir_p(output_path) unless File.exist?(output_path)
+      Dir.chdir(build_tmp_dir) do
+        apps = Dir["*.app"]
+        if apps.length == 0
+          logger.error "Builded has no output app, Can not be packaged"
+          exit 1
+        end
+
+        apps.each do |app|
+          ipa_path = File.join(output_path, "#{File.basename(app, '.app')}.ipa")
+          zip_app2ipa(File.join(build_tmp_dir, app), ipa_path)
+        end
+      end
+
+      logger.info "Build Success"
+
+      if options.publish?
+        Dir["#{output_path}/*.app"].each do |app_path|
+          publish(app_path, short: options[:short], changelog: options[:changelog], token: options[:token])
+        end
+      end
     end
 
     def build_apk *args, options
@@ -22,37 +69,77 @@ module FIR
 
     private
 
-      def check_osx
-        unless OS.mac?
-          logger.error "Unsupported OS type, `build_ipa` only support for OSX"
-        end
-      end
-
-      def check_project path
-      end
-
-      def check_workspace path
-      end
-
-      def parse_custom_settings *args
+      def parse_custom_settings args
         hash = {}
         args.each do |setting|
           k, v = setting.split('=', 2).map(&:strip)
-          hash[k.to_sym] = v
+          hash[k] = v
         end
         hash
       end
 
-    def zip_app2ipa app_path, ipa_path
-      # Dir.mktmpdir do |tmpdir|
-      #   Dir.chdir(tmpdir) do
-      #     Dir.mkdir "Payload"
-      #     FileUtils.cp_r app_path, 'Payload'
-      #     system("rm -rf #{ipa_path}") if File.file? ipa_path
-      #     _puts "> 正在打包 app： #{File.basename app_path} 到 #{ipa_path}"
-      #     _exec "zip -qr #{ipa_path} Payload"
-      #   end
-      # end
-    end
+      def check_osx
+        unless OS.mac?
+          logger.error "Unsupported OS type, `build_ipa` only support for OSX"
+          exit 1
+        end
+      end
+
+      def check_and_find_project path
+        unless is_project?(path)
+          logger.error "The first param BUILD_DIR must be a xcodeproj directory"
+          exit 1
+        end
+
+        project = Dir["#{path}/*.xcodeproj"].first
+        if project.blank?
+          logger.error "The project file is missing, check the BUILD_DIR"
+          exit 1
+        end
+
+        project
+      end
+
+      def check_and_find_workspace path
+        unless is_workspace?(path)
+          logger.error "The first param BUILD_DIR must be a xcworkspace directory"
+          exit 1
+        end
+
+        workspace = Dir["#{path}/*.xcworkspace"].first
+        if workspace.blank?
+          logger.error "The workspace file is missing, check the BUILD_DIR"
+          exit 1
+        end
+
+        workspace
+      end
+
+      def check_scheme scheme_name
+        if scheme_name.blank?
+          logger.error "Must provide a scheme by `-s` option when build a workspace"
+          exit 1
+        end
+      end
+
+      def is_project? path
+        File.exist?(path) && File.extname(path) == '.xcodeproj'
+      end
+
+      def is_workspace? path
+        File.exist?(path) && File.extname(path) == '.xcworkspace'
+      end
+
+      def zip_app2ipa app_path, ipa_path
+        Dir.mktmpdir do |tmpdir|
+          Dir.chdir(tmpdir) do
+            Dir.mkdir("Payload")
+            FileUtils.cp_r(app_path, "Payload")
+            system("rm -rf #{ipa_path}") if File.file? ipa_path
+            system("zip -qr #{ipa_path} Payload")
+          end
+        end
+      end
+
   end
 end

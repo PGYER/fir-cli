@@ -30,9 +30,10 @@ module FIR
 
       uploaded_info = upload_app_file(bundle_app, file_path)
       version_id    = uploaded_info[:versionOid]
+      short         = options[:short].blank? ? uploading_info[:short] : options[:short]
 
       update_app_info(app_id, name:   app_info[:name],
-                              short:  options[:short] || uploading_info[:short],
+                              short:  short,
                               token:  token,
                               source: 'fir-cli')
       update_app_version_info(version_id, version:      app_info[:version],
