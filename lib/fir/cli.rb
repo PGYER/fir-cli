@@ -2,7 +2,7 @@
 
 module FIR
   class CLI < Thor
-    class_option :token,   type: :string,  aliases: "-t", desc: "User's token at FIR.im"
+    class_option :token,   type: :string,  aliases: "-T", desc: "User's token at FIR.im"
     class_option :logfile, type: :string,  aliases: "-L", desc: "Path to writable logfile"
     class_option :verbose, type: :boolean, aliases: "-V", desc: "Show verbose", default: true
     class_option :quiet,   type: :boolean, aliases: "-q", desc: "Silence commands"
@@ -10,18 +10,21 @@ module FIR
 
     desc "build_ipa PATH [options] [settings]", "Build iOS application (alias: 'b')."
     long_desc <<-LONGDESC
-      `build_ipa` command will auto build your project/workspace to an ipa file
-      and it also can auto publish your built ipa to FIR.im if use `-p` flag.
+      `build_ipa` command will auto build your project/workspace to an ipa package
+      and it also can auto publish your built ipa to FIR.im if use `-p` option.
       Internally, it use `xcodebuild` to accomplish these things, use `man xcodebuild` to get more information.
 
       Example:
 
-      fir build_ipa xxx
+      $ fir b <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] -p [-T <your token>]
+
+      $ fir b <workspace dir> -w -s <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] -p [-T <your token>]
     LONGDESC
     map ["b", "build"] => :build_ipa
-    method_option :workspace,     type: :boolean, aliases: "-w", desc: "Build the workspace specified by workspacename"
-    method_option :scheme,        type: :string,  aliases: "-s", desc: "Build the scheme NAME"
+    method_option :workspace,     type: :boolean, aliases: "-w", desc: "Set true/false if build workspace"
+    method_option :scheme,        type: :string,  aliases: "-s", desc: "Set the scheme NAME if build workspace"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
+    method_option :target,        type: :string,  aliases: "-t", desc: "Build the target specified by targetname"
     method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path"
     method_option :publish,       type: :boolean, aliases: "-p", desc: "Set true/false if publish to FIR.im"
     method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
@@ -64,8 +67,8 @@ module FIR
     map "u" => :upgrade
     def upgrade
       prepare :upgrade
-      say "✈ Upgrade FIR-CLI (use `gem install fir-cli`)"
-      say `gem install fir-cli`
+      say "✈ Upgrade FIR-CLI (use `gem install fir-cli --no-ri --no-rdoc`)"
+      say `gem install fir-cli --no-ri --no-rdoc`
     end
 
     desc "version", "Show FIR-CLI version number and quit (aliases: v)"
