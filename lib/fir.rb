@@ -8,7 +8,6 @@ require 'json'
 require 'lagunitas'
 require 'securerandom'
 require 'fileutils'
-require 'pry'
 
 # TODO: remove rescue when https://github.com/tajchert/ruby_apk/pull/4 merged
 begin
