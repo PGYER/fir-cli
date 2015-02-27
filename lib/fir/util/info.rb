@@ -5,7 +5,7 @@ module FIR
 
     def info *args, options
       file_path = File.absolute_path(args.first.to_s)
-      is_all    = options.all?
+      is_all    = !options[:all].blank?
 
       check_supported_file file_path
 
