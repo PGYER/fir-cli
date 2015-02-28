@@ -35,10 +35,11 @@ module FIR
       }
 
       if is_all
-        app.icons.reverse.each_with_index do |icon, index|
+        info[:icons] = []
+        app.icons.each do |icon|
           tmp_icon_path = "#{Dir.tmpdir}/icon-#{SecureRandom.hex[4..9]}.png"
           FileUtils.cp(icon, tmp_icon_path)
-          info["icon_#{index}".to_sym] = tmp_icon_path
+          info[:icons] << tmp_icon_path
         end
 
         app.hide_developer_certificates
@@ -63,10 +64,11 @@ module FIR
 
       # apk.icon is a hash, { icon_name: icon_data }
       if is_all
-        apk.icon.to_a.reverse.each_with_index do |name_with_data, index|
+        info[:icons] = []
+        apk.icon.each do |name, data|
           tmp_icon_path = "#{Dir.tmpdir}/icon-#{SecureRandom.hex[4..9]}.png"
-          File.open(tmp_icon_path, 'w+') { |f| f << name_with_data[1] }
-          info["icon_#{index}".to_sym] = tmp_icon_path
+          File.open(tmp_icon_path, 'w+') { |f| f << data }
+          info[:icons] << tmp_icon_path
         end
       end
 

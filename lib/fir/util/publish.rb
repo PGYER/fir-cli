@@ -23,9 +23,10 @@ module FIR
       bundle_app  = uploading_info[:bundle][:pkg]
       bundle_icon = uploading_info[:bundle][:icon]
 
-      if largest_icon_path = app_info[:icon_0]
-        # convert_icon(largest_icon_path, largest_icon_path) if file_type == 'ipa'
-        upload_app_icon(bundle_icon, largest_icon_path)
+      unless app_info[:icons].empty?
+        large_icon_path     = app_info[:icons].max_by { |f| File.size(f) }
+        uncrushed_icon_path = convert_icon(large_icon_path)
+        upload_app_icon(bundle_icon, uncrushed_icon_path)
       end
 
       uploaded_info = upload_app_file(bundle_app, file_path)
@@ -50,10 +51,11 @@ module FIR
 
     private
 
-      def convert_icon origin_path, output_path
-        logger.info "Converting icon......"
-        Pngdefry.defry(origin_path, output_path)
-        output_path
+      def convert_icon origin_path
+        logger.info "Converting app's icon......"
+        output_path = Tempfile.new('uncrushed_icon.png').path
+        Parser.uncrush_icon(origin_path, output_path)
+        File.size(output_path) == 0 ? origin_path : output_path
       end
 
       def upload_app_icon bundle_icon, icon_path
