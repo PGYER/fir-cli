@@ -7,6 +7,7 @@ require 'rest-client'
 require 'json'
 require 'securerandom'
 require 'fileutils'
+require 'cfpropertylist'
 
 # TODO: remove rescue when https://github.com/tajchert/ruby_apk/pull/4 merged
 begin
