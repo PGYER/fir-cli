@@ -85,8 +85,9 @@ module FIR
 
     no_commands do
       def invoke_command command, *args
-        FIR.logger       = options[:logfile] ? Logger.new(options[:logfile]) : Logger.new(STDOUT)
-        FIR.logger       = Logger.new('/dev/null') if options[:quiet]
+        logfile = options[:logfile].blank? ? STDOUT : options[:logfile]
+        logfile = '/dev/null' if options[:quiet]
+        FIR.logger       = Logger.new(logfile)
         FIR.logger.level = options[:verbose] ? Logger::INFO : Logger::ERROR
         super
       end
