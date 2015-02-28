@@ -45,7 +45,7 @@ module FIR
       logger.info "Building......"
       logger_info_dividing_line
 
-      system(build_cmd)
+      logger.info `#{build_cmd}`
 
       FileUtils.mkdir_p(output_path) unless File.exist?(output_path)
       Dir.chdir(build_tmp_dir) do
