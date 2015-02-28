@@ -16,9 +16,9 @@ module FIR
 
       Example:
 
-      $ fir b <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] -p [-T <your token>]
+      $ fir b <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your token>]
 
-      $ fir b <workspace dir> -w -s <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] -p [-T <your token>]
+      $ fir b <workspace dir> -w -s <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your token>]
     LONGDESC
     map ["b", "build"] => :build_ipa
     method_option :workspace,     type: :boolean, aliases: "-w", desc: "Set true/false if build workspace"

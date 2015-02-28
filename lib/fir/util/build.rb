@@ -13,7 +13,7 @@ module FIR
 
       build_cmd       = "xcodebuild build -sdk iphoneos"
       build_tmp_dir   = Dir.mktmpdir
-      custom_settings = parse_custom_settings(args)         # ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
+      custom_settings = parse_custom_settings(args) # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
       configuration   = options[:configuration]
       target_name     = options[:target]
       scheme_name     = options[:scheme]
