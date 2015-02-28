@@ -5,8 +5,13 @@ module FIR
 
     def build_ipa *args, options
       # initialize build options
+      if File.exist?(args.first)
+        build_dir = File.absolute_path(args.shift.to_s) # pop the first param
+      else
+        build_dir = Dir.pwd
+      end
+
       build_cmd       = "xcodebuild build -sdk iphoneos"
-      build_dir       = File.absolute_path(args.shift.to_s) # pop the first param
       build_tmp_dir   = Dir.mktmpdir
       custom_settings = parse_custom_settings(args)         # ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
       configuration   = options[:configuration]
