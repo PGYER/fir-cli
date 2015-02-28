@@ -96,7 +96,6 @@ module Parser
           icons << get_image("#{name}@2x")
         end
         icons.delete_if { |i| !i }
-        icons.reverse
       rescue NoMethodError
         []
       end
