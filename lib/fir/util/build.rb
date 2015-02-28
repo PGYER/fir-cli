@@ -33,11 +33,11 @@ module FIR
       build_cmd += " -configuration '#{configuration}'" unless configuration.blank?
       build_cmd += " -target '#{target_name}'" unless target_name.blank?
 
-      custom_settings.delete('TARGET_BUILD_DIR')
-      custom_settings.delete('CONFIGURATION_BUILD_DIR')
-      setting_str = custom_settings.collect { |k, v| "#{k}='#{v}'" }.join(' ') # { "a" => "1", "b" => "2" } => "a='1' b='2'"
-      setting_str += " TARGET_BUILD_DIR='#{build_tmp_dir}' CONFIGURATION_BUILD_DIR='#{build_tmp_dir}'"
-      setting_str += " DWARF_DSYM_FOLDER_PATH='#{output_path}'"
+      # convert { "a" => "1", "b" => "2" } => "a='1' b='2'"
+      setting_str =  custom_settings.collect { |k, v| "#{k}='#{v}'" }.join(' ')
+      setting_str += " TARGET_BUILD_DIR='#{build_tmp_dir}'" unless custom_settings['TARGET_BUILD_DIR']
+      setting_str += " CONFIGURATION_BUILD_DIR='#{build_tmp_dir}'" unless custom_settings['CONFIGURATION_BUILD_DIR']
+      setting_str += " DWARF_DSYM_FOLDER_PATH='#{output_path}'" unless custom_settings['DWARF_DSYM_FOLDER_PATH']
 
       build_cmd += " #{setting_str} 2>&1"
       puts build_cmd if $DEBUG
