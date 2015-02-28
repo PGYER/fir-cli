@@ -19,13 +19,13 @@ module FIR
     end
 
     def ipa_info ipa_path, is_all
-      ipa = Lagunitas::IPA.new(ipa_path)
+      ipa = Parser::IPA.new(ipa_path)
       app = ipa.app
 
       info = {
         type:              'ios',
         identifier:        app.identifier,
-        name:              app.bundle_name,
+        name:              app.name,
         display_name:      app.display_name,
         version:           app.version,
         short_version:     app.short_version,
@@ -35,9 +35,9 @@ module FIR
       }
 
       if is_all
-        app.icons.sort_by { |i| -i[:width] }.each_with_index do |icon, index|
+        app.icons.each_with_index do |icon, index|
           tmp_icon_path = "#{Dir.tmpdir}/icon-#{SecureRandom.hex[4..9]}.png"
-          FileUtils.cp(icon[:path], tmp_icon_path)
+          FileUtils.cp(icon, tmp_icon_path)
           info["icon_#{index}".to_sym] = tmp_icon_path
         end
 

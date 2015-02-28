@@ -1,8 +1,29 @@
 # encoding: utf-8
 
-module Lagunitas
+require 'fileutils'
+require 'cfpropertylist'
+
+module Parser
 
   class IPA
+
+    def initialize(path)
+      @path = path
+    end
+
+    def app
+      @app ||= App.new(app_path)
+    end
+
+    def app_path
+      @app_path ||= Dir.glob(File.join(contents, 'Payload', '*.app')).first
+    end
+
+    def cleanup
+      return unless @contents
+      FileUtils.rm_rf(@contents)
+      @contents = nil
+    end
 
     def metadata
       return unless has_metadata?
@@ -20,11 +41,56 @@ module Lagunitas
     def release_type
       has_metadata? ? 'store' : 'adhoc'
     end
+
+    private
+
+      def contents
+        return if @contents
+        @contents = "tmp/ipa_files-#{Time.now.to_i}"
+
+        Zip::File.open(@path) do |zip_file|
+          zip_file.each do |f|
+            f_path = File.join(@contents, f.name)
+            FileUtils.mkdir_p(File.dirname(f_path))
+            zip_file.extract(f, f_path) unless File.exist?(f_path)
+          end
+        end
+
+        @contents
+      end
   end
 
   class App
 
-    # TODO: remove when https://github.com/soffes/lagunitas/pull/3 merged
+    def initialize(path)
+      @path = path
+    end
+
+    def info
+      @info ||= CFPropertyList.native_types(
+        CFPropertyList::List.new(file: File.join(@path, 'Info.plist')).value)
+    end
+
+    def name
+      info['CFBundleName']
+    end
+
+    def identifier
+      info['CFBundleIdentifier']
+    end
+
+    def display_name
+      info['CFBundleDisplayName']
+    end
+
+    def version
+      info['CFBundleVersion']
+    end
+
+    def short_version
+      info['CFBundleShortVersionString']
+    end
+
     def icons
       @icons ||= begin
         icons = []
@@ -33,13 +99,10 @@ module Lagunitas
           icons << get_image("#{name}@2x")
         end
         icons.delete_if { |i| !i }
-      rescue NoMethodError # fix a ipa without icons
+        icons.reverse
+      rescue NoMethodError
         []
       end
-    end
-
-    def bundle_name
-      info['CFBundleName']
     end
 
     def mobileprovision
@@ -80,5 +143,12 @@ module Lagunitas
       end
     end
 
+    private
+
+      def get_image name
+        path = File.join(@path, "#{name}.png")
+        return nil unless File.exist?(path)
+        path
+      end
   end
 end

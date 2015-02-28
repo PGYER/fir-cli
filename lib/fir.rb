@@ -5,7 +5,6 @@ require 'logger'
 require 'yaml'
 require 'rest-client'
 require 'json'
-require 'lagunitas'
 require 'securerandom'
 require 'fileutils'
 

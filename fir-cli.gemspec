@@ -33,7 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry", "~> 0.11"
 
   spec.add_dependency "thor", "~> 0.19"
-  spec.add_dependency "lagunitas", "~> 0.0.2"
   spec.add_dependency "rest-client", "~> 1.7"
   spec.add_dependency "ruby_android", "~> 0.7"
 end
