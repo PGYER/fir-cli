@@ -5,10 +5,10 @@ module FIR
 
     def build_ipa *args, options
       # initialize build options
-      if File.exist?(args.first)
-        build_dir = File.absolute_path(args.shift.to_s) # pop the first param
-      else
+      if args.first.blank? || !File.exist?(args.first)
         build_dir = Dir.pwd
+      else
+        build_dir = File.absolute_path(args.shift.to_s) # pop the first param
       end
 
       build_cmd       = "xcodebuild build -sdk iphoneos"
