@@ -8,7 +8,7 @@ module FIR
     class_option :quiet,   type: :boolean, aliases: "-q", desc: "Silence commands"
     class_option :help,    type: :boolean, aliases: "-h", desc: "Show this help message and quit"
 
-    desc "build_ipa BUILD_DIR [options] [settings]", "Build iOS application (alias: 'b')."
+    desc "build_ipa BUILD_DIR [options] [settings]", "Build iOS app (alias: 'b')."
     long_desc <<-LONGDESC
       `build_ipa` command will auto build your project/workspace to an ipa package
       and it also can auto publish your built ipa to FIR.im if use `-p` option.
@@ -35,7 +35,7 @@ module FIR
       FIR.build_ipa(*args, options)
     end
 
-    desc "info APP_FILE_PATH", "Show iOS/Android application's information, support ipa/apk file (aliases: 'i')."
+    desc "info APP_FILE_PATH", "Show iOS/Android app's info, support ipa/apk file (aliases: 'i')."
     map "i" => :info
     method_option :all, type: :boolean, aliases: "-a", desc: "Show all information in application"
     def info *args
@@ -44,7 +44,7 @@ module FIR
       FIR.info(*args, options)
     end
 
-    desc "publish APP_FILE_PATH", "Publish iOS/Android application to FIR.im, support ipa/apk file (aliases: 'p')."
+    desc "publish APP_FILE_PATH", "Publish iOS/Android app to FIR.im, support ipa/apk file (aliases: 'p')."
     map "p" => :publish
     method_option :short,     type: :string, aliases: "-s", desc: "Set custom short link"
     method_option :changelog, type: :string, aliases: "-c", desc: "Set changelog"
