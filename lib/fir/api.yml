@@ -1,0 +1,5 @@
+base_url:           'http://fir.im'
+me_url:             'http://fir.im/api/v2/user/me'
+app_url:            'http://fir.im/api/v2/app'
+uploading_info_url: 'http://fir.im/api/v2/app/info'
+version_url:        'http://fir.im/api/v2/appVersion'

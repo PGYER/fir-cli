@@ -1,16 +1,14 @@
 #!/usr/bin/env ruby
-# coding: utf-8
+# encoding: utf-8
 
-require 'fir-cli'
-
-
-Fir::Cli.find_extends.each { |g| require g }
+require_relative '../lib/fir'
 
 begin
-  Fir::Cli.start ARGV
-rescue Exception => e
-  s = e.to_s
-  s = ": #{s}" if !s.empty?
-  puts "! #{Paint["错误#{s}", :red]}"
+  system "export LC_ALL=en_US.UTF-8;export LC_CTYPE=en_US.UTF-8;export LANG=en_US.UTF-8"
+  FIR::CLI.start ARGV
+rescue => e
+  raise e if $DEBUG
+  STDERR.puts e.message
+  STDERR.puts e.backtrace.join("\n")
+  exit 1
 end
-

@@ -1,0 +1,36 @@
+## 更新记录
+### FIR-CLI 1.0.0
+- 重大重构
+- 优化启动及运行速度
+- 增加各指令的 alias
+- 增加全局参数, -T, -L, -V, -q, -h, 分别为 token, log, verbose, quite, help 参数
+- 增加输入 log
+- 修正部分系统安装失败问题
+- 修正部分服务器安装出现编码失败问题
+- 重写 ipa 解析器, 去除 `miniz.c`, 增加 pngcrash
+- build_ipa 增加默认 build 路径, `fir b` 则默认 build 当前路径
+- build_ipa 增加输出 dSYM 符号表文件
+- build_ipa 增加输出 xcodebuild 的信息
+- 去掉输出信息颜色, 方便查看 log
+- 简化 --verbose 参数, 简化为 `--verbose --no-verbose`, 默认输出为 INFO
+
+### FIR-CLI 0.2.3
+- 去除重签名功能, iOS 8.1.3 之后不支持重签名
+
+### FIR-CLI 0.2.2
+- 修复 WARNING: The rest_client gem is deprecated
+
+### FIR-CLI 0.2.1
+- 修正解析带空格的文件出租哦问题
+
+### FIR-CLI 0.2.0
+- 新指令 `build_ipa`
+
+### FIR-CLI 0.1.8
+- 支持 ruby 1.9.x
+- 规范输出参数选项，支持无颜色信息输出
+  -`--verbose=v|vv|vvv`：设置输出级别
+  -`--quiet` 与 `--no-quiet`：设置是否不输出辅助信息
+  -`--color` 与 `--no-color`：设置输出是否携带颜色信息
+- 修复 ipa 应用图标不清晰问题
+- 增加切换配置文件功能：使用此功能可以在多个用户中切换使用
