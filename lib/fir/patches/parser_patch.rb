@@ -120,8 +120,8 @@ module Parser
       return unless has_mobileprovision?
       return @mobileprovision if @mobileprovision
 
-      @mobileprovision = CFPropertyList.native_types(
-        CFPropertyList::List.new(data: `security cms -D -i #{mobileprovision_path}`).value)
+      cmd = "security cms -D -i \"#{mobileprovision_path}\""
+      @mobileprovision = CFPropertyList.native_types(CFPropertyList::List.new(data: `#{cmd}`).value)
     end
 
     def has_mobileprovision?

@@ -128,7 +128,7 @@ $ fir publish -h
 
 ## 永远使用最新功能
 
-下面的指令会自动更新 FIR.im CLI
+下面的指令会自动更新 FIR-CLI
 
 ```shell
 $ fir upgrade
