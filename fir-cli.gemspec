@@ -33,9 +33,10 @@ Gem::Specification.new do |spec|
   - 优化启动及运行速度
   - 增加各指令的 alias
   - 增加全局参数, -T, -L, -V, -q, -h, 分别为 token, log, verbose, quite, help 参数
-  - 增加输入 log
+  - 增加输出 log
   - 修正部分系统安装失败问题
   - 修正部分服务器安装出现编码失败问题
+  - 修正 ipa 路径带有空格解析失败的 bug
   - 重写 ipa 解析器, 去除 `miniz.c`, 增加 pngcrash
   - build_ipa 增加默认 build 路径, `fir b` 则默认 build 当前路径
   - build_ipa 增加输出 dSYM 符号表文件
