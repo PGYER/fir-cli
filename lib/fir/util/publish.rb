@@ -33,7 +33,7 @@ module FIR
       version_id    = uploaded_info[:versionOid]
       short         = options[:short].blank? ? uploading_info[:short] : options[:short]
 
-      update_app_info(app_id, name:   app_info[:name],
+      update_app_info(app_id, name:   app_info[:display_name] || app_info[:name],
                               short:  short,
                               token:  token,
                               source: 'fir-cli')
