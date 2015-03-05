@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
   - 修正部分服务器安装出现编码失败问题
   - 修正 ipa 路径带有空格解析失败的 bug
   - 重写 ipa 解析器, 去除 `miniz.c`, 增加 pngcrash
+  - 上传 ipa 时, 优先取 `display_name` 作为应用名称
   - build_ipa 增加默认 build 路径, `fir b` 则默认 build 当前路径
   - build_ipa 增加输出 dSYM 符号表文件
   - build_ipa 增加输出 xcodebuild 的信息
