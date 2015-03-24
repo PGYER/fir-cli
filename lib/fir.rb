@@ -59,7 +59,7 @@ module FIR
         logger.error e.response
         exit 1
       end
-      JSON.parse(res.body, symbolize_names: true)
+      JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
     end
 
     def post url, query, content_type = :json
@@ -69,7 +69,7 @@ module FIR
         logger.error e.response
         exit 1
       end
-      JSON.parse(res.body, symbolize_names: true)
+      JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
     end
 
     def put url, query, content_type = :json
@@ -79,7 +79,7 @@ module FIR
         logger.error e.response
         exit 1
       end
-      JSON.parse(res.body, symbolize_names: true)
+      JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
     end
 
     alias_method :☠, :exit
