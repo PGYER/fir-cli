@@ -86,7 +86,6 @@ module FIR
       def update_app_version_info id, hash
         logger.info "Updating app's version info......"
         put api[:version_url] + "/#{id}/complete?#{URI.encode_www_form hash}", hash
-        put api[:version_url] + "/#{id}?#{URI.encode_www_form hash}", hash
       end
 
       def fetch_uploading_info app_info, token
