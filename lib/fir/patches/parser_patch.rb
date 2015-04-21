@@ -124,7 +124,7 @@ module Parser
       begin
         @mobileprovision = CFPropertyList.native_types(CFPropertyList::List.new(data: `#{cmd}`).value)
       rescue CFFormatError
-        @mobileprovision = nil
+        @mobileprovision = {}
       end
     end
 
