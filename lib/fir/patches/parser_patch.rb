@@ -121,7 +121,11 @@ module Parser
       return @mobileprovision if @mobileprovision
 
       cmd = "security cms -D -i \"#{mobileprovision_path}\""
-      @mobileprovision = CFPropertyList.native_types(CFPropertyList::List.new(data: `#{cmd}`).value)
+      begin
+        @mobileprovision = CFPropertyList.native_types(CFPropertyList::List.new(data: `#{cmd}`).value)
+      rescue CFFormatError
+        @mobileprovision = {}
+      end
     end
 
     def has_mobileprovision?
