@@ -7,7 +7,7 @@ require 'fir/version'
 Gem::Specification.new do |spec|
   spec.name          = "fir-cli"
   spec.version       = FIR::VERSION
-  spec.authors       = ["FIR.im"]
+  spec.authors       = ["FIR.im", "NaixSpirit"]
   spec.email         = ["dev@fir.im"]
   spec.date          = Time.now.strftime("%Y-%m-%d")
   spec.summary       = %q{FIR.im command tool}
