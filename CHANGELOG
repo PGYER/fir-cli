@@ -12,9 +12,11 @@
 - 上传 ipa 时, 优先取 `display_name` 作为应用名称
 - build_ipa 增加默认 build 路径, `fir b` 则默认 build 当前路径
 - build_ipa 增加输出 dSYM 符号表文件
+- build_ipa 增加输出指定 ipa 名称
 - build_ipa 增加输出 xcodebuild 的信息
 - 去掉输出信息颜色, 方便查看 log
 - 简化 --verbose 参数, 简化为 `--verbose --no-verbose`, 默认输出为 INFO
+- https://github.com/FIRHQ/fir-cli
 
 ### FIR-CLI 0.2.3
 - 去除重签名功能, iOS 8.1.3 之后不支持重签名

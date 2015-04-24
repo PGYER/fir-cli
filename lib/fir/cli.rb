@@ -18,14 +18,15 @@ module FIR
 
       $ fir b <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your token>]
 
-      $ fir b <workspace dir> -w -s <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your token>]
+      $ fir b <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your token>]
     LONGDESC
     map ["b", "build"] => :build_ipa
     method_option :workspace,     type: :boolean, aliases: "-w", desc: "Set true/false if build workspace"
-    method_option :scheme,        type: :string,  aliases: "-s", desc: "Set the scheme NAME if build workspace"
+    method_option :scheme,        type: :string,  aliases: "-S", desc: "Set the scheme NAME if build workspace"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
     method_option :target,        type: :string,  aliases: "-t", desc: "Build the target specified by targetname"
     method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path, the default is: BUILD_DIR/build_ipa"
+    method_option :name,          type: :string,  aliases: "-n", desc: "IPA name, the default is: YOUR PROJECT NAME"
     method_option :publish,       type: :boolean, aliases: "-p", desc: "Set true/false if publish to FIR.im"
     method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
     method_option :changelog,     type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"

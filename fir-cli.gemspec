@@ -7,13 +7,13 @@ require 'fir/version'
 Gem::Specification.new do |spec|
   spec.name          = "fir-cli"
   spec.version       = FIR::VERSION
-  spec.authors       = ["FIR.im"]
+  spec.authors       = ["FIR.im", "NaixSpirit"]
   spec.email         = ["dev@fir.im"]
   spec.date          = Time.now.strftime("%Y-%m-%d")
   spec.summary       = %q{FIR.im command tool}
   spec.description   = %q{FIR.im command tool, support iOS and Android}
   spec.homepage      = "http://blog.fir.im/2014/fir_cli"
-  spec.license       = "GPLv3"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -41,9 +41,11 @@ Gem::Specification.new do |spec|
   - 上传 ipa 时, 优先取 `display_name` 作为应用名称
   - build_ipa 增加默认 build 路径, `fir b` 则默认 build 当前路径
   - build_ipa 增加输出 dSYM 符号表文件
+  - build_ipa 增加输出指定 ipa 名称
   - build_ipa 增加输出 xcodebuild 的信息
   - 去掉输出信息颜色, 方便查看 log
   - 简化 --verbose 参数, 简化为 `--verbose --no-verbose`, 默认输出为 INFO
+  - https://github.com/FIRHQ/fir-cli
   )
 
   spec.add_development_dependency "bundler", "~> 1.7"

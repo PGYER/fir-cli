@@ -6,49 +6,53 @@ module FIR
     def build_ipa *args, options
       # initialize build options
       if args.first.blank? || !File.exist?(args.first)
-        build_dir = Dir.pwd
+        @build_dir = Dir.pwd
       else
-        build_dir = File.absolute_path(args.shift.to_s) # pop the first param
+        @build_dir = File.absolute_path(args.shift.to_s) # pop the first param
       end
 
-      build_cmd       = "xcodebuild build -sdk iphoneos"
-      build_tmp_dir   = Dir.mktmpdir
-      custom_settings = parse_custom_settings(args) # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
-      configuration   = options[:configuration]
-      target_name     = options[:target]
-      scheme_name     = options[:scheme]
-      output_path     = options[:output].blank? ? "#{build_dir}/build_ipa" : File.absolute_path(options[:output].to_s)
+      @build_cmd       = "xcodebuild build -sdk iphoneos"
+      @build_tmp_dir   = Dir.mktmpdir
+      @custom_settings = parse_custom_settings(args) # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
+      @configuration   = options[:configuration]
+      @wrapper_name    = File.basename(options[:name].to_s, '.*') + '.app' unless options[:name].blank?
+      @target_name     = options[:target]
+      @scheme_name     = options[:scheme]
+      @output_path     = options[:output].blank? ? "#{@build_dir}/build_ipa" : File.absolute_path(options[:output].to_s)
+      @dsym_name       = @wrapper_name + '.dSYM' unless @wrapper_name.blank?
 
       # check build environment and make build cmd
       check_osx
       if options.workspace?
-        workspace = check_and_find_workspace(build_dir)
-        check_scheme(scheme_name)
-        build_cmd += " -workspace '#{workspace}' -scheme '#{scheme_name}'"
+        @workspace = check_and_find_workspace(@build_dir)
+        check_scheme(@scheme_name)
+        @build_cmd += " -workspace '#{@workspace}' -scheme '#{@scheme_name}'"
       else
-        project = check_and_find_project(build_dir)
-        build_cmd += " -project '#{project}'"
+        @project = check_and_find_project(@build_dir)
+        @build_cmd += " -project '#{@project}'"
       end
 
-      build_cmd += " -configuration '#{configuration}'" unless configuration.blank?
-      build_cmd += " -target '#{target_name}'" unless target_name.blank?
+      @build_cmd += " -configuration '#{@configuration}'" unless @configuration.blank?
+      @build_cmd += " -target '#{@target_name}'" unless @target_name.blank?
 
       # convert { "a" => "1", "b" => "2" } => "a='1' b='2'"
-      setting_str =  custom_settings.collect { |k, v| "#{k}='#{v}'" }.join(' ')
-      setting_str += " TARGET_BUILD_DIR='#{build_tmp_dir}'" unless custom_settings['TARGET_BUILD_DIR']
-      setting_str += " CONFIGURATION_BUILD_DIR='#{build_tmp_dir}'" unless custom_settings['CONFIGURATION_BUILD_DIR']
-      setting_str += " DWARF_DSYM_FOLDER_PATH='#{output_path}'" unless custom_settings['DWARF_DSYM_FOLDER_PATH']
+      @setting_str =  @custom_settings.collect { |k, v| "#{k}='#{v}'" }.join(' ')
+      @setting_str += " WRAPPER_NAME='#{@wrapper_name}'" unless @wrapper_name.blank?
+      @setting_str += " TARGET_BUILD_DIR='#{@build_tmp_dir}'" unless @custom_settings['TARGET_BUILD_DIR']
+      @setting_str += " CONFIGURATION_BUILD_DIR='#{@build_tmp_dir}'" unless @custom_settings['CONFIGURATION_BUILD_DIR']
+      @setting_str += " DWARF_DSYM_FOLDER_PATH='#{@output_path}'" unless @custom_settings['DWARF_DSYM_FOLDER_PATH']
+      @setting_str += " DWARF_DSYM_FILE_NAME='#{@dsym_name}'" unless @dsym_name.blank?
 
-      build_cmd += " #{setting_str} 2>&1"
-      puts build_cmd if $DEBUG
+      @build_cmd += " #{@setting_str} 2>&1"
+      puts @build_cmd if $DEBUG
 
       logger.info "Building......"
       logger_info_dividing_line
 
-      logger.info `#{build_cmd}`
+      logger.info `#{@build_cmd}`
 
-      FileUtils.mkdir_p(output_path) unless File.exist?(output_path)
-      Dir.chdir(build_tmp_dir) do
+      FileUtils.mkdir_p(@output_path) unless File.exist?(@output_path)
+      Dir.chdir(@build_tmp_dir) do
         apps = Dir["*.app"]
         if apps.length == 0
           logger.error "Builded has no output app, Can not be packaged"
@@ -56,15 +60,15 @@ module FIR
         end
 
         apps.each do |app|
-          ipa_path = File.join(output_path, "#{File.basename(app, '.app')}.ipa")
-          zip_app2ipa(File.join(build_tmp_dir, app), ipa_path)
+          ipa_path = File.join(@output_path, "#{File.basename(app, '.app')}.ipa")
+          zip_app2ipa(File.join(@build_tmp_dir, app), ipa_path)
         end
       end
 
       logger.info "Build Success"
 
       if options.publish?
-        ipa_path = Dir["#{output_path}/*.ipa"].first
+        ipa_path = Dir["#{@output_path}/*.ipa"].first
         publish(ipa_path, short: options[:short], changelog: options[:changelog], token: options[:token])
       end
     end
