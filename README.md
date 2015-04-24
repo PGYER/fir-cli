@@ -135,3 +135,7 @@ $ fir upgrade
 ```
 
 随时更新以使用最新功能
+
+## 提交反馈
+
+[使用 github issue 即可](https://github.com/FIRHQ/fir-cli/issues)

@@ -15,7 +15,7 @@ module FIR
       @build_tmp_dir   = Dir.mktmpdir
       @custom_settings = parse_custom_settings(args) # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
       @configuration   = options[:configuration]
-      @wrapper_name    = File.basename(options[:name].to_s, '.app')
+      @wrapper_name    = File.basename(options[:name].to_s, '.*') + '.app' unless options[:name].blank?
       @target_name     = options[:target]
       @scheme_name     = options[:scheme]
       @output_path     = options[:output].blank? ? "#{@build_dir}/build_ipa" : File.absolute_path(options[:output].to_s)
