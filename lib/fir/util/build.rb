@@ -134,7 +134,7 @@ module FIR
 
       def check_scheme scheme_name
         if scheme_name.blank?
-          logger.error "Must provide a scheme by `-s` option when build a workspace"
+          logger.error "Must provide a scheme by `-S` option when build a workspace"
           exit 1
         end
       end
