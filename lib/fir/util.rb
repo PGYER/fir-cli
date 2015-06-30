@@ -19,7 +19,7 @@ module FIR
     module ClassMethods
 
       def fetch_user_info token
-        get api[:me_url], token: token
+        get api[:base_url] + '/user', api_token: token
       end
 
       def check_supported_file path
