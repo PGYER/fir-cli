@@ -54,32 +54,50 @@ module FIR
 
     def get url, params = {}
       begin
-        res = RestClient.get(url, params: params)
+        res = RestClient.get(url, default_headers.merge(params: params))
       rescue RestClient::Exception => e
         logger.error e.response
         exit 1
       end
+
       JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
     end
 
-    def post url, query, content_type = :json
+    def post url, query
       begin
-        res = RestClient.post(url, query, { content_type: content_type })
+        res = RestClient.post(url, query, default_headers)
       rescue RestClient::Exception => e
         logger.error e.response
         exit 1
       end
+
       JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
     end
 
-    def put url, query, content_type = :json
+    def patch url, query
       begin
-        res = RestClient.put(url, query, { content_type: content_type })
+        res = RestClient.patch(url, query, default_headers)
       rescue RestClient::Exception => e
         logger.error e.response
         exit 1
       end
+
       JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
+    end
+
+    def put url, query
+      begin
+        res = RestClient.put(url, query, default_headers)
+      rescue RestClient::Exception => e
+        logger.error e.response
+        exit 1
+      end
+
+      JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
+    end
+
+    def default_headers
+      { content_type: :json, source: 'fir-cli', cli_version: FIR::VERSION }
     end
 
     alias_method :☠, :exit
