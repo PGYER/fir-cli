@@ -55,8 +55,8 @@ module FIR
     def get url, params = {}
       begin
         res = RestClient.get(url, default_headers.merge(params: params))
-      rescue RestClient::Exception => e
-        logger.error e.response
+      rescue => e
+        logger.error "#{e.class}\n#{e.message}"
         exit 1
       end
 
@@ -66,8 +66,8 @@ module FIR
     def post url, query
       begin
         res = RestClient.post(url, query, default_headers)
-      rescue RestClient::Exception => e
-        logger.error e.response
+      rescue => e
+        logger.error "#{e.class}\n#{e.message}"
         exit 1
       end
 
@@ -77,8 +77,8 @@ module FIR
     def patch url, query
       begin
         res = RestClient.patch(url, query, default_headers)
-      rescue RestClient::Exception => e
-        logger.error e.response
+      rescue => e
+        logger.error "#{e.class}\n#{e.message}"
         exit 1
       end
 
@@ -88,8 +88,8 @@ module FIR
     def put url, query
       begin
         res = RestClient.put(url, query, default_headers)
-      rescue RestClient::Exception => e
-        logger.error e.response
+      rescue => e
+        logger.error "#{e.class}\n#{e.message}"
         exit 1
       end
 

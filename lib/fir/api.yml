@@ -1,1 +1,5 @@
-base_url: 'http://api.fir.im'
+domain:    'http://fir.im'
+base_url:  'http://api.fir.im'
+user_url:  'http://api.fir.im/user'
+app_url:   'http://api.fir.im/apps'
+udids_url: 'http://api.fir.im/devices/multi_udid'

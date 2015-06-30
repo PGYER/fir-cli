@@ -15,88 +15,97 @@ module FIR
       logger.info "Publishing app......."
       logger_info_dividing_line
 
-      file_type      = File.extname(file_path).delete('.')
-      app_info       = send("#{file_type}_info", file_path, true)
-      uploading_info = fetch_uploading_info(app_info, token)
+      file_type = File.extname(file_path).delete(".")
+      @app_info = send("#{file_type}_info", file_path, true)
+
+      uploading_info = fetch_uploading_info(type:      @app_info[:type],
+                                            bundle_id: @app_info[:identifier],
+                                            api_token: token)
 
       app_id      = uploading_info[:id]
-      bundle_app  = uploading_info[:bundle][:pkg]
-      bundle_icon = uploading_info[:bundle][:icon]
+      icon_cert   = uploading_info[:cert][:icon]
+      binary_cert = uploading_info[:cert][:binary]
 
-      unless app_info[:icons].empty?
-        large_icon_path     = app_info[:icons].max_by { |f| File.size(f) }
+      unless @app_info[:icons].blank?
+        large_icon_path     = @app_info[:icons].max_by { |f| File.size(f) }
         uncrushed_icon_path = convert_icon(large_icon_path)
-        upload_app_icon(bundle_icon, uncrushed_icon_path)
+        upload_app_icon(icon_cert, uncrushed_icon_path)
       end
 
-      uploaded_info = upload_app_file(bundle_app, file_path)
-      version_id    = uploaded_info[:versionOid]
-      short         = options[:short].blank? ? uploading_info[:short] : options[:short]
+      uploaded_info = upload_app_binary(binary_cert, file_path, changelog)
 
-      update_app_info(app_id, name:   app_info[:display_name] || app_info[:name],
-                              short:  short,
-                              token:  token,
-                              source: 'fir-cli')
-      update_app_version_info(version_id, version:      app_info[:version],
-                                          versionShort: app_info[:short_version],
-                                          devices:      app_info[:devices],
-                                          release_type: app_info[:release_type],
-                                          changelog:    changelog,
-                                          token:        token)
-      published_app_info = fetch_app_info(app_id, token)
+      if uploaded_info[:is_completed]
+        unless @app_info[:devices].blank?
+          upload_device_info(key:       binary_cert[:key],
+                             udids:     @app_info[:devices].join(","),
+                             api_token: token)
+        end
 
-      logger_info_dividing_line
-      logger.info "Published succeed: #{api[:base_url]}/#{published_app_info[:short]}"
+        unless options[:short].blank?
+          update_app_info(app_id, short: options[:short], api_token: token)
+        end
+
+        published_app_info = fetch_app_info(app_id, api_token: token)
+
+        logger_info_dividing_line
+        logger.info "Published succeed: #{api[:domain]}/#{published_app_info[:short]}"
+      end
     end
 
     private
 
       def convert_icon origin_path
         logger.info "Converting app's icon......"
-        output_path = Tempfile.new('uncrushed_icon.png').path
+        output_path = Tempfile.new("uncrushed_icon.png").path
         Parser.uncrush_icon(origin_path, output_path)
         File.size(output_path) == 0 ? origin_path : output_path
       end
 
-      def upload_app_icon bundle_icon, icon_path
+      def upload_app_icon icon_cert, icon_path
         logger.info "Uploading app's icon......"
         hash = {
-          key:   bundle_icon[:key],
-          token: bundle_icon[:token],
-          file:  File.new(icon_path, 'rb')
+          key:   icon_cert[:key],
+          token: icon_cert[:token],
+          file:  File.new(icon_path, "rb")
         }
-        post bundle_icon[:url], hash, 'multipart/form-data'
+        post icon_cert[:upload_url], hash
       end
 
-      def upload_app_file bundle_app, file_path
+      def upload_app_binary binary_cert, file_path, changelog
         logger.info "Uploading app......"
         hash = {
-          key:   bundle_app[:key],
-          token: bundle_app[:token],
-          file:  File.new(file_path, 'rb')
+          key:   binary_cert[:key],
+          token: binary_cert[:token],
+          file:  File.new(file_path, "rb"),
+          # Custom variables
+          "x:name"         => @app_info[:display_name] || @app_info[:name],
+          "x:build"        => @app_info[:build],
+          "x:version"      => @app_info[:version],
+          "x:changelog"    => changelog,
+          "x:release_type" => @app_info[:release_type],
         }
-        post bundle_app[:url], hash, 'multipart/form-data'
+        post binary_cert[:upload_url], hash
+      end
+
+      def upload_device_info hash
+        logger.info "Updating devices info......"
+        post api[:udids_url], hash
       end
 
       def update_app_info id, hash
         logger.info "Updating app info......"
-        put api[:app_url] + "/#{id}?#{URI.encode_www_form hash}", hash
+        patch api[:app_url] + "/#{id}", hash
       end
 
-      def update_app_version_info id, hash
-        logger.info "Updating app's version info......"
-        put api[:version_url] + "/#{id}/complete?#{URI.encode_www_form hash}", hash
+      def fetch_uploading_info hash
+        logger.info "Fetching #{@app_info[:identifier]}@FIR.im uploading info......"
+
+        post api[:app_url], hash
       end
 
-      def fetch_uploading_info app_info, token
-        logger.info "Fetching #{app_info[:identifier]}@FIR.im uploading info......"
-        get api[:uploading_info_url] + "/#{app_info[:identifier]}", type:  app_info[:type],
-                                                                    token: token
-      end
-
-      def fetch_app_info id, token
+      def fetch_app_info id, hash
         logger.info "Fetch app info from FIR.im"
-        get api[:app_url] + "/#{id}", token: token
+        get api[:app_url] + "/#{id}", hash
       end
   end
 end

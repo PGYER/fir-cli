@@ -27,8 +27,8 @@ module FIR
         identifier:        app.identifier,
         name:              app.name,
         display_name:      app.display_name,
-        version:           app.version,
-        short_version:     app.short_version,
+        build:             app.version,
+        version:           app.short_version,
         devices:           app.devices,
         release_type:      app.release_type || ipa.release_type,
         distribution_name: app.distribution_name
@@ -55,11 +55,11 @@ module FIR
     def apk_info apk_path, is_all
       apk  = Android::Apk.new(apk_path)
       info = {
-        type:          'android',
-        identifier:    apk.manifest.package_name,
-        name:          apk.label,
-        version:       apk.manifest.version_code,
-        short_version: apk.manifest.version_name
+        type:       'android',
+        identifier: apk.manifest.package_name,
+        name:       apk.label,
+        build:      apk.manifest.version_code,
+        version:    apk.manifest.version_name
       }
 
       # apk.icon is a hash, { icon_name: icon_data }
@@ -74,6 +74,5 @@ module FIR
 
       info
     end
-
   end
 end
