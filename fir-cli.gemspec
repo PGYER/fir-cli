@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   ### FIR-CLI 1.1.0
   - 完全兼容新版 API ✔
   - 请使用新版 API Token
+  - 新版 API Token 查看地址: `http://fir.im/user/info`
   - https://github.com/FIRHQ/fir-cli
   )
 
