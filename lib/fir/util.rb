@@ -19,7 +19,7 @@ module FIR
     module ClassMethods
 
       def fetch_user_info token
-        get api[:me_url], token: token
+        get api[:user_url], api_token: token
       end
 
       def check_supported_file path
@@ -40,6 +40,5 @@ module FIR
         logger.info "✈ -------------------------------------------- ✈"
       end
     end
-
   end
 end
