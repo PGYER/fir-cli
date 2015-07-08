@@ -21,7 +21,7 @@ module FIR
       $ fir b <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your token>]
     LONGDESC
     map ["b", "build"] => :build_ipa
-    method_option :workspace,     type: :boolean, aliases: "-w", desc: "Set true/false if build workspace"
+    method_option :workspace,     type: :boolean, aliases: "-w", desc: "true/false if build workspace"
     method_option :scheme,        type: :string,  aliases: "-S", desc: "Set the scheme NAME if build workspace"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
     method_option :target,        type: :string,  aliases: "-t", desc: "Build the target specified by targetname"
