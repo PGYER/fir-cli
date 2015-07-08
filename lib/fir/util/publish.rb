@@ -57,7 +57,9 @@ module FIR
       def convert_icon origin_path
         logger.info "Converting app's icon......"
         output_path = Tempfile.new("uncrushed_icon.png").path
-        Parser.uncrush_icon(origin_path, output_path)
+
+        Parser.uncrush_icon(origin_path, output_path) if @app_info[:type] == 'ios'
+
         File.size(output_path) == 0 ? origin_path : output_path
       end
 
