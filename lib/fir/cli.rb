@@ -2,7 +2,7 @@
 
 module FIR
   class CLI < Thor
-    class_option :token,   type: :string,  aliases: "-T", desc: "User's token at FIR.im"
+    class_option :token,   type: :string,  aliases: "-T", desc: "User's api_token at FIR.im"
     class_option :logfile, type: :string,  aliases: "-L", desc: "Path to writable logfile"
     class_option :verbose, type: :boolean, aliases: "-V", desc: "Show verbose", default: true
     class_option :quiet,   type: :boolean, aliases: "-q", desc: "Silence commands"
@@ -27,7 +27,7 @@ module FIR
     method_option :target,        type: :string,  aliases: "-t", desc: "Build the target specified by targetname"
     method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path, the default is: BUILD_DIR/build_ipa"
     method_option :name,          type: :string,  aliases: "-n", desc: "IPA name, the default is: YOUR PROJECT NAME"
-    method_option :publish,       type: :boolean, aliases: "-p", desc: "Set true/false if publish to FIR.im"
+    method_option :publish,       type: :boolean, aliases: "-p", desc: "true/false if publish to FIR.im"
     method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
     method_option :changelog,     type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"
     def build_ipa *args
