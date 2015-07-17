@@ -1,0 +1,23 @@
+rvm:
+  - 1.9.2
+  - 1.9.3
+  - 2.0.0
+  - 2.1
+  - 2.2
+  - ruby-head
+  - rbx-2
+  - jruby
+  - jruby-head
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: jruby-head
+    - rvm: rbx-2
+notifications:
+  recipients:
+    - dev@fir.im
+
+branches:
+  only:
+    - master
