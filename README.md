@@ -13,6 +13,12 @@ FIR.im CLI 使用 Ruby 构建，只要安装相应 ruby gem 即可:
 $ sudo gem install fir-cli --no-ri --no-rdoc
 ```
 
+如果出现无法安装的现象, 请先升级下系统自带的 gem 包后再执行命令安装 fir-cli
+
+```shell
+sudo gem update --system
+```
+
 安装后，你可以在命令行执行指令
 
 ```shell
