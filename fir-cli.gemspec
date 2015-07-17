@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### FIR-CLI 1.1.2
+  ### FIR-CLI 1.1.3
   - 完全兼容新版 API ✔
   - 请使用新版 API Token
   - 新版 API Token 查看地址: `http://fir.im/user/info`
@@ -37,7 +37,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "pry", "~> 0.11"
 
   spec.add_dependency "thor", "~> 0.19"
   spec.add_dependency "CFPropertyList", "~> 2.3"

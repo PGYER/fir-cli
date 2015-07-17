@@ -1,4 +1,8 @@
 ## 更新记录
+
+### FIR-CLI 1.1.3
+- 增加 Travis.ci
+
 ### FIR-CLI 1.1.1
 - android app 不转换 icon
 
