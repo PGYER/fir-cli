@@ -16,7 +16,7 @@ matrix:
     - rvm: rbx-2
 notifications:
   recipients:
-    - hxy@fir.im
+    - dev@fir.im
 
 branches:
   only:
