@@ -64,6 +64,14 @@ module FIR
       FIR.login(token)
     end
 
+    desc "me", "Show current user info if user is logined (aliases: 'm')."
+    map "m" => :me
+    def me *args
+      prepare :me
+
+      FIR.me
+    end
+
     desc "upgrade", "Upgrade FIR-CLI and quit (aliases: u)."
     map "u" => :upgrade
     def upgrade

@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require_relative './util/login'
+require_relative './util/me'
 require_relative './util/info'
 require_relative './util/build'
 require_relative './util/publish'
@@ -11,6 +12,7 @@ module FIR
     def self.included base
       base.extend ClassMethods
       base.extend Login
+      base.extend Me
       base.extend Info
       base.extend Build
       base.extend Publish
@@ -32,6 +34,13 @@ module FIR
       def check_token_cannot_be_blank token
         if token.blank?
           logger.error "Token can't be blank"
+          exit 1
+        end
+      end
+
+      def check_logined
+        if current_token.blank?
+          logger.error "Please use `fir login` first"
           exit 1
         end
       end
