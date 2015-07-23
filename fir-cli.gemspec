@@ -28,11 +28,12 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### FIR-CLI 1.1.4
+  ### FIR-CLI 1.1.5
   - 完全兼容新版 API ✔
   - 请使用新版 API Token
   - 新版 API Token 查看地址: `http://fir.im/user/info`
   - 增加 `fir me` 指令查看当前登录用户
+  - 增加团队成员直接上传 app
   - https://github.com/FIRHQ/fir-cli
   )
 
