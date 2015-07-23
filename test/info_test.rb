@@ -1,58 +1,5 @@
 # encoding: utf-8
 
-require 'minitest/autorun'
-require 'fir'
-
-class Minitest::Test
-
-  def default_token
-    '2dd8a99ef9d19c540bb583624b939960'
-  end
-
-  def default_email
-    'fir-cli_test@fir.im'
-  end
-
-  def default_apk
-    File.expand_path('../cases', __FILE__) + '/test_apk.apk'
-  end
-
-  def default_ipa
-    File.expand_path('../cases', __FILE__) + '/test_ipa.ipa'
-  end
-
-  def default_device_udid
-    "cf8b87e3f469d7b185fd64c057778aecbc2017a6"
-  end
-
-  def default_distribution_name
-    'iOSTeam Provisioning Profile: im.fir.* - Fly It Remotely LLC.'
-  end
-end
-
-class LoginTest < Minitest::Test
-
-  def test_login
-    user_info = FIR.fetch_user_info(default_token)
-
-    assert_equal default_email, user_info.fetch(:email, '')
-  end
-end
-
-class MeTest < Minitest::Test
-
-  def test_me
-    user_info = FIR.fetch_user_info(default_token)
-
-    FIR.write_config(email: user_info.fetch(:email, ''), token: default_token)
-    FIR.reload_config
-
-    me_info = FIR.fetch_user_info(FIR.current_token)
-
-    assert_equal default_email, me_info.fetch(:email, '')
-  end
-end
-
 class InfoTest < Minitest::Test
 
   def test_apk_info
