@@ -11,5 +11,7 @@ class MeTest < Minitest::Test
     me_info = FIR.fetch_user_info(FIR.current_token)
 
     assert_equal default_email, me_info.fetch(:email, '')
+
+    assert FIR.me
   end
 end

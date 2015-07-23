@@ -12,6 +12,8 @@ class InfoTest < Minitest::Test
     assert_equal '3.0',             info[:version]
 
     assert_equal true, File.exist?(info[:icons].first)
+
+    assert FIR.info(default_apk, {})
   end
 
   def test_ipa_info
@@ -31,5 +33,7 @@ class InfoTest < Minitest::Test
 
     assert_equal true, info[:plist].is_a?(Hash)
     assert_equal true, info[:mobileprovision].is_a?(Hash)
+
+    assert FIR.info(default_ipa, {})
   end
 end
