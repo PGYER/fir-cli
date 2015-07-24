@@ -27,9 +27,7 @@ module FIR
       binary_cert = uploading_info[:cert][:binary]
 
       unless @app_info[:icons].blank?
-        large_icon_path     = @app_info[:icons].max_by { |f| File.size(f) }
-        # uncrushed_icon_path = convert_icon(large_icon_path)
-        # upload_app_icon(icon_cert, uncrushed_icon_path)
+        large_icon_path = @app_info[:icons].max_by { |f| File.size(f) }
         upload_app_icon(icon_cert, large_icon_path)
       end
 
@@ -54,15 +52,6 @@ module FIR
     end
 
     private
-
-      def convert_icon origin_path
-        logger.info "Converting app's icon......"
-        output_path = Tempfile.new("uncrushed_icon.png").path
-
-        Parser.uncrush_icon(origin_path, output_path) if @app_info[:type] == 'ios'
-
-        File.size(output_path) == 0 ? origin_path : output_path
-      end
 
       def upload_app_icon icon_cert, icon_path
         logger.info "Uploading app's icon......"

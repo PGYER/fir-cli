@@ -8,6 +8,6 @@ class PublishTest < Minitest::Test
       changelog: "test from fir-cli #{Time.now.to_i}"
     }
 
-    assert FIR.publish(default_apk, options)
+    assert FIR.publish(default_ipa, options)
   end
 end
