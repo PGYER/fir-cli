@@ -28,7 +28,7 @@ module FIR
 
       unless @app_info[:icons].blank?
         large_icon_path     = @app_info[:icons].max_by { |f| File.size(f) }
-        uncrushed_icon_path = convert_icon(large_icon_path)
+        # uncrushed_icon_path = convert_icon(large_icon_path)
         upload_app_icon(icon_cert, uncrushed_icon_path)
       end
 
