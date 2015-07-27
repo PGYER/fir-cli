@@ -20,8 +20,13 @@ $ sudo gem install fir-cli
 ```shell
 sudo gem sources --remove https://rubygems.org/
 sudo gem sources -a https://ruby.taobao.org/
-sudo gem update --system
+sudo gem sources -l
+*** CURRENT SOURCES ***
 
+https://ruby.taobao.org
+# 请确保只有 ruby.taobao.org, 如果有其他的源, 请 remove 掉
+
+sudo gem update --system
 sudo gem install fir-cli
 ```
 
