@@ -15,16 +15,14 @@ FIR.im CLI 使用 Ruby 构建，只要安装相应 ruby gem 即可:
 $ sudo gem install fir-cli
 ```
 
-如果出现无法安装的现象, 请先升级下系统自带的 gem 包后再执行命令安装 fir-cli
+如果出现无法安装的现象, 请先更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem
 
 ```shell
+sudo gem sources --remove https://rubygems.org/
+sudo gem sources -a https://ruby.taobao.org/
 sudo gem update --system
-```
 
-如果出现无法安装的现象, 请先升级下系统自带的 gem 包后再执行命令安装 fir-cli
-
-```shell
-sudo gem update --system
+sudo gem install fir-cli
 ```
 
 安装后，你可以在命令行执行指令
@@ -36,6 +34,7 @@ Commands:
   fir help                                      # Describe available commands or one specific command.
   fir info APP_FILE_PATH                        # Show iOS/Android app's info, support ipa/apk file (aliases: 'i').
   fir login                                     # Login FIR.im (aliases: 'l').
+  fir me                                        # Show current user info if user is logined (aliases: 'm').
   fir publish APP_FILE_PATH                     # Publish iOS/Android app to FIR.im, support ipa/apk file (aliases: 'p').
   fir upgrade                                   # Upgrade FIR-CLI and quit (aliases: u).
   fir version                                   # Show FIR-CLI version number and quit (aliases: v)
@@ -52,7 +51,7 @@ Options:
 ### 参数说明
 
 - `alias <short command>` 意味着可以用 alias 别名来代替该指令, 例如 `fir b`
-- `-T` 用户在 FIR.im 上的 token, `publish` 需要使用此参数
+- `-T` 用户在 FIR.im 上的 api_token, `publish` 需要使用此参数
 - `-L` 指定 FIR-CLI 的输出 log, 默认为 STDOUT
 - `-V` Verbose, 默认为输出所有信息( INFO 和 ERROR), 如果设置 `--no-verbose`, 则只输出 ERROR 信息
 - `-q` 静默模式, 默认关闭
@@ -87,7 +86,7 @@ $ fir p path/to/application -T YOUR_FIR_TOKEN
 $ fir l
 ```
 
-这时系统会提示输入用户 token, 用户 token 可在[这里](http://fir.im/user/info)查看
+这时系统会提示输入用户 token, 用户 token 可在 **[这里](http://fir.im/user/info)** 查看
 
 ```shell
 > Please enter your FIR.im token:
@@ -140,7 +139,7 @@ $ fir -h
 $ fir publish -h
 ```
 
-如果还有疑问随时发邮件至[fir-cli](mailto: hi@fir.im)
+如果还有疑问随时发邮件至 [fir-cli](mailto: dev@fir.im)
 
 ## 永远使用最新功能
 
