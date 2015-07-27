@@ -7,4 +7,4 @@ task :test do
   Dir["test/*_test.rb"].each { |f| require f[5..-4] }
 end
 
-task :default => :test
+task default: :test
