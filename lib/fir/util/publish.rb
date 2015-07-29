@@ -8,8 +8,8 @@ module FIR
       token     = options[:token] || current_token
       changelog = options[:changelog].to_s
 
-      check_supported_file file_path
-      check_token_cannot_be_blank token
+      check_supported_file(file_path)
+      check_token_cannot_be_blank(token)
       fetch_user_info(token)
 
       logger.info "Publishing app......."
