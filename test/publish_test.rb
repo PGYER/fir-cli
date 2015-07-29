@@ -9,5 +9,6 @@ class PublishTest < Minitest::Test
     }
 
     assert FIR.publish(default_ipa, options)
+    assert FIR.publish(default_apk, options)
   end
 end
