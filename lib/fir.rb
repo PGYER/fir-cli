@@ -23,35 +23,5 @@ require 'fir/version'
 require 'fir/cli'
 
 module FIR
-  CONFIG_PATH   = "#{ENV['HOME']}/.fir-cli"
-  API_YML_PATH  = "#{File.dirname(__FILE__)}/fir/api.yml"
-  APP_FILE_TYPE = %w(.ipa .apk).freeze
-
   include Util
-
-  class << self
-    attr_accessor :logger, :api, :config
-
-    def api
-      @api ||= YAML.load_file(API_YML_PATH).symbolize_keys
-    end
-
-    def config
-      @config ||= YAML.load_file(CONFIG_PATH).symbolize_keys if File.exist?(CONFIG_PATH)
-    end
-
-    def reload_config
-      @config = YAML.load_file(CONFIG_PATH).symbolize_keys
-    end
-
-    def write_config hash
-      File.open(CONFIG_PATH, 'w+') { |f| f << YAML.dump(hash) }
-    end
-
-    def current_token
-      @token ||= config[:token] if config
-    end
-
-    alias_method :☠, :exit
-  end
 end
