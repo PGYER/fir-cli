@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require_relative './util/http'
+require_relative './util/parser'
 require_relative './util/login'
 require_relative './util/me'
 require_relative './util/info'
