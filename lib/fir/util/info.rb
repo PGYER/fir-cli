@@ -19,7 +19,7 @@ module FIR
     end
 
     def ipa_info ipa_path, is_all
-      ipa = Parser::IPA.new(ipa_path)
+      ipa = FIR::Parser::Ipa.new(ipa_path)
       app = ipa.app
 
       info = {

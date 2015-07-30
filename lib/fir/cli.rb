@@ -2,7 +2,7 @@
 
 module FIR
   class CLI < Thor
-    class_option :token,   type: :string,  aliases: "-T", desc: "User's api_token at FIR.im"
+    class_option :token,   type: :string,  aliases: "-T", desc: "User's API Token at FIR.im"
     class_option :logfile, type: :string,  aliases: "-L", desc: "Path to writable logfile"
     class_option :verbose, type: :boolean, aliases: "-V", desc: "Show verbose", default: true
     class_option :quiet,   type: :boolean, aliases: "-q", desc: "Silence commands"
@@ -16,9 +16,9 @@ module FIR
 
       Example:
 
-      $ fir b <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your token>]
+      $ fir b <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
 
-      $ fir b <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your token>]
+      $ fir b <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
     LONGDESC
     map ["b", "build"] => :build_ipa
     method_option :workspace,     type: :boolean, aliases: "-w", desc: "true/false if build workspace"
@@ -46,6 +46,13 @@ module FIR
     end
 
     desc "publish APP_FILE_PATH", "Publish iOS/Android app to FIR.im, support ipa/apk file (aliases: 'p')."
+    long_desc <<-LONGDESC
+      `publish` command will publish your app file to FIR.im, also the command support to publish app's short & changelog.
+
+      Example:
+
+      $ fir p <app file path> [-c <changelog> -s <custom short link>]
+    LONGDESC
     map "p" => :publish
     method_option :short,     type: :string, aliases: "-s", desc: "Set custom short link"
     method_option :changelog, type: :string, aliases: "-c", desc: "Set changelog"
@@ -60,7 +67,7 @@ module FIR
     def login *args
       prepare :login
 
-      token = options[:token] || args.first || ask("Please enter your FIR.im token:", :white, echo: true)
+      token = options[:token] || args.first || ask("Please enter your FIR.im API Token:", :white, echo: true)
       FIR.login(token)
     end
 

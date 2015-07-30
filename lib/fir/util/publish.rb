@@ -8,8 +8,8 @@ module FIR
       token     = options[:token] || current_token
       changelog = options[:changelog].to_s
 
-      check_supported_file file_path
-      check_token_cannot_be_blank token
+      check_supported_file(file_path)
+      check_token_cannot_be_blank(token)
       fetch_user_info(token)
 
       logger.info "Publishing app......."
@@ -47,7 +47,7 @@ module FIR
         published_app_info = fetch_app_info(app_id, api_token: token)
 
         logger_info_dividing_line
-        logger.info "Published succeed: #{api[:domain]}/#{published_app_info[:short]}"
+        logger.info "Published succeed: #{fir_api[:domain]}/#{published_app_info[:short]}"
       end
     end
 
@@ -81,23 +81,23 @@ module FIR
 
       def upload_device_info hash
         logger.info "Updating devices info......"
-        post api[:udids_url], hash
+        post fir_api[:udids_url], hash
       end
 
       def update_app_info id, hash
         logger.info "Updating app info......"
-        patch api[:app_url] + "/#{id}", hash
+        patch fir_api[:app_url] + "/#{id}", hash
       end
 
       def fetch_uploading_info hash
         logger.info "Fetching #{@app_info[:identifier]}@FIR.im uploading info......"
 
-        post api[:app_url], hash
+        post fir_api[:app_url], hash
       end
 
       def fetch_app_info id, hash
         logger.info "Fetch app info from FIR.im"
-        get api[:app_url] + "/#{id}", hash
+        get fir_api[:app_url] + "/#{id}", hash
       end
   end
 end
