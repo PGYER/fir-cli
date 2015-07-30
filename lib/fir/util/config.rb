@@ -3,7 +3,7 @@
 module FIR
   module Config
     CONFIG_PATH   = "#{ENV['HOME']}/.fir-cli"
-    API_YML_PATH  = "lib/fir/api.yml"
+    API_YML_PATH  = File.expand_path("../../", __FILE__) + '/api.yml'
     APP_FILE_TYPE = %w(.ipa .apk).freeze
 
     def fir_api
