@@ -8,6 +8,7 @@ require_relative './util/me'
 require_relative './util/info'
 require_relative './util/build'
 require_relative './util/publish'
+require_relative './util/mapping'
 
 module FIR
   module Util
@@ -21,6 +22,7 @@ module FIR
       include FIR::Info
       include FIR::Build
       include FIR::Publish
+      include FIR::Mapping
 
       attr_accessor :logger
 

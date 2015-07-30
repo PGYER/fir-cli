@@ -43,7 +43,7 @@ module FIR
     private
 
       def default_headers
-        { content_type: :json, source: 'fir-cli', cli_version: FIR::VERSION }
+        { content_type: :json, source: 'fir-cli', version: FIR::VERSION }
       end
   end
 end

@@ -71,12 +71,29 @@ module FIR
       FIR.login(token)
     end
 
-    desc "me", "Show current user info if user is logined (aliases: 'm')."
-    map "m" => :me
+    desc "me", "Show current user info if user is logined."
     def me *args
       prepare :me
 
       FIR.me
+    end
+
+    desc "mapping MAPPING_FILE_PATH", "Upload app's mapping file to BugHD.com (aliases: 'm')."
+    long_desc <<-LONGDESC
+      `mapping` command will upload your app's mapping file to BugHD.com if you have the same app/project in BugHD.com.
+
+      Example:
+
+      $ fir m <mapping file path> -bp <bughd project id> -bv <app version> -bb <app build>
+    LONGDESC
+    map "m" => :mapping
+    method_option :project_id, type: :string, aliases: "-bp", desc: "Project id in BugHD.com"
+    method_option :version,    type: :string, aliases: "-bv", desc: "App version"
+    method_option :build,      type: :string, aliases: "-bb", desc: "App build"
+    def mapping *args
+      prepare :mapping
+
+      FIR.upload_mapping_file(*args, options)
     end
 
     desc "upgrade", "Upgrade FIR-CLI and quit (aliases: u)."
