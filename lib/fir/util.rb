@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require_relative './util/http'
 require_relative './util/login'
 require_relative './util/me'
 require_relative './util/info'
@@ -8,17 +9,15 @@ require_relative './util/publish'
 
 module FIR
   module Util
-
-    def self.included base
-      base.extend ClassMethods
-      base.extend Login
-      base.extend Me
-      base.extend Info
-      base.extend Build
-      base.extend Publish
-    end
+    extend ActiveSupport::Concern
 
     module ClassMethods
+      include FIR::Http
+      include FIR::Login
+      include FIR::Me
+      include FIR::Info
+      include FIR::Build
+      include FIR::Publish
 
       def fetch_user_info token
         get api[:user_url], api_token: token
