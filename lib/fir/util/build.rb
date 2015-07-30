@@ -49,11 +49,11 @@ module FIR
         @dsym_name     = @wrapper_name + '.dSYM' unless @wrapper_name.blank?
 
         if options.workspace?
-          workspace = check_and_find_workspace(@build_dir)
-          check_scheme(@scheme_name)
+          workspace = check_and_find_ios_workspace(@build_dir)
+          check_ios_scheme(@scheme_name)
           ipa_build_cmd += " -workspace '#{workspace}' -scheme '#{@scheme_name}'"
         else
-          project = check_and_find_project(@build_dir)
+          project = check_and_find_ios_project(@build_dir)
           ipa_build_cmd += " -project '#{project}'"
         end
 
@@ -111,13 +111,13 @@ module FIR
         end
       end
 
-      def check_and_find_project path
+      def check_and_find_ios_project path
         unless File.exist?(path)
           logger.error "The first param BUILD_DIR must be a xcodeproj directory"
           exit 1
         end
 
-        if is_project?(path)
+        if is_ios_project?(path)
           project = path
         else
           project = Dir["#{path}/*.xcodeproj"].first
@@ -130,13 +130,13 @@ module FIR
         project
       end
 
-      def check_and_find_workspace path
+      def check_and_find_ios_workspace path
         unless File.exist?(path)
           logger.error "The first param BUILD_DIR must be a xcworkspace directory"
           exit 1
         end
 
-        if is_workspace?(path)
+        if is_ios_workspace?(path)
           workspace = path
         else
           workspace = Dir["#{path}/*.xcworkspace"].first
@@ -149,18 +149,18 @@ module FIR
         workspace
       end
 
-      def check_scheme scheme_name
+      def check_ios_scheme scheme_name
         if scheme_name.blank?
           logger.error "Must provide a scheme by `-S` option when build a workspace"
           exit 1
         end
       end
 
-      def is_project? path
+      def is_ios_project? path
         File.extname(path) == '.xcodeproj'
       end
 
-      def is_workspace? path
+      def is_ios_workspace? path
         File.extname(path) == '.xcworkspace'
       end
 
