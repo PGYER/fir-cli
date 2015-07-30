@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require_relative '../lib/bughd'
+
+begin
+  system "export LC_ALL=en_US.UTF-8;export LC_CTYPE=en_US.UTF-8;export LANG=en_US.UTF-8"
+  BugHD::CLI.start ARGV
+rescue => e
+  raise e if $DEBUG
+  STDERR.puts e.message
+  STDERR.puts e.backtrace.join("\n")
+  exit 1
+end

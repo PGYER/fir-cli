@@ -20,7 +20,7 @@ end
 require 'fir/patches'
 require 'fir/util'
 require 'fir/version'
-require 'fir/cli'
+require 'fir/fir_cli'
 
 module FIR
   include Util
