@@ -15,7 +15,7 @@ module FIR
 
       @build_tmp_dir = Dir.mktmpdir
       @output_path   = options[:output].blank? ? "#{@build_dir}/build_ipa" : File.absolute_path(options[:output].to_s)
-      @ipa_build_cmd = initialize_ipa_build_cmd
+      @ipa_build_cmd = initialize_ipa_build_cmd(args, options)
 
       puts @ipa_build_cmd if $DEBUG
 
