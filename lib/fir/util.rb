@@ -30,6 +30,11 @@ module FIR
         get fir_api[:user_url], api_token: token
       end
 
+      def fetch_user_uuid token
+        user_info = fetch_user_info(token)
+        user_info[:uuid]
+      end
+
       def check_supported_file path
         unless File.file?(path) || APP_FILE_TYPE.include?(File.extname(path))
           logger.error "File does not exist or unsupported file type"

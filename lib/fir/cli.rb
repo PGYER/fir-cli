@@ -93,7 +93,7 @@ module FIR
     def mapping *args
       prepare :mapping
 
-      FIR.upload_mapping_file(*args, options)
+      FIR.mapping(*args, options)
     end
 
     desc "upgrade", "Upgrade FIR-CLI and quit (aliases: u)."
