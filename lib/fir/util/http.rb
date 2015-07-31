@@ -14,7 +14,7 @@ module FIR
           headers: default_headers.merge(params: params)
         )
       rescue => e
-        logger.error e.class.to_s + "\n" + e.message.to_s
+        logger.error e.message.to_s + " - " + e.response.to_s
         exit 1
       end
 
@@ -32,7 +32,7 @@ module FIR
             headers: default_headers
           )
         rescue => e
-          logger.error e.class.to_s + "\n" + e.message.to_s
+          logger.error e.message.to_s + " - " + e.response.to_s
           exit 1
         end
 
@@ -43,7 +43,7 @@ module FIR
     private
 
       def default_headers
-        { content_type: :json, source: 'fir-cli', cli_version: FIR::VERSION }
+        { content_type: :json, source: 'fir-cli', version: FIR::VERSION }
       end
   end
 end

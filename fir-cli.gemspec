@@ -28,18 +28,22 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### FIR-CLI 1.1.6
+  ### FIR-CLI 1.1.7
   - 完全兼容新版 API ✔
   - 请使用新版 API Token
   - 新版 API Token 查看地址: `http://fir.im/user/info`
-  - 增加 `fir me` 指令查看当前登录用户
-  - 增加团队成员直接上传 app
-  - https://github.com/FIRHQ/fir-cli
+  - 增加符号表上传指令, `fir mapping(alias m)`
+  - 有一下三种方式上传符号表
+  - 1. 指定 version 和 build 上传: `fir m <mapping file path> --project_id=<bughd project id> --version=<app version> --build=<app build> -T <your api token>`
+  - 2. 在 publish 的时候自动上传: `fir p <app file path> --mapping_file=<mapping file path> --project_id=<bughd project id> -T <your api token>`
+  - 3. 在 build_ipa 的时候自动上传: `fir b <project dir> --project_id=<bughd project id> -m -p -T <your api token>`
+  - https://github.com/FIRHQ/fir-cli, enjoy.
   )
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.7"
+  spec.add_development_dependency "pry", "~> 0.10"
 
   spec.add_dependency "thor", "~> 0.19"
   spec.add_dependency "CFPropertyList", "~> 2.3"

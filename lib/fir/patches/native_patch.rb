@@ -197,3 +197,22 @@ class Hash
       end
     end
 end
+
+class File
+
+  class << self
+    # A binary file is Mach-O dSYM
+    #
+    # @return [true, false]
+    def is_dsym? file_path
+      !!(`file -b #{file_path}` =~ /dSYM/)
+    end
+
+    # A file is ASCII text
+    #
+    # @return [true, false]
+    def is_txt? file_path
+      !!(`file -b #{file_path}` =~ /text/)
+    end
+  end
+end
