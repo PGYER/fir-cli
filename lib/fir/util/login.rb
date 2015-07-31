@@ -12,6 +12,7 @@ module FIR
       write_config(email: user_info.fetch(:email, ''), token: token)
       reload_config
       logger.info "Login succeed, current  user's email: #{config[:email]}"
+      logger_info_blank_line
     end
   end
 end

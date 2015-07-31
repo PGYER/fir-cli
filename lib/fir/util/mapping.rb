@@ -25,6 +25,7 @@ module FIR
       upload_mapping_file
 
       logger.info "Uploaded succeed: #{bughd_api[:domain]}/project/#{@p_id}/settings"
+      logger_info_blank_line
     end
 
     def find_or_create_bughd_full_version
