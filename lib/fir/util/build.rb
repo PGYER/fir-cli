@@ -33,6 +33,8 @@ module FIR
 
       publish_build_ipa if options.publish?
       upload_build_mapping_file if options.mapping?
+
+      logger_info_blank_line
     end
 
     def build_apk *args, options

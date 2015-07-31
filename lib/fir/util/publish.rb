@@ -36,6 +36,8 @@ module FIR
                                         version:    @app_info[:version],
                                         token:      @token
       end
+
+      logger_info_blank_line
     end
 
     private

@@ -17,6 +17,8 @@ module FIR
 
       app_info  = send("#{file_type}_info", file_path, is_all)
       app_info.each { |k, v| logger.info "#{k}: #{v}" }
+
+      logger_info_blank_line
     end
 
     def ipa_info ipa_path, is_all = false

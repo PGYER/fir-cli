@@ -6,13 +6,14 @@ module FIR
     def me
       check_logined
 
-      if user_info = fetch_user_info(current_token)
-        email = user_info.fetch(:email, '')
-        name  = user_info.fetch(:name, '')
+      user_info = fetch_user_info(current_token)
 
-        logger.info "Login succeed, current user's email: #{email}"
-        logger.info "Login succeed, current user's name:  #{name}"
-      end
+      email = user_info.fetch(:email, '')
+      name  = user_info.fetch(:name, '')
+
+      logger.info "Login succeed, current user's email: #{email}"
+      logger.info "Login succeed, current user's name:  #{name}"
+      logger_info_blank_line
     end
   end
 end
