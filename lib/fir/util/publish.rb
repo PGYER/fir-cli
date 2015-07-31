@@ -9,9 +9,10 @@ module FIR
       @changelog = options[:changelog].to_s
       @short     = options[:short].to_s
 
-      check_supported_file(@file_path)
-      check_token_cannot_be_blank(@token)
-      fetch_user_info(@token)
+      check_file_exist @file_path
+      check_supported_file @file_path
+      check_token_cannot_be_blank @token
+      fetch_user_info @token
 
       logger.info "Publishing app......."
       logger_info_dividing_line
@@ -26,6 +27,15 @@ module FIR
 
       logger_info_dividing_line
       logger.info "Published succeed: #{fir_api[:domain]}/#{fetch_app_info[:short]}"
+
+      if options[:mapping_file] && options[:project_id]
+        logger_info_blank_line
+
+        mapping options[:mapping_file], project_id: options[:project_id],
+                                        build:      @app_info[:build],
+                                        version:    @app_info[:version],
+                                        token:      @token
+      end
     end
 
     private

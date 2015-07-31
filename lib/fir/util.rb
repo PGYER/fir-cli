@@ -35,9 +35,16 @@ module FIR
         user_info[:uuid]
       end
 
+      def check_file_exist path
+        unless File.file?(path)
+          logger.error "File does not exist"
+          exit 1
+        end
+      end
+
       def check_supported_file path
-        unless File.file?(path) || APP_FILE_TYPE.include?(File.extname(path))
-          logger.error "File does not exist or unsupported file type"
+        unless APP_FILE_TYPE.include?(File.extname(path))
+          logger.error "Unsupported file type"
           exit 1
         end
       end
@@ -54,6 +61,10 @@ module FIR
           logger.error "Please use `fir login` first"
           exit 1
         end
+      end
+
+      def logger_info_blank_line
+        logger.info ""
       end
 
       def logger_info_dividing_line

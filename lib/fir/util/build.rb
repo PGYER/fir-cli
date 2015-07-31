@@ -13,6 +13,11 @@ module FIR
         @build_dir = File.absolute_path(args.shift.to_s) # pop the first param
       end
 
+      @token     = options[:token] || current_token
+      @changelog = options[:changelog].to_s
+      @short     = options[:short].to_s
+      @p_id      = options[:project_id].to_s
+
       @build_tmp_dir = Dir.mktmpdir
       @output_path   = options[:output].blank? ? "#{@build_dir}/fir_build_ipa" : File.absolute_path(options[:output].to_s)
       @ipa_build_cmd = initialize_ipa_build_cmd(args, options)
@@ -26,12 +31,8 @@ module FIR
 
       output_ipa
 
-      logger.info "Build Success"
-
-      if options.publish?
-        ipa_path = Dir["#{@output_path}/*.ipa"].first
-        publish(ipa_path, short: options[:short], changelog: options[:changelog], token: options[:token])
-      end
+      publish_build_ipa if options.publish?
+      upload_build_mapping_file if options.mapping?
     end
 
     def build_apk *args, options
@@ -91,6 +92,27 @@ module FIR
             zip_app2ipa(File.join(@build_tmp_dir, app), ipa_path)
           end
         end
+
+        logger.info "Build Success"
+      end
+
+      def publish_build_ipa
+        logger_info_blank_line
+        publish Dir["#{@output_path}/*.ipa"].first, short:     @short,
+                                                    changelog: @changelog,
+                                                    token:     @token
+      end
+
+      def upload_build_mapping_file
+        logger_info_blank_line
+
+        @app_info     = ipa_info(Dir["#{@output_path}/*.ipa"].first)
+        @mapping_file = Dir["#{@output_path}/*.dSYM/Contents/Resources/DWARF/*"].first
+
+        mapping @mapping_file, project_id: @p_id,
+                               build:      @app_info[:build],
+                               version:    @app_info[:version],
+                               token:      @token
       end
 
       # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }

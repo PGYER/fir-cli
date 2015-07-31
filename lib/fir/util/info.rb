@@ -7,6 +7,7 @@ module FIR
       file_path = File.absolute_path(args.first.to_s)
       is_all    = !options[:all].blank?
 
+      check_file_exist file_path
       check_supported_file file_path
 
       file_type = File.extname(file_path).delete('.')
@@ -18,7 +19,7 @@ module FIR
       app_info.each { |k, v| logger.info "#{k}: #{v}" }
     end
 
-    def ipa_info ipa_path, is_all
+    def ipa_info ipa_path, is_all = false
       ipa = FIR::Parser::Ipa.new(ipa_path)
       app = ipa.app
 
@@ -52,7 +53,7 @@ module FIR
       info
     end
 
-    def apk_info apk_path, is_all
+    def apk_info apk_path, is_all = false
       apk  = Android::Apk.new(apk_path)
       info = {
         type:       'android',
