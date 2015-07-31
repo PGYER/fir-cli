@@ -1,5 +1,12 @@
 ## 更新记录
 
+### FIR-CLI 1.1.7
+- 增加符号表上传指令, `fir mapping(alias m)`
+- 有一下三种方式上传符号表
+- 1. 指定 version 和 build 上传: `fir m <mapping file path> --project_id=<bughd project id> --version=<app version> --build=<app build> -T <your api token>`
+- 2. 在 publish 的时候自动上传: `fir p <app file path> --mapping_file=<mapping file path> --project_id=<bughd project id> -T <your api token>`
+- 3. 在 build_ipa 的时候自动上传: `fir b <project dir> --project_id=<bughd project id> -m -p -T <your api token>`
+
 ### FIR-CLI 1.1.6
 - 不再转换 icon
 
