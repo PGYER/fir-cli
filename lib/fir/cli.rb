@@ -55,8 +55,8 @@ module FIR
 
       Example:
 
-      $ fir p <app file path> [-c <changelog> -s <custom short link>]
-      $ fir p <app file path> [-c <changelog> -s <custom short link> --mapping_file=<mapping file path> --project_id=<bughd project id>]
+      $ fir p <app file path> [-c <changelog> -s <custom short link> -T <your api token>]
+      $ fir p <app file path> [-c <changelog> -s <custom short link> --mapping_file=<mapping file path> --project_id=<bughd project id> -T <your api token>]
     LONGDESC
     map "p" => :publish
     method_option :short,        type: :string, aliases: "-s", desc: "Set custom short link"
@@ -91,7 +91,7 @@ module FIR
 
       Example:
 
-      $ fir m <mapping file path> --project_id=<bughd project id> --version=<app version> --build=<app build>
+      $ fir m <mapping file path> --project_id=<bughd project id> --version=<app version> --build=<app build> -T <your api token>
     LONGDESC
     map "m" => :mapping
     method_option :project_id, type: :string, desc: "Project id in BugHD.com"
