@@ -18,7 +18,7 @@ module FIR
 
       $ fir b <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
 
-      $ fir b <project dir> [-c <changelog> --project_id=<bughd project id> -m -p -T <your api token>]
+      $ fir b <project dir> [-c <changelog> -P <bughd project id> -M -p -T <your api token>]
 
       $ fir b <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
     LONGDESC
@@ -32,8 +32,8 @@ module FIR
     method_option :publish,       type: :boolean, aliases: "-p", desc: "true/false if publish to FIR.im"
     method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
     method_option :changelog,     type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"
-    method_option :mapping,       type: :boolean, aliases: "-m", desc: "true/false if upload app's mapping file to BugHD.com"
-    method_option :project_id,    type: :string,  desc: "Project id in BugHD.com if upload app's mapping file"
+    method_option :mapping,       type: :boolean, aliases: "-M", desc: "true/false if upload app's mapping file to BugHD.com"
+    method_option :proj,          type: :string,  aliases: "-P", desc: "Project id in BugHD.com if upload app's mapping file"
     def build_ipa *args
       prepare :build_ipa
 
@@ -56,13 +56,13 @@ module FIR
       Example:
 
       $ fir p <app file path> [-c <changelog> -s <custom short link> -T <your api token>]
-      $ fir p <app file path> [-c <changelog> -s <custom short link> --mapping_file=<mapping file path> --project_id=<bughd project id> -T <your api token>]
+      $ fir p <app file path> [-c <changelog> -s <custom short link> -m <mapping file path> -P <bughd project id> -T <your api token>]
     LONGDESC
     map "p" => :publish
-    method_option :short,        type: :string, aliases: "-s", desc: "Set custom short link"
-    method_option :changelog,    type: :string, aliases: "-c", desc: "Set changelog"
-    method_option :mapping_file, type: :string, desc: "App's mapping file"
-    method_option :project_id,   type: :string, desc: "Project id in BugHD.com if upload app's mapping file"
+    method_option :short,       type: :string, aliases: "-s", desc: "Set custom short link"
+    method_option :changelog,   type: :string, aliases: "-c", desc: "Set changelog"
+    method_option :mappingfile, type: :string, aliases: "-m", desc: "App's mapping file"
+    method_option :proj,        type: :string, aliases: "-P", desc: "Project id in BugHD.com if upload app's mapping file"
     def publish *args
       prepare :publish
 
@@ -91,12 +91,12 @@ module FIR
 
       Example:
 
-      $ fir m <mapping file path> --project_id=<bughd project id> --version=<app version> --build=<app build> -T <your api token>
+      $ fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your api token>
     LONGDESC
     map "m" => :mapping
-    method_option :project_id, type: :string, desc: "Project id in BugHD.com"
-    method_option :version,    type: :string, desc: "App version"
-    method_option :build,      type: :string, desc: "App build"
+    method_option :proj,    type: :string, aliases: "-P", desc: "Project id in BugHD.com"
+    method_option :version, type: :string, aliases: "-v", desc: "App version"
+    method_option :build,   type: :string, aliases: "-b", desc: "App build"
     def mapping *args
       prepare :mapping
 

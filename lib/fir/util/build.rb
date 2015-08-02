@@ -16,7 +16,7 @@ module FIR
       @token     = options[:token] || current_token
       @changelog = options[:changelog].to_s
       @short     = options[:short].to_s
-      @p_id      = options[:project_id].to_s
+      @proj      = options[:proj].to_s
 
       @build_tmp_dir = Dir.mktmpdir
       @output_path   = options[:output].blank? ? "#{@build_dir}/fir_build_ipa" : File.absolute_path(options[:output].to_s)
@@ -111,10 +111,10 @@ module FIR
         @app_info     = ipa_info(Dir["#{@output_path}/*.ipa"].first)
         @mapping_file = Dir["#{@output_path}/*.dSYM/Contents/Resources/DWARF/*"].first
 
-        mapping @mapping_file, project_id: @p_id,
-                               build:      @app_info[:build],
-                               version:    @app_info[:version],
-                               token:      @token
+        mapping @mapping_file, proj:    @proj,
+                               build:   @app_info[:build],
+                               version: @app_info[:version],
+                               token:   @token
       end
 
       # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
