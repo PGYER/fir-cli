@@ -23,6 +23,22 @@ class Minitest::Test
     File.expand_path('../cases', __FILE__) + '/test_ipa.ipa'
   end
 
+  def default_bughd_project_ios_id
+    '55bb2839692d647a46000004'
+  end
+
+  def default_bughd_project_android_id
+    '55be454a692d351278000002'
+  end
+
+  def default_dsym_mapping
+    File.expand_path('../cases', __FILE__) + '/test_ipa_dsym'
+  end
+
+  def default_txt_mapping
+    File.expand_path('../cases', __FILE__) + '/test_apk_txt'
+  end
+
   def default_device_udid
     "cf8b87e3f469d7b185fd64c057778aecbc2017a6"
   end
