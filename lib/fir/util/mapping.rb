@@ -45,7 +45,7 @@ module FIR
       end
 
       url = bughd_api[:full_version_url] + "/#{@full_version[:id]}"
-      patch url, file: File.new(tmp_file_path, 'rb'), uuid: uuid
+      patch url, file: File.new(tmp_file_path, 'rb'), project_id: @proj, uuid: uuid
     end
 
     private
