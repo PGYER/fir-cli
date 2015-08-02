@@ -28,13 +28,13 @@ module FIR
       logger_info_dividing_line
       logger.info "Published succeed: #{fir_api[:domain]}/#{fetch_app_info[:short]}"
 
-      if options[:mapping_file] && options[:project_id]
+      if options[:mappingfile] && options[:proj]
         logger_info_blank_line
 
-        mapping options[:mapping_file], project_id: options[:project_id],
-                                        build:      @app_info[:build],
-                                        version:    @app_info[:version],
-                                        token:      @token
+        mapping options[:mappingfile], proj:    options[:proj],
+                                       build:   @app_info[:build],
+                                       version: @app_info[:version],
+                                       token:   @token
       end
 
       logger_info_blank_line

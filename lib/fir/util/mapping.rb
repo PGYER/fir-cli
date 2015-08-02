@@ -6,7 +6,7 @@ module FIR
     def mapping *args, options
       @file_path = File.absolute_path(args.first.to_s)
       @token     = options[:token] || current_token
-      @p_id      = options[:project_id].to_s
+      @proj      = options[:proj].to_s
       @version   = options[:version].to_s
       @build     = options[:build].to_s
 
@@ -24,12 +24,12 @@ module FIR
 
       upload_mapping_file
 
-      logger.info "Uploaded succeed: #{bughd_api[:domain]}/project/#{@p_id}/settings"
+      logger.info "Uploaded succeed: #{bughd_api[:domain]}/project/#{@proj}/settings"
       logger_info_blank_line
     end
 
     def find_or_create_bughd_full_version
-      url = bughd_api[:project_url] + "/#{@p_id}/full_versions"
+      url = bughd_api[:project_url] + "/#{@proj}/full_versions"
       post url, version: @version, build: @build, uuid: uuid
     end
 
@@ -51,7 +51,7 @@ module FIR
     private
 
       def check_project_id_cannot_be_blank
-        if @p_id.blank?
+        if @proj.blank?
           logger.error "Project id can't be blank"
           exit 1
         end
