@@ -35,10 +35,10 @@ module FIR
 
     def upload_mapping_file
       if File.is_dsym?(@file_path)
-        tmp_file_path = "#{Dir.tmpdir}/mapping-#{SecureRandom.hex[4..9]}.dSYM"
+        tmp_file_path = "#{Dir.tmpdir}/#{File.basename(@file_path)}-fircli.dSYM"
         FileUtils.cp(@file_path, tmp_file_path)
       elsif File.is_txt?(@file_path)
-        tmp_file_path = "#{Dir.tmpdir}/mapping-#{SecureRandom.hex[4..9]}.txt"
+        tmp_file_path = "#{Dir.tmpdir}/#{File.basename(@file_path)}-fircli.txt"
         FileUtils.cp(@file_path, tmp_file_path)
       else
         tmp_file_path = @file_path
