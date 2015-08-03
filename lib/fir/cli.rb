@@ -91,7 +91,7 @@ module FIR
 
       Example:
 
-      $ fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your api token>
+      $ fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your fir api token>
     LONGDESC
     map "m" => :mapping
     method_option :proj,    type: :string, aliases: "-P", desc: "Project id in BugHD.com"

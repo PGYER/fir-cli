@@ -39,6 +39,7 @@ Commands:
   fir help                                      # Describe available commands or one specific command.
   fir info APP_FILE_PATH                        # Show iOS/Android app's info, support ipa/apk file (aliases: 'i').
   fir login                                     # Login FIR.im (aliases: 'l').
+  fir mapping MAPPING_FILE_PATH                 # Upload app's mapping file to BugHD.com (aliases: 'm').
   fir me                                        # Show current user info if user is logined (aliases: 'm').
   fir publish APP_FILE_PATH                     # Publish iOS/Android app to FIR.im, support ipa/apk file (aliases: 'p').
   fir upgrade                                   # Upgrade FIR-CLI and quit (aliases: u).
@@ -112,21 +113,22 @@ $ fir build_ipa path/to/project -o path/to/output
 ```
 
 ### 复杂一点
-```
+
+```shell
 $ fir b path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PREPROCESSOR_DEFINITIONS="FOO=bar"
 ```
 
 该指令在指向的目录中，找到第一个 workspace 文件，对其进行编译。使用 `Release` 设置，编译策略为 `allTargets`，同时设置了预编译参数 `FOO`。
 
 ### 编译用 CocoaPods 做依赖管理的 .ipa包
-```
-$ fir b path/to/workspace -w -S <scheme name> 
 
+```shell
+$ fir b path/to/workspace -w -S <scheme name>
 ```
 ### 一步, 从源代码到 FIR.im
 > 只需要输入 -p -T
 
-```
+```shell
 $ fir build_ipa path/to/project -o path/to/output -p -T YOUR_FIR_TOKEN
 > I, [2015-02-28T23:14:33.501293 #36861]  INFO -- : Building......
 > I, [2015-02-28T23:14:33.501400 #36861]  INFO -- : ✈ -------------------------------------------- ✈
@@ -138,6 +140,27 @@ $ fir build_ipa path/to/project -o path/to/output -p -T YOUR_FIR_TOKEN
 > ..........
 > I, [2015-02-28T23:14:46.312000 #36861]  INFO -- : ✈ -------------------------------------------- ✈
 > I, [2015-02-28T23:14:48.311900 #36861]  INFO -- : Published succeed: http://fir.im/xxx
+```
+
+### 上传符号表
+
+有以下三种方式上传符号表至 BugHD.com 所对应的项目
+
+> 指定 version 和 build 上传:
+
+```shell
+$ fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your api token>
+```
+
+> 在 publish 的时候自动上传:
+
+```shell
+$ fir p <app file path> -m <mapping file path> -P <bughd project id> -T <your api token>
+```
+> 在 build_ipa 的时候自动上传:
+
+```shell
+$ fir b <project dir> -P <bughd project id> -M -p -T <your api token>
 ```
 
 ## 需要帮助?
