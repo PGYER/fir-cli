@@ -144,7 +144,7 @@ $ fir build_ipa path/to/project -o path/to/output -p -T YOUR_FIR_TOKEN
 
 ### 上传符号表
 
-有以下三种方式上传符号表至 BugHD.com 所对应的项目
+有以下三种方式上传符号表至 [BugHD.com](http://bughd.com) 所对应的项目
 
 > 指定 version 和 build 上传:
 
