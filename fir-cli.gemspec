@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   - 请使用新版 API Token
   - 新版 API Token 查看地址: `http://fir.im/user/info`
   - 增加符号表上传指令, `fir mapping(alias m)`
-  - 有以下三种方式上传符号表
+  - 有以下三种方式上传符号表(目前已经支持 dSYM 和 txt 两种格式的符号表文件上传)
     - 1. 指定 version 和 build 上传: `fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your api token>`
     - 2. 在 publish 的时候自动上传: `fir p <app file path> -m <mapping file path> -P <bughd project id> -T <your api token>`
     - 3. 在 build_ipa 的时候自动上传: `fir b <project dir> -P <bughd project id> -M -p -T <your api token>`
