@@ -1,43 +1,23 @@
 # encoding: utf-8
 
 module FIR
-  module Build
+  module BuildIpa
 
     def build_ipa *args, options
-      # check build environment and make build cmd
-      check_osx
-
-      if args.first.blank? || !File.exist?(args.first)
-        @build_dir = Dir.pwd
-      else
-        @build_dir = File.absolute_path(args.shift.to_s) # pop the first param
-      end
-
-      @token     = options[:token] || current_token
-      @changelog = options[:changelog].to_s
-      @short     = options[:short].to_s
-      @proj      = options[:proj].to_s
+      initialize_build_common_options(args, options)
 
       @build_tmp_dir = Dir.mktmpdir
       @output_path   = options[:output].blank? ? "#{@build_dir}/fir_build_ipa" : File.absolute_path(options[:output].to_s)
-      @ipa_build_cmd = initialize_ipa_build_cmd(args, options)
+      @build_cmd     = initialize_ipa_build_cmd(args, options)
 
-      puts @ipa_build_cmd if $DEBUG
-
-      logger.info "Building......"
-      logger_info_dividing_line
-
-      logger.info `#{@ipa_build_cmd}`
+      logger_info_and_run_build_command
 
       output_ipa
-
-      publish_build_ipa if options.publish?
-      upload_build_mapping_file if options.mapping?
+      @builded_app_path = Dir["#{@output_path}/*.ipa"].first
+      publish_build_app if options.publish?
+      upload_build_dsym_mapping_file if options.mapping?
 
       logger_info_blank_line
-    end
-
-    def build_apk *args, options
     end
 
     private
@@ -98,17 +78,10 @@ module FIR
         logger.info "Build Success"
       end
 
-      def publish_build_ipa
-        logger_info_blank_line
-        publish Dir["#{@output_path}/*.ipa"].first, short:     @short,
-                                                    changelog: @changelog,
-                                                    token:     @token
-      end
-
-      def upload_build_mapping_file
+      def upload_build_dsym_mapping_file
         logger_info_blank_line
 
-        @app_info     = ipa_info(Dir["#{@output_path}/*.ipa"].first)
+        @app_info     = ipa_info(@builded_app_path)
         @mapping_file = Dir["#{@output_path}/*.dSYM/Contents/Resources/DWARF/*"].first
 
         mapping @mapping_file, proj:    @proj,
@@ -126,13 +99,6 @@ module FIR
         end
 
         hash
-      end
-
-      def check_osx
-        unless OS.mac?
-          logger.error "Unsupported OS type, `build_ipa` only support for OSX"
-          exit 1
-        end
       end
 
       def check_and_find_ios_project path

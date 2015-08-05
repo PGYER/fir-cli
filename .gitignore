@@ -8,7 +8,7 @@
 /spec/reports/
 /tmp/
 /fir-cli_tmp/
-/test/build_project/
+/test/projects
 *.bundle
 *.so
 *.o
