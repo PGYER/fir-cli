@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### FIR-CLI 1.1.7
+  ### FIR-CLI 1.1.8
   - 完全兼容新版 API ✔
   - 请使用新版 API Token
   - 新版 API Token 查看地址: `http://fir.im/user/info`
@@ -37,6 +37,8 @@ Gem::Specification.new do |spec|
     - 1. 指定 version 和 build 上传: `fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your api token>`
     - 2. 在 publish 的时候自动上传: `fir p <app file path> -m <mapping file path> -P <bughd project id> -T <your api token>`
     - 3. 在 build_ipa 的时候自动上传: `fir b <project dir> -P <bughd project id> -M -p -T <your api token>`
+  - 支持 gradle 打包 apk 文件并自动上传至 fir.im, `fir build_apk(alias ba)`
+    - `fir ba <project dir> [-c <changelog> -p -T <your api token>]`
   - https://github.com/FIRHQ/fir-cli
   )
 
