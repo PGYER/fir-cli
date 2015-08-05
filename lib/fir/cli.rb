@@ -8,7 +8,7 @@ module FIR
     class_option :quiet,   type: :boolean, aliases: "-q", desc: "Silence commands"
     class_option :help,    type: :boolean, aliases: "-h", desc: "Show this help message and quit"
 
-    desc "build_ipa BUILD_DIR [options] [settings]", "Build iOS app (alias: 'b')."
+    desc "build_ipa BUILD_DIR [options] [settings]", "Build iOS app (alias: 'bi')."
     long_desc <<-LONGDESC
       `build_ipa` command will auto build your project/workspace to an ipa package
       and it also can auto publish your built ipa to FIR.im if use `-p` option.
@@ -16,13 +16,13 @@ module FIR
 
       Example:
 
-      $ fir b <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
+      $ fir bi <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
 
-      $ fir b <project dir> [-c <changelog> -P <bughd project id> -M -p -T <your api token>]
+      $ fir bi <project dir> [-c <changelog> -P <bughd project id> -M -p -T <your api token>]
 
-      $ fir b <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
+      $ fir bi <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
     LONGDESC
-    map ["b", "build"] => :build_ipa
+    map ["b", "bi"] => :build_ipa
     method_option :workspace,     type: :boolean, aliases: "-w", desc: "true/false if build workspace"
     method_option :scheme,        type: :string,  aliases: "-S", desc: "Set the scheme NAME if build workspace"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
@@ -38,6 +38,26 @@ module FIR
       prepare :build_ipa
 
       FIR.build_ipa(*args, options)
+    end
+
+    desc "build_apk BUILD_DIR", "Build Android app (alias: 'ba')."
+    long_desc <<-LONGDESC
+      `build_apk` command will auto build your project to an apk package
+      and it also can auto publish your built apk to FIR.im if use `-p` option.
+      Internally, it use `gradle` to accomplish these things, use `gradle --help` to get more information.
+
+      Example:
+
+      $ fir ba <project dir> [-c <changelog> -p -T <your api token>]
+    LONGDESC
+    map ["ba"] => :build_apk
+    method_option :publish,   type: :boolean, aliases: "-p", desc: "true/false if publish to FIR.im"
+    method_option :short,     type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
+    method_option :changelog, type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"
+    def build_apk *args
+      prepare :build_apk
+
+      FIR.build_apk(*args, options)
     end
 
     desc "info APP_FILE_PATH", "Show iOS/Android app's info, support ipa/apk file (aliases: 'i')."

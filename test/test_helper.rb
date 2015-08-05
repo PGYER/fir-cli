@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'minitest/autorun'
+require 'ostruct'
 require 'fir'
 
 FIR.logger = Logger.new(STDOUT)
@@ -21,6 +22,14 @@ class Minitest::Test
 
   def default_ipa
     File.expand_path('../cases', __FILE__) + '/test_ipa.ipa'
+  end
+
+  def default_ipa_project
+    File.expand_path('../projects', __FILE__) + '/ipa'
+  end
+
+  def default_apk_project
+    File.expand_path('../projects', __FILE__) + '/apk'
   end
 
   def default_bughd_project_ios_id

@@ -6,7 +6,9 @@ require_relative './util/parser'
 require_relative './util/login'
 require_relative './util/me'
 require_relative './util/info'
-require_relative './util/build'
+require_relative './util/build_common'
+require_relative './util/build_ipa'
+require_relative './util/build_apk'
 require_relative './util/publish'
 require_relative './util/mapping'
 
@@ -20,7 +22,9 @@ module FIR
       include FIR::Login
       include FIR::Me
       include FIR::Info
-      include FIR::Build
+      include FIR::BuildCommon
+      include FIR::BuildIpa
+      include FIR::BuildApk
       include FIR::Publish
       include FIR::Mapping
 
