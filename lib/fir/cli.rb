@@ -48,9 +48,10 @@ module FIR
 
       Example:
 
-      $ fir ba <project dir> [-c <changelog> -p -T <your api token>]
+      $ fir ba <project dir> [-o <apk output dir> -c <changelog> -p -T <your api token>]
     LONGDESC
     map ["ba"] => :build_apk
+    method_option :output,    type: :string,  aliases: "-o", desc: "APK output path, the default is: BUILD_DIR/build/outputs/apk"
     method_option :publish,   type: :boolean, aliases: "-p", desc: "true/false if publish to FIR.im"
     method_option :short,     type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
     method_option :changelog, type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"
