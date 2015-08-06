@@ -6,11 +6,16 @@ module FIR
     def build_apk *args, options
       initialize_build_common_options(args, options)
 
-      @build_cmd = initialize_apk_build_cmd(args, options)
+      Dir.chdir(@build_dir)
+
+      @build_cmd   = initialize_apk_build_cmd(args, options)
+      @output_path = options[:output].blank? ? "#{@build_dir}/build/outputs/apk" : File.absolute_path(options[:output].to_s)
 
       logger_info_and_run_build_command
 
-      @builded_app_path = Dir["#{@output_path}/release.apk"].first || Dir["#{@output_path}/*.apk"].first
+      @builded_app_path ||= Dir[@output_path].find { |i| i =~ /release/ }
+      @builded_app_path ||= Dir["#{@output_path}/*.apk"].first
+
       publish_build_app if options.publish?
 
       logger_info_blank_line
