@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-class BuildIpaTest < Minitest::Test
+class BuildAppTest < Minitest::Test
 
-  def test_build_ipa
+  def test_build_app
     if ENV['TEST_BUILD']
       options = OpenStruct.new
       options.send("publish?=", true)
