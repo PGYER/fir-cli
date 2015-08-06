@@ -115,7 +115,7 @@ $ fir build_ipa path/to/project -o path/to/output
 ### 复杂一点
 
 ```shell
-$ fir b path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PREPROCESSOR_DEFINITIONS="FOO=bar"
+$ fir bi path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PREPROCESSOR_DEFINITIONS="FOO=bar"
 ```
 
 该指令在指向的目录中，找到第一个 workspace 文件，对其进行编译。使用 `Release` 设置，编译策略为 `allTargets`，同时设置了预编译参数 `FOO`。
@@ -123,8 +123,15 @@ $ fir b path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PREP
 ### 编译用 CocoaPods 做依赖管理的 .ipa包
 
 ```shell
-$ fir b path/to/workspace -w -S <scheme name>
+$ fir bi path/to/workspace -w -S <scheme name>
 ```
+
+### 编译用 Gradle 打包 apk
+
+```shell
+$ fir ba path/to/project
+```
+
 ### 一步, 从源代码到 FIR.im
 > 只需要输入 -p -T
 
