@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
     - 3. 在 build_ipa 的时候自动上传: `fir b <project dir> -P <bughd project id> -M -p -T <your api token>`
   - 支持 gradle 打包 apk 文件并自动上传至 fir.im, `fir build_apk(alias ba)`
     - `fir ba <project dir> [-o <apk output dir> -c <changelog> -p -T <your api token>]`
-  - https://github.com/FIRHQ/fir-cli
+  - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源, 欢迎 fork, issue 和 pull request
   )
 
   spec.add_development_dependency "bundler", "~> 1.7"
