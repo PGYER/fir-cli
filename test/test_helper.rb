@@ -3,11 +3,9 @@
 require 'minitest/autorun'
 require 'ostruct'
 require 'fir'
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 
-if ENV['TRAVIS']
-  require "codeclimate-test-reporter"
-  CodeClimate::TestReporter.start
-end
 
 FIR.logger = Logger.new(STDOUT)
 

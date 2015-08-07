@@ -20,6 +20,6 @@ notifications:
 branches:
   only:
     - master
-env:
-  global:
-    secure: 7158bd5d0218441524b8663790dd28edba8a870387ed000a1b56968e3315af2a
+addons:
+  code_climate:
+    repo_token: 7158bd5d0218441524b8663790dd28edba8a870387ed000a1b56968e3315af2a
