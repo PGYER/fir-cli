@@ -1,6 +1,7 @@
 FIR.im CLI
 ---
 
+
 ![Build Status Images](https://travis-ci.org/FIRHQ/fir-cli.svg)
 [![Code Climate](https://codeclimate.com/github/FIRHQ/fir-cli/badges/gpa.svg)](https://codeclimate.com/github/FIRHQ/fir-cli)
 [![Test Coverage](https://codeclimate.com/github/FIRHQ/fir-cli/badges/coverage.svg)](https://codeclimate.com/github/FIRHQ/fir-cli/coverage)
