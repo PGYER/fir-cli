@@ -31,15 +31,7 @@ module FIR
         @scheme_name   = options[:scheme]
         @dsym_name     = @wrapper_name + '.dSYM' unless @wrapper_name.blank?
 
-        if options.workspace?
-          workspace = check_and_find_ios_workspace(@build_dir)
-          check_ios_scheme(@scheme_name)
-          ipa_build_cmd += " -workspace '#{workspace}' -scheme '#{@scheme_name}'"
-        else
-          project = check_and_find_ios_project(@build_dir)
-          ipa_build_cmd += " -project '#{project}'"
-        end
-
+        ipa_build_cmd += initialize_xcode_build_path(options)
         ipa_build_cmd += " -configuration '#{@configuration}'" unless @configuration.blank?
         ipa_build_cmd += " -target '#{@target_name}'" unless @target_name.blank?
         ipa_build_cmd += " #{ipa_custom_settings(args)} 2>&1"
@@ -90,53 +82,38 @@ module FIR
                                token:   @token
       end
 
-      # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
-      def parse_ipa_custom_settings args
-        hash = {}
-        args.each do |setting|
-          k, v = setting.split('=', 2).map(&:strip)
-          hash[k] = v
-        end
+      def initialize_xcode_build_path options
+        if options.workspace?
+          workspace = check_and_find_ios_xcworkspace(@build_dir)
+          check_ios_scheme(@scheme_name)
 
-        hash
+          return " -workspace '#{workspace}' -scheme '#{@scheme_name}'"
+        else
+          project = check_and_find_ios_xcodeproj(@build_dir)
+
+          return " -project '#{project}'"
+        end
       end
 
-      def check_and_find_ios_project path
-        unless File.exist?(path)
-          logger.error "The first param BUILD_DIR must be a xcodeproj directory"
-          exit 1
-        end
-
-        if is_ios_project?(path)
-          project = path
-        else
-          project = Dir["#{path}/*.xcodeproj"].first
-          if project.blank?
-            logger.error "The xcodeproj file is missing, check the BUILD_DIR"
+      %w(xcodeproj xcworkspace).each do |workplace|
+        define_method "check_and_find_ios_#{workplace}" do |path|
+          unless File.exist?(path)
+            logger.error "The first param BUILD_DIR must be a #{workplace} directory"
             exit 1
           end
-        end
 
-        project
-      end
-
-      def check_and_find_ios_workspace path
-        unless File.exist?(path)
-          logger.error "The first param BUILD_DIR must be a xcworkspace directory"
-          exit 1
-        end
-
-        if is_ios_workspace?(path)
-          workspace = path
-        else
-          workspace = Dir["#{path}/*.xcworkspace"].first
-          if workspace.blank?
-            logger.error "The xcworkspace file is missing, check the BUILD_DIR"
-            exit 1
+          if File.extname(path) == ".#{workplace}"
+            build_dir = path
+          else
+            build_dir = Dir["#{path}/*.#{workplace}"].first
+            if build_dir.blank?
+              logger.error "The #{workplace} file is missing, check the BUILD_DIR"
+              exit 1
+            end
           end
-        end
 
-        workspace
+          build_dir
+        end
       end
 
       def check_ios_scheme scheme_name
@@ -144,14 +121,6 @@ module FIR
           logger.error "Must provide a scheme by `-S` option when build a workspace"
           exit 1
         end
-      end
-
-      def is_ios_project? path
-        File.extname(path) == '.xcodeproj'
-      end
-
-      def is_ios_workspace? path
-        File.extname(path) == '.xcworkspace'
       end
 
       def zip_app2ipa app_path, ipa_path
@@ -164,6 +133,19 @@ module FIR
           end
         end
       end
+
+      private
+
+        # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
+        def parse_ipa_custom_settings args
+          hash = {}
+          args.each do |setting|
+            k, v = setting.split('=', 2).map(&:strip)
+            hash[k] = v
+          end
+
+          hash
+        end
 
   end
 end
