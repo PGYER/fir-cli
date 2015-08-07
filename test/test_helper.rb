@@ -3,7 +3,7 @@
 require 'minitest/autorun'
 require 'ostruct'
 require 'fir'
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
 

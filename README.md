@@ -3,6 +3,7 @@ FIR.im CLI
 
 ![Build Status Images](https://travis-ci.org/FIRHQ/fir-cli.svg)
 [![Code Climate](https://codeclimate.com/github/FIRHQ/fir-cli/badges/gpa.svg)](https://codeclimate.com/github/FIRHQ/fir-cli)
+[![Test Coverage](https://codeclimate.com/github/FIRHQ/fir-cli/badges/coverage.svg)](https://codeclimate.com/github/FIRHQ/fir-cli/coverage)
 [![Gem Version](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli)
 
 > FIR.im CLI 可以通过指令查看, 上传, 编译应用
