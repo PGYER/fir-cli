@@ -9,10 +9,7 @@ module FIR
       @changelog = options[:changelog].to_s
       @short     = options[:short].to_s
 
-      check_file_exist @file_path
-      check_supported_file @file_path
-      check_token_cannot_be_blank @token
-      fetch_user_info @token
+      check_supported_file_and_token
 
       logger.info "Publishing app......."
       logger_info_dividing_line
@@ -40,93 +37,101 @@ module FIR
       logger_info_blank_line
     end
 
-    private
+    def upload_app
+      @icon_cert   = @uploading_info[:cert][:icon]
+      @binary_cert = @uploading_info[:cert][:binary]
 
-      def upload_app
-        @icon_cert   = @uploading_info[:cert][:icon]
-        @binary_cert = @uploading_info[:cert][:binary]
+      upload_app_icon
+      upload_app_binary
+      upload_device_info
+      update_app_info
+    end
 
-        upload_app_icon
-        upload_app_binary
-        upload_device_info
-        update_app_info
-      end
+    def upload_app_icon
+      unless @app_info[:icons].blank?
+        logger.info "Uploading app's icon......"
 
-      def upload_app_icon
-        unless @app_info[:icons].blank?
-          logger.info "Uploading app's icon......"
-
-          icon_path = @app_info[:icons].max_by { |f| File.size(f) }
-
-          hash = {
-            key:   @icon_cert[:key],
-            token: @icon_cert[:token],
-            file:  File.new(icon_path, "rb")
-          }
-
-          uploaded_info = post(@icon_cert[:upload_url], hash)
-
-          unless uploaded_info[:is_completed]
-            logger.error "Upload app icon failed"
-            exit 1
-          end
-        end
-      end
-
-      def upload_app_binary
-        logger.info "Uploading app......"
+        icon_path = @app_info[:icons].max_by { |f| File.size(f) }
 
         hash = {
-          key:   @binary_cert[:key],
-          token: @binary_cert[:token],
-          file:  File.new(@file_path, "rb"),
-          # Custom variables
-          "x:name"         => @app_info[:display_name] || @app_info[:name],
-          "x:build"        => @app_info[:build],
-          "x:version"      => @app_info[:version],
-          "x:changelog"    => @changelog,
-          "x:release_type" => @app_info[:release_type],
+          key:   @icon_cert[:key],
+          token: @icon_cert[:token],
+          file:  File.new(icon_path, "rb")
         }
 
-        uploaded_info = post(@binary_cert[:upload_url], hash)
+        uploaded_info = post(@icon_cert[:upload_url], hash)
 
         unless uploaded_info[:is_completed]
-          logger.error "Upload app binary failed"
+          logger.error "Upload app icon failed"
           exit 1
         end
       end
+    end
 
-      def upload_device_info
-        unless @app_info[:devices].blank?
-          logger.info "Updating devices info......"
+    def upload_app_binary
+      logger.info "Uploading app......"
 
-          post fir_api[:udids_url], key:       @binary_cert[:key],
-                                    udids:     @app_info[:devices].join(","),
-                                    api_token: @token
-        end
+      hash = {
+        key:   @binary_cert[:key],
+        token: @binary_cert[:token],
+        file:  File.new(@file_path, "rb"),
+        # Custom variables
+        "x:name"         => @app_info[:display_name] || @app_info[:name],
+        "x:build"        => @app_info[:build],
+        "x:version"      => @app_info[:version],
+        "x:changelog"    => @changelog,
+        "x:release_type" => @app_info[:release_type],
+      }
+
+      uploaded_info = post(@binary_cert[:upload_url], hash)
+
+      unless uploaded_info[:is_completed]
+        logger.error "Upload app binary failed"
+        exit 1
+      end
+    end
+
+    def upload_device_info
+      unless @app_info[:devices].blank?
+        logger.info "Updating devices info......"
+
+        post fir_api[:udids_url], key:       @binary_cert[:key],
+                                  udids:     @app_info[:devices].join(","),
+                                  api_token: @token
+      end
+    end
+
+    def update_app_info
+      unless @short.blank?
+        logger.info "Updating app info......"
+
+        patch fir_api[:app_url] + "/#{@app_id}", short:     @short,
+                                                 api_token: @token
+      end
+    end
+
+    def fetch_uploading_info
+      logger.info "Fetching #{@app_info[:identifier]}@FIR.im uploading info......"
+
+      post fir_api[:app_url], type:      @app_info[:type],
+                              bundle_id: @app_info[:identifier],
+                              api_token: @token
+    end
+
+    def fetch_app_info
+      logger.info "Fetch app info from FIR.im"
+
+      get fir_api[:app_url] + "/#{@app_id}", api_token: @token
+    end
+
+    private
+
+      def check_supported_file_and_token
+        check_file_exist @file_path
+        check_supported_file @file_path
+        check_token_cannot_be_blank @token
+        fetch_user_info @token
       end
 
-      def update_app_info
-        unless @short.blank?
-          logger.info "Updating app info......"
-
-          patch fir_api[:app_url] + "/#{@app_id}", short:     @short,
-                                                   api_token: @token
-        end
-      end
-
-      def fetch_uploading_info
-        logger.info "Fetching #{@app_info[:identifier]}@FIR.im uploading info......"
-
-        post fir_api[:app_url], type:      @app_info[:type],
-                                bundle_id: @app_info[:identifier],
-                                api_token: @token
-      end
-
-      def fetch_app_info
-        logger.info "Fetch app info from FIR.im"
-
-        get fir_api[:app_url] + "/#{@app_id}", api_token: @token
-      end
   end
 end
