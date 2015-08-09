@@ -77,6 +77,7 @@ module FIR
       Example:
 
       $ fir p <app file path> [-c <changelog> -s <custom short link> -T <your api token>]
+
       $ fir p <app file path> [-c <changelog> -s <custom short link> -m <mapping file path> -P <bughd project id> -T <your api token>]
     LONGDESC
     map "p" => :publish
