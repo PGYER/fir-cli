@@ -1,5 +1,8 @@
 ## 更新记录
 
+### FIR-CLI 1.1.9
+- 修改显示上的一些小问题
+
 ### FIR-CLI 1.1.8
 - 支持 gradle 打包 apk 文件并自动上传至 fir.im, `fir build_apk(alias ba)`
   - `fir ba <project dir> [-o <apk output dir> -c <changelog> -p -T <your api token>]`
