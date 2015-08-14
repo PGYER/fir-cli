@@ -134,18 +134,17 @@ module FIR
         end
       end
 
-      private
 
-        # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
-        def parse_ipa_custom_settings args
-          hash = {}
-          args.each do |setting|
-            k, v = setting.split('=', 2).map(&:strip)
-            hash[k] = v
-          end
-
-          hash
+      # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
+      def parse_ipa_custom_settings args
+        hash = {}
+        args.each do |setting|
+          k, v = setting.split('=', 2).map(&:strip)
+          hash[k] = v
         end
+
+        hash
+      end
 
   end
 end
