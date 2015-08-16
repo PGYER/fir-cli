@@ -134,7 +134,6 @@ module FIR
         end
       end
 
-
       # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
       def parse_ipa_custom_settings args
         hash = {}

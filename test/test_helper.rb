@@ -51,6 +51,10 @@ class Minitest::Test
     File.expand_path('../cases', __FILE__) + '/test_apk_txt'
   end
 
+  def bigger_txt_mapping
+    File.expand_path('../projects', __FILE__) + '/biggggger.txt'
+  end
+
   def default_device_udid
     "cf8b87e3f469d7b185fd64c057778aecbc2017a6"
   end
