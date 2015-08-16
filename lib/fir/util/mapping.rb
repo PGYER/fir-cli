@@ -34,7 +34,7 @@ module FIR
     end
 
     def upload_mapping_file
-      tmp_file_path = rename_and_zip_mapping_file
+      tmp_file_path = generate_temp_mapping_file
 
       url = bughd_api[:full_version_url] + "/#{@full_version[:id]}"
       patch url, file: File.new(tmp_file_path, 'rb'), project_id: @proj, uuid: uuid
@@ -53,24 +53,30 @@ module FIR
         @uuid ||= fetch_user_uuid(@token)
       end
 
-      def rename_and_zip_mapping_file
+      def generate_temp_mapping_file
         tmp_file_path = "#{Dir.tmpdir}/#{File.basename(@file_path)}-fircli"
         FileUtils.cp(@file_path, tmp_file_path)
 
-        mapping_file_size = File.size?(tmp_file_path)
+        tmp_file_path = zip_mapping_file(tmp_file_path)
+        tmp_file_path = dsym_or_txt_file(tmp_file_path)
 
-        logger.info "Mapping file size - #{mapping_file_size}"
+        tmp_file_path
+      end
 
-       if mapping_file_size > 50*1000*1000
+      def zip_mapping_file tmp_file_path
+        if File.size?(tmp_file_path) > 50*1000*1000
           logger.info "Zipping mapping file......."
 
           system("zip -qr #{tmp_file_path}.zip #{tmp_file_path}")
-
           tmp_file_path = tmp_file_path + '.zip'
 
           logger.info "Zipped Mapping file size - #{File.size?(tmp_file_path)}"
         end
 
+        tmp_file_path
+      end
+
+      def dsym_or_txt_file tmp_file_path
         if File.is_dsym?(@file_path)
           FileUtils.mv(tmp_file_path, tmp_file_path + '.dSYM')
           tmp_file_path = tmp_file_path + '.dSYM'
