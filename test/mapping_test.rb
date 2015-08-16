@@ -12,6 +12,7 @@ class MappingTest < Minitest::Test
     if ENV['TEST_MAPPING']
       assert FIR.mapping(default_dsym_mapping, options.merge(proj: default_bughd_project_ios_id))
       assert FIR.mapping(default_txt_mapping,  options.merge(proj: default_bughd_project_android_id))
+      assert FIR.mapping(bigger_txt_mapping,  options.merge(proj: default_bughd_project_android_id))
     end
   end
 end
