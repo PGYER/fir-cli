@@ -39,18 +39,19 @@ sudo gem install fir-cli
 ```shell
 $ fir
 Commands:
-  fir build_ipa BUILD_DIR [options] [settings]  # Build iOS app (alias: 'b').
+  fir build_apk BUILD_DIR                       # Build Android app (alias: 'ba').
+  fir build_ipa BUILD_DIR [options] [settings]  # Build iOS app (alias: 'bi').
   fir help                                      # Describe available commands or one specific command.
   fir info APP_FILE_PATH                        # Show iOS/Android app's info, support ipa/apk file (aliases: 'i').
   fir login                                     # Login FIR.im (aliases: 'l').
   fir mapping MAPPING_FILE_PATH                 # Upload app's mapping file to BugHD.com (aliases: 'm').
-  fir me                                        # Show current user info if user is logined (aliases: 'm').
+  fir me                                        # Show current user info if user is logined.
   fir publish APP_FILE_PATH                     # Publish iOS/Android app to FIR.im, support ipa/apk file (aliases: 'p').
   fir upgrade                                   # Upgrade FIR-CLI and quit (aliases: u).
   fir version                                   # Show FIR-CLI version number and quit (aliases: v)
 
 Options:
-  -T, [--token=TOKEN]              # User's token at FIR.im
+  -T, [--token=TOKEN]              # User's API Token at FIR.im
   -L, [--logfile=LOGFILE]          # Path to writable logfile
   -V, [--verbose], [--no-verbose]  # Show verbose
                                    # Default: true
@@ -78,14 +79,15 @@ $ fir p path/to/application -T YOUR_FIR_TOKEN
 如果在此之前, 已经使用 `fir login` 命令登录过, 则可省略 `-T` 参数
 
 ```shell
-> I, [2015-02-28T23:14:40.312010 #36861]  INFO -- : Publishing app.......
-> I, [2015-02-28T23:14:45.312000 #36861]  INFO -- : ✈ -------------------------------------------- ✈
-> I, [2015-02-28T23:14:48.311900 #36861]  INFO -- : Converting app's icon......
-> I, [2015-02-28T23:14:48.311900 #36861]  INFO -- : Uploading app's icon......
-> I, [2015-02-28T23:14:48.311900 #36861]  INFO -- : Uploading app......
-> ..........
-> I, [2015-02-28T23:14:46.312000 #36861]  INFO -- : ✈ -------------------------------------------- ✈
-> I, [2015-02-28T23:14:48.311900 #36861]  INFO -- : Published succeed: http://fir.im/xxx
+I, [2015-08-26T10:08:35.447209 #6774]  INFO -- : Publishing app.......
+I, [2015-08-26T10:08:35.447334 #6774]  INFO -- : ✈ -------------------------------------------- ✈
+I, [2015-08-26T10:08:35.514378 #6774]  INFO -- : Fetching xxxx@FIR.im uploading info......
+I, [2015-08-26T10:08:35.692616 #6774]  INFO -- : Uploading app......
+I, [2015-08-26T10:08:36.920226 #6774]  INFO -- : Updating devices info......
+I, [2015-08-26T10:08:37.075149 #6774]  INFO -- : ✈ -------------------------------------------- ✈
+I, [2015-08-26T10:08:37.075238 #6774]  INFO -- : Fetch app info from FIR.im
+I, [2015-08-26T10:08:37.235071 #6774]  INFO -- : Published succeed: http://fir.im/xxxx
+I, [2015-08-26T10:08:37.235155 #6774]  INFO -- :
 ```
 
 ### 方便一点
@@ -99,9 +101,10 @@ $ fir l
 这时系统会提示输入用户 token, 用户 token 可在 **[这里](http://fir.im/user/info)** 查看
 
 ```shell
-> Please enter your FIR.im token:
-> I, [2015-03-01T18:26:42.718715 #38624]  INFO -- : Login succeed, current  user's email: xxx@fir.im
-
+Please enter your FIR.im API Token:
+I, [2015-08-26T10:10:28.235295 #6833]  INFO -- : Login succeed, previous user's email: xxx@xxx.com
+I, [2015-08-26T10:10:28.245083 #6833]  INFO -- : Login succeed, current  user's email: xxx@xxx.com
+I, [2015-08-26T10:10:28.245152 #6833]  INFO -- :
 ```
 
 ### 编译并获得 ipa
@@ -109,11 +112,14 @@ $ fir l
 
 ```
 $ fir build_ipa path/to/project -o path/to/output
-> I, [2015-02-28T23:14:33.501293 #36861]  INFO -- : Building......
-> I, [2015-02-28T23:14:33.501400 #36861]  INFO -- : ✈ -------------------------------------------- ✈
-> I, [2015-02-28T23:14:38.311632 #36861]  INFO -- : Build settings from command line:
-> ..........
-> I, [2015-02-28T23:14:38.312012 #36861]  INFO -- : Build Success
+I, [2015-08-26T10:11:12.105103 #7167]  INFO -- : Building......
+I, [2015-08-26T10:11:12.105175 #7167]  INFO -- : ✈ -------------------------------------------- ✈
+I, [2015-08-26T10:11:18.500887 #7167]  INFO -- : Build settings from command line:
+
+..........
+
+I, [2015-08-26T10:11:18.535498 #7167]  INFO -- : Build Success
+I, [2015-08-26T10:11:18.535704 #7167]  INFO -- :
 ```
 
 ### 复杂一点
@@ -141,16 +147,24 @@ $ fir ba path/to/project
 
 ```shell
 $ fir build_ipa path/to/project -o path/to/output -p -T YOUR_FIR_TOKEN
-> I, [2015-02-28T23:14:33.501293 #36861]  INFO -- : Building......
-> I, [2015-02-28T23:14:33.501400 #36861]  INFO -- : ✈ -------------------------------------------- ✈
-> I, [2015-02-28T23:14:38.311632 #36861]  INFO -- : Build settings from command line:
-> ..........
-> I, [2015-02-28T23:14:38.312012 #36861]  INFO -- : Build Success
-> I, [2015-02-28T23:14:40.312010 #36861]  INFO -- : Publishing app.......
-> I, [2015-02-28T23:14:45.312000 #36861]  INFO -- : ✈ -------------------------------------------- ✈
-> ..........
-> I, [2015-02-28T23:14:46.312000 #36861]  INFO -- : ✈ -------------------------------------------- ✈
-> I, [2015-02-28T23:14:48.311900 #36861]  INFO -- : Published succeed: http://fir.im/xxx
+I, [2015-08-26T10:11:59.687221 #7273]  INFO -- : Building......
+I, [2015-08-26T10:11:59.687301 #7273]  INFO -- : ✈ -------------------------------------------- ✈
+I, [2015-08-26T10:12:00.868774 #7273]  INFO -- : Build settings from command line:
+
+..........
+
+I, [2015-08-26T10:12:00.893819 #7273]  INFO -- : Build Success
+I, [2015-08-26T10:12:00.894051 #7273]  INFO -- :
+I, [2015-08-26T10:12:01.026832 #7273]  INFO -- : Publishing app.......
+I, [2015-08-26T10:12:01.026905 #7273]  INFO -- : ✈ -------------------------------------------- ✈
+I, [2015-08-26T10:12:01.098759 #7273]  INFO -- : Fetching im.fir.OnlyiPad@FIR.im uploading info......
+I, [2015-08-26T10:12:01.249832 #7273]  INFO -- : Uploading app......
+I, [2015-08-26T10:12:01.859718 #7273]  INFO -- : Updating devices info......
+I, [2015-08-26T10:12:02.015517 #7273]  INFO -- : ✈ -------------------------------------------- ✈
+I, [2015-08-26T10:12:02.015588 #7273]  INFO -- : Fetch app info from FIR.im
+I, [2015-08-26T10:12:02.210391 #7273]  INFO -- : Published succeed: http://fir.im/xxxx
+I, [2015-08-26T10:12:02.210459 #7273]  INFO -- :
+I, [2015-08-26T10:12:02.210520 #7273]  INFO -- :
 ```
 
 ### 上传符号表

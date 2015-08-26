@@ -27,7 +27,7 @@ module FIR
     method_option :scheme,        type: :string,  aliases: "-S", desc: "Set the scheme NAME if build workspace"
     method_option :configuration, type: :string,  aliases: "-C", desc: "Use the build configuration NAME for building each target"
     method_option :target,        type: :string,  aliases: "-t", desc: "Build the target specified by targetname"
-    method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path, the default is: BUILD_DIR/build_ipa"
+    method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path, the default is: BUILD_DIR/fir_build_ipa"
     method_option :name,          type: :string,  aliases: "-n", desc: "IPA name, the default is: YOUR PROJECT NAME"
     method_option :publish,       type: :boolean, aliases: "-p", desc: "true/false if publish to FIR.im"
     method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
@@ -129,6 +129,7 @@ module FIR
     map "u" => :upgrade
     def upgrade
       prepare :upgrade
+
       say "✈ Upgrade FIR-CLI (use `gem install fir-cli --no-ri --no-rdoc`)"
       say `gem install fir-cli --no-ri --no-rdoc`
     end
@@ -149,6 +150,7 @@ module FIR
       def invoke_command command, *args
         logfile = options[:logfile].blank? ? STDOUT : options[:logfile]
         logfile = '/dev/null' if options[:quiet]
+
         FIR.logger       = Logger.new(logfile)
         FIR.logger.level = options[:verbose] ? Logger::INFO : Logger::ERROR
         super

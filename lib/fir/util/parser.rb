@@ -42,7 +42,7 @@ module FIR
 
       def contents
         return if @contents
-        @contents = "fir-cli_tmp/ipa_files-#{Time.now.to_i}"
+        @contents = "#{Dir.tmpdir}/ipa_files-#{Time.now.to_i}"
 
         Zip::File.open(@path) do |zip_file|
           zip_file.each do |f|

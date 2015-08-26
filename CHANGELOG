@@ -1,5 +1,8 @@
 ## 更新记录
 
+### FIR-CLI 1.2.1
+- fix #12, 去掉 fir-cli_tmp 目录
+
 ### FIR-CLI 1.2.0
 - 支持 zip 符号表文件上传
 
