@@ -28,17 +28,11 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### FIR-CLI 1.2.1
+  ### FIR-CLI 1.2.2
   - 完全兼容新版 API ✔
   - 请使用新版 API Token
   - 新版 API Token 查看地址: `http://fir.im/user/info`
-  - 增加符号表上传指令, `fir mapping(alias m)`
-  - 有以下三种方式上传符号表(目前已经支持 dSYM 和 txt 两种格式的符号表文件上传, 并自动处理大文件压缩)
-    - 1. 指定 version 和 build 上传: `fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your api token>`
-    - 2. 在 publish 的时候自动上传: `fir p <app file path> -m <mapping file path> -P <bughd project id> -T <your api token>`
-    - 3. 在 build_ipa 的时候自动上传: `fir b <project dir> -P <bughd project id> -M -p -T <your api token>`
-  - 支持 gradle 打包 apk 文件并自动上传至 fir.im, `fir build_apk(alias ba)`
-    - `fir ba <project dir> [-o <apk output dir> -c <changelog> -p -T <your api token>]`
+  - 修正不同系统非 UTF-8 编码问题
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源, 欢迎 fork, issue 和 pull request
   )
 
