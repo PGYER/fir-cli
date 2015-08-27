@@ -216,3 +216,13 @@ class File
     end
   end
 end
+
+class String
+
+  # Convert String encoding to UTF-8
+  #
+  # @return string
+  def to_utf8
+    self.encode(Encoding.find('UTF-8'), invalid: :replace, undef: :replace, replace: '')
+  end
+end

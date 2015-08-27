@@ -3,7 +3,7 @@
 class BuildAppTest < Minitest::Test
 
   def test_build_app
-    if ENV['TEST_BUILD']
+    if ENV['BUILD_TEST']
       options = OpenStruct.new
       options.send("publish?=", true)
 

@@ -6,7 +6,7 @@ module FIR
     def publish *args, options
       @file_path = File.absolute_path(args.first.to_s)
       @token     = options[:token] || current_token
-      @changelog = options[:changelog].to_s
+      @changelog = options[:changelog].to_s.to_utf8
       @short     = options[:short].to_s
 
       check_supported_file_and_token
