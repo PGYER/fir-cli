@@ -2,7 +2,7 @@
 
 module FIR
   class CLI < Thor
-    class_option :token,   type: :string,  aliases: "-T", desc: "User's API Token at FIR.im"
+    class_option :token,   type: :string,  aliases: "-T", desc: "User's API Token at fir.im"
     class_option :logfile, type: :string,  aliases: "-L", desc: "Path to writable logfile"
     class_option :verbose, type: :boolean, aliases: "-V", desc: "Show verbose", default: true
     class_option :quiet,   type: :boolean, aliases: "-q", desc: "Silence commands"
@@ -11,7 +11,7 @@ module FIR
     desc "build_ipa BUILD_DIR [options] [settings]", "Build iOS app (alias: 'bi')."
     long_desc <<-LONGDESC
       `build_ipa` command will auto build your project/workspace to an ipa package
-      and it also can auto publish your built ipa to FIR.im if use `-p` option.
+      and it also can auto publish your built ipa to fir.im if use `-p` option.
       Internally, it use `xcodebuild` to accomplish these things, use `man xcodebuild` to get more information.
 
       Example:
@@ -29,9 +29,9 @@ module FIR
     method_option :target,        type: :string,  aliases: "-t", desc: "Build the target specified by targetname"
     method_option :output,        type: :string,  aliases: "-o", desc: "IPA output path, the default is: BUILD_DIR/fir_build_ipa"
     method_option :name,          type: :string,  aliases: "-n", desc: "IPA name, the default is: YOUR PROJECT NAME"
-    method_option :publish,       type: :boolean, aliases: "-p", desc: "true/false if publish to FIR.im"
-    method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
-    method_option :changelog,     type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"
+    method_option :publish,       type: :boolean, aliases: "-p", desc: "true/false if publish to fir.im"
+    method_option :short,         type: :string,  aliases: "-s", desc: "Set custom short link if publish to fir.im"
+    method_option :changelog,     type: :string,  aliases: "-c", desc: "Set changelog if publish to fir.im"
     method_option :mapping,       type: :boolean, aliases: "-M", desc: "true/false if upload app's mapping file to BugHD.com"
     method_option :proj,          type: :string,  aliases: "-P", desc: "Project id in BugHD.com if upload app's mapping file"
     def build_ipa *args
@@ -43,7 +43,7 @@ module FIR
     desc "build_apk BUILD_DIR", "Build Android app (alias: 'ba')."
     long_desc <<-LONGDESC
       `build_apk` command will auto build your project to an apk package
-      and it also can auto publish your built apk to FIR.im if use `-p` option.
+      and it also can auto publish your built apk to fir.im if use `-p` option.
       Internally, it use `gradle` to accomplish these things, use `gradle --help` to get more information.
 
       Example:
@@ -52,9 +52,9 @@ module FIR
     LONGDESC
     map ["ba"] => :build_apk
     method_option :output,    type: :string,  aliases: "-o", desc: "APK output path, the default is: BUILD_DIR/build/outputs/apk"
-    method_option :publish,   type: :boolean, aliases: "-p", desc: "true/false if publish to FIR.im"
-    method_option :short,     type: :string,  aliases: "-s", desc: "Set custom short link if publish to FIR.im"
-    method_option :changelog, type: :string,  aliases: "-c", desc: "Set changelog if publish to FIR.im"
+    method_option :publish,   type: :boolean, aliases: "-p", desc: "true/false if publish to fir.im"
+    method_option :short,     type: :string,  aliases: "-s", desc: "Set custom short link if publish to fir.im"
+    method_option :changelog, type: :string,  aliases: "-c", desc: "Set changelog if publish to fir.im"
     def build_apk *args
       prepare :build_apk
 
@@ -70,9 +70,9 @@ module FIR
       FIR.info(*args, options)
     end
 
-    desc "publish APP_FILE_PATH", "Publish iOS/Android app to FIR.im, support ipa/apk file (aliases: 'p')."
+    desc "publish APP_FILE_PATH", "Publish iOS/Android app to fir.im, support ipa/apk file (aliases: 'p')."
     long_desc <<-LONGDESC
-      `publish` command will publish your app file to FIR.im, also the command support to publish app's short & changelog.
+      `publish` command will publish your app file to fir.im, also the command support to publish app's short & changelog.
 
       Example:
 
@@ -91,12 +91,12 @@ module FIR
       FIR.publish(*args, options)
     end
 
-    desc "login", "Login FIR.im (aliases: 'l')."
+    desc "login", "Login fir.im (aliases: 'l')."
     map "l" => :login
     def login *args
       prepare :login
 
-      token = options[:token] || args.first || ask("Please enter your FIR.im API Token:", :white, echo: true)
+      token = options[:token] || args.first || ask("Please enter your fir.im API Token:", :white, echo: true)
       FIR.login(token)
     end
 
@@ -125,19 +125,19 @@ module FIR
       FIR.mapping(*args, options)
     end
 
-    desc "upgrade", "Upgrade FIR-CLI and quit (aliases: u)."
+    desc "upgrade", "Upgrade fir-cli and quit (aliases: u)."
     map "u" => :upgrade
     def upgrade
       prepare :upgrade
 
-      say "✈ Upgrade FIR-CLI (use `gem install fir-cli --no-ri --no-rdoc`)"
+      say "✈ Upgrade fir-cli (use `gem install fir-cli --no-ri --no-rdoc`)"
       say `gem install fir-cli --no-ri --no-rdoc`
     end
 
-    desc "version", "Show FIR-CLI version number and quit (aliases: v)"
+    desc "version", "Show fir-cli version number and quit (aliases: v)"
     map ["v", "-v", "--version"] => :version
     def version
-      say "✈ FIR-CLI #{FIR::VERSION}"
+      say "✈ fir-cli #{FIR::VERSION}"
     end
 
     desc "help", "Describe available commands or one specific command."

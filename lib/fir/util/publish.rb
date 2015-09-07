@@ -111,7 +111,7 @@ module FIR
     end
 
     def fetch_uploading_info
-      logger.info "Fetching #{@app_info[:identifier]}@FIR.im uploading info......"
+      logger.info "Fetching #{@app_info[:identifier]}@fir.im uploading info......"
 
       post fir_api[:app_url], type:      @app_info[:type],
                               bundle_id: @app_info[:identifier],
@@ -119,7 +119,7 @@ module FIR
     end
 
     def fetch_app_info
-      logger.info "Fetch app info from FIR.im"
+      logger.info "Fetch app info from fir.im"
 
       get fir_api[:app_url] + "/#{@app_id}", api_token: @token
     end
