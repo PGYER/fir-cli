@@ -22,7 +22,7 @@ module FIR
       @config = YAML.load_file(CONFIG_PATH).deep_symbolize_keys
     end
 
-    def write_config hash
+    def write_config(hash)
       File.open(CONFIG_PATH, 'w+') { |f| f << YAML.dump(hash) }
     end
 

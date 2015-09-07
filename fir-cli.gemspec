@@ -7,11 +7,11 @@ require 'fir/version'
 Gem::Specification.new do |spec|
   spec.name          = "fir-cli"
   spec.version       = FIR::VERSION
-  spec.authors       = ["FIR.im", "NaixSpirit"]
+  spec.authors       = ["NaixSpirit"]
   spec.email         = ["dev@fir.im"]
   spec.date          = Time.now.strftime("%Y-%m-%d")
-  spec.summary       = %q{FIR.im command tool}
-  spec.description   = %q{FIR.im command tool, support iOS and Android}
+  spec.summary       = %q{fir.im command tool}
+  spec.description   = %q{fir.im command tool, support iOS and Android}
   spec.homepage      = "http://blog.fir.im/fir_cli"
   spec.license       = "MIT"
 
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### FIR-CLI 1.2.2
+  ### fir-cli 1.2.2
   - 完全兼容新版 API ✔
   - 请使用新版 API Token
   - 新版 API Token 查看地址: `http://fir.im/user/info`

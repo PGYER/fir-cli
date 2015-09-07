@@ -3,7 +3,7 @@
 module FIR
   module BuildApk
 
-    def build_apk *args, options
+    def build_apk(*args, options)
       initialize_build_common_options(args, options)
 
       Dir.chdir(@build_dir)
@@ -23,7 +23,7 @@ module FIR
 
     private
 
-      def initialize_apk_build_cmd args, options
+      def initialize_apk_build_cmd(args, options)
         check_build_gradle_exist
 
         apk_build_cmd = "gradle clean;gradle build"

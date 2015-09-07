@@ -3,7 +3,7 @@
 module FIR
   module BuildIpa
 
-    def build_ipa *args, options
+    def build_ipa(*args, options)
       initialize_build_common_options(args, options)
 
       @build_tmp_dir = Dir.mktmpdir
@@ -22,7 +22,7 @@ module FIR
 
     private
 
-      def initialize_ipa_build_cmd args, options
+      def initialize_ipa_build_cmd(args, options)
         ipa_build_cmd = "xcodebuild build -sdk iphoneos"
 
         @configuration = options[:configuration]
@@ -39,7 +39,7 @@ module FIR
         ipa_build_cmd
       end
 
-      def ipa_custom_settings args
+      def ipa_custom_settings(args)
         custom_settings = parse_ipa_custom_settings(args)
 
         # convert { "a" => "1", "b" => "2" } => "a='1' b='2'"
@@ -82,7 +82,7 @@ module FIR
                                token:   @token
       end
 
-      def initialize_xcode_build_path options
+      def initialize_xcode_build_path(options)
         if options.workspace?
           workspace = check_and_find_ios_xcworkspace(@build_dir)
           check_ios_scheme(@scheme_name)
@@ -116,14 +116,14 @@ module FIR
         end
       end
 
-      def check_ios_scheme scheme_name
+      def check_ios_scheme(scheme_name)
         if scheme_name.blank?
           logger.error "Must provide a scheme by `-S` option when build a workspace"
           exit 1
         end
       end
 
-      def zip_app2ipa app_path, ipa_path
+      def zip_app2ipa(app_path, ipa_path)
         Dir.mktmpdir do |tmpdir|
           Dir.chdir(tmpdir) do
             Dir.mkdir("Payload")
@@ -135,7 +135,7 @@ module FIR
       end
 
       # convert ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
-      def parse_ipa_custom_settings args
+      def parse_ipa_custom_settings(args)
         hash = {}
         args.each do |setting|
           k, v = setting.split('=', 2).map(&:strip)

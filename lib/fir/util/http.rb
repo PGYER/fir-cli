@@ -5,7 +5,7 @@ module FIR
 
     DEFAULT_TIMEOUT = 300
 
-    def get url, params = {}
+    def get(url, params = {})
       begin
         res = ::RestClient::Request.execute(
           method:  :get,

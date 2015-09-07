@@ -3,7 +3,7 @@
 module FIR
   module Mapping
 
-    def mapping *args, options
+    def mapping(*args, options)
       @file_path = File.absolute_path(args.first.to_s)
       @token     = options[:token] || current_token
       @proj      = options[:proj].to_s
@@ -63,7 +63,7 @@ module FIR
         tmp_file_path
       end
 
-      def zip_mapping_file tmp_file_path
+      def zip_mapping_file(tmp_file_path)
         if File.size?(tmp_file_path) > 50*1000*1000
           logger.info "Zipping mapping file......."
 
@@ -76,7 +76,7 @@ module FIR
         tmp_file_path
       end
 
-      def dsym_or_txt_file tmp_file_path
+      def dsym_or_txt_file(tmp_file_path)
         if File.is_dsym?(@file_path)
           FileUtils.mv(tmp_file_path, tmp_file_path + '.dSYM')
           tmp_file_path = tmp_file_path + '.dSYM'

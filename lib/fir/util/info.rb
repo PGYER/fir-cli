@@ -3,7 +3,7 @@
 module FIR
   module Info
 
-    def info *args, options
+    def info(*args, options)
       file_path = File.absolute_path(args.first.to_s)
       is_all    = !options[:all].blank?
 
@@ -21,7 +21,7 @@ module FIR
       logger_info_blank_line
     end
 
-    def ipa_info ipa_path, is_all = false
+    def ipa_info(ipa_path, is_all = false)
       ipa = FIR::Parser::Ipa.new(ipa_path)
       app = ipa.app
 
@@ -55,7 +55,7 @@ module FIR
       info
     end
 
-    def apk_info apk_path, is_all = false
+    def apk_info(apk_path, is_all = false)
       apk  = Android::Apk.new(apk_path)
       info = {
         type:       'android',

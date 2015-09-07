@@ -3,7 +3,7 @@
 module FIR
   module Publish
 
-    def publish *args, options
+    def publish(*args, options)
       @file_path = File.absolute_path(args.first.to_s)
       @token     = options[:token] || current_token
       @changelog = options[:changelog].to_s.to_utf8

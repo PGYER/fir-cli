@@ -143,7 +143,7 @@ module FIR
 
         private
 
-          def get_image name
+          def get_image(name)
             path = File.join(@path, "#{name}.png")
             return nil unless File.exist?(path)
             path

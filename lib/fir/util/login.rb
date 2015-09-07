@@ -3,7 +3,7 @@
 module FIR
   module Login
 
-    def login token
+    def login(token)
       check_token_cannot_be_blank token
 
       user_info = fetch_user_info(token)

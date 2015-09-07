@@ -3,7 +3,7 @@
 module FIR
   module BuildCommon
 
-    def initialize_build_common_options args, options
+    def initialize_build_common_options(args, options)
       if args.first.blank? || !File.exist?(args.first)
         @build_dir = Dir.pwd
       else

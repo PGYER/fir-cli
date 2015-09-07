@@ -34,7 +34,7 @@ module FIR
     method_option :changelog,     type: :string,  aliases: "-c", desc: "Set changelog if publish to fir.im"
     method_option :mapping,       type: :boolean, aliases: "-M", desc: "true/false if upload app's mapping file to BugHD.com"
     method_option :proj,          type: :string,  aliases: "-P", desc: "Project id in BugHD.com if upload app's mapping file"
-    def build_ipa *args
+    def build_ipa(*args)
       prepare :build_ipa
 
       FIR.build_ipa(*args, options)
@@ -55,7 +55,7 @@ module FIR
     method_option :publish,   type: :boolean, aliases: "-p", desc: "true/false if publish to fir.im"
     method_option :short,     type: :string,  aliases: "-s", desc: "Set custom short link if publish to fir.im"
     method_option :changelog, type: :string,  aliases: "-c", desc: "Set changelog if publish to fir.im"
-    def build_apk *args
+    def build_apk(*args)
       prepare :build_apk
 
       FIR.build_apk(*args, options)
@@ -64,7 +64,7 @@ module FIR
     desc "info APP_FILE_PATH", "Show iOS/Android app's info, support ipa/apk file (aliases: 'i')."
     map "i" => :info
     method_option :all, type: :boolean, aliases: "-a", desc: "Show all information in application"
-    def info *args
+    def info(*args)
       prepare :info
 
       FIR.info(*args, options)
@@ -85,7 +85,7 @@ module FIR
     method_option :changelog,   type: :string, aliases: "-c", desc: "Set changelog"
     method_option :mappingfile, type: :string, aliases: "-m", desc: "App's mapping file"
     method_option :proj,        type: :string, aliases: "-P", desc: "Project id in BugHD.com if upload app's mapping file"
-    def publish *args
+    def publish(*args)
       prepare :publish
 
       FIR.publish(*args, options)
@@ -93,7 +93,7 @@ module FIR
 
     desc "login", "Login fir.im (aliases: 'l')."
     map "l" => :login
-    def login *args
+    def login(*args)
       prepare :login
 
       token = options[:token] || args.first || ask("Please enter your fir.im API Token:", :white, echo: true)
@@ -101,7 +101,7 @@ module FIR
     end
 
     desc "me", "Show current user info if user is logined."
-    def me *args
+    def me(*args)
       prepare :me
 
       FIR.me
@@ -119,7 +119,7 @@ module FIR
     method_option :proj,    type: :string, aliases: "-P", desc: "Project id in BugHD.com"
     method_option :version, type: :string, aliases: "-v", desc: "App version"
     method_option :build,   type: :string, aliases: "-b", desc: "App build"
-    def mapping *args
+    def mapping(*args)
       prepare :mapping
 
       FIR.mapping(*args, options)
@@ -142,12 +142,12 @@ module FIR
 
     desc "help", "Describe available commands or one specific command."
     map Thor::HELP_MAPPINGS => :help
-    def help command = nil, subcommand = false
+    def help(command = nil, subcommand = false)
       super
     end
 
     no_commands do
-      def invoke_command command, *args
+      def invoke_command(command, *args)
         logfile = options[:logfile].blank? ? STDOUT : options[:logfile]
         logfile = '/dev/null' if options[:quiet]
 
@@ -159,7 +159,7 @@ module FIR
 
     private
 
-      def prepare task
+      def prepare(task)
         if options.help?
           help(task.to_s)
           raise SystemExit
