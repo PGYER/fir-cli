@@ -1,4 +1,4 @@
-FIR.im CLI
+fir.im-cli
 ---
 
 ![Build Status Images](https://travis-ci.org/FIRHQ/fir-cli.svg)
@@ -7,12 +7,12 @@ FIR.im CLI
 [![Gem Version](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/FIRHQ/fir-cli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-> FIR.im CLI 可以通过指令查看, 上传, 编译应用
+> fir.im-cli 可以通过指令查看, 上传, 编译应用
 
 ## 使用入门
 ### 从安装入手
 
-FIR.im CLI 使用 Ruby 构建，只要安装相应 ruby gem 即可:
+fir.im-cli 使用 Ruby 构建，只要安装相应 ruby gem 即可:
 
 ```shell
 $ sudo gem install fir-cli
@@ -61,8 +61,8 @@ Options:
 ### 参数说明
 
 - `alias <short command>` 意味着可以用 alias 别名来代替该指令, 例如 `fir b`
-- `-T` 用户在 FIR.im 上的 api_token, `publish` 需要使用此参数
-- `-L` 指定 FIR-CLI 的输出 log, 默认为 STDOUT
+- `-T` 用户在 fir.im 上的 api_token, `publish` 需要使用此参数
+- `-L` 指定 fir-cli 的输出 log, 默认为 STDOUT
 - `-V` Verbose, 默认为输出所有信息( INFO 和 ERROR), 如果设置 `--no-verbose`, 则只输出 ERROR 信息
 - `-q` 静默模式, 默认关闭
 - `-h` 查看帮助
@@ -80,11 +80,11 @@ $ fir p path/to/application -T YOUR_FIR_TOKEN
 ```shell
 I, [2015-08-26T10:08:35.447209 #6774]  INFO -- : Publishing app.......
 I, [2015-08-26T10:08:35.447334 #6774]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:08:35.514378 #6774]  INFO -- : Fetching xxxx@FIR.im uploading info......
+I, [2015-08-26T10:08:35.514378 #6774]  INFO -- : Fetching xxxx@fir.im uploading info......
 I, [2015-08-26T10:08:35.692616 #6774]  INFO -- : Uploading app......
 I, [2015-08-26T10:08:36.920226 #6774]  INFO -- : Updating devices info......
 I, [2015-08-26T10:08:37.075149 #6774]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:08:37.075238 #6774]  INFO -- : Fetch app info from FIR.im
+I, [2015-08-26T10:08:37.075238 #6774]  INFO -- : Fetch app info from fir.im
 I, [2015-08-26T10:08:37.235071 #6774]  INFO -- : Published succeed: http://fir.im/xxxx
 I, [2015-08-26T10:08:37.235155 #6774]  INFO -- :
 ```
@@ -100,7 +100,7 @@ $ fir l
 这时系统会提示输入用户 token, 用户 token 可在 **[这里](http://fir.im/user/info)** 查看
 
 ```shell
-Please enter your FIR.im API Token:
+Please enter your fir.im API Token:
 I, [2015-08-26T10:10:28.235295 #6833]  INFO -- : Login succeed, previous user's email: xxx@xxx.com
 I, [2015-08-26T10:10:28.245083 #6833]  INFO -- : Login succeed, current  user's email: xxx@xxx.com
 I, [2015-08-26T10:10:28.245152 #6833]  INFO -- :
@@ -141,7 +141,7 @@ $ fir bi path/to/workspace -w -S <scheme name>
 $ fir ba path/to/project
 ```
 
-### 一步, 从源代码到 FIR.im
+### 一步, 从源代码到 fir.im
 > 只需要输入 -p -T
 
 ```shell
@@ -156,11 +156,11 @@ I, [2015-08-26T10:12:00.893819 #7273]  INFO -- : Build Success
 I, [2015-08-26T10:12:00.894051 #7273]  INFO -- :
 I, [2015-08-26T10:12:01.026832 #7273]  INFO -- : Publishing app.......
 I, [2015-08-26T10:12:01.026905 #7273]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:12:01.098759 #7273]  INFO -- : Fetching im.fir.OnlyiPad@FIR.im uploading info......
+I, [2015-08-26T10:12:01.098759 #7273]  INFO -- : Fetching im.fir.OnlyiPad@fir.im uploading info......
 I, [2015-08-26T10:12:01.249832 #7273]  INFO -- : Uploading app......
 I, [2015-08-26T10:12:01.859718 #7273]  INFO -- : Updating devices info......
 I, [2015-08-26T10:12:02.015517 #7273]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:12:02.015588 #7273]  INFO -- : Fetch app info from FIR.im
+I, [2015-08-26T10:12:02.015588 #7273]  INFO -- : Fetch app info from fir.im
 I, [2015-08-26T10:12:02.210391 #7273]  INFO -- : Published succeed: http://fir.im/xxxx
 I, [2015-08-26T10:12:02.210459 #7273]  INFO -- :
 I, [2015-08-26T10:12:02.210520 #7273]  INFO -- :
@@ -200,7 +200,7 @@ $ fir publish -h
 
 ## 永远使用最新功能
 
-下面的指令会自动更新 FIR-CLI
+下面的指令会自动更新 fir-cli
 
 ```shell
 $ fir upgrade
