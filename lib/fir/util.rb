@@ -62,7 +62,7 @@ module FIR
       end
 
       def check_logined
-        return if current_token.blank?
+        return unless current_token.blank?
 
         logger.error 'Please use `fir login` first'
         exit 1
