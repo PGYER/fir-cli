@@ -6,11 +6,9 @@ require 'fir'
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
-
 FIR.logger = Logger.new(STDOUT)
 
 class Minitest::Test
-
   def default_token
     '2dd8a99ef9d19c540bb583624b939960'
   end
@@ -56,7 +54,7 @@ class Minitest::Test
   end
 
   def default_device_udid
-    "cf8b87e3f469d7b185fd64c057778aecbc2017a6"
+    'cf8b87e3f469d7b185fd64c057778aecbc2017a6'
   end
 
   def default_distribution_name

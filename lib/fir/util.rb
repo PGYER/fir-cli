@@ -2,7 +2,8 @@
 
 require_relative './util/http'
 require_relative './util/config'
-require_relative './util/parser'
+require_relative './util/parser/apk'
+require_relative './util/parser/ipa'
 require_relative './util/login'
 require_relative './util/me'
 require_relative './util/info'
@@ -40,39 +41,39 @@ module FIR
       end
 
       def check_file_exist(path)
-        unless File.file?(path)
-          logger.error "File does not exist"
-          exit 1
-        end
+        return if File.file?(path)
+
+        logger.error 'File does not exist'
+        exit 1
       end
 
       def check_supported_file(path)
-        unless APP_FILE_TYPE.include?(File.extname(path))
-          logger.error "Unsupported file type"
-          exit 1
-        end
+        return if APP_FILE_TYPE.include?(File.extname(path))
+
+        logger.error 'Unsupported file type'
+        exit 1
       end
 
       def check_token_cannot_be_blank(token)
-        if token.blank?
-          logger.error "Token can't be blank"
-          exit 1
-        end
+        return unless token.blank?
+
+        logger.error 'Token can not be blank'
+        exit 1
       end
 
       def check_logined
-        if current_token.blank?
-          logger.error "Please use `fir login` first"
-          exit 1
-        end
+        return if current_token.blank?
+
+        logger.error 'Please use `fir login` first'
+        exit 1
       end
 
       def logger_info_blank_line
-        logger.info ""
+        logger.info ''
       end
 
       def logger_info_dividing_line
-        logger.info "✈ -------------------------------------------- ✈"
+        logger.info '✈ -------------------------------------------- ✈'
       end
     end
   end

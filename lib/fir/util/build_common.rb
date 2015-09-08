@@ -2,18 +2,29 @@
 
 module FIR
   module BuildCommon
-
     def initialize_build_common_options(args, options)
-      if args.first.blank? || !File.exist?(args.first)
-        @build_dir = Dir.pwd
-      else
-        @build_dir = File.absolute_path(args.shift.to_s) # pop the first param
-      end
+      @build_dir   = initialize_build_dir(args)
+      @output_path = initialize_output_path(options)
+      @token       = options[:token] || current_token
+      @changelog   = options[:changelog].to_s
+      @short       = options[:short].to_s
+      @proj        = options[:proj].to_s
+    end
 
-      @token     = options[:token] || current_token
-      @changelog = options[:changelog].to_s
-      @short     = options[:short].to_s
-      @proj      = options[:proj].to_s
+    def initialize_build_dir(args)
+      return Dir.pwd if args.first.blank? || !File.exist?(args.first)
+
+      File.absolute_path(args.shift.to_s) # pop the first param
+    end
+
+    def initialize_output_path(options)
+      if options[:output].blank?
+        output_path = "#{@build_dir}/fir_build"
+        FileUtils.mkdir_p(output_path) unless File.exist?(output_path)
+        output_path
+      else
+        File.absolute_path(options[:output].to_s)
+      end
     end
 
     def publish_build_app
@@ -26,10 +37,26 @@ module FIR
     def logger_info_and_run_build_command
       puts @build_cmd if $DEBUG
 
-      logger.info "Building......"
+      logger.info 'Building......'
       logger_info_dividing_line
 
       logger.info `#{@build_cmd}`
+    end
+
+    # split ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
+    def split_assignment_array_to_hash(arr)
+      hash = {}
+      arr.each do |assignment|
+        k, v = assignment.split('=', 2).map(&:strip)
+        hash[k] = v
+      end
+
+      hash
+    end
+
+    # convert { "a" => "1", "b" => "2" } => "a='1' b='2'"
+    def convert_hash_to_assignment_string(hash)
+      hash.collect { |k, v| "#{k}='#{v}'" }.join(' ')
     end
   end
 end

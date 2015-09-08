@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Object
-  # activesupport/lib/active_support/core_ext/object/blank.rb
   # An object is blank if it's false, empty, or a whitespace string.
   # For example, '', '   ', +nil+, [], and {} are all blank.
   #
@@ -15,7 +14,7 @@ class Object
   #
   # @return [true, false]
   def blank?
-    respond_to?(:empty?) ? !!empty? : !self
+    respond_to?(:empty?) ? empty? : !self
   end
 
   # An object is present if it's not blank.
@@ -155,7 +154,7 @@ class Hash
   #   hash.symbolize_keys
   #   # => {:name=>"Rob", :age=>"28"}
   def symbolize_keys
-    transform_keys{ |key| key.to_sym rescue key }
+    transform_keys { |key| key.to_sym rescue key }
   end
 
   # Returns a new hash with all keys converted by the block operation.
@@ -179,10 +178,11 @@ class Hash
   #   hash.deep_symbolize_keys
   #   # => {:person=>{:name=>"Rob", :age=>"28"}}
   def deep_symbolize_keys
-    deep_transform_keys{ |key| key.to_sym rescue key }
+    deep_transform_keys { |key| key.to_sym rescue key }
   end
 
   private
+
     # support methods for deep transforming nested hashes and arrays
     def _deep_transform_keys_in_object(object, &block)
       case object
@@ -191,7 +191,7 @@ class Hash
           result[yield(key)] = _deep_transform_keys_in_object(value, &block)
         end
       when Array
-        object.map {|e| _deep_transform_keys_in_object(e, &block) }
+        object.map { |e| _deep_transform_keys_in_object(e, &block) }
       else
         object
       end
@@ -199,30 +199,28 @@ class Hash
 end
 
 class File
-
   class << self
     # A binary file is Mach-O dSYM
     #
     # @return [true, false]
-    def is_dsym?(file_path)
-      !!(`file -b #{file_path}` =~ /dSYM/)
+    def dsym?(file_path)
+      !(`file -b #{file_path}` =~ /dSYM/).nil?
     end
 
     # A file is ASCII text
     #
     # @return [true, false]
-    def is_txt?(file_path)
-      !!(`file -b #{file_path}` =~ /text/)
+    def text?(file_path)
+      !(`file -b #{file_path}` =~ /text/).nil?
     end
   end
 end
 
 class String
-
   # Convert String encoding to UTF-8
   #
   # @return string
   def to_utf8
-    self.encode(Encoding.find('UTF-8'), invalid: :replace, undef: :replace, replace: '')
+    encode(Encoding.find('UTF-8'), invalid: :replace, undef: :replace, replace: '')
   end
 end

@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class MeTest < Minitest::Test
-
   def test_me
     user_info = FIR.fetch_user_info(default_token)
 
