@@ -1,8 +1,12 @@
 # encoding: utf-8
 
+require_relative './common'
+
 module FIR
   module Parser
     class Apk
+      include Parser::Common
+
       def initialize(path)
         @apk = ::Android::Apk.new(path)
       end
@@ -27,11 +31,7 @@ module FIR
 
       # @apk.icon is a hash, { icon_name: icon_data }
       def tmp_icons
-        @apk.icon.map do |_, data|
-          tmp_icon_path = "#{Dir.tmpdir}/icon-#{SecureRandom.hex[4..9]}.png"
-          File.open(tmp_icon_path, 'w+') { |f| f << data }
-          tmp_icon_path
-        end
+        @apk.icon.map { |_, data| generate_tmp_icon(data) }
       end
     end
   end

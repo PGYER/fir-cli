@@ -1,8 +1,12 @@
 # encoding: utf-8
 
+require_relative './common'
+
 module FIR
   module Parser
     class Ipa
+      include Parser::Common
+
       def initialize(path)
         @path = path
       end
@@ -106,11 +110,7 @@ module FIR
         end
 
         def tmp_icons
-          icons.map do |_, data|
-            tmp_icon_path = "#{Dir.tmpdir}/icon-#{SecureRandom.hex[4..9]}.png"
-            File.open(tmp_icon_path, 'w+') { |f| f << data }
-            tmp_icon_path
-          end
+          icons.map { |data| generate_tmp_icon(data) }
         end
 
         def icons
