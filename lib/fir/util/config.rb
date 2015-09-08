@@ -3,7 +3,7 @@
 module FIR
   module Config
     CONFIG_PATH   = "#{ENV['HOME']}/.fir-cli"
-    API_YML_PATH  = File.expand_path("../../", __FILE__) + '/api.yml'
+    API_YML_PATH  = File.expand_path('../../', __FILE__) + '/api.yml'
     APP_FILE_TYPE = %w(.ipa .apk).freeze
 
     def fir_api
@@ -15,14 +15,15 @@ module FIR
     end
 
     def config
-      @config ||= YAML.load_file(CONFIG_PATH).deep_symbolize_keys if File.exist?(CONFIG_PATH)
+      return unless File.exist?(CONFIG_PATH)
+      @config ||= YAML.load_file(CONFIG_PATH).deep_symbolize_keys
     end
 
     def reload_config
       @config = YAML.load_file(CONFIG_PATH).deep_symbolize_keys
     end
 
-    def write_config hash
+    def write_config(hash)
       File.open(CONFIG_PATH, 'w+') { |f| f << YAML.dump(hash) }
     end
 

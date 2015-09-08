@@ -2,10 +2,9 @@
 
 module FIR
   module Http
-
     DEFAULT_TIMEOUT = 300
 
-    def get url, params = {}
+    def get(url, params = {})
       begin
         res = ::RestClient::Request.execute(
           method:  :get,
@@ -14,11 +13,11 @@ module FIR
           headers: default_headers.merge(params: params)
         )
       rescue => e
-        logger.error e.message.to_s + " - " + e.response.to_s
+        logger.error e.message.to_s + ' - ' + e.response.to_s
         exit 1
       end
 
-      JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
+      JSON.parse(res.body.force_encoding('UTF-8'), symbolize_names: true)
     end
 
     %w(post patch put).each do |method|
@@ -32,18 +31,18 @@ module FIR
             headers: default_headers
           )
         rescue => e
-          logger.error e.message.to_s + " - " + e.response.to_s
+          logger.error e.message.to_s + ' - ' + e.response.to_s
           exit 1
         end
 
-        JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
+        JSON.parse(res.body.force_encoding('UTF-8'), symbolize_names: true)
       end
     end
 
     private
 
-      def default_headers
-        { content_type: :json, source: 'fir-cli', version: FIR::VERSION }
-      end
+    def default_headers
+      { content_type: :json, source: 'fir-cli', version: FIR::VERSION }
+    end
   end
 end

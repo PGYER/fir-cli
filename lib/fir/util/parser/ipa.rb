@@ -2,9 +2,7 @@
 
 module FIR
   module Parser
-
     class Ipa
-
       def initialize(path)
         @path = path
       end
@@ -29,7 +27,7 @@ module FIR
       end
 
       def has_metadata?
-        File.file? metadata_path
+        File.file?(metadata_path)
       end
 
       def metadata_path
@@ -56,9 +54,30 @@ module FIR
       end
 
       class App
-
         def initialize(path)
           @path = path
+        end
+
+        def full_info(options)
+          if options.fetch(:full_info, false)
+            basic_info.merge!(icons: tmp_icons)
+          end
+
+          basic_info
+        end
+
+        def basic_info
+          @basic_info ||= {
+            type:              'ios',
+            identifier:        identifier,
+            name:              name,
+            display_name:      display_name,
+            build:             version.to_s,
+            version:           short_version.to_s,
+            devices:           devices,
+            release_type:      release_type,
+            distribution_name: distribution_name
+          }
         end
 
         def info
@@ -86,6 +105,14 @@ module FIR
           info['CFBundleShortVersionString']
         end
 
+        def tmp_icons
+          icons.map do |_, data|
+            tmp_icon_path = "#{Dir.tmpdir}/icon-#{SecureRandom.hex[4..9]}.png"
+            File.open(tmp_icon_path, 'w+') { |f| f << data }
+            tmp_icon_path
+          end
+        end
+
         def icons
           @icons ||= begin
             icons = []
@@ -93,7 +120,7 @@ module FIR
               icons << get_image(name)
               icons << get_image("#{name}@2x")
             end
-            icons.delete_if { |i| !i }
+            icons.delete_if &:!
           rescue NoMethodError
             []
           end
@@ -143,15 +170,12 @@ module FIR
 
         private
 
-          def get_image name
-            path = File.join(@path, "#{name}.png")
-            return nil unless File.exist?(path)
-            path
-          end
+        def get_image(name)
+          path = File.join(@path, "#{name}.png")
+          return nil unless File.exist?(path)
+          path
+        end
       end
-    end
-
-    class Apk
     end
   end
 end
