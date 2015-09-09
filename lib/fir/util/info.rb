@@ -2,6 +2,7 @@
 
 module FIR
   module Info
+
     def info(*args, options)
       file_path = File.absolute_path(args.first.to_s)
       is_all    = !options[:all].blank?

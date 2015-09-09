@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class MappingTest < Minitest::Test
+
   def test_mapping
     options = {
       token:   default_token,

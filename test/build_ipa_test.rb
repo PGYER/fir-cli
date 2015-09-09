@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class BuildAppTest < Minitest::Test
+
   def test_build_app
     if ENV['BUILD_TEST']
       options = OpenStruct.new

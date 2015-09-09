@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class PublishTest < Minitest::Test
+
   def test_publish
     options = {
       token: default_token,

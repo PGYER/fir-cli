@@ -2,6 +2,7 @@
 
 module FIR
   module BuildApk
+
     def build_apk(*args, options)
       initialize_build_common_options(args, options)
 

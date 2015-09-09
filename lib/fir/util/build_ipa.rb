@@ -2,6 +2,7 @@
 
 module FIR
   module BuildIpa
+
     def build_ipa(*args, options)
       initialize_build_common_options(args, options)
 

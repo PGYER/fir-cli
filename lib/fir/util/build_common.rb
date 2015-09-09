@@ -2,6 +2,7 @@
 
 module FIR
   module BuildCommon
+
     def initialize_build_common_options(args, options)
       @build_dir   = initialize_build_dir(args)
       @output_path = initialize_output_path(options)
