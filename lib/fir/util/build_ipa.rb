@@ -110,17 +110,17 @@ module FIR
     end
 
     def check_ios_scheme(scheme_name)
-      return unless scheme_name.blank?
-
-      logger.error 'Must provide a scheme by `-S` option when build a workspace'
-      exit 1
+      if scheme_name.blank?
+        logger.error 'Must provide a scheme by `-S` option when build a workspace'
+        exit 1
+      end
     end
 
     def check_no_output_app(apps)
-      return if apps.length != 0
-
-      logger.error 'Builded has no output app, Can not be packaged'
-      exit 1
+      if apps.length == 0
+        logger.error 'Builded has no output app, Can not be packaged'
+        exit 1
+      end
     end
 
     def zip_app2ipa(app_path, ipa_path)
