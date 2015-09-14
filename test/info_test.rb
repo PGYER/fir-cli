@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class InfoTest < Minitest::Test
+
   def test_apk_info
     info = FIR.apk_info(default_apk, full_info: true)
 

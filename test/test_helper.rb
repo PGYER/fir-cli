@@ -9,6 +9,7 @@ CodeClimate::TestReporter.start
 FIR.logger = Logger.new(STDOUT)
 
 class Minitest::Test
+
   def default_token
     '2dd8a99ef9d19c540bb583624b939960'
   end

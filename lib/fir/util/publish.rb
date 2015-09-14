@@ -2,6 +2,7 @@
 
 module FIR
   module Publish
+
     def publish(*args, options)
       initialize_publish_options(args, options)
       check_supported_file_and_token

@@ -2,6 +2,7 @@
 
 module FIR
   module BuildCommon
+
     def initialize_build_common_options(args, options)
       @build_dir   = initialize_build_dir(args)
       @output_path = initialize_output_path(options)
@@ -12,9 +13,11 @@ module FIR
     end
 
     def initialize_build_dir(args)
-      return Dir.pwd if args.first.blank? || !File.exist?(args.first)
-
-      File.absolute_path(args.shift.to_s) # pop the first param
+      if args.first.blank? || !File.exist?(args.first)
+        Dir.pwd
+      else
+        File.absolute_path(args.shift.to_s) # pop the first param
+      end
     end
 
     def initialize_output_path(options)

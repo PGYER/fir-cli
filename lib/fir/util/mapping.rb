@@ -2,6 +2,7 @@
 
 module FIR
   module Mapping
+
     def mapping(*args, options)
       initialize_and_check_mapping_options(args, options)
       check_file_and_token

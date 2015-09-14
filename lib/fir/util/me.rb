@@ -2,6 +2,7 @@
 
 module FIR
   module Me
+
     def me
       check_logined
 
