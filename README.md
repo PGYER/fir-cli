@@ -33,7 +33,7 @@ sudo gem update --system
 sudo gem install fir-cli
 ```
 
-**注意: 如果你的系统是 mac OSX 10.11 以后的版本, 由于10.11引入了 `rootless`, 无法直接安装 fir-cli, 有以下三种解决办法:**
+**注意: 如果你的系统是 mac OSX 10.11 以后的版本, 由于10.11引入了 `rootless`, 无法直接安装 fir-cli, 有以下四种解决办法:**
 
 1\. 使用 [RVM](https://rvm.io/) 安装 Ruby, 再安装 fir-cli(推荐)
 
@@ -45,7 +45,7 @@ $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
 $ gem install fir-cli
 ```
 
-2\. 使用以下命令安装 fir-cli
+2\. 指定 fir-cli 中 bin 文件的 PATH
 
 ```shell
 $ export PATH=/usr/local/bin:$PATH;sudo gem install -n /usr/local/bin fir-cli
@@ -57,6 +57,8 @@ $ export PATH=/usr/local/bin:$PATH;sudo gem install -n /usr/local/bin fir-cli
 $ echo 'gem: --bindir /usr/local/bin' >> ~/.gemrc
 $ sudo gem install fir-cli
 ```
+
+4\. 直接关闭 OSX 10.11 的 rootless(不推荐)
 
 安装后，你可以在命令行执行指令
 
