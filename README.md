@@ -62,16 +62,25 @@ $ sudo gem install fir-cli
 ```shell
 $ fir
 Commands:
-  fir build_apk BUILD_DIR                       # Build Android app (alias: 'ba').
-  fir build_ipa BUILD_DIR [options] [settings]  # Build iOS app (alias: 'bi').
-  fir help                                      # Describe available commands or one specific command.
-  fir info APP_FILE_PATH                        # Show iOS/Android app's info, support ipa/apk file (aliases: 'i').
-  fir login                                     # Login FIR.im (aliases: 'l').
-  fir mapping MAPPING_FILE_PATH                 # Upload app's mapping file to BugHD.com (aliases: 'm').
+  fir build_apk BUILD_DIR                       # Build Android app (alias: `ba`).
+  fir build_ipa BUILD_DIR [options] [settings]  # Build iOS app (alias: `bi`).
+  fir help                                      # Describe available commands or one specific command (aliases: `h`).
+  fir info APP_FILE_PATH                        # Show iOS/Android app info, support ipa/apk file (aliases: `i`).
+  fir login                                     # Login fir.im (aliases: `l`).
+  fir mapping MAPPING_FILE_PATH                 # Upload app mapping file to BugHD.com (aliases: `m`).
   fir me                                        # Show current user info if user is logined.
-  fir publish APP_FILE_PATH                     # Publish iOS/Android app to FIR.im, support ipa/apk file (aliases: 'p').
-  fir upgrade                                   # Upgrade FIR-CLI and quit (aliases: u).
-  fir version                                   # Show FIR-CLI version number and quit (aliases: v)
+  fir publish APP_FILE_PATH                     # Publish iOS/Android app to fir.im, support ipa/apk file (aliases: `p`).
+  fir upgrade                                   # Upgrade fir-cli and quit (aliases: `u`).
+  fir version                                   # Show fir-cli version number and quit (aliases: `v`).
+
+Options:
+  -T, [--token=TOKEN]              # User's API Token at fir.im
+  -L, [--logfile=LOGFILE]          # Path to writable logfile
+  -V, [--verbose], [--no-verbose]  # Show verbose
+                                   # Default: true
+  -q, [--quiet], [--no-quiet]      # Silence commands
+  -h, [--help], [--no-help]        # Show this help message and quit
+
 
 Options:
   -T, [--token=TOKEN]              # User's API Token at FIR.im
