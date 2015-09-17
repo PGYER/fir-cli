@@ -137,7 +137,7 @@ module FIR
     desc 'version', 'Show fir-cli version number and quit (aliases: `v`).'
     map ['v', '-v', '--version'] => :version
     def version
-      say '✈ fir-cli #{FIR::VERSION}'
+      say "✈ fir-cli #{FIR::VERSION}"
     end
 
     desc 'help', 'Describe available commands or one specific command (aliases: `h`).'
