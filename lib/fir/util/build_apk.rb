@@ -39,7 +39,7 @@ module FIR
 
       check_no_output_apk
 
-      apk_info = FIR::Parser::Apk.new(@builded_apk).basic_info
+      apk_info = FIR.apk_info(@builded_apk)
       apk_name = "#{apk_info[:name]}(#{apk_info[:build]}.#{apk_info[:version]})"
 
       FileUtils.cp(@builded_apk, "#{@output_path}/#{apk_name}-#{Time.now.to_i}.apk")
