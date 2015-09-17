@@ -27,11 +27,9 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.2.2
-  - 完全兼容新版 API ✔
-  - 请使用新版 API Token
-  - 新版 API Token 查看地址: `http://fir.im/user/info`
-  - 修正不同系统非 UTF-8 编码问题
+  ### fir-cli 1.2.3
+  - 修正 `build_apk` 无法找到 apk 的 bug
+  - build 完毕后, ipa 和 apk 均以 $name-$version-Build-$build 形式命名
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
   )
