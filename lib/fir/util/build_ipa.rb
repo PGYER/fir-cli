@@ -55,7 +55,7 @@ module FIR
         check_no_output_app(apps)
 
         apps.each do |app|
-          ipa_path = File.join(@output_path, "#{File.basename(app, '.app')}.ipa")
+          ipa_path = File.join(@output_path, "#{File.basename(app, '.app')}-#{Time.now.to_i}.ipa")
           zip_app2ipa(File.join(@build_tmp_dir, app), ipa_path)
         end
       end
