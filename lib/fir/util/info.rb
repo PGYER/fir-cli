@@ -21,7 +21,7 @@ module FIR
       logger_info_blank_line
     end
 
-    def ipa_info(ipa_path, options)
+    def ipa_info(ipa_path, options = {})
       ipa  = FIR::Parser::Ipa.new(ipa_path)
       app  = ipa.app
       info = app.full_info(options).merge(release_type: ipa.release_type)
@@ -30,7 +30,7 @@ module FIR
       info
     end
 
-    def apk_info(apk_path, options)
+    def apk_info(apk_path, options = {})
       apk  = FIR::Parser::Apk.new(apk_path)
       info = apk.full_info(options)
       info

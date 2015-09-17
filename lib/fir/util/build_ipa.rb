@@ -55,8 +55,11 @@ module FIR
         check_no_output_app(apps)
 
         apps.each do |app|
-          ipa_path = File.join(@output_path, "#{File.basename(app, '.app')}.ipa")
-          zip_app2ipa(File.join(@build_tmp_dir, app), ipa_path)
+          temp_ipa = zip_app2ipa(File.join(@build_tmp_dir, app))
+          ipa_info = FIR.ipa_info(temp_ipa)
+          ipa_name = "#{ipa_info[:name]}-#{ipa_info[:version]}-Build-#{ipa_info[:build]}"
+
+          FileUtils.cp(temp_ipa, "#{@output_path}/#{ipa_name}.ipa")
         end
       end
 
@@ -123,15 +126,19 @@ module FIR
       end
     end
 
-    def zip_app2ipa(app_path, ipa_path)
+    def zip_app2ipa(app_path)
+      ipa_path = Tempfile.new(['temp', '.ipa']).path
+
       Dir.mktmpdir do |tmpdir|
         Dir.chdir(tmpdir) do
           Dir.mkdir('Payload')
           FileUtils.cp_r(app_path, 'Payload')
-          system("rm -rf #{ipa_path}") if File.file? ipa_path
+          system("rm -rf #{ipa_path}") if File.file?(ipa_path)
           system("zip -qr #{ipa_path} Payload")
         end
       end
+
+      ipa_path
     end
   end
 end
