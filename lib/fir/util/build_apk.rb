@@ -12,8 +12,8 @@ module FIR
 
       logger_info_and_run_build_command
 
-      @builded_app_path ||= Dir[@output_path].find { |i| i =~ /release/ }
-      @builded_app_path ||= Dir["#{@output_path}/*.apk"].first
+      output_apk
+      @builded_app_path = Dir["#{@output_path}/*.apk"].first
 
       publish_build_app if options.publish?
 
@@ -27,6 +27,29 @@ module FIR
 
       apk_build_cmd = 'gradle clean;gradle build'
       apk_build_cmd
+    end
+
+    def gradle_build_path
+      "#{@build_dir}/build/outputs/apk"
+    end
+
+    def output_apk
+      @builded_apk ||= Dir["#{gradle_build_path}/*.apk"].find { |i| i =~ /release/ }
+      @builded_apk ||= Dir["#{@build_dir}/*.apk"].find { |i| i =~ /release/ }
+
+      check_no_output_apk
+
+      apk_info = FIR::Parser::Apk.new(@builded_apk).basic_info
+      apk_name = "#{apk_info[:name]}(#{apk_info[:build]}.#{apk_info[:version]})"
+
+      FileUtils.cp(@builded_apk, "#{@output_path}/#{apk_name}-#{Time.now.to_i}.apk")
+    end
+
+    def check_no_output_apk
+      unless @builded_apk
+        logger.error 'Builded has no output apk'
+        exit 1
+      end
     end
 
     def check_build_gradle_exist
