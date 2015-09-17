@@ -1,48 +1,55 @@
 ## 更新记录
 
-### FIR-CLI 1.2.2
+### fir-cli 1.2.4
+- 修正 `version` 的 bug
+
+### fir-cli 1.2.3
+- 修正 `build_apk` 无法找到 apk 的 bug
+- build 完毕后, ipa 和 apk 均以 $name-$version-Build-$build 形式命名
+
+### fir-cli 1.2.2
 - 修正不同系统非 UTF-8 编码问题
 
-### FIR-CLI 1.2.1
+### fir-cli 1.2.1
 - fix #12, 去掉 fir-cli_tmp 目录
 
-### FIR-CLI 1.2.0
+### fir-cli 1.2.0
 - 支持 zip 符号表文件上传
 
-### FIR-CLI 1.1.9
+### fir-cli 1.1.9
 - 修改显示上的一些小问题
 
-### FIR-CLI 1.1.8
+### fir-cli 1.1.8
 - 支持 gradle 打包 apk 文件并自动上传至 fir.im, `fir build_apk(alias ba)`
   - `fir ba <project dir> [-o <apk output dir> -c <changelog> -p -T <your api token>]`
 
-### FIR-CLI 1.1.7
+### fir-cli 1.1.7
 - 增加符号表上传指令, `fir mapping(alias m)`
 - 有一下三种方式上传符号表(目前已经支持 dSYM 和 txt 两种格式的符号表文件上传)
   - 1. 指定 version 和 build 上传: `fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your api token>`
   - 2. 在 publish 的时候自动上传: `fir p <app file path> -m <mapping file path> -P <bughd project id> -T <your api token>`
   - 3. 在 build_ipa 的时候自动上传: `fir b <project dir> -P <bughd project id> -M -p -T <your api token>`
 
-### FIR-CLI 1.1.6
+### fir-cli 1.1.6
 - 不再转换 icon
 
-### FIR-CLI 1.1.5
+### fir-cli 1.1.5
 - 增加团队成员直接上传 app
 
-### FIR-CLI 1.1.4
+### fir-cli 1.1.4
 - 增加 `fir me` 指令查看当前登录用户
 
-### FIR-CLI 1.1.3
+### fir-cli 1.1.3
 - 增加 Travis.ci
 
-### FIR-CLI 1.1.1
+### fir-cli 1.1.1
 - android app 不转换 icon
 
-### FIR-CLI 1.1.0
+### fir-cli 1.1.0
 - 完全兼容新版 API
 - 请使用新版 API Token
 
-### FIR-CLI 1.0
+### fir-cli 1.0
 - 重大重构
 - 优化启动及运行速度
 - 增加各指令的 alias
@@ -61,19 +68,19 @@
 - 简化 --verbose 参数, 简化为 `--verbose --no-verbose`, 默认输出为 INFO
 - https://github.com/FIRHQ/fir-cli
 
-### FIR-CLI 0.2.3
+### fir-cli 0.2.3
 - 去除重签名功能, iOS 8.1.3 之后不支持重签名
 
-### FIR-CLI 0.2.2
+### fir-cli 0.2.2
 - 修复 WARNING: The rest_client gem is deprecated
 
-### FIR-CLI 0.2.1
+### fir-cli 0.2.1
 - 修正解析带空格的文件出租哦问题
 
-### FIR-CLI 0.2.0
+### fir-cli 0.2.0
 - 新指令 `build_ipa`
 
-### FIR-CLI 0.1.8
+### fir-cli 0.1.8
 - 支持 ruby 1.9.x
 - 规范输出参数选项，支持无颜色信息输出
   -`--verbose=v|vv|vvv`：设置输出级别
