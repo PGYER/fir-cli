@@ -27,9 +27,10 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.2.4
+  ### fir-cli 1.2.5
   - 修正 `build_apk` 无法找到 apk 的 bug
   - build 完毕后, ipa 和 apk 均以 $name-$version-Build-$build 形式命名
+  - 修正解析 ipa 时候 NoMethodError 异常
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
   )
