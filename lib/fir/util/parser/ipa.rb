@@ -58,6 +58,8 @@ module FIR
       end
 
       class App
+        include Parser::Common
+
         def initialize(path)
           @path = path
         end

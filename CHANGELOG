@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.2.5
+- 修正解析 ipa 时候 `NoMethodError` 异常
+
 ### fir-cli 1.2.4
 - 修正 `version` 的 bug
 
