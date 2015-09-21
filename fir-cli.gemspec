@@ -44,4 +44,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'CFPropertyList', '~> 2.3'
   spec.add_dependency 'rest-client',    '~> 1.7'
   spec.add_dependency 'ruby_android',   '~> 0.7'
+  spec.add_dependency 'rqrcode',        '~> 0.7'
 end

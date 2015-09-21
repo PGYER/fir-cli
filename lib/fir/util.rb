@@ -75,6 +75,12 @@ module FIR
       def logger_info_dividing_line
         logger.info '✈ -------------------------------------------- ✈'
       end
+
+      def generate_rqrcode string, png_file_path
+        qrcode = ::RQRCode::QRCode.new(string.to_s)
+        qrcode.as_png(size: 500, border_modules: 2, file: png_file_path)
+        png_file_path
+      end
     end
   end
 end

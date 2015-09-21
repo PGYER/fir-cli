@@ -9,6 +9,7 @@ require 'securerandom'
 require 'fileutils'
 require 'cfpropertylist'
 require 'tempfile'
+require 'rqrcode'
 
 # TODO: remove rescue when https://github.com/tajchert/ruby_apk/pull/4 merged
 begin

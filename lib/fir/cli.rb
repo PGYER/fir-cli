@@ -81,10 +81,11 @@ module FIR
       $ fir p <app file path> [-c <changelog> -s <custom short link> -m <mapping file path> -P <bughd project id> -T <your api token>]
     LONGDESC
     map 'p' => :publish
-    method_option :short,       type: :string, aliases: '-s', desc: 'Set custom short link'
-    method_option :changelog,   type: :string, aliases: '-c', desc: 'Set changelog'
-    method_option :mappingfile, type: :string, aliases: '-m', desc: 'App mapping file'
-    method_option :proj,        type: :string, aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
+    method_option :short,       type: :string,  aliases: '-s', desc: 'Set custom short link'
+    method_option :changelog,   type: :string,  aliases: '-c', desc: 'Set changelog'
+    method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
+    method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
+    method_option :proj,        type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
     def publish(*args)
       prepare :publish
 
