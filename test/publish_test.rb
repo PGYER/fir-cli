@@ -5,7 +5,8 @@ class PublishTest < Minitest::Test
   def test_publish
     options = {
       token: default_token,
-      changelog: "test from fir-cli #{Time.now.to_i}"
+      changelog: "test from fir-cli #{Time.now.to_i}",
+      qrcode: true
     }
 
     assert FIR.publish(default_ipa, options)
