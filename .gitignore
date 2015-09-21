@@ -18,3 +18,4 @@ mkmf.log
 *.gem
 Gemfile.lock
 .DS_Store
+/test/cases/*.png
