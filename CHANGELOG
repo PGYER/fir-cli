@@ -1,5 +1,10 @@
 ## 更新记录
 
+### fir-cli 1.2.6
+- 增加导出二维码功能
+- 使用 `fir p <app file path> -Q`
+- 或者 `fir bi(ba) <project dir> -p -Q` 即可导出当前 app 的二维码图片
+
 ### fir-cli 1.2.5
 - 修正解析 ipa 时候 `NoMethodError` 异常
 
