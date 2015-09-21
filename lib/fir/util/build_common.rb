@@ -4,12 +4,13 @@ module FIR
   module BuildCommon
 
     def initialize_build_common_options(args, options)
-      @build_dir   = initialize_build_dir(args)
-      @output_path = initialize_output_path(options)
-      @token       = options[:token] || current_token
-      @changelog   = options[:changelog].to_s
-      @short       = options[:short].to_s
-      @proj        = options[:proj].to_s
+      @build_dir     = initialize_build_dir(args)
+      @output_path   = initialize_output_path(options)
+      @token         = options[:token] || current_token
+      @changelog     = options[:changelog].to_s
+      @short         = options[:short].to_s
+      @proj          = options[:proj].to_s
+      @export_qrcode = options[:qrcode]
     end
 
     def initialize_build_dir(args)
@@ -34,7 +35,8 @@ module FIR
       logger_info_blank_line
       publish @builded_app_path, short:     @short,
                                  changelog: @changelog,
-                                 token:     @token
+                                 token:     @token,
+                                 qrcode:    @export_qrcode
     end
 
     def logger_info_and_run_build_command

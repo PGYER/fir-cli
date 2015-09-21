@@ -16,11 +16,11 @@ module FIR
 
       Example:
 
-      $ fir bi <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
+      $ fir bi <project dir> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -Q -T <your api token>]
 
-      $ fir bi <project dir> [-c <changelog> -P <bughd project id> -M -p -T <your api token>]
+      $ fir bi <project dir> [-c <changelog> -P <bughd project id> -M -p -Q -T <your api token>]
 
-      $ fir bi <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -T <your api token>]
+      $ fir bi <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -Q -T <your api token>]
     LONGDESC
     map ['b', 'bi'] => :build_ipa
     method_option :workspace,     type: :boolean, aliases: '-w', desc: 'true/false if build workspace'
@@ -32,6 +32,7 @@ module FIR
     method_option :publish,       type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,         type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
     method_option :changelog,     type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im'
+    method_option :qrcode,        type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     method_option :mapping,       type: :boolean, aliases: '-M', desc: 'true/false if upload app mapping file to BugHD.com'
     method_option :proj,          type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
     def build_ipa(*args)
@@ -48,13 +49,14 @@ module FIR
 
       Example:
 
-      $ fir ba <project dir> [-o <apk output dir> -c <changelog> -p -T <your api token>]
+      $ fir ba <project dir> [-o <apk output dir> -c <changelog> -p -Q -T <your api token>]
     LONGDESC
     map ['ba'] => :build_apk
     method_option :output,    type: :string,  aliases: '-o', desc: 'APK output path, the default is: BUILD_DIR/build/outputs/apk'
     method_option :publish,   type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,     type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
     method_option :changelog, type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im'
+    method_option :qrcode,    type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     def build_apk(*args)
       prepare :build_apk
 
@@ -76,15 +78,16 @@ module FIR
 
       Example:
 
-      $ fir p <app file path> [-c <changelog> -s <custom short link> -T <your api token>]
+      $ fir p <app file path> [-c <changelog> -s <custom short link> -Q -T <your api token>]
 
-      $ fir p <app file path> [-c <changelog> -s <custom short link> -m <mapping file path> -P <bughd project id> -T <your api token>]
+      $ fir p <app file path> [-c <changelog> -s <custom short link> -m <mapping file path> -P <bughd project id> -Q -T <your api token>]
     LONGDESC
     map 'p' => :publish
-    method_option :short,       type: :string, aliases: '-s', desc: 'Set custom short link'
-    method_option :changelog,   type: :string, aliases: '-c', desc: 'Set changelog'
-    method_option :mappingfile, type: :string, aliases: '-m', desc: 'App mapping file'
-    method_option :proj,        type: :string, aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
+    method_option :short,       type: :string,  aliases: '-s', desc: 'Set custom short link'
+    method_option :changelog,   type: :string,  aliases: '-c', desc: 'Set changelog'
+    method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
+    method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
+    method_option :proj,        type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
     def publish(*args)
       prepare :publish
 

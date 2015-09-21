@@ -17,7 +17,7 @@ module FIR
       upload_app
 
       logger_info_dividing_line
-      logger.info "Published succeed: #{fir_api[:domain]}/#{fetch_app_info[:short]}"
+      logger_info_app_short_and_qrcode
 
       upload_mapping_file_with_publish(options)
       logger_info_blank_line
@@ -123,14 +123,28 @@ module FIR
                                      token:   @token
     end
 
+    def logger_info_app_short_and_qrcode
+      short = "#{fir_api[:domain]}/#{fetch_app_info[:short]}"
+
+      logger.info "Published succeed: #{short}"
+
+      if @export_qrcode
+        qrcode_path = "#{File.dirname(@file_path)}/fir-#{@app_info[:name]}.png"
+        FIR.generate_rqrcode(short, qrcode_path)
+
+        logger.info "Local qrcode file: #{qrcode_path}"
+      end
+    end
+
     private
 
     def initialize_publish_options(args, options)
-      @file_path = File.absolute_path(args.first.to_s)
-      @file_type = File.extname(@file_path).delete('.')
-      @token     = options[:token] || current_token
-      @changelog = options[:changelog].to_s.to_utf8
-      @short     = options[:short].to_s
+      @file_path     = File.absolute_path(args.first.to_s)
+      @file_type     = File.extname(@file_path).delete('.')
+      @token         = options[:token] || current_token
+      @changelog     = options[:changelog].to_s.to_utf8
+      @short         = options[:short].to_s
+      @export_qrcode = !!options[:qrcode]
     end
 
     def check_supported_file_and_token
