@@ -11,7 +11,7 @@ module FIR
 
       logger_info_and_run_build_command
 
-      output_ipa
+      output_ipa_and_dsym
       @builded_app_path = Dir["#{@output_path}/*.ipa"].first
 
       publish_build_app if options.publish?
@@ -24,10 +24,8 @@ module FIR
 
     def initialize_ipa_build_cmd(args, options)
       @configuration = options[:configuration]
-      @wrapper_name  = File.basename(options[:name].to_s, '.*') + '.app' unless options[:name].blank?
       @target_name   = options[:target]
       @scheme_name   = options[:scheme]
-      @dsym_name     = @wrapper_name + '.dSYM' unless @wrapper_name.blank?
 
       build_cmd =  'xcodebuild build -sdk iphoneos'
       build_cmd += initialize_xcode_build_path(options)
@@ -41,25 +39,27 @@ module FIR
       custom_settings = split_assignment_array_to_hash(args)
 
       setting_str =  convert_hash_to_assignment_string(custom_settings)
-      setting_str += " WRAPPER_NAME='#{@wrapper_name}'" unless @wrapper_name.blank?
       setting_str += " TARGET_BUILD_DIR='#{@build_tmp_dir}'" unless custom_settings['TARGET_BUILD_DIR']
       setting_str += " CONFIGURATION_BUILD_DIR='#{@build_tmp_dir}'" unless custom_settings['CONFIGURATION_BUILD_DIR']
       setting_str += " DWARF_DSYM_FOLDER_PATH='#{@output_path}'" unless custom_settings['DWARF_DSYM_FOLDER_PATH']
-      setting_str += " DWARF_DSYM_FILE_NAME='#{@dsym_name}'" unless @dsym_name.blank?
       setting_str
     end
 
-    def output_ipa
+    def output_ipa_and_dsym
       Dir.chdir(@build_tmp_dir) do
         apps = Dir['*.app']
         check_no_output_app(apps)
 
         apps.each do |app|
-          temp_ipa = zip_app2ipa(File.join(@build_tmp_dir, app))
-          ipa_info = FIR.ipa_info(temp_ipa)
-          ipa_name = "#{ipa_info[:name]}-#{ipa_info[:version]}-Build-#{ipa_info[:build]}"
+          temp_ipa  = zip_app2ipa(File.join(@build_tmp_dir, app))
+          ipa_info  = FIR.ipa_info(temp_ipa)
+          ipa_name  = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
+          dsym_name = "#{@output_path}/#{ipa_info[:name]}.app.dSYM"
 
           FileUtils.cp(temp_ipa, "#{@output_path}/#{ipa_name}.ipa")
+          if File.exist?(dsym_name)
+            FileUtils.mv(dsym_name, "#{@output_path}/#{ipa_name}.app.dSYM")
+          end
         end
       end
 

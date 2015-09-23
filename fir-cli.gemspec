@@ -27,11 +27,13 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.2.7
+  ### fir-cli 1.2.8
+  - 统一 build 后, ipa 和 dSYM 文件的命名
   - publish 时增加更多信息
   - 增加导出二维码功能
   - 使用 `fir p <app file path> -Q`
   - 或者 `fir bi(ba) <project dir> -p -Q` 即可导出当前 app 的二维码图片
+  - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
   )

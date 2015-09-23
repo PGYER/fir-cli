@@ -28,7 +28,6 @@ module FIR
     method_option :configuration, type: :string,  aliases: '-C', desc: 'Use the build configuration NAME for building each target'
     method_option :target,        type: :string,  aliases: '-t', desc: 'Build the target specified by targetname'
     method_option :output,        type: :string,  aliases: '-o', desc: 'IPA output path, the default is: BUILD_DIR/fir_build_ipa'
-    method_option :name,          type: :string,  aliases: '-n', desc: 'IPA name, the default is: YOUR PROJECT NAME'
     method_option :publish,       type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,         type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
     method_option :changelog,     type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im'
