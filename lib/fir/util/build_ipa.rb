@@ -24,10 +24,8 @@ module FIR
 
     def initialize_ipa_build_cmd(args, options)
       @configuration = options[:configuration]
-      @wrapper_name  = File.basename(options[:name].to_s, '.*') + '.app' unless options[:name].blank?
       @target_name   = options[:target]
       @scheme_name   = options[:scheme]
-      @dsym_name     = @wrapper_name + '.dSYM' unless @wrapper_name.blank?
 
       build_cmd =  'xcodebuild build -sdk iphoneos'
       build_cmd += initialize_xcode_build_path(options)
@@ -41,11 +39,9 @@ module FIR
       custom_settings = split_assignment_array_to_hash(args)
 
       setting_str =  convert_hash_to_assignment_string(custom_settings)
-      setting_str += " WRAPPER_NAME='#{@wrapper_name}'" unless @wrapper_name.blank?
       setting_str += " TARGET_BUILD_DIR='#{@build_tmp_dir}'" unless custom_settings['TARGET_BUILD_DIR']
       setting_str += " CONFIGURATION_BUILD_DIR='#{@build_tmp_dir}'" unless custom_settings['CONFIGURATION_BUILD_DIR']
       setting_str += " DWARF_DSYM_FOLDER_PATH='#{@output_path}'" unless custom_settings['DWARF_DSYM_FOLDER_PATH']
-      setting_str += " DWARF_DSYM_FILE_NAME='#{@dsym_name}'" unless @dsym_name.blank?
       setting_str
     end
 
