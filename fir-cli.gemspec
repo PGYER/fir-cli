@@ -27,7 +27,8 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.2.6
+  ### fir-cli 1.2.7
+  - publish 时增加更多信息
   - 增加导出二维码功能
   - 使用 `fir p <app file path> -Q`
   - 或者 `fir bi(ba) <project dir> -p -Q` 即可导出当前 app 的二维码图片
