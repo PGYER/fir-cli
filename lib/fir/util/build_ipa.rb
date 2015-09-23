@@ -57,7 +57,7 @@ module FIR
         apps.each do |app|
           temp_ipa = zip_app2ipa(File.join(@build_tmp_dir, app))
           ipa_info = FIR.ipa_info(temp_ipa)
-          ipa_name = "#{ipa_info[:name]}-#{ipa_info[:version]}-Build-#{ipa_info[:build]}"
+          ipa_name = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
 
           FileUtils.cp(temp_ipa, "#{@output_path}/#{ipa_name}.ipa")
         end
