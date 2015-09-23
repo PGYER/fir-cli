@@ -7,8 +7,7 @@ module FIR
       initialize_publish_options(args, options)
       check_supported_file_and_token
 
-      logger.info 'Publishing app.......'
-      logger_info_dividing_line
+      logger_info_publishing_message
 
       @app_info       = send("#{@file_type}_info", @file_path, full_info: true)
       @uploading_info = fetch_uploading_info
@@ -21,6 +20,16 @@ module FIR
 
       upload_mapping_file_with_publish(options)
       logger_info_blank_line
+    end
+
+    def logger_info_publishing_message
+      user_info = fetch_user_info(@token)
+
+      email = user_info.fetch(:email, '')
+      name  = user_info.fetch(:name, '')
+
+      logger.info "Publishing app from #{email}/#{name}......."
+      logger_info_dividing_line
     end
 
     def upload_app
