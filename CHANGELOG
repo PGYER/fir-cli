@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.2.7
+- publish 时增加更多信息
+
 ### fir-cli 1.2.6
 - 增加导出二维码功能
 - 使用 `fir p <app file path> -Q`
