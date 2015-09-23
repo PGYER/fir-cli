@@ -28,7 +28,7 @@ module FIR
       email = user_info.fetch(:email, '')
       name  = user_info.fetch(:name, '')
 
-      logger.info "Publishing app from #{email}/#{name}......."
+      logger.info "Publishing app via #{name}<#{email}>......."
       logger_info_dividing_line
     end
 
