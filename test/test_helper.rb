@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'ostruct'
 require 'fir'
 require 'codeclimate-test-reporter'
+
 CodeClimate::TestReporter.start
 
 FIR.logger = Logger.new(STDOUT)
