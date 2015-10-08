@@ -58,7 +58,7 @@ module FIR
 
           FileUtils.cp(temp_ipa, "#{@output_path}/#{ipa_name}.ipa")
           if File.exist?(dsym_name)
-            FileUtils.mv(dsym_name, "#{@output_path}/#{ipa_name}.app.dSYM")
+            FileUtils.mv(dsym_name, "#{@output_path}/#{ipa_name}.app.dSYM", force: true)
           end
         end
       end
