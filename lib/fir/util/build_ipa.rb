@@ -12,7 +12,6 @@ module FIR
       logger_info_and_run_build_command
 
       output_ipa_and_dsym
-      @builded_app_path = Dir["#{@output_path}/*.ipa"].first
 
       publish_build_app if options.publish?
       upload_build_dsym_mapping_file if options.mapping?
@@ -48,18 +47,18 @@ module FIR
     def output_ipa_and_dsym
       Dir.chdir(@build_tmp_dir) do
         apps = Dir['*.app']
-        check_no_output_app(apps)
+        check_no_output_app_and_multi_apps(apps)
 
-        apps.each do |app|
-          temp_ipa  = zip_app2ipa(File.join(@build_tmp_dir, app))
-          ipa_info  = FIR.ipa_info(temp_ipa)
-          ipa_name  = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
-          dsym_name = "#{@output_path}/#{ipa_info[:name]}.app.dSYM"
+        temp_ipa  = zip_app2ipa(File.join(@build_tmp_dir, apps.first))
+        ipa_info  = FIR.ipa_info(temp_ipa)
+        ipa_name  = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
+        dsym_name = "#{@output_path}/#{ipa_info[:name]}.app.dSYM"
 
-          FileUtils.cp(temp_ipa, "#{@output_path}/#{ipa_name}.ipa")
-          if File.exist?(dsym_name)
-            FileUtils.mv(dsym_name, "#{@output_path}/#{ipa_name}.app.dSYM", force: true)
-          end
+        @builded_app_path = "#{@output_path}/#{ipa_name}.ipa"
+
+        FileUtils.mv(temp_ipa, @builded_app_path, force: true)
+        if File.exist?(dsym_name)
+          FileUtils.mv(dsym_name, "#{@output_path}/#{ipa_name}.app.dSYM", force: true)
         end
       end
 
@@ -119,9 +118,14 @@ module FIR
       end
     end
 
-    def check_no_output_app(apps)
+    def check_no_output_app_and_multi_apps(apps)
       if apps.length == 0
         logger.error 'Builded has no output app, Can not be packaged'
+        exit 1
+      end
+
+      if apps.length > 1
+        logger.error 'Builded multi apps, Not supported'
         exit 1
       end
     end
