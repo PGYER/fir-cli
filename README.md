@@ -1,7 +1,6 @@
 fir.im-cli
 ---
 
-
 ![Build Status Images](https://travis-ci.org/FIRHQ/fir-cli.svg)
 [![Code Climate](https://codeclimate.com/github/FIRHQ/fir-cli/badges/gpa.svg)](https://codeclimate.com/github/FIRHQ/fir-cli)
 [![Test Coverage](https://codeclimate.com/github/FIRHQ/fir-cli/badges/coverage.svg)](https://codeclimate.com/github/FIRHQ/fir-cli/coverage)
@@ -17,6 +16,12 @@ fir.im-cli 使用 Ruby 构建，只要安装相应 ruby gem 即可:
 
 ```shell
 $ sudo gem install fir-cli
+```
+
+如果是 OS X 系统, 需要提前安装好 osx command line tools:
+
+```shell
+$ xcode-select --install
 ```
 
 如果出现无法安装的现象, 请先更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem

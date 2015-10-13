@@ -1,5 +1,9 @@
 ## 更新记录
 
+### fir-cli 1.2.9
+- 修复指定 output_path 后, publish 默认查找第一个 app 的 bug
+- 暂时不支持 build multi apps
+
 ### fir-cli 1.2.8
 - 统一 build 后, ipa 和 dSYM 文件的命名
 
