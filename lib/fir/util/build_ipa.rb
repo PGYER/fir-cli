@@ -47,7 +47,8 @@ module FIR
     def output_ipa_and_dsym
       Dir.chdir(@build_tmp_dir) do
         apps = Dir['*.app']
-        check_no_output_app_and_multi_apps(apps)
+        check_no_output_app(apps)
+        check_multi_apps(apps)
 
         temp_ipa  = zip_app2ipa(File.join(@build_tmp_dir, apps.first))
         ipa_info  = FIR.ipa_info(temp_ipa)
@@ -118,15 +119,18 @@ module FIR
       end
     end
 
-    def check_no_output_app_and_multi_apps(apps)
+    def check_no_output_app(apps)
       if apps.length == 0
         logger.error 'Builded has no output app, Can not be packaged'
         exit 1
       end
+    end
 
+    def check_multi_apps(apps)
       if apps.length > 1
-        logger.error 'Builded multi apps, Not supported'
-        exit 1
+        logger.warn '!' * 50
+        logger.warn 'Builded multi apps! Only package the first one!'
+        logger.warn '!' * 50
       end
     end
 
