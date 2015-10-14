@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.3.0
+- 去掉 build multi apps 的限制
+
 ### fir-cli 1.2.9
 - 修复指定 output_path 后, publish 默认查找第一个 app 的 bug
 - 暂时不支持 build multi apps
