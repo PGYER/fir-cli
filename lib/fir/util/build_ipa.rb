@@ -45,24 +45,45 @@ module FIR
     end
 
     def output_ipa_and_dsym
-      Dir.chdir(@build_tmp_dir) do
-        apps = Dir['*.app'].sort_by(&:size)
-        check_no_output_app(apps)
+      apps = Dir["#{@build_tmp_dir}/*.app"].sort_by(&:size)
+      check_no_output_app(apps)
 
-        temp_ipa  = zip_app2ipa(File.join(@build_tmp_dir, apps.first))
-        ipa_info  = FIR.ipa_info(temp_ipa)
-        ipa_name  = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
-        dsym_name = "#{@output_path}/#{ipa_info[:name]}.app.dSYM"
+      @temp_ipa = "#{@build_tmp_dir}/#{Time.now.to_i}.ipa"
+      archive_ipa(apps)
 
-        @builded_app_path = "#{@output_path}/#{ipa_name}.ipa"
-
-        FileUtils.mv(temp_ipa, @builded_app_path, force: true)
-        if File.exist?(dsym_name)
-          FileUtils.mv(dsym_name, "#{@output_path}/#{ipa_name}.app.dSYM", force: true)
-        end
-      end
+      check_archived_ipa_is_exist
+      rename_ipa_and_dsym
 
       logger.info 'Build Success'
+    end
+
+    def archive_ipa(apps)
+      logger.info 'Archiving......'
+      logger_info_dividing_line
+
+      @xcrun_cmd = "xcrun -sdk iphoneos PackageApplication -v #{apps.join(' ')} -o #{@temp_ipa}"
+      puts @xcrun_cmd if $DEBUG
+      logger.info `#{@xcrun_cmd}`
+    end
+
+    def check_archived_ipa_is_exist
+      unless File.exist?(@temp_ipa)
+        logger.error 'Archive failed'
+        exit 1
+      end
+    end
+
+    def rename_ipa_and_dsym
+      ipa_info  = FIR.ipa_info(@temp_ipa)
+      ipa_name  = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
+      dsym_name = "#{@output_path}/#{ipa_info[:name]}.app.dSYM"
+
+      @builded_app_path = "#{@output_path}/#{ipa_name}.ipa"
+
+      FileUtils.mv(@temp_ipa, @builded_app_path, force: true)
+      if File.exist?(dsym_name)
+        FileUtils.mv(dsym_name, "#{@output_path}/#{ipa_name}.app.dSYM", force: true)
+      end
     end
 
     def upload_build_dsym_mapping_file
@@ -123,21 +144,6 @@ module FIR
         logger.error 'Builded has no output app, Can not be packaged'
         exit 1
       end
-    end
-
-    def zip_app2ipa(app_path)
-      ipa_path = Tempfile.new(['temp', '.ipa']).path
-
-      Dir.mktmpdir do |tmpdir|
-        Dir.chdir(tmpdir) do
-          Dir.mkdir('Payload')
-          FileUtils.cp_r(app_path, 'Payload')
-          system("rm -rf #{ipa_path}") if File.file?(ipa_path)
-          system("zip -qr #{ipa_path} Payload")
-        end
-      end
-
-      ipa_path
     end
   end
 end
