@@ -45,7 +45,12 @@ module FIR
       logger.info 'Building......'
       logger_info_dividing_line
 
-      logger.info `#{@build_cmd}`
+      status = system(@build_cmd)
+
+      unless status
+        logger.error 'Build failed'
+        exit 1
+      end
     end
 
     # split ['a=1', 'b=2'] => { 'a' => '1', 'b' => '2' }
