@@ -27,8 +27,8 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.3.0
-  - 修复指定 output_path 后, publish 默认查找第一个 app 的 bug
+  ### fir-cli 1.3.1
+  - 暂时修复多个 target 的 build 打包 app 的 bug
   - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
