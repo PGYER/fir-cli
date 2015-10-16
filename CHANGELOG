@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.3.2
+- 支持打包提供 app watch 的应用
+
 ### fir-cli 1.3.1
 - 暂时修复多个 target 的 build 打包 app 的 bug
 
