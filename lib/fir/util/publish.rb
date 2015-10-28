@@ -80,11 +80,12 @@ module FIR
         token: @binary_cert[:token],
         file:  File.new(@file_path, 'rb'),
         # Custom variables
-        'x:name'         => @app_info[:display_name] || @app_info[:name],
-        'x:build'        => @app_info[:build],
-        'x:version'      => @app_info[:version],
-        'x:changelog'    => @changelog,
-        'x:release_type' => @app_info[:release_type]
+        'x:name'              => @app_info[:display_name] || @app_info[:name],
+        'x:build'             => @app_info[:build],
+        'x:version'           => @app_info[:version],
+        'x:changelog'         => @changelog,
+        'x:release_type'      => @app_info[:release_type],
+        'x:distribution_name' => @app_info[:distribution_name]
       }
     end
 
