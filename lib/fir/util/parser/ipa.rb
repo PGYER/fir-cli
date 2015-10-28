@@ -12,7 +12,7 @@ module FIR
       end
 
       def app
-        @app ||= App.new(app_path)
+        @app ||= App.new(app_path, is_stored)
       end
 
       def app_path
@@ -38,8 +38,8 @@ module FIR
         @metadata_path ||= File.join(@contents, 'iTunesMetadata.plist')
       end
 
-      def release_type
-        has_metadata? ? 'store' : 'adhoc'
+      def is_stored
+        has_metadata? ? true : false
       end
 
       def contents
@@ -60,8 +60,9 @@ module FIR
       class App
         include Parser::Common
 
-        def initialize(path)
-          @path = path
+        def initialize(path, is_stored = false)
+          @path      = path
+          @is_stored = is_stored
         end
 
         def full_info(options)
@@ -161,11 +162,15 @@ module FIR
         end
 
         def release_type
-          if has_mobileprovision?
-            if devices
-              'adhoc'
-            else
-              'inhouse'
+          if @is_stored
+            'store'
+          else
+            if has_mobileprovision?
+              if devices
+                'adhoc'
+              else
+                'inhouse'
+              end
             end
           end
         end

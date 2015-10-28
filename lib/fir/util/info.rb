@@ -24,7 +24,7 @@ module FIR
     def ipa_info(ipa_path, options = {})
       ipa  = FIR::Parser::Ipa.new(ipa_path)
       app  = ipa.app
-      info = app.full_info(options).merge(release_type: ipa.release_type)
+      info = app.full_info(options)
 
       ipa.cleanup
       info
