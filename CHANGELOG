@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.3.3
+- 修正解析 inhouse 错误的现象
+
 ### fir-cli 1.3.2
 - 支持打包提供 app watch 的应用
 
