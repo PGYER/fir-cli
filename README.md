@@ -14,19 +14,19 @@ fir.im-cli
 
 fir.im-cli 使用 Ruby 构建，只要安装相应 ruby gem 即可:
 
-```shell
+```sh
 $ sudo gem install fir-cli
 ```
 
 如果是 OS X 系统, 需要提前安装好 osx command line tools:
 
-```shell
+```sh
 $ xcode-select --install
 ```
 
 如果出现无法安装的现象, 请先更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem
 
-```shell
+```sh
 sudo gem sources --remove https://rubygems.org/
 sudo gem sources -a https://ruby.taobao.org/
 sudo gem sources -l
@@ -43,7 +43,7 @@ sudo gem install fir-cli
 
 1\. 使用 [RVM](https://rvm.io/) 安装 Ruby, 再安装 fir-cli(推荐)
 
-```shell
+```sh
 # Install RVM:
 $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
@@ -52,20 +52,20 @@ $ gem install fir-cli
 
 2\. 指定 fir-cli 中 bin 文件的 PATH
 
-```shell
+```sh
 $ export PATH=/usr/local/bin:$PATH;sudo gem install -n /usr/local/bin fir-cli
 ```
 
 3\. 重写 Ruby Gem 的 bindir
 
-```shell
+```sh
 $ echo 'gem: --bindir /usr/local/bin' >> ~/.gemrc
 $ sudo gem install fir-cli
 ```
 
 安装后，你可以在命令行执行指令
 
-```shell
+```sh
 $ fir
 Commands:
   fir build_apk BUILD_DIR                       # Build Android app (alias: `ba`).
@@ -110,13 +110,13 @@ Options:
 
 输入下面的指令便可轻松发布应用, 支持 ipa 和 apk 文件
 
-```shell
+```sh
 $ fir p path/to/application -T YOUR_FIR_TOKEN
 ```
 
 如果在此之前, 已经使用 `fir login` 命令登录过, 则可省略 `-T` 参数
 
-```shell
+```sh
 I, [2015-08-26T10:08:35.447209 #6774]  INFO -- : Publishing app.......
 I, [2015-08-26T10:08:35.447334 #6774]  INFO -- : ✈ -------------------------------------------- ✈
 I, [2015-08-26T10:08:35.514378 #6774]  INFO -- : Fetching xxxx@fir.im uploading info......
@@ -132,13 +132,13 @@ I, [2015-08-26T10:08:37.235155 #6774]  INFO -- :
 
 如果觉得每次都输入 `-T` 很不方便, 那么可使用 `login` 命令
 
-```shell
+```sh
 $ fir l
 ```
 
 这时系统会提示输入用户 token, 用户 token 可在 **[这里](http://fir.im/user/info)** 查看
 
-```shell
+```sh
 Please enter your fir.im API Token:
 I, [2015-08-26T10:10:28.235295 #6833]  INFO -- : Login succeed, previous user's email: xxx@xxx.com
 I, [2015-08-26T10:10:28.245083 #6833]  INFO -- : Login succeed, current  user's email: xxx@xxx.com
@@ -162,7 +162,7 @@ I, [2015-08-26T10:11:18.535704 #7167]  INFO -- :
 
 ### 复杂一点
 
-```shell
+```sh
 $ fir bi path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PREPROCESSOR_DEFINITIONS="FOO=bar"
 ```
 
@@ -170,20 +170,20 @@ $ fir bi path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PRE
 
 ### 编译用 CocoaPods 做依赖管理的 .ipa包
 
-```shell
+```sh
 $ fir bi path/to/workspace -w -S <scheme name>
 ```
 
 ### 编译用 Gradle 打包 apk
 
-```shell
+```sh
 $ fir ba path/to/project
 ```
 
 ### 一步, 从源代码到 fir.im
 > 只需要输入 -p -T
 
-```shell
+```sh
 $ fir build_ipa path/to/project -o path/to/output -p -T YOUR_FIR_TOKEN
 I, [2015-08-26T10:11:59.687221 #7273]  INFO -- : Building......
 I, [2015-08-26T10:11:59.687301 #7273]  INFO -- : ✈ -------------------------------------------- ✈
@@ -211,18 +211,18 @@ I, [2015-08-26T10:12:02.210520 #7273]  INFO -- :
 
 > 指定 version 和 build 上传:
 
-```shell
+```sh
 $ fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your api token>
 ```
 
 > 在 publish 的时候自动上传:
 
-```shell
+```sh
 $ fir p <app file path> -m <mapping file path> -P <bughd project id> -T <your api token>
 ```
 > 在 build_ipa 的时候自动上传:
 
-```shell
+```sh
 $ fir b <project dir> -P <bughd project id> -M -p -T <your api token>
 ```
 
@@ -230,7 +230,7 @@ $ fir b <project dir> -P <bughd project id> -M -p -T <your api token>
 
 输入以下指令获取全面功能介绍
 
-```shell
+```sh
 $ fir -h
 $ fir publish -h
 ```
@@ -241,7 +241,7 @@ $ fir publish -h
 
 下面的指令会自动更新 fir-cli
 
-```shell
+```sh
 $ fir upgrade
 ```
 
