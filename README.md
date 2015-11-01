@@ -1,40 +1,28 @@
-![fir-cli](http://7rf35s.com1.z0.glb.clouddn.com/cli.jpeg)
+✈ fir.im-cli
+---
+
 ![Build Status Images](https://travis-ci.org/FIRHQ/fir-cli.svg)
 [![Code Climate](https://codeclimate.com/github/FIRHQ/fir-cli/badges/gpa.svg)](https://codeclimate.com/github/FIRHQ/fir-cli)
 [![Test Coverage](https://codeclimate.com/github/FIRHQ/fir-cli/badges/coverage.svg)](https://codeclimate.com/github/FIRHQ/fir-cli/coverage)
 [![Gem Version](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/FIRHQ/fir-cli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-> fir.im-cli 可以通过指令查看, 上传, 编译应用
+fir.im-cli 可以通过指令查看, 上传, 编译 ios/android 应用.
 
-## 使用入门
-### 从安装入手
+## 安装
 
-fir.im-cli 使用 Ruby 构建，只要安装相应 ruby gem 即可:
+### OSX 安装
 
-```sh
-$ sudo gem install fir-cli
-```
-
-如果是 OS X 系统, 需要提前安装好 osx command line tools:
+在安装前需要确保 **osx command line tools** 已经被提前安装好:
 
 ```sh
 $ xcode-select --install
 ```
 
-如果出现无法安装的现象, 请先更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem
+fir.im-cli 使用 Ruby 构建, 无需编译, 只要安装相应 ruby gem 即可(如果出现相关权限不足的错误, 请在命令行前加上 `sudo`):
 
 ```sh
-sudo gem sources --remove https://rubygems.org/
-sudo gem sources -a https://ruby.taobao.org/
-sudo gem sources -l
-*** CURRENT SOURCES ***
-
-https://ruby.taobao.org
-# 请确保只有 ruby.taobao.org, 如果有其他的源, 请 remove 掉
-
-sudo gem update --system
-sudo gem install fir-cli
+$ gem install fir-cli
 ```
 
 **注意: 如果你的系统是 mac OSX 10.11 以后的版本, 由于10.11引入了 `rootless`, 无法直接安装 fir-cli, 有以下三种解决办法:**
@@ -51,20 +39,47 @@ $ gem install fir-cli
 2\. 指定 fir-cli 中 bin 文件的 PATH
 
 ```sh
-$ export PATH=/usr/local/bin:$PATH;sudo gem install -n /usr/local/bin fir-cli
+$ export PATH=/usr/local/bin:$PATH;gem install -n /usr/local/bin fir-cli
 ```
 
 3\. 重写 Ruby Gem 的 bindir
 
 ```sh
 $ echo 'gem: --bindir /usr/local/bin' >> ~/.gemrc
-$ sudo gem install fir-cli
+$ gem install fir-cli
 ```
 
-安装后，你可以在命令行执行指令
+### Linux 安装
+
+需要提前安装好 Ruby 版本 > 1.9.3
 
 ```sh
-$ fir
+$ gem install fir-cli
+```
+
+**注意: 如果出现 `ERROR:  While executing gem ... (Gem::RemoteFetcher::FetchError)` 的错误, 请先更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem**
+
+```sh
+$ gem sources --remove https://rubygems.org/
+$ gem sources -a https://ruby.taobao.org/
+$ gem sources -l
+*** CURRENT SOURCES ***
+
+https://ruby.taobao.org
+# 请确保只有 ruby.taobao.org, 如果有其他的源, 请 remove 掉
+
+gem update --system
+gem install fir-cli
+```
+
+## 使用说明
+
+### fir help 使用说明
+
+`fir help` 命令不仅可以运行在 `fir` 主命令上, 还可以运行在相应子命令上查看相关的帮助
+
+```sh
+$ fir help
 Commands:
   fir build_apk BUILD_DIR                       # Build Android app (alias: `ba`).
   fir build_ipa BUILD_DIR [options] [settings]  # Build iOS app (alias: `bi`).
@@ -73,7 +88,7 @@ Commands:
   fir login                                     # Login fir.im (aliases: `l`).
   fir mapping MAPPING_FILE_PATH                 # Upload app mapping file to BugHD.com (aliases: `m`).
   fir me                                        # Show current user info if user is logined.
-  fir publish APP_FILE_PATH                     # Publish iOS/Android app to fir.im, support ipa/apk file (aliases: `p`).
+  fir publish APP_FILE_PATH                     # Publish iOS/Android app to fir.im, support ipa/apk file (aliases: `...
   fir upgrade                                   # Upgrade fir-cli and quit (aliases: `u`).
   fir version                                   # Show fir-cli version number and quit (aliases: `v`).
 
@@ -84,57 +99,35 @@ Options:
                                    # Default: true
   -q, [--quiet], [--no-quiet]      # Silence commands
   -h, [--help], [--no-help]        # Show this help message and quit
-
-
-Options:
-  -T, [--token=TOKEN]              # User's API Token at FIR.im
-  -L, [--logfile=LOGFILE]          # Path to writable logfile
-  -V, [--verbose], [--no-verbose]  # Show verbose
-                                   # Default: true
-  -q, [--quiet], [--no-quiet]      # Silence commands
-  -h, [--help], [--no-help]        # Show this help message and quit
 ```
-
-### 参数说明
+#### 全局参数说明
 
 - `alias <short command>` 意味着可以用 alias 别名来代替该指令, 例如 `fir b`
-- `-T` 用户在 fir.im 上的 api_token, `publish` 需要使用此参数
+- `-T` 用户在 fir.im 上的 api_token
 - `-L` 指定 fir-cli 的输出 log, 默认为 STDOUT
 - `-V` Verbose, 默认为输出所有信息( INFO 和 ERROR), 如果设置 `--no-verbose`, 则只输出 ERROR 信息
 - `-q` 静默模式, 默认关闭
-- `-h` 查看帮助
+- `-h` 查看相关命令帮助
 
-### 发布一个应用
+### fir publish 使用说明
 
-输入下面的指令便可轻松发布应用, 支持 ipa 和 apk 文件
-
-```sh
-$ fir p path/to/application -T YOUR_FIR_TOKEN
-```
-
-如果在此之前, 已经使用 `fir login` 命令登录过, 则可省略 `-T` 参数
+fir publish 命令可以轻松发布应用到 fir.im, 支持 ipa 和 apk 文件.
 
 ```sh
-I, [2015-08-26T10:08:35.447209 #6774]  INFO -- : Publishing app.......
-I, [2015-08-26T10:08:35.447334 #6774]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:08:35.514378 #6774]  INFO -- : Fetching xxxx@fir.im uploading info......
-I, [2015-08-26T10:08:35.692616 #6774]  INFO -- : Uploading app......
-I, [2015-08-26T10:08:36.920226 #6774]  INFO -- : Updating devices info......
-I, [2015-08-26T10:08:37.075149 #6774]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:08:37.075238 #6774]  INFO -- : Fetch app info from fir.im
-I, [2015-08-26T10:08:37.235071 #6774]  INFO -- : Published succeed: http://fir.im/xxxx
-I, [2015-08-26T10:08:37.235155 #6774]  INFO -- :
+$ fir publish path/to/application -T YOUR_FIR_TOKEN
 ```
 
-### 方便一点
+如果需要上传 changelog, 自定义 short 地址, 上传符号表, 生成二维码等功能, 可以使用 `fir publish -h`查看相应的帮助
 
-如果觉得每次都输入 `-T` 很不方便, 那么可使用 `login` 命令
+### fir login 使用说明
+
+如果觉得每次上传都输入 `-T` 很不方便, 那么可使用 `login` 命令
 
 ```sh
-$ fir l
+$ fir login
 ```
 
-这时系统会提示输入用户 token, 用户 token 可在 **[这里](http://fir.im/user/info)** 查看
+这时系统会提示输入用户 API token, 用户的 API token 可在 **[fir.im 应用管理页](http://fir.im/apps)** 的右上角查看
 
 ```sh
 Please enter your fir.im API Token:
@@ -143,69 +136,53 @@ I, [2015-08-26T10:10:28.245083 #6833]  INFO -- : Login succeed, current  user's 
 I, [2015-08-26T10:10:28.245152 #6833]  INFO -- :
 ```
 
-### 编译并获得 ipa
-> 该指令 `build_ipa` 对 `xcodebuild` 原生指令进行了封装, 将常用的参数名简化, 支持全部的自带参数及设置, 同时输出符号表 .dSYM 文件.
+### fir build 使用说明
+
+该指令分为两个不同的指令, `build_ipa` 和 `build_apk`, 可以编译 ipa 及 apk 应用并上传到 fir.im
+
+#### 编译 ipa
+
+`build_ipa` 对 `xcodebuild` 原生指令进行了封装, 将常用的参数名简化, 支持全部的自带参数及设置, 同时输出符号表 dSYM 文件.
+
+编译 project
 
 ```
 $ fir build_ipa path/to/project -o path/to/output
-I, [2015-08-26T10:11:12.105103 #7167]  INFO -- : Building......
-I, [2015-08-26T10:11:12.105175 #7167]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:11:18.500887 #7167]  INFO -- : Build settings from command line:
-
-..........
-
-I, [2015-08-26T10:11:18.535498 #7167]  INFO -- : Build Success
-I, [2015-08-26T10:11:18.535704 #7167]  INFO -- :
 ```
 
-### 复杂一点
+编译 workspace
 
 ```sh
-$ fir bi path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PREPROCESSOR_DEFINITIONS="FOO=bar"
+$ fir build_ipa path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PREPROCESSOR_DEFINITIONS="FOO=bar"
 ```
 
 该指令在指向的目录中，找到第一个 workspace 文件，对其进行编译。使用 `Release` 设置，编译策略为 `allTargets`，同时设置了预编译参数 `FOO`。
 
-### 编译用 CocoaPods 做依赖管理的 .ipa包
+编译用 CocoaPods 做依赖管理的 .ipa 包
 
 ```sh
-$ fir bi path/to/workspace -w -S <scheme name>
+$ fir build_ipa path/to/workspace -w -S <scheme name>
 ```
 
-### 编译用 Gradle 打包 apk
+#### 编译用 Gradle 打包 apk
 
 ```sh
-$ fir ba path/to/project
+$ fir build_apk path/to/project
 ```
 
-### 一步, 从源代码到 fir.im
-> 只需要输入 -p -T
+#### 编译并且上传至 fir.im
+
+只需要输入 `-p -T` 即可
 
 ```sh
-$ fir build_ipa path/to/project -o path/to/output -p -T YOUR_FIR_TOKEN
-I, [2015-08-26T10:11:59.687221 #7273]  INFO -- : Building......
-I, [2015-08-26T10:11:59.687301 #7273]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:12:00.868774 #7273]  INFO -- : Build settings from command line:
-
-..........
-
-I, [2015-08-26T10:12:00.893819 #7273]  INFO -- : Build Success
-I, [2015-08-26T10:12:00.894051 #7273]  INFO -- :
-I, [2015-08-26T10:12:01.026832 #7273]  INFO -- : Publishing app.......
-I, [2015-08-26T10:12:01.026905 #7273]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:12:01.098759 #7273]  INFO -- : Fetching im.fir.OnlyiPad@fir.im uploading info......
-I, [2015-08-26T10:12:01.249832 #7273]  INFO -- : Uploading app......
-I, [2015-08-26T10:12:01.859718 #7273]  INFO -- : Updating devices info......
-I, [2015-08-26T10:12:02.015517 #7273]  INFO -- : ✈ -------------------------------------------- ✈
-I, [2015-08-26T10:12:02.015588 #7273]  INFO -- : Fetch app info from fir.im
-I, [2015-08-26T10:12:02.210391 #7273]  INFO -- : Published succeed: http://fir.im/xxxx
-I, [2015-08-26T10:12:02.210459 #7273]  INFO -- :
-I, [2015-08-26T10:12:02.210520 #7273]  INFO -- :
+$ fir build_ipa/build_apk path/to/project -o path/to/output -p -T YOUR_FIR_TOKEN -c YOUR_CHANGELOG
 ```
 
-### 上传符号表
+如果需要更详细的使用说明, 可以使用 `fir build_ipa/build_apk -h`查看相应的帮助
 
-有以下三种方式上传符号表至 [BugHD.com](http://bughd.com) 所对应的项目, 目前已经支持 dSYM 和 txt 两种格式的符号表文件上传
+### fir mapping 使用说明
+
+该指令可以上传符号表至 [BugHD.com](http://bughd.com) 所对应的项目, 目前已经支持 dSYM 和 txt 两种格式的符号表文件上传, 有以下三种方法上传:
 
 > 指定 version 和 build 上传:
 
@@ -224,27 +201,34 @@ $ fir p <app file path> -m <mapping file path> -P <bughd project id> -T <your ap
 $ fir b <project dir> -P <bughd project id> -M -p -T <your api token>
 ```
 
-## 需要帮助?
+如果需要更详细的使用说明, 可以使用 `fir mapping -h`查看相应的帮助
 
-输入以下指令获取全面功能介绍
+### fir me 使用说明
+
+该指令可以查看当前使用者
 
 ```sh
-$ fir -h
-$ fir publish -h
+$ fir me
+I, [2015-11-02T03:03:04.933645 #29886]  INFO -- : Login succeed, current user's email: xxxx
+I, [2015-11-02T03:03:04.933756 #29886]  INFO -- : Login succeed, current user's name:  xxxx
+I, [2015-11-02T03:03:04.933787 #29886]  INFO -- :
 ```
 
-如果还有疑问随时发邮件至 [fir-cli](mailto: dev@fir.im)
+### fir upgrade 使用说明
 
-## 永远使用最新功能
-
-下面的指令会自动更新 fir-cli
+该指令用于升级最新版本的 fir-cli
 
 ```sh
 $ fir upgrade
 ```
 
-随时更新以使用最新功能
-
 ## 提交反馈
 
-[使用 github issue 即可](https://github.com/FIRHQ/fir-cli/issues)
+直接使用 Github 的 [Issue](https://github.com/FIRHQ/fir-cli/issues) 即可.
+
+## 捐赠支持
+
+如果你觉得 fir-cli 对你有所帮助, 欢迎打赏支持作者:smile:
+
+![](http://7rf35s.com1.z0.glb.clouddn.com/coffee.png)
+
