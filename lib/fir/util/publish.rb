@@ -54,12 +54,13 @@ module FIR
     end
 
     def uploading_icon_info
-      icon = @app_info[:icons].max_by { |f| File.size(f) }
+      large_icon_path     = @app_info[:icons].max_by { |f| File.size(f) }
+      uncrushed_icon_path = convert_icon(large_icon_path)
 
       {
         key:   @icon_cert[:key],
         token: @icon_cert[:token],
-        file:  File.new(icon, 'rb')
+        file:  File.new(uncrushed_icon_path, 'rb')
       }
     end
 
@@ -162,6 +163,18 @@ module FIR
       check_supported_file(@file_path)
       check_token_cannot_be_blank(@token)
       fetch_user_info(@token)
+    end
+
+    def convert_icon origin_path
+      logger.info "Converting app's icon......"
+
+      if @app_info[:type] == 'ios'
+        output_path = Tempfile.new(['uncrushed_icon', '.png']).path
+        FIR::Parser::Pngcrush.uncrush_icon(origin_path, output_path)
+        origin_path = output_path if File.size(output_path) != 0
+      end
+
+      origin_path
     end
   end
 end

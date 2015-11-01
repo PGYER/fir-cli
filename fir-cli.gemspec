@@ -27,9 +27,8 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.3.4
-  - 修正解析 inhouse 错误的现象
-  - 上传增加 distribution_name 信息
+  ### fir-cli 1.3.5
+  - 修复转换 icon 的 bug
   - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
