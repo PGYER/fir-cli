@@ -29,9 +29,9 @@ module FIR
         }
       end
 
-      # @apk.icon is a hash, { icon_name: icon_data }
+      # @apk.icon is a hash, { icon_name: icon_binary_data }
       def tmp_icons
-        @apk.icon.map { |_, data| generate_tmp_icon(data) }
+        @apk.icon.map { |_, data| generate_tmp_icon(data, :apk) }
       end
     end
   end

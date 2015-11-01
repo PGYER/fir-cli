@@ -113,7 +113,7 @@ module FIR
         end
 
         def tmp_icons
-          icons.map { |data| generate_tmp_icon(data) }
+          icons.map { |data| generate_tmp_icon(data, :ipa) }
         end
 
         def icons
