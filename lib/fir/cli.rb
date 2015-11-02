@@ -30,6 +30,7 @@ module FIR
     method_option :output,        type: :string,  aliases: '-o', desc: 'IPA output path, the default is: BUILD_DIR/fir_build_ipa'
     method_option :publish,       type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,         type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
+    method_option :name,          type: :string,  aliases: '-n', desc: 'Set custom ipa name when builded'
     method_option :changelog,     type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im'
     method_option :qrcode,        type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     method_option :mapping,       type: :boolean, aliases: '-M', desc: 'true/false if upload app mapping file to BugHD.com'
@@ -54,6 +55,7 @@ module FIR
     method_option :output,    type: :string,  aliases: '-o', desc: 'APK output path, the default is: BUILD_DIR/build/outputs/apk'
     method_option :publish,   type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,     type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
+    method_option :name,      type: :string,  aliases: '-n', desc: 'Set custom apk name when builded'
     method_option :changelog, type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im'
     method_option :qrcode,    type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     def build_apk(*args)
