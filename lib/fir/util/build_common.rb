@@ -9,6 +9,7 @@ module FIR
       @token         = options[:token] || current_token
       @changelog     = options[:changelog].to_s
       @short         = options[:short].to_s
+      @name          = options[:name].to_s
       @proj          = options[:proj].to_s
       @export_qrcode = options[:qrcode]
     end

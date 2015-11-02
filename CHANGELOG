@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.3.6
+- 增加自定义 build 后 ipa, apk 的 name
+
 ### fir-cli 1.3.5
 - 修复转换 icon 的 bug
 

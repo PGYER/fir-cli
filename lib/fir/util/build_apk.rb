@@ -40,7 +40,12 @@ module FIR
       check_no_output_apk
 
       apk_info = FIR.apk_info(@builded_apk)
-      apk_name = "#{apk_info[:name]}-#{apk_info[:version]}-Build-#{apk_info[:build]}"
+
+      if @name.blank?
+        apk_name = "#{apk_info[:name]}-#{apk_info[:version]}-Build-#{apk_info[:build]}"
+      else
+        apk_name = @name
+      end
 
       FileUtils.cp(@builded_apk, "#{@output_path}/#{apk_name}.apk")
     end
