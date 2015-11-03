@@ -153,9 +153,14 @@ module FIR
       @file_path     = File.absolute_path(args.first.to_s)
       @file_type     = File.extname(@file_path).delete('.')
       @token         = options[:token] || current_token
-      @changelog     = options[:changelog].to_s.to_utf8
+      @changelog     = read_changelog(options[:changelog]).to_s.to_utf8
       @short         = options[:short].to_s
       @export_qrcode = !!options[:qrcode]
+    end
+
+    def read_changelog(changelog)
+      return if changelog.blank?
+      File.exist?(changelog) ? File.read(changelog) : changelog
     end
 
     def check_supported_file_and_token
