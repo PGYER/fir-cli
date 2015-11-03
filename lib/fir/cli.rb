@@ -56,7 +56,7 @@ module FIR
     method_option :publish,   type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,     type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
     method_option :name,      type: :string,  aliases: '-n', desc: 'Set custom apk name when builded'
-    method_option :changelog, type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im'
+    method_option :changelog, type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im, support string/file'
     method_option :qrcode,    type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     def build_apk(*args)
       prepare :build_apk
