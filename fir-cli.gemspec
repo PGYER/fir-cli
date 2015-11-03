@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.date          = Time.now.strftime('%Y-%m-%d')
   spec.summary       = 'fir.im command tool'
   spec.description   = 'fir.im command tool, support iOS and Android'
-  spec.homepage      = 'http://blog.fir.im/fir_cli'
+  spec.homepage      = 'https://github.com/FIRHQ/fir-cli'
   spec.license       = 'MIT'
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
