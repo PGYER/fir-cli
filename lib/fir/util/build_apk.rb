@@ -33,8 +33,13 @@ module FIR
       "#{@build_dir}/build/outputs/apk"
     end
 
+    def prefix_gradle_build_path
+      "#{@build_dir}/app/build/outputs/apk"
+    end
+
     def output_apk
       @builded_apk ||= Dir["#{gradle_build_path}/*.apk"].find { |i| i =~ /release/ }
+      @builded_apk ||= Dir["#{prefix_gradle_build_path}/*.apk"].find { |i| i =~ /release/ }
       @builded_apk ||= Dir["#{@build_dir}/*.apk"].find { |i| i =~ /release/ }
 
       check_no_output_apk
