@@ -27,7 +27,8 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.3.7
+  ### fir-cli 1.3.8
+  - 增加安卓打包生成路径
   - 支持直接从文件读取 changelog
   - 增加 -n 参数自定义 build 后 ipa, apk 的 name
   - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
