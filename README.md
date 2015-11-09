@@ -7,13 +7,13 @@
 [![Gem Version](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/FIRHQ/fir-cli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-fir.im-cli 可以通过指令查看, 上传, 编译 ios/android 应用.
+fir.im-cli 可以通过指令查看, 上传, 编译 iOS/Android 应用.
 
 ## 安装
 
-### OSX 安装
+### OS X 安装
 
-在安装前需要确保 **osx command line tools** 已经被提前安装好:
+在安装前需要确保 **OS X command line tools** 已经被提前安装好:
 
 ```sh
 $ xcode-select --install
@@ -25,7 +25,7 @@ fir.im-cli 使用 Ruby 构建, 无需编译, 只要安装相应 ruby gem 即可(
 $ gem install fir-cli
 ```
 
-**注意: 如果你的系统是 mac OSX 10.11 以后的版本, 由于10.11引入了 `rootless`, 无法直接安装 fir-cli, 有以下三种解决办法:**
+**注意: 如果你的系统是 Mac OS X 10.11 以后的版本, 由于10.11引入了 `rootless`, 无法直接安装 fir-cli, 有以下三种解决办法:**
 
 1\. 使用 [RVM](https://rvm.io/) 安装 Ruby, 再安装 fir-cli(推荐)
 
