@@ -54,6 +54,8 @@ module FIR
       check_archived_ipa_is_exist
       rename_ipa_and_dsym
 
+      FileUtils.rm_rf(@build_tmp_dir) unless $DEBUG
+
       logger.info 'Build Success'
     end
 
