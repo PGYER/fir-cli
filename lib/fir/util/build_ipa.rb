@@ -80,16 +80,16 @@ module FIR
       dsym_name = "#{@output_path}/#{ipa_info[:name]}.app.dSYM"
 
       if @name.blank?
-        ipa_name = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
+        @ipa_name = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
       else
-        ipa_name = @name
+        @ipa_name = @name
       end
 
-      @builded_app_path = "#{@output_path}/#{ipa_name}.ipa"
+      @builded_app_path = "#{@output_path}/#{@ipa_name}.ipa"
 
       FileUtils.mv(@temp_ipa, @builded_app_path, force: true)
       if File.exist?(dsym_name)
-        FileUtils.mv(dsym_name, "#{@output_path}/#{ipa_name}.app.dSYM", force: true)
+        FileUtils.mv(dsym_name, "#{@output_path}/#{@ipa_name}.app.dSYM", force: true)
       end
     end
 
@@ -97,7 +97,7 @@ module FIR
       logger_info_blank_line
 
       @app_info     = ipa_info(@builded_app_path)
-      @mapping_file = Dir["#{@output_path}/*.dSYM/Contents/Resources/DWARF/*"].first
+      @mapping_file = Dir["#{@output_path}/#{@ipa_name}.app.dSYM/Contents/Resources/DWARF/*"].first
 
       mapping @mapping_file, proj:    @proj,
                              build:   @app_info[:build],
