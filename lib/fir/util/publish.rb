@@ -60,7 +60,8 @@ module FIR
       {
         key:   @icon_cert[:key],
         token: @icon_cert[:token],
-        file:  File.new(uncrushed_icon_path, 'rb')
+        file:  File.new(uncrushed_icon_path, 'rb'),
+        'x:is_converted' => '1'
       }
     end
 
