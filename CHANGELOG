@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.4.0
+- 使用 cli 转换 icon 后不再回调后台 icon 转换器
+
 ### fir-cli 1.3.9
 - 修正 build 后生成多个 dsym 文件导致上传 bughd 失败的 bug
 
