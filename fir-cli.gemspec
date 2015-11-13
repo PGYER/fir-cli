@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'fir-cli'
   spec.version       = FIR::VERSION
   spec.authors       = ['NaixSpirit']
-  spec.email         = ['dev@fir.im']
+  spec.email         = ['neverlandxy.naix@gmail.com']
   spec.date          = Time.now.strftime('%Y-%m-%d')
   spec.summary       = 'fir.im command tool'
   spec.description   = 'fir.im command tool, support iOS and Android'
