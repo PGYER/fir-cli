@@ -2,10 +2,6 @@
 
 module FIR
   module Config
-    CONFIG_PATH   = "#{ENV['HOME']}/.fir-cli"
-    API_YML_PATH  = File.expand_path('../../', __FILE__) + '/api.yml'
-    APP_FILE_TYPE = %w(.ipa .apk).freeze
-
     def fir_api
       @fir_api ||= YAML.load_file(API_YML_PATH).deep_symbolize_keys[:fir]
     end
