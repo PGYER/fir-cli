@@ -19,3 +19,5 @@ mkmf.log
 Gemfile.lock
 .DS_Store
 /test/cases/*.png
+/build_apk_example_*
+/build_ipa_example_*
