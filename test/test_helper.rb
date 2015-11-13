@@ -35,6 +35,14 @@ class Minitest::Test
     File.expand_path('../projects', __FILE__) + '/apk'
   end
 
+  def default_ipa_git_url
+    'git@github.com:NaixSpirit/build_ipa_example.git'
+  end
+
+  def default_apk_git_url
+    'git@github.com:NaixSpirit/build_apk_example.git'
+  end
+
   def default_bughd_project_ios_id
     '55bb2839692d647a46000004'
   end

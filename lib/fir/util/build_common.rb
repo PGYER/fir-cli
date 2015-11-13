@@ -4,7 +4,7 @@ module FIR
   module BuildCommon
 
     def initialize_build_common_options(args, options)
-      @build_dir     = initialize_build_dir(args)
+      @build_dir     = initialize_build_dir(args, options)
       @output_path   = initialize_output_path(options)
       @token         = options[:token] || current_token
       @changelog     = options[:changelog].to_s
@@ -14,11 +14,30 @@ module FIR
       @export_qrcode = options[:qrcode]
     end
 
-    def initialize_build_dir(args)
-      if args.first.blank? || !File.exist?(args.first)
+    def initialize_build_dir(args, options)
+      build_dir = args.first.to_s
+      if File.extname(build_dir) == '.git'
+        args.shift && git_clone_build_dir(build_dir, options)
+      elsif build_dir.blank? || !File.exist?(build_dir)
         Dir.pwd
       else
-        File.absolute_path(args.shift.to_s) # pop the first param
+        args.shift && File.absolute_path(build_dir)
+      end
+    end
+
+    def git_clone_build_dir(ssh_url, options)
+      repo_name = File.basename(ssh_url, '.git') + "_#{Time.now.strftime('%Y%m%dT%H%M%S')}"
+      branch    = options[:branch].blank? ? 'master' : options[:branch]
+      git_cmd   = "git clone --depth=50 --branch=#{branch} #{ssh_url} #{repo_name}"
+
+      logger.info git_cmd
+      logger_info_dividing_line
+
+      if system(git_cmd)
+        File.absolute_path(repo_name)
+      else
+        logger.error 'Git clone failed'
+        exit 1
       end
     end
 

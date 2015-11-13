@@ -20,9 +20,12 @@ module FIR
 
       $ fir bi <project dir> [-c <changelog> -P <bughd project id> -M -p -Q -T <your api token>]
 
+      $ fir bi <git ssh url> [-B develop -c <changelog> -P <bughd project id> -M -p -Q -T <your api token>]
+
       $ fir bi <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -Q -T <your api token>]
     LONGDESC
     map ['b', 'bi'] => :build_ipa
+    method_option :branch,        type: :string,  aliases: '-B', desc: 'Set branch if project is a git repo, the default is `master`'
     method_option :workspace,     type: :boolean, aliases: '-w', desc: 'true/false if build workspace'
     method_option :scheme,        type: :string,  aliases: '-S', desc: 'Set the scheme NAME if build workspace'
     method_option :configuration, type: :string,  aliases: '-C', desc: 'Use the build configuration NAME for building each target'
@@ -50,8 +53,11 @@ module FIR
       Example:
 
       $ fir ba <project dir> [-o <apk output dir> -c <changelog> -p -Q -T <your api token>]
+
+      $ fir ba <git ssh url> [-B develop -o <apk output dir> -c <changelog> -p -Q -T <your api token>]
     LONGDESC
     map ['ba'] => :build_apk
+    method_option :branch,    type: :string,  aliases: '-B', desc: 'Set branch if project is a git repo, the default is `master`'
     method_option :output,    type: :string,  aliases: '-o', desc: 'APK output path, the default is: BUILD_DIR/build/outputs/apk'
     method_option :publish,   type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,     type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
