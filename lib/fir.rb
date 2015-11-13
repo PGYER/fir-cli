@@ -24,10 +24,5 @@ require 'fir/version'
 require 'fir/cli'
 
 module FIR
-  ROOT_PATH     = File.expand_path('../', __FILE__)
-  CONFIG_PATH   = "#{ENV['HOME']}/.fir-cli"
-  API_YML_PATH  = ROOT_PATH + '/fir/api.yml'
-  APP_FILE_TYPE = %w(.ipa .apk).freeze
-
   include Util
 end
