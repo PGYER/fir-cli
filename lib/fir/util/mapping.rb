@@ -61,7 +61,7 @@ module FIR
     end
 
     def generate_temp_mapping_file
-      tmp_file_path = "#{Dir.tmpdir}/#{File.basename(@file_path)}-fircli"
+      tmp_file_path = "#{Dir.tmpdir}/fircli-#{File.basename(@file_path)}"
       FileUtils.cp(@file_path, tmp_file_path)
 
       tmp_file_path = zip_mapping_file(tmp_file_path)
