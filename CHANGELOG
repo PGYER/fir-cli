@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.4.3
+- 修复 @build_cmd 中的输出显示, 使用 `$?` 获取 Process::Status
+
 ### fir-cli 1.4.2
 - 修复手动提交 zip 格式符号表文件报错的 bug
 
