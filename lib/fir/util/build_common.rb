@@ -65,9 +65,9 @@ module FIR
       logger.info 'Building......'
       logger_info_dividing_line
 
-      status = system(@build_cmd)
+      logger.info `#{@build_cmd}`
 
-      unless status
+      if $?.to_i != 0
         logger.error 'Build failed'
         exit 1
       end
