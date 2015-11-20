@@ -27,8 +27,8 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.4.2
-  - 修复手动提交 zip 格式符号表文件报错的 bug
+  ### fir-cli 1.4.3
+  - 修复 @build_cmd 中的输出显示, 使用 `$?` 获取 Process::Status
   - 支持远程 git 项目打包编译, enjoy.
   - `$ fir bi/ba <git ssh url> -B develop -c <changelog> -p`
   - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
