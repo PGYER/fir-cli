@@ -112,6 +112,7 @@ module FIR
 
     def fetch_uploading_info
       logger.info "Fetching #{@app_info[:identifier]}@fir.im uploading info......"
+      logger.info "Uploading app: #{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
 
       post fir_api[:app_url], type:      @app_info[:type],
                               bundle_id: @app_info[:identifier],
