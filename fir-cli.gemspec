@@ -27,7 +27,8 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.4.3
+  ### fir-cli 1.4.4
+  - Publish 时候增加 app 相关信息
   - 修复 @build_cmd 中的输出显示, 使用 `$?` 获取 Process::Status
   - 支持远程 git 项目打包编译, enjoy.
   - `$ fir bi/ba <git ssh url> -B develop -c <changelog> -p`
