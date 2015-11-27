@@ -127,7 +127,7 @@ $ fir publish path/to/application -T YOUR_FIR_TOKEN
 $ fir login
 ```
 
-这时系统会提示输入用户 API token, 用户的 API token 可在 **[fir.im 应用管理页](http://fir.im/apps)** 的右上角查看
+这时系统会提示输入用户 API token, 用户的 API token 可在 **[这里](http://fir.im/apps/apitoken)** 的右上角查看
 
 ```sh
 Please enter your fir.im API Token:
