@@ -5,16 +5,15 @@ module FIR
 
     def build_apk(*args, options)
       initialize_build_common_options(args, options)
+      binding.pry
+      set_flavor(options)
 
       Dir.chdir(@build_dir)
-
       @build_cmd = initialize_apk_build_cmd
 
       logger_info_and_run_build_command
 
       output_apk
-      @builded_app_path = Dir["#{@output_path}/*.apk"].first
-
       publish_build_app if options.publish?
 
       logger_info_blank_line
@@ -22,11 +21,21 @@ module FIR
 
     private
 
+    def set_flavor(options)
+      unless options.flavor.blank?
+        @flavor = options.flavor
+        unless @flavor =~ /^assemble(.+)/
+          @flavor = "assemble#{@flavor}Release"
+        end
+      end
+    end
+
     def initialize_apk_build_cmd
       check_build_gradle_exist
 
-      apk_build_cmd = 'gradle clean;gradle build'
-      apk_build_cmd
+      cmd = "./gradlew build"
+      cmd = "./gradlew #{@flavor}" unless @flavor.blank?
+      cmd
     end
 
     def gradle_build_path
@@ -44,15 +53,11 @@ module FIR
 
       check_no_output_apk
 
-      apk_info = FIR.apk_info(@builded_apk)
+      apk_info  = FIR.apk_info(@builded_apk)
+      @apk_name = @name.blank? ? "#{apk_info[:name]}-#{apk_info[:version]}-Build-#{apk_info[:build]}" : @name
 
-      if @name.blank?
-        apk_name = "#{apk_info[:name]}-#{apk_info[:version]}-Build-#{apk_info[:build]}"
-      else
-        apk_name = @name
-      end
-
-      FileUtils.cp(@builded_apk, "#{@output_path}/#{apk_name}.apk")
+      @builded_app_path = "#{@output_path}/#{@apk_name}.apk"
+      FileUtils.cp(@builded_apk, @builded_app_path)
     end
 
     def check_no_output_apk
