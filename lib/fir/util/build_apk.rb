@@ -5,7 +5,6 @@ module FIR
 
     def build_apk(*args, options)
       initialize_build_common_options(args, options)
-      binding.pry
       set_flavor(options)
 
       Dir.chdir(@build_dir)
