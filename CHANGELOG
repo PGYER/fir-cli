@@ -1,5 +1,9 @@
 ## 更新记录
 
+### fir-cli 1.4.5
+- 增加 Android flavor 打包(感谢 [msdx](https://github.com/msdx) 的热心帮助)
+- `$ fir ba <project dir> -f <flavor>`
+
 ### fir-cli 1.4.4
 - Publish 时候增加 app 相关信息
 

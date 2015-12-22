@@ -54,6 +54,8 @@ module FIR
 
       $ fir ba <project dir> [-o <apk output dir> -c <changelog> -p -Q -T <your api token>]
 
+      $ fir ba <project dir> [-f <flavor> -o <apk output dir> -c <changelog> -p -Q -T <your api token>]
+
       $ fir ba <git ssh url> [-B develop -o <apk output dir> -c <changelog> -p -Q -T <your api token>]
     LONGDESC
     map ['ba'] => :build_apk

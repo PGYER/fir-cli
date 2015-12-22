@@ -170,7 +170,17 @@ $ fir build_ipa path/to/workspace -w -S <scheme name>
 #### 编译用 Gradle 打包 apk
 
 ```sh
+# 简单打包
 $ fir build_apk path/to/project
+
+# 打包并上传
+$ fir ba <project dir> [-o <apk output dir> -c <changelog> -p -Q -T <your api token>]
+
+# 打包指定的 flavor
+$ fir ba <project dir> [-f <flavor> -o <apk output dir> -c <changelog> -p -Q -T <your api token>]
+
+# 打包指定的 git branch
+$ fir ba <git ssh url> [-B develop -o <apk output dir> -c <changelog> -p -Q -T <your api token>]
 ```
 
 #### 编译并且上传至 fir.im
