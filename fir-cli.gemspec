@@ -27,11 +27,9 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.4.4
-  - Publish 时候增加 app 相关信息
-  - 修复 @build_cmd 中的输出显示, 使用 `$?` 获取 Process::Status
-  - 支持远程 git 项目打包编译, enjoy.
-  - `$ fir bi/ba <git ssh url> -B develop -c <changelog> -p`
+  ### fir-cli 1.4.5
+  - 增加 Android flavor 打包(感谢 [msdx](https://github.com/msdx) 的热心帮助)
+  - `$ fir ba <project dir> -f <flavor>`
   - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
