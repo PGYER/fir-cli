@@ -60,6 +60,7 @@ module FIR
     method_option :branch,    type: :string,  aliases: '-B', desc: 'Set branch if project is a git repo, the default is `master`'
     method_option :output,    type: :string,  aliases: '-o', desc: 'APK output path, the default is: BUILD_DIR/build/outputs/apk'
     method_option :publish,   type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
+    method_option :flavor,    type: :string,  aliases: '-f', desc: 'Set flavor if have productFlavors'
     method_option :short,     type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
     method_option :name,      type: :string,  aliases: '-n', desc: 'Set custom apk name when builded'
     method_option :changelog, type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im, support string/file'
