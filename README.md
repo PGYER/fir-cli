@@ -244,3 +244,4 @@ $ fir upgrade
 如果你觉得 fir-cli 对你有所帮助, 欢迎微信打赏支持作者:smile:
 
 ![](http://7rf35s.com1.z0.glb.clouddn.com/coffee.png)
+
