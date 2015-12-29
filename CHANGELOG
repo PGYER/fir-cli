@@ -1,4 +1,5 @@
 ## 更新记录
+2
 1
 ### FIR-CLI 1.1.8
 - 支持 gradle 打包 apk 文件并自动上传至 fir.im, `fir build_apk(alias ba)`
