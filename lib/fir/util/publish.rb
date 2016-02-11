@@ -102,12 +102,20 @@ module FIR
     end
 
     def update_app_info
-      return if @short.blank?
+      update_app_short
+      update_app_passwd
+      update_app_is_open
+    end
 
-      logger.info 'Updating app info......'
+    [:short, :passwd, :is_open].each do |m|
+      define_method "update_app_#{m}" do
+        @instance = instance_variable_get("@#{m}")
+        return if @instance.blank?
 
-      patch fir_api[:app_url] + "/#{@app_id}", short:     @short,
-                                               api_token: @token
+        logger.info "Updating app #{m} info......"
+
+        patch fir_api[:app_url] + "/#{@app_id}", m => @instance, :api_token => @token
+      end
     end
 
     def fetch_uploading_info
@@ -157,6 +165,8 @@ module FIR
       @token         = options[:token] || current_token
       @changelog     = read_changelog(options[:changelog]).to_s.to_utf8
       @short         = options[:short].to_s
+      @passwd        = options[:password].to_s
+      @is_open       = !!options[:open]
       @export_qrcode = !!options[:qrcode]
     end
 
