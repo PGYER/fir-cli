@@ -102,20 +102,13 @@ module FIR
     end
 
     def update_app_info
-      update_app_short
-      update_app_passwd
-      update_app_is_open
-    end
+      update_info = { short: @short, passwd: @passwd, is_opened: @is_opened }.compact
 
-    [:short, :passwd, :is_open].each do |m|
-      define_method "update_app_#{m}" do
-        @instance = instance_variable_get("@#{m}")
-        return if @instance.blank?
+      return if update_info.blank?
 
-        logger.info "Updating app #{m} info......"
+      logger.info "Updating app info......"
 
-        patch fir_api[:app_url] + "/#{@app_id}", m => @instance, :api_token => @token
-      end
+      patch fir_api[:app_url] + "/#{@app_id}", update_info.merge(api_token: @token)
     end
 
     def fetch_uploading_info
@@ -166,7 +159,7 @@ module FIR
       @changelog     = read_changelog(options[:changelog]).to_s.to_utf8
       @short         = options[:short].to_s
       @passwd        = options[:password].to_s
-      @is_open       = !!options[:open]
+      @is_opened     = !!options[:open]
       @export_qrcode = !!options[:qrcode]
     end
 

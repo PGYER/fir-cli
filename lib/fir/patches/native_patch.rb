@@ -131,6 +131,16 @@ class Numeric #:nodoc:
 end
 
 class Hash
+  # Returns a copy of self with all blank keys removed.
+  #
+  #  hash = { name: 'Rob', age: '', title: nil }
+  #
+  #  hash.compact
+  #  # => { name: 'Rob' }
+  def compact
+    delete_if { |_, v| v.nil? || (v.is_a?(String) && v.blank?) }
+  end
+
   # Returns a new hash with all keys converted using the block operation.
   #
   #  hash = { name: 'Rob', age: '28' }
