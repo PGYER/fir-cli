@@ -17,7 +17,7 @@ class PublishTest < Minitest::Test
   def test_update_app_info
     short     = SecureRandom.hex[3..9]
     passwd    = SecureRandom.hex[0..9]
-    is_opened = false
+    is_opened = (rand(100) % 2) == 0
 
     update_info = { short: short, password: passwd, open: is_opened }
     FIR.publish(default_ipa, @options.merge(update_info))

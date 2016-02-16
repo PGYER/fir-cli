@@ -138,7 +138,7 @@ class Hash
   #  hash.compact
   #  # => { name: 'Rob' }
   def compact
-    delete_if { |_, v| v.nil? || (v.is_a?(String) && v.blank?) }
+    delete_if { |_, v| v.is_a?(FalseClass) ? false : v.blank? }
   end
 
   # Returns a new hash with all keys converted using the block operation.
