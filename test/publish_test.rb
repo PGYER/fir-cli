@@ -22,11 +22,7 @@ class PublishTest < Minitest::Test
     update_info = { short: short, password: passwd, open: is_opened }
     FIR.publish(default_ipa, @options.merge(update_info))
 
-    FIR.instance_eval do
-      FIR.instance_variable_set(:@test_info, FIR.fetch_app_info)
-    end
-
-    info = FIR.instance_variable_get(:@test_info)
+    info = FIR.fetch_app_info
 
     assert_equal short, info[:short]
     assert_equal passwd, info[:passwd]
