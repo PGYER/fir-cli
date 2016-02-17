@@ -20,7 +20,7 @@ module FIR
 
       $ fir bi <project dir> [-c <changelog> -P <bughd project id> -M -p -Q -T <your api token>]
 
-      $ fir bi <git ssh url> [-B develop -c <changelog> -P <bughd project id> -M -p -Q -T <your api token>]
+      $ fir bi <git ssh url> [-B develop -c <changelog> -f <profile> -P <bughd project id> -M -p -Q -T <your api token>]
 
       $ fir bi <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -Q -T <your api token>]
     LONGDESC
@@ -30,6 +30,7 @@ module FIR
     method_option :scheme,        type: :string,  aliases: '-S', desc: 'Set the scheme NAME if build workspace'
     method_option :configuration, type: :string,  aliases: '-C', desc: 'Use the build configuration NAME for building each target'
     method_option :target,        type: :string,  aliases: '-t', desc: 'Build the target specified by targetname'
+    method_option :profile,       type: :string,  aliases: '-f', desc: 'Set the export provisioning profile'
     method_option :output,        type: :string,  aliases: '-o', desc: 'IPA output path, the default is: BUILD_DIR/fir_build_ipa'
     method_option :publish,       type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,         type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
