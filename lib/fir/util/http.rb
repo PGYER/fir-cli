@@ -5,6 +5,7 @@ module FIR
     DEFAULT_TIMEOUT = 300
 
     def get(url, params = {})
+      tries = 5
       begin
         res = ::RestClient::Request.execute(
           method:  :get,
@@ -13,8 +14,14 @@ module FIR
           headers: default_headers.merge(params: params)
         )
       rescue => e
-        logger.error e.message.to_s + ' - ' + e.response.to_s
-        exit 1
+        logger.error e.message.to_s
+        if tries > 0
+          logger.info "Retry in #{tries} times......"
+          tries -= 1
+          retry
+        else
+          exit 1
+        end
       end
 
       JSON.parse(res.body.force_encoding('UTF-8'), symbolize_names: true)
@@ -22,6 +29,7 @@ module FIR
 
     %w(post patch put).each do |method|
       define_method method do |url, query|
+        tries = 5
         begin
           res = ::RestClient::Request.execute(
             method:  method.to_sym,
@@ -31,8 +39,14 @@ module FIR
             headers: default_headers
           )
         rescue => e
-          logger.error e.message.to_s + ' - ' + e.response.to_s
-          exit 1
+          logger.error e.message.to_s
+          if tries > 0
+            logger.info "Retry in #{tries} times......"
+            tries -= 1
+            retry
+          else
+            exit 1
+          end
         end
 
         JSON.parse(res.body.force_encoding('UTF-8'), symbolize_names: true)
