@@ -120,7 +120,7 @@ fir publish 命令可以轻松发布应用到 fir.im, 支持 ipa 和 apk 文件.
 $ fir publish path/to/application -T YOUR_FIR_TOKEN
 ```
 
-如果需要上传 changelog, 自定义 short 地址, 上传符号表, 生成二维码等功能, 可以使用 `fir publish -h`查看相应的帮助
+如果需要上传 changelog, 自定义 short 地址, 设置密码, 设置公开访问权限, 上传符号表, 生成二维码等功能, 可以使用 `fir publish -h`查看相应的帮助
 
 ### fir login 使用说明
 
