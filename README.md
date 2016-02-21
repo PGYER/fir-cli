@@ -9,7 +9,7 @@
 
 fir.im-cli 可以通过指令查看, 上传, 编译 iOS/Android 应用.
 
-![fir-cli](http://7rf35s.com1.z0.glb.clouddn.com/fir-cli.gif)
+![fir-cli](http://7rf35s.com1.z0.glb.clouddn.com/fir-cli-new.gif)
 
 ## 安装
 
