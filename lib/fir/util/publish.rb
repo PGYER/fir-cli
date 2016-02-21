@@ -102,12 +102,13 @@ module FIR
     end
 
     def update_app_info
-      return if @short.blank?
+      update_info = { short: @short, passwd: @passwd, is_opened: @is_opened }.compact
 
-      logger.info 'Updating app info......'
+      return if update_info.blank?
 
-      patch fir_api[:app_url] + "/#{@app_id}", short:     @short,
-                                               api_token: @token
+      logger.info "Updating app info......"
+
+      patch fir_api[:app_url] + "/#{@app_id}", update_info.merge(api_token: @token)
     end
 
     def fetch_uploading_info
@@ -157,6 +158,8 @@ module FIR
       @token         = options[:token] || current_token
       @changelog     = read_changelog(options[:changelog]).to_s.to_utf8
       @short         = options[:short].to_s
+      @passwd        = options[:password].to_s
+      @is_opened     = !!options[:open]
       @export_qrcode = !!options[:qrcode]
     end
 

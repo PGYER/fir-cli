@@ -20,7 +20,7 @@ module FIR
 
       $ fir bi <project dir> [-c <changelog> -P <bughd project id> -M -p -Q -T <your api token>]
 
-      $ fir bi <git ssh url> [-B develop -c <changelog> -P <bughd project id> -M -p -Q -T <your api token>]
+      $ fir bi <git ssh url> [-B develop -c <changelog> -f <profile> -P <bughd project id> -M -p -Q -T <your api token>]
 
       $ fir bi <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -Q -T <your api token>]
     LONGDESC
@@ -30,6 +30,7 @@ module FIR
     method_option :scheme,        type: :string,  aliases: '-S', desc: 'Set the scheme NAME if build workspace'
     method_option :configuration, type: :string,  aliases: '-C', desc: 'Use the build configuration NAME for building each target'
     method_option :target,        type: :string,  aliases: '-t', desc: 'Build the target specified by targetname'
+    method_option :profile,       type: :string,  aliases: '-f', desc: 'Set the export provisioning profile'
     method_option :output,        type: :string,  aliases: '-o', desc: 'IPA output path, the default is: BUILD_DIR/fir_build_ipa'
     method_option :publish,       type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
     method_option :short,         type: :string,  aliases: '-s', desc: 'Set custom short link if publish to fir.im'
@@ -90,11 +91,15 @@ module FIR
 
       $ fir p <app file path> [-c <changelog> -s <custom short link> -Q -T <your api token>]
 
+      $ fir p <app file path> [-c <changelog> -s <custom short link> --password=123456 -o false -Q -T <your api token>]
+
       $ fir p <app file path> [-c <changelog> -s <custom short link> -m <mapping file path> -P <bughd project id> -Q -T <your api token>]
     LONGDESC
     map 'p' => :publish
     method_option :short,       type: :string,  aliases: '-s', desc: 'Set custom short link'
     method_option :changelog,   type: :string,  aliases: '-c', desc: 'Set changelog'
+    method_option :password,    type: :string,  aliases: '-p', desc: 'Set password for app'
+    method_option :open,        type: :boolean, aliases: '-o', desc: 'true/false if open for everyone, the default is: true', default: true
     method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
     method_option :proj,        type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'

@@ -1,5 +1,10 @@
 ## 更新记录
 
+### fir-cli 1.4.6
+- 上传增加设置密码及公开访问权限的参数, [Issue #62](https://github.com/FIRHQ/fir-cli/issues/62)
+- 打包增加指定 `exportProvisioningProfile` 参数, [Issue #59](https://github.com/FIRHQ/fir-cli/issues/59)
+- 增加 http retry 机制, [Issue #65](https://github.com/FIRHQ/fir-cli/issues/65)
+
 ### fir-cli 1.4.5
 - 增加 Android flavor 打包(感谢 [msdx](https://github.com/msdx) 的热心帮助)
 - `$ fir ba <project dir> -f <flavor>`
