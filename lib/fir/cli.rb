@@ -91,6 +91,8 @@ module FIR
 
       $ fir p <app file path> [-c <changelog> -s <custom short link> -Q -T <your api token>]
 
+      $ fir p <app file path> [-c <changelog> -s <custom short link> --password=123456 -o false -Q -T <your api token>]
+
       $ fir p <app file path> [-c <changelog> -s <custom short link> -m <mapping file path> -P <bughd project id> -Q -T <your api token>]
     LONGDESC
     map 'p' => :publish
