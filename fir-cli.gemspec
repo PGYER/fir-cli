@@ -27,10 +27,11 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.4.6
+  ### fir-cli 1.4.7
   - 增加上传时候设置密码及公开访问权限
   - 增加 Android flavor 打包(感谢 [msdx](https://github.com/msdx) 的热心帮助)
   - `$ fir ba <project dir> -f <flavor>`
+  - 增加 build_ipa 中的 destination 参数
   - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request

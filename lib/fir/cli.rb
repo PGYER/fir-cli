@@ -29,6 +29,7 @@ module FIR
     method_option :workspace,     type: :boolean, aliases: '-w', desc: 'true/false if build workspace'
     method_option :scheme,        type: :string,  aliases: '-S', desc: 'Set the scheme NAME if build workspace'
     method_option :configuration, type: :string,  aliases: '-C', desc: 'Use the build configuration NAME for building each target'
+    method_option :destination,   type: :string,  aliases: '-d', desc: 'Set the destinationspecifier'
     method_option :target,        type: :string,  aliases: '-t', desc: 'Build the target specified by targetname'
     method_option :profile,       type: :string,  aliases: '-f', desc: 'Set the export provisioning profile'
     method_option :output,        type: :string,  aliases: '-o', desc: 'IPA output path, the default is: BUILD_DIR/fir_build_ipa'

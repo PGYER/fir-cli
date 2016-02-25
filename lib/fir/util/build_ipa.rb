@@ -25,11 +25,13 @@ module FIR
       @target_name   = options[:target]
       @scheme_name   = options[:scheme]
       @profile_name  = options[:profile]
+      @destination   = options[:destination]
 
       build_cmd =  'xcodebuild build -sdk iphoneos'
       build_cmd += initialize_xcode_build_path(options)
       build_cmd += " -configuration '#{@configuration}'" unless @configuration.blank?
       build_cmd += " -target '#{@target_name}'" unless @target_name.blank?
+      build_cmd += " -destination '#{@destination}'" unless @destination.blank?
       build_cmd += " -exportProvisioningProfile '#{@profile_name}'" unless @profile_name.blank?
       build_cmd += " #{ipa_custom_settings(args)} 2>&1"
       build_cmd
