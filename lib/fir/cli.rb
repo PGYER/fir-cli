@@ -40,6 +40,8 @@ module FIR
     method_option :qrcode,        type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     method_option :mapping,       type: :boolean, aliases: '-M', desc: 'true/false if upload app mapping file to BugHD.com'
     method_option :proj,          type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
+    method_option :open,          type: :boolean, desc: 'true/false if open for everyone, the default is: true', default: true
+    method_option :password,      type: :string,  desc: 'Set password for app'
     def build_ipa(*args)
       prepare :build_ipa
 
@@ -69,6 +71,8 @@ module FIR
     method_option :name,      type: :string,  aliases: '-n', desc: 'Set custom apk name when builded'
     method_option :changelog, type: :string,  aliases: '-c', desc: 'Set changelog if publish to fir.im, support string/file'
     method_option :qrcode,    type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
+    method_option :open,      type: :boolean, desc: 'true/false if open for everyone, the default is: true', default: true
+    method_option :password,  type: :string,  desc: 'Set password for app'
     def build_apk(*args)
       prepare :build_apk
 
@@ -92,18 +96,18 @@ module FIR
 
       $ fir p <app file path> [-c <changelog> -s <custom short link> -Q -T <your api token>]
 
-      $ fir p <app file path> [-c <changelog> -s <custom short link> --password=123456 -o false -Q -T <your api token>]
+      $ fir p <app file path> [-c <changelog> -s <custom short link> --password=123456 --open=false -Q -T <your api token>]
 
       $ fir p <app file path> [-c <changelog> -s <custom short link> -m <mapping file path> -P <bughd project id> -Q -T <your api token>]
     LONGDESC
     map 'p' => :publish
     method_option :short,       type: :string,  aliases: '-s', desc: 'Set custom short link'
     method_option :changelog,   type: :string,  aliases: '-c', desc: 'Set changelog'
-    method_option :password,    type: :string,  aliases: '-p', desc: 'Set password for app'
-    method_option :open,        type: :boolean, aliases: '-o', desc: 'true/false if open for everyone, the default is: true', default: true
     method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
     method_option :proj,        type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
+    method_option :open,        type: :boolean, desc: 'true/false if open for everyone, the default is: true', default: true
+    method_option :password,    type: :string,  desc: 'Set password for app'
     def publish(*args)
       prepare :publish
 

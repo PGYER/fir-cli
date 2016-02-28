@@ -12,7 +12,7 @@ module FIR
       logger_info_and_run_build_command
 
       output_ipa_and_dsym
-      publish_build_app if options.publish?
+      publish_build_app(options) if options.publish?
       upload_build_dsym_mapping_file if options.mapping?
 
       logger_info_blank_line

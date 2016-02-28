@@ -13,7 +13,7 @@ module FIR
       logger_info_and_run_build_command
 
       output_apk
-      publish_build_app if options.publish?
+      publish_build_app(options) if options.publish?
 
       logger_info_blank_line
     end
