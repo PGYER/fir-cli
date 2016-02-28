@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.4.8
+- 修正 build 后直接 -p 发布的权限错误
+
 ### fir-cli 1.4.7
 - 增加 build_ipa 中的 destination 参数
 
