@@ -160,7 +160,7 @@ module FIR
       @short         = options[:short].to_s
       @passwd        = options[:password].to_s
       @is_opened     = !!options[:open]
-      @export_qrcode = options[:qrcode]
+      @export_qrcode = !!options[:qrcode]
     end
 
     def read_changelog(changelog)
