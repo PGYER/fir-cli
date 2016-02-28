@@ -51,12 +51,9 @@ module FIR
       end
     end
 
-    def publish_build_app
+    def publish_build_app(options)
       logger_info_blank_line
-      publish @builded_app_path, short:     @short,
-                                 changelog: @changelog,
-                                 token:     @token,
-                                 qrcode:    @export_qrcode
+      publish @builded_app_path, options
     end
 
     def logger_info_and_run_build_command
