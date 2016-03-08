@@ -16,12 +16,11 @@ fir.im-cli 可以通过指令查看, 上传, 编译 iOS/Android 应用.
 - [安装及常见安装问题](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/install.md)
 - [fir help 相关指令帮助](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/help.md)
 - [fir info 查看 ipa/apk 信息](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/info.md)
-- [fir login 登录相关](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/login.md)
+- [fir login & fir me登录相关](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/login.md)
 - [fir publish 发布应用到 fir.im](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/publish.md)
 - [fir build_ipa 编译打包 ipa 文件](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/build_ipa.md)
 - [fir build_apk 编译打包 apk 文件](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/build_apk.md)
 - [fir mapping 上传符号表至 BugHD.com](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/mapping.md)
-- [fir me 查看当前使用者信息](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/me.md)
 - [fir upgrade 升级相关](https://github.com/FIRHQ/fir-cli/blob/feature/doc/doc/upgrade.md)
 
 ## 提交反馈

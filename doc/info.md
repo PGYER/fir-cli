@@ -3,18 +3,9 @@
 `fir info` 命令用于查看当前 ipa/apk 相关信息.
 
 ```sh
-$ fir info -h
+$ fir info --help
 Usage:
   fir info APP_FILE_PATH
-
-Options:
-  -a, [--all], [--no-all]          # Show all information in application
-  -T, [--token=TOKEN]              # User's API Token at fir.im
-  -L, [--logfile=LOGFILE]          # Path to writable logfile
-  -V, [--verbose], [--no-verbose]  # Show verbose
-                                   # Default: true
-  -q, [--quiet], [--no-quiet]      # Silence commands
-  -h, [--help], [--no-help]        # Show this help message and quit
 
 Show iOS/Android app info, support ipa/apk file (aliases: `i`).
 ```
