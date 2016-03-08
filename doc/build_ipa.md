@@ -1,6 +1,6 @@
 ### fir build_ipa
 
-`build_ipa` 对 `xcodebuild` 原生指令进行了封装, 将常用的参数名简化, 支持全部的自带参数及设置, 同时输出符号表 dSYM 文件.
+`build_ipa` 对 `xcodebuild` 原生指令进行了封装, 将常用的参数名简化, 支持全部的自带参数及设置, 同时输出符号表 dSYM 文件, 并且支持直接从 Github/Gitlab 相关 repo 直接编译打包.
 
 ```sh
 $ fir build_ipa --help
@@ -43,10 +43,10 @@ Options:
   $ fir build_ipa path/to/project -o path/to/output -p -c "this is changelog" -Q -T YOUR_API_TOKEN
   ```
 
-- 编译 workspace
+- 编译 Github 上的 workspace
 
   ```sh
-  $ fir build_ipa path/to/workspace -o path/to/output -w -C Release -t allTargets GCC_PREPROCESSOR_DEFINITIONS="FOO=bar"
+  $ fir build_ipa git@github.com:xxxx.git -o path/to/output -w -C Release -t allTargets GCC_PREPROCESSOR_DEFINITIONS="FOO=bar"
   ```
   该指令在指向的目录中，找到第一个 workspace 文件, 对其进行编译. 使用 `Release` 设置，编译策略为 `allTargets`, 同时设置了预编译参数 `FOO`.
 
