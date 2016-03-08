@@ -8,17 +8,20 @@ $ gem install fir-cli
 ```
 
 #### 一些常见的安装问题
-#####使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:
+
+- 使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:
 
 ```sh
 $ xcode-select --install        # OS X 系统
 $ sudo apt-get install ruby-dev # Linux 系统
 ```
 
-##### 出现 `Permission denied` 相关错误:
+- 出现 `Permission denied` 相关错误:
+
 在命令前加上 `sudo`
 
-##### 出现 `Gem::RemoteFetcher::FetchError` 相关错误:
+- 出现 `Gem::RemoteFetcher::FetchError` 相关错误:
+
 更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem
 
 ```sh
@@ -34,7 +37,7 @@ gem update --system
 gem install fir-cli
 ```
 
-##### Mac OS X 10.11 以后的版本, 由于10.11引入了 `rootless`, 无法直接安装 fir-cli, 有以下三种解决办法:**
+- Mac OS X 10.11 以后的版本, 由于10.11引入了 `rootless`, 无法直接安装 fir-cli, 有以下三种解决办法:**
 
 1\. 使用 [Homebrew](http://brew.sh/) 及 [RVM](https://rvm.io/) 安装 Ruby, 再安装 fir-cli(推荐)
 
