@@ -1,6 +1,6 @@
 ### fir build_ipa
 
-`build_ipa` 对 `xcodebuild` 原生指令进行了封装, 将常用的参数名简化, 支持全部的自带参数及设置, 同时输出符号表 dSYM 文件, 并且支持直接从 Github/Gitlab 相关 repo 直接编译打包.
+`fir build_ipa` 对 `xcodebuild` 原生指令进行了封装, 将常用的参数名简化, 支持全部的自带参数及设置, 同时输出符号表 dSYM 文件, 并且支持直接从 Github/Gitlab 相关 repo 直接编译打包.
 
 ```sh
 $ fir build_ipa --help
