@@ -1,5 +1,8 @@
 ## 更新记录
 
+### fir-cli 1.4.9
+- 修正 --password 与 --open 冲突的问题
+
 ### fir-cli 1.4.8
 - 修正 build 后直接 -p 发布的权限错误
 
