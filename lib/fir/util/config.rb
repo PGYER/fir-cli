@@ -3,6 +3,7 @@
 module FIR
   module Config
     CONFIG_PATH   = "#{ENV['HOME']}/.fir-cli"
+    APP_INFO_PATH = "#{ENV['HOME']}/.fir-cli-app"
     API_YML_PATH  = File.expand_path('../../', __FILE__) + '/api.yml'
     APP_FILE_TYPE = %w(.ipa .apk).freeze
 
@@ -25,6 +26,10 @@ module FIR
 
     def write_config(hash)
       File.open(CONFIG_PATH, 'w+') { |f| f << YAML.dump(hash) }
+    end
+
+    def write_app_info(hash)
+      File.open(APP_INFO_PATH, 'w+') { |f| f << YAML.dump(hash) }
     end
 
     def current_token
