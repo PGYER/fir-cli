@@ -162,7 +162,7 @@ module FIR
       @changelog     = read_changelog(options[:changelog]).to_s.to_utf8
       @short         = options[:short].to_s
       @passwd        = options[:password].to_s
-      @is_opened     = @passwd.blank? ? !!options[:open] : false
+      @is_opened     = @passwd.blank? ? options[:open] : false
       @export_qrcode = !!options[:qrcode]
     end
 
