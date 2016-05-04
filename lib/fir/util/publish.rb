@@ -40,6 +40,7 @@ module FIR
       upload_app_binary
       upload_device_info
       update_app_info
+      fetch_app_info
     end
 
     def upload_app_icon
@@ -123,7 +124,9 @@ module FIR
     def fetch_app_info
       logger.info 'Fetch app info from fir.im'
 
-      get fir_api[:app_url] + "/#{@app_id}", api_token: @token
+      @fir_app_info = get(fir_api[:app_url] + "/#{@app_id}", api_token: @token)
+      write_app_info(id: @fir_app_info[:id], short: @fir_app_info[:short], name: @fir_app_info[:name])
+      @fir_app_info
     end
 
     def upload_mapping_file_with_publish(options)
@@ -138,7 +141,7 @@ module FIR
     end
 
     def logger_info_app_short_and_qrcode
-      short = "#{fir_api[:domain]}/#{fetch_app_info[:short]}"
+      short = "#{fir_api[:domain]}/#{@fir_app_info[:short]}"
 
       logger.info "Published succeed: #{short}"
 
@@ -159,7 +162,7 @@ module FIR
       @changelog     = read_changelog(options[:changelog]).to_s.to_utf8
       @short         = options[:short].to_s
       @passwd        = options[:password].to_s
-      @is_opened     = @passwd.blank? ? !!options[:open] : false
+      @is_opened     = @passwd.blank? ? options[:open] : false
       @export_qrcode = !!options[:qrcode]
     end
 

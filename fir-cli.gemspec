@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.4.9
+  ### fir-cli 1.5.0
   - 修正 build 后直接 -p 发布的权限错误
   - 增加上传时候设置密码及公开访问权限
   - 增加 build_ipa 中的 destination 参数

@@ -47,7 +47,11 @@ module FIR
         FileUtils.mkdir_p(output_path) unless File.exist?(output_path)
         output_path
       else
-        File.absolute_path(options[:output].to_s)
+        output_path = options[:output].to_s
+        unless File.exist?(output_path)
+          logger.warn "The output path not exist and fir-cli will autocreate it..."
+        end
+        File.absolute_path(output_path)
       end
     end
 
