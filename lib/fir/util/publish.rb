@@ -43,15 +43,18 @@ module FIR
       fetch_app_info
     end
 
-    def upload_app_icon
-      logger.info 'Uploading app icon......'
+    %w(icon binary).each do |postfix|
+      class_eval <<-METHOD, __FILE__, __LINE__ + 1
+        def upload_app_#{postfix}
+          logger.info "Uploading app #{postfix}......"
+          uploaded_info = post(@#{postfix}_cert[:upload_url], uploading_#{postfix}_info)
 
-      uploaded_info = post(@icon_cert[:upload_url], uploading_icon_info)
+          return if uploaded_info[:is_completed]
 
-      return if uploaded_info[:is_completed]
-
-      logger.error 'Upload app icon failed'
-      exit 1
+          logger.error "Uploading app #{postfix} failed"
+          exit 1
+        end
+      METHOD
     end
 
     def uploading_icon_info
@@ -64,17 +67,6 @@ module FIR
         file:  File.new(uncrushed_icon_path, 'rb'),
         'x:is_converted' => '1'
       }
-    end
-
-    def upload_app_binary
-      logger.info 'Uploading app binary......'
-
-      uploaded_info = post(@binary_cert[:upload_url], uploading_binary_info)
-
-      return if uploaded_info[:is_completed]
-
-      logger.error 'Upload app binary failed'
-      exit 1
     end
 
     def uploading_binary_info
