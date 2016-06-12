@@ -138,8 +138,11 @@ module FIR
       logger.info "Published succeed: #{short}"
 
       if @export_qrcode
+        release_info = get(fir_api[:app_url]+"/#{@app_id}/releases",api_token:@token)
+        release_id = release_info[:datas][0][:id]
+        release_url = "#{short}?release_id=#{release_id}"
         qrcode_path = "#{File.dirname(@file_path)}/fir-#{@app_info[:name]}.png"
-        FIR.generate_rqrcode(short, qrcode_path)
+        FIR.generate_rqrcode(release_url, qrcode_path)
 
         logger.info "Local qrcode file: #{qrcode_path}"
       end
