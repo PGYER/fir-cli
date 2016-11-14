@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ✈ fir.im-cli
+=======
+1
+FIR.im CLI
+>>>>>>> 86e1a776941ec2288c2fc1abbd45e31a75ea5dbe
 ---
 
 ![Build Status Images](https://travis-ci.org/FIRHQ/fir-cli.svg)
@@ -35,3 +40,16 @@ fir.im-cli 可以通过指令查看, 上传, 编译 iOS/Android 应用.
 ![](http://7rf35s.com1.z0.glb.clouddn.com/coffee.png)
 
 
+<<<<<<< HEAD
+=======
+[使用 github issue 即可](https://github.com/FIRHQ/fir-cli/issues)
+1
+2
+3
+3
+1
+2
+2
+3
+5
+>>>>>>> 86e1a776941ec2288c2fc1abbd45e31a75ea5dbe
