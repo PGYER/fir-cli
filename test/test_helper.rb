@@ -7,7 +7,6 @@ SimpleCov.start
 
 
 require 'minitest/autorun'
-require 'minitest/hooks'
 require 'ostruct'
 require 'securerandom'
 require 'fir'
