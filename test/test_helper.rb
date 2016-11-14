@@ -1,11 +1,12 @@
 # encoding: utf-8
 
-require 'minitest/autorun'
-require 'ostruct'
-require 'fir'
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
+require 'minitest/autorun'
+require 'ostruct'
+require 'securerandom'
+require 'fir'
 
 FIR.logger = Logger.new(STDOUT)
 
@@ -35,6 +36,14 @@ class Minitest::Test
     File.expand_path('../projects', __FILE__) + '/apk'
   end
 
+  def default_ipa_git_url
+    'git@github.com:NaixSpirit/build_ipa_example.git'
+  end
+
+  def default_apk_git_url
+    'git@github.com:NaixSpirit/build_apk_example.git'
+  end
+
   def default_bughd_project_ios_id
     '55bb2839692d647a46000004'
   end
@@ -51,8 +60,12 @@ class Minitest::Test
     File.expand_path('../cases', __FILE__) + '/test_apk_txt'
   end
 
+  def bigger_txt_mapping
+    File.expand_path('../projects', __FILE__) + '/biggggger.txt'
+  end
+
   def default_device_udid
-    "cf8b87e3f469d7b185fd64c057778aecbc2017a6"
+    'cf8b87e3f469d7b185fd64c057778aecbc2017a6'
   end
 
   def default_distribution_name

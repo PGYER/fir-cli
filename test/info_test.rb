@@ -3,7 +3,7 @@
 class InfoTest < Minitest::Test
 
   def test_apk_info
-    info = FIR.apk_info(default_apk, true)
+    info = FIR.apk_info(default_apk, full_info: true)
 
     assert_equal 'android',                 info[:type]
     assert_equal 'com.bughd.myapplication', info[:identifier]
@@ -17,7 +17,7 @@ class InfoTest < Minitest::Test
   end
 
   def test_ipa_info
-    info = FIR.ipa_info(default_ipa, true)
+    info = FIR.ipa_info(default_ipa, full_info: true)
 
     assert_equal 'ios',              info[:type]
     assert_equal 'im.fir.build-ipa', info[:identifier]
@@ -30,9 +30,6 @@ class InfoTest < Minitest::Test
     # assert_equal default_device_udid,       info[:devices].first
     # assert_equal 'adhoc',                   info[:release_type]
     # assert_equal default_distribution_name, info[:distribution_name]
-
-    assert_equal true, info[:plist].is_a?(Hash)
-    assert_equal true, info[:mobileprovision].is_a?(Hash)
 
     assert FIR.info(default_ipa, {})
   end

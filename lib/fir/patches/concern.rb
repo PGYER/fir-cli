@@ -125,7 +125,7 @@ module ActiveSupport
 
     def included(base = nil, &block)
       if base.nil?
-        raise MultipleIncludedBlocks if instance_variable_defined?(:@_included_block)
+        fail MultipleIncludedBlocks if instance_variable_defined?(:@_included_block)
 
         @_included_block = block
       else
@@ -134,9 +134,11 @@ module ActiveSupport
     end
 
     def class_methods(&class_methods_module_definition)
-      mod = const_defined?(:ClassMethods, false) ?
-        const_get(:ClassMethods) :
-        const_set(:ClassMethods, Module.new)
+      if const_defined?(:ClassMethods, false)
+        mod = const_get(:ClassMethods)
+      else
+        mod = const_set(:ClassMethods, Module.new)
+      end
 
       mod.module_eval(&class_methods_module_definition)
     end

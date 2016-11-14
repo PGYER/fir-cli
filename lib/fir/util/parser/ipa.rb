@@ -1,16 +1,18 @@
 # encoding: utf-8
 
+require_relative './common'
+
 module FIR
   module Parser
-
     class Ipa
+      include Parser::Common
 
       def initialize(path)
         @path = path
       end
 
       def app
-        @app ||= App.new(app_path)
+        @app ||= App.new(app_path, is_stored)
       end
 
       def app_path
@@ -29,20 +31,20 @@ module FIR
       end
 
       def has_metadata?
-        File.file? metadata_path
+        File.file?(metadata_path)
       end
 
       def metadata_path
         @metadata_path ||= File.join(@contents, 'iTunesMetadata.plist')
       end
 
-      def release_type
-        has_metadata? ? 'store' : 'adhoc'
+      def is_stored
+        has_metadata? ? true : false
       end
 
       def contents
         return if @contents
-        @contents = "fir-cli_tmp/ipa_files-#{Time.now.to_i}"
+        @contents = "#{Dir.tmpdir}/ipa_files-#{Time.now.to_i}"
 
         Zip::File.open(@path) do |zip_file|
           zip_file.each do |f|
@@ -56,9 +58,33 @@ module FIR
       end
 
       class App
+        include Parser::Common
 
-        def initialize(path)
-          @path = path
+        def initialize(path, is_stored = false)
+          @path      = path
+          @is_stored = is_stored
+        end
+
+        def full_info(options)
+          if options.fetch(:full_info, false)
+            basic_info.merge!(icons: tmp_icons)
+          end
+
+          basic_info
+        end
+
+        def basic_info
+          @basic_info ||= {
+            type:              'ios',
+            identifier:        identifier,
+            name:              name,
+            display_name:      display_name,
+            build:             version.to_s,
+            version:           short_version.to_s,
+            devices:           devices,
+            release_type:      release_type,
+            distribution_name: distribution_name
+          }
         end
 
         def info
@@ -86,6 +112,10 @@ module FIR
           info['CFBundleShortVersionString']
         end
 
+        def tmp_icons
+          icons.map { |data| generate_tmp_icon(data, :ipa) }
+        end
+
         def icons
           @icons ||= begin
             icons = []
@@ -93,7 +123,7 @@ module FIR
               icons << get_image(name)
               icons << get_image("#{name}@2x")
             end
-            icons.delete_if { |i| !i }
+            icons.delete_if &:!
           rescue NoMethodError
             []
           end
@@ -132,26 +162,27 @@ module FIR
         end
 
         def release_type
-          if has_mobileprovision?
-            if devices
-              'adhoc'
-            else
-              'inhouse'
+          if @is_stored
+            'store'
+          else
+            if has_mobileprovision?
+              if devices
+                'adhoc'
+              else
+                'inhouse'
+              end
             end
           end
         end
 
         private
 
-          def get_image name
-            path = File.join(@path, "#{name}.png")
-            return nil unless File.exist?(path)
-            path
-          end
+        def get_image(name)
+          path = File.join(@path, "#{name}.png")
+          return nil unless File.exist?(path)
+          path
+        end
       end
-    end
-
-    class Apk
     end
   end
 end

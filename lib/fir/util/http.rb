@@ -2,48 +2,29 @@
 
 module FIR
   module Http
+    MAX_RETRIES = 5
 
-    DEFAULT_TIMEOUT = 300
-
-    def get url, params = {}
-      begin
-        res = ::RestClient::Request.execute(
-          method:  :get,
-          url:     url,
-          timeout: DEFAULT_TIMEOUT,
-          headers: default_headers.merge(params: params)
-        )
-      rescue => e
-        logger.error e.message.to_s + " - " + e.response.to_s
-        exit 1
-      end
-
-      JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
-    end
-
-    %w(post patch put).each do |method|
-      define_method method do |url, query|
-        begin
-          res = ::RestClient::Request.execute(
-            method:  method.to_sym,
-            url:     url,
-            payload: query,
-            timeout: DEFAULT_TIMEOUT,
-            headers: default_headers
-          )
-        rescue => e
-          logger.error e.message.to_s + " - " + e.response.to_s
-          exit 1
+    %w(get post patch put).each do |_m|
+      class_eval <<-METHOD, __FILE__, __LINE__ + 1
+        def #{_m}(url, params = {})
+          query = :#{_m} == :get ? { params: params } : params
+          begin
+            res = ::RestClient.#{_m}(url, query)
+          rescue => e
+            @retries ||= 0
+            logger.error(e.message.to_s)
+            if @retries < MAX_RETRIES
+              @retries += 1
+              logger.info("Retry \#{@retries} times......")
+              sleep 2
+              retry
+            else
+              exit 1
+            end
+          end
+          JSON.parse(res.body.force_encoding('UTF-8'), symbolize_names: true)
         end
-
-        JSON.parse(res.body.force_encoding("UTF-8"), symbolize_names: true)
-      end
+      METHOD
     end
-
-    private
-
-      def default_headers
-        { content_type: :json, source: 'fir-cli', version: FIR::VERSION }
-      end
   end
 end
