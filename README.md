@@ -1,4 +1,3 @@
-ceshi 1
 ✈ fir.im-cli
 ----    
 
