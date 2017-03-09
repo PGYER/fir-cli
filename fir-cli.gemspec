@@ -27,10 +27,8 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.5.0
-  - 修正 build 后直接 -p 发布的权限错误
-  - 增加上传时候设置密码及公开访问权限
-  - 增加 build_ipa 中的 destination 参数
+  ### fir-cli 1.5.1
+  - 修复了在 ruby 2.4.0 中登录出错的bug
   - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
@@ -43,7 +41,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'thor',           '~> 0.19'
   spec.add_dependency 'CFPropertyList', '~> 2.3'
-  spec.add_dependency 'rest-client',    '~> 1.7'
+  spec.add_dependency 'rest-client',    '~> 2.0'
   spec.add_dependency 'ruby_android',   '~> 0.7'
   spec.add_dependency 'rqrcode',        '~> 0.7'
 end
