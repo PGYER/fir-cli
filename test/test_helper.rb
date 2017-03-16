@@ -1,7 +1,10 @@
 # encoding: utf-8
 
+# CodeClimate::TestReporter.start
 require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
+require 'simplecov'
+SimpleCov.start
+
 
 require 'minitest/autorun'
 require 'ostruct'
@@ -70,5 +73,26 @@ class Minitest::Test
 
   def default_distribution_name
     'iOSTeam Provisioning Profile: im.fir.* - Fly It Remotely LLC.'
+  end
+
+end
+
+
+# 跑完测试之后再发结果到Codelimate
+# 测试CODECLIMATE_REPO_TOKEN: c454b9a54151b3ed3e18949279aec49d6a25bf507706815f99a919f1c01679ed
+Minitest.after_run do  
+  COVERAGE_FILE = "coverage/.resultset.json".freeze
+  if (repo_token = ENV["CODECLIMATE_REPO_TOKEN"]) && !repo_token.empty?
+    if File.exist?(COVERAGE_FILE)
+      begin
+        results = JSON.parse(File.read(COVERAGE_FILE))
+      rescue JSON::ParserError => e
+        $stderr.puts "Error encountered while parsing #{COVERAGE_FILE}: #{e}"
+      end
+
+      CodeClimate::TestReporter.run(results)
+    else
+      $stderr.puts "Coverage results not found"
+    end
   end
 end
