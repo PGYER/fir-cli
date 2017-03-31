@@ -15,6 +15,8 @@ Options:
   -C, [--configuration=CONFIGURATION]  # Use the build configuration NAME for building each target
   -d, [--destination=DESTINATION]      # Set the destinationspecifier
   -t, [--target=TARGET]                # Build the target specified by targetname
+  -E, [--export_method=METHOD]         # for exportOptionsPlist method, ad-hoc as default
+  -O, [--optionPlistPath]              # User defined exportOptionsPlist path
   -f, [--profile=PROFILE]              # Set the export provisioning profile
   -o, [--output=OUTPUT]                # IPA output path, the default is: BUILD_DIR/fir_build_ipa
   -p, [--publish], [--no-publish]      # true/false if publish to fir.im
