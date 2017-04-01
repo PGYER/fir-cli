@@ -57,3 +57,10 @@ Options:
   ```sh
   $ fir build_ipa path/to/workspace -w -S <scheme name>
   ```
+
+
+ChangeLog 1.6.0
+
+- 支持 XCode 8.3 打包      
+ * 新增参数 -E，指定 exportOptionsPlist plist 文件中的方法, 默认为 ad-hoc
+ * 用户可自定义 -exportOptionsPlist 中的 plist 路径
