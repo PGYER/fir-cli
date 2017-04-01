@@ -59,7 +59,7 @@ Options:
   ```
 
 
-ChangeLog 1.6.0
+**ChangeLog 1.6.0**
 
 - 支持 XCode 8.3 打包      
  * 新增参数 -E，指定 exportOptionsPlist plist 文件中的方法, 默认为 ad-hoc
