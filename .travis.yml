@@ -1,28 +1,31 @@
 rvm:
-  - 1.9.2
-  - 1.9.3
-  - 2.0.0
-  - 2.1
-  - 2.2
-  - 2.3
-  - ruby-head
-  - rbx-2
-  - jruby
-  - jruby-head
+- 1.9.2
+- 1.9.3
+- 2.0.0
+- 2.1
+- 2.2
+- 2.3
+- ruby-head
+- rbx-2
+- jruby
+- jruby-head
 matrix:
   allow_failures:
-    - rvm: ruby-head
-    - rvm: jruby
-    - rvm: jruby-head
-    - rvm: rbx-2
+  - rvm: ruby-head
+  - rvm: jruby
+  - rvm: jruby-head
+  - rvm: rbx-2
 env:
+  matrix:
   - USE_OFFICIAL_GEM_SOURCE=true
+  global:
+    secure: XiWKHPcQNB/mGv8Q5VuBqETS1bmYZ3t5xJkR/JFHrhWi30O+QWulMM5YjzkVawPjpUS/rtefDEASc4bN+a1iRVi6kf8fxjeKNFAzNc/hEKiPgANELf1JJgGAcz4oygzrH94Vqj90fuf6DoUh9r+IO+Z0PF39GL9GCnUjJeg+zao=
 notifications:
   recipients:
-    - hxy@fir.im
+  - hxy@fir.im
 branches:
   only:
-    - master
+  - master
 addons:
   code_climate:
     repo_token: 7158bd5d0218441524b8663790dd28edba8a870387ed000a1b56968e3315af2a
