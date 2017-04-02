@@ -161,16 +161,16 @@ module FIR
     end
 
     def rename_ipa_and_dsym
+      @temp_ipa = "#{@build_dir}/fir_build/#{@scheme_name}.ipa"
+      ipa_info = FIR.ipa_info(@temp_ipa)
+
       if @name.blank?
         @ipa_name = "#{ipa_info[:name]}-#{ipa_info[:version]}-build-#{ipa_info[:build]}"
       else
         @ipa_name = @name
       end
 
-      @temp_ipa = "#{@build_dir}/fir_build/#{@scheme_name}.ipa"
       @builded_app_path = "#{@output_path}/#{@ipa_name}.ipa"
-
-      ipa_info = FIR.ipa_info(@temp_ipa)
       dsym_name = " #{@output_path}/#{ipa_info[:name]}.app.dSYM"
 
       FileUtils.mv(@temp_ipa, @builded_app_path, force: true)
