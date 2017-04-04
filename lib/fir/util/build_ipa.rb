@@ -22,7 +22,7 @@ module FIR
     private
 
     def initialize_ipa_build_cmd(args, options)
-      @configuration = options[:configuration]
+      @configuration = options[:configuration] || 'Release'
       @target_name = options[:target]
       @scheme_name = options[:scheme]
       @profile_name = options[:profile]
@@ -192,11 +192,12 @@ module FIR
     end
 
     def initialize_xcode_build_path(options)
+      @xc_workspace = check_and_find_ios_xcworkspace(@build_dir)
+      @xc_project = check_and_find_ios_xcodeproj(@build_dir)
+
       if options.workspace?
-        @xc_workspace = check_and_find_ios_xcworkspace(@build_dir)
         " -workspace '#{@xc_workspace}'"
       else
-        @xc_project = check_and_find_ios_xcodeproj(@build_dir)
         " -project '#{@xc_project}'"
       end
     end
