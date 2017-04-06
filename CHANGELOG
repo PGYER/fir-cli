@@ -1,5 +1,19 @@
 ## 更新记录 
 
+### fir-cli 1.6.2.1
+- 修正解压 android apk warning 的问题
+
+### fir-cli 1.6.2
+- 修正检查 xcodeproj 的问题
+
+### fir-cli 1.6.1
+- 修正 exportOptionsPlist 路径问题
+
+### fir-cli 1.6.0
+- 支持 XCode 8.3 打包
+ * 新增参数 -E，指定 exportOptionsPlist plist 文件中的方法, 默认为 ad-hoc
+ * 新增参数 -O， 用户可自定义 -exportOptionsPlist 中的 plist 路径
+
 ### fir-cli 1.5.0
 - 取消 --open 默认值
 
