@@ -8,6 +8,7 @@ module FIR
       include Parser::Common
 
       def initialize(path)
+        Zip.warn_invalid_date = false
         @apk = ::Android::Apk.new(path)
       end
 
