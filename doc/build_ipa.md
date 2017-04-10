@@ -57,6 +57,8 @@ Options:
   ```sh
   $ fir build_ipa path/to/workspace -w -S <scheme name>
   ```
+  
+**注意:** 这里填写的路径应该是项目的路径, 而不应该是 workspace 文件的路径(例: `fir build_ipa path/to/workspace/example.xcworkspace`), 要不然就会提示 `The xcworkspace file is missing, check the BUILD_DIR` 的 Error.
 
 
 **ChangeLog 1.6.0**
