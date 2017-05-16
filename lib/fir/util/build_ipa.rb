@@ -171,7 +171,7 @@ module FIR
       end
 
       @builded_app_path = "#{@output_path}/#{@ipa_name}.ipa"
-      dsym_name = " #{@output_path}/#{ipa_info[:name]}.app.dSYM"
+      dsym_name = "#{@output_path}/#{ipa_info[:name]}.app.dSYM"
 
       FileUtils.mv(@temp_ipa, @builded_app_path, force: true)
       if File.exist?(dsym_name)
