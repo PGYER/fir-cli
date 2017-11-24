@@ -3,6 +3,7 @@
 #  so xcode and gradle not use
 #  this shell only use to publish apk or ipa , build is not run
 #  fir publish **.apk
+#  echo $(curl https://raw.githubusercontent.com/FIRHQ/fir-cli/master/fir.sh) > /usr/local/bin/fir
 
 mountFolder=$HOME/fir-cli/data
 destFolder=/fir-cli
