@@ -29,7 +29,8 @@ fir.im-cli 可以通过指令查看, 上传, 编译 iOS/Android 应用.
 # 方便之处是: 不需要安装 Ruby 环境只需要安装Docker环境就行把镜像 flowci/fir-cli 拉下来就能跑
 # 不方便之处是: 不能使用 xcode 或者 gradle 编译代码，只能 publish 编译好的文件
 
-echo $(curl https://raw.githubusercontent.com/FIRHQ/fir-cli/master/fir.sh) > /usr/local/bin/fir
+curl https://raw.githubusercontent.com/FIRHQ/fir-cli/master/fir.sh -o /usr/local/bin/fir
+chmod +x /usr/local/bin/fir
 
 fir login token
 fir help
