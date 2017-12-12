@@ -1,0 +1,12 @@
+name: fir-cli
+properties:
+  - name: FIR_TOKEN
+    type: string
+    required: true
+
+  - name: FIR_APP_PATH
+    type: string
+    required: false
+
+run: |
+  fir publish ${FIR_APP_PATH}
