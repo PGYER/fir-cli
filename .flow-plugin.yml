@@ -9,4 +9,5 @@ properties:
     required: false
 
 run: |
+  cd bin
   fir publish ${FIR_APP_PATH}
