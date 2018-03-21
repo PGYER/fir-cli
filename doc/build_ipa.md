@@ -15,6 +15,8 @@ Options:
   -C, [--configuration=CONFIGURATION]  # Use the build configuration NAME for building each target
   -d, [--destination=DESTINATION]      # Set the destinationspecifier
   -t, [--target=TARGET]                # Build the target specified by targetname
+  -E, [--export_method=METHOD]         # for exportOptionsPlist method, ad-hoc as default
+  -O, [--optionPlistPath]              # User defined exportOptionsPlist path
   -f, [--profile=PROFILE]              # Set the export provisioning profile
   -o, [--output=OUTPUT]                # IPA output path, the default is: BUILD_DIR/fir_build_ipa
   -p, [--publish], [--no-publish]      # true/false if publish to fir.im
@@ -55,3 +57,10 @@ Options:
   ```sh
   $ fir build_ipa path/to/workspace -w -S <scheme name>
   ```
+
+
+**ChangeLog 1.6.0**
+
+- 支持 XCode 8.3 打包      
+ * 新增参数 -E，指定 exportOptionsPlist plist 文件中的方法, 默认为 ad-hoc
+ * 用户可自定义 -exportOptionsPlist 中的 plist 路径

@@ -5,6 +5,7 @@ module FIR
     CONFIG_PATH   = "#{ENV['HOME']}/.fir-cli"
     APP_INFO_PATH = "#{ENV['HOME']}/.fir-cli-app"
     API_YML_PATH  = File.expand_path('../../', __FILE__) + '/api.yml'
+    XCODE_WRAPPER_PATH  = File.expand_path('../../', __FILE__) + '/xcode_wrapper.sh'
     APP_FILE_TYPE = %w(.ipa .apk).freeze
 
     def fir_api

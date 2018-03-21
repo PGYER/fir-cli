@@ -24,6 +24,17 @@ fir.im-cli 可以通过指令查看, 上传, 编译 iOS/Android 应用.
 - [fir mapping 上传符号表至 BugHD.com](https://github.com/FIRHQ/fir-cli/blob/master/doc/mapping.md)
 - [fir upgrade 升级相关](https://github.com/FIRHQ/fir-cli/blob/master/doc/upgrade.md)
 
+## Docker 使用 fir-cli
+```
+# 方便之处是: 不需要安装 Ruby 环境只需要安装Docker环境就行把镜像 flowci/fir-cli 拉下来就能跑
+# 不方便之处是: 不能使用 xcode 或者 gradle 编译代码，只能 publish 编译好的文件
+
+curl https://raw.githubusercontent.com/FIRHQ/fir-cli/master/fir.sh -o /usr/local/bin/fir
+chmod +x /usr/local/bin/fir
+
+fir login token
+fir help
+```
 ## 提交反馈
 
 直接使用 Github 的 [Issue](https://github.com/FIRHQ/fir-cli/issues) 即可.

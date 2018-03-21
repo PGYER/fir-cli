@@ -1,0 +1,14 @@
+name: fir-cli
+properties:
+  - name: PLUGIN_FIR_TOKEN
+    type: string
+    required: true
+
+  - name: PLUGIN_FIR_APP_PATH
+    type: string
+    required: false
+
+run: |
+  gem build fir-cli.gemspec
+  gem install *.gem
+  fir publish ${PLUGIN_FIR_APP_PATH} --token=$PLUGIN_FIR_TOKEN
