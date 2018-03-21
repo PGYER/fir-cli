@@ -11,8 +11,6 @@ Options:
   -s, [--short=SHORT]              # Set custom short link
   -c, [--changelog=CHANGELOG]      # Set changelog
   -Q, [--qrcode], [--no-qrcode]    # Generate qrcode
-  -m, [--mappingfile=MAPPINGFILE]  # App mapping file
-  -P, [--proj=PROJ]                # Project id in BugHD.com if upload app mapping file
       [--open], [--no-open]        # true/false if open for everyone
       [--password=PASSWORD]        # Set password for app
   -T, [--token=TOKEN]              # User's API Token at fir.im

@@ -44,5 +44,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rest-client',    '~> 2.0'
   spec.add_dependency 'ruby_android',   '~> 0.7.7'
   spec.add_dependency 'rqrcode',        '~> 0.7'
-  spec.add_dependency 'xcodeproj',      '~> 1.4'
+  spec.add_dependency 'xcodeproj',      '~> 1.5'
+  spec.add_dependency 'api_tools'
 end
