@@ -20,6 +20,7 @@ Gemfile.lock
 /test/cases/*.png
 /build_apk_example_*
 /build_ipa_example_*
+.byebug*
 
 .idea/
 lib/.byebug_history

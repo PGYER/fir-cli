@@ -2,7 +2,7 @@
 if ENV['USE_OFFICIAL_GEM_SOURCE']
   source 'https://rubygems.org'
 else
-  source 'https://gems.ruby-china.org'
+  source 'http://gems.ruby-china.org'
 end
 
 # Specify your gem's dependencies in fir.gemspec

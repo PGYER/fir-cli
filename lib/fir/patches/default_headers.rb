@@ -3,7 +3,7 @@
 module RestClient
   class Request
     def default_headers
-      { content_type: :json, source: 'fir-cli', version: FIR::VERSION }
+      { source: 'fir-cli', version: FIR::VERSION }
     end
   end
 end
