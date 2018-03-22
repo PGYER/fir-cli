@@ -7,8 +7,8 @@ require 'fir/version'
 Gem::Specification.new do |spec|
   spec.name          = 'fir-cli'
   spec.version       = FIR::VERSION
-  spec.authors       = ['NaixSpirit']
-  spec.email         = ['neverlandxy.naix@gmail.com']
+  spec.authors       = ['NaixSpirit', 'atpking']
+  spec.email         = ['atpking@gmail.com']
   spec.date          = Time.now.strftime('%Y-%m-%d')
   spec.summary       = 'fir.im command tool'
   spec.description   = 'fir.im command tool, support iOS and Android'
@@ -27,9 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  ### fir-cli 1.5.1
-  - 修复了在 ruby 2.4.0 中登录出错的bug
-  - 详细更新记录, 请查看: https://github.com/FIRHQ/fir-cli/blob/master/CHANGELOG
+  - 忽略了证书错误
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
   )
@@ -44,5 +42,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rest-client',    '~> 2.0'
   spec.add_dependency 'ruby_android',   '~> 0.7.7'
   spec.add_dependency 'rqrcode',        '~> 0.7'
-  spec.add_dependency 'xcodeproj',      '~> 1.4'
+  spec.add_dependency 'xcodeproj',      '~> 1.5'
+  spec.add_dependency 'api_tools'
 end

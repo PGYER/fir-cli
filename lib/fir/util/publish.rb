@@ -42,19 +42,27 @@ module FIR
       update_app_info
       fetch_app_info
     end
+     
+    %w(binary icon).each do |word|
+      define_method("upload_app_#{word}") do
+        upload_file(word)
+      end
+    end
 
-    %w(icon binary).each do |postfix|
-      class_eval <<-METHOD, __FILE__, __LINE__ + 1
-        def upload_app_#{postfix}
-          logger.info "Uploading app #{postfix}......"
-          uploaded_info = post(@#{postfix}_cert[:upload_url], uploading_#{postfix}_info)
+    def upload_file(postfix)
+      logger.info "Uploading app #{postfix}......"
+      url = @uploading_info[:cert][postfix.to_sym][:upload_url]
+      info = send("uploading_#{postfix}_info")
+      logger.debug "url = #{url}, info = #{info}"
+      uploaded_info = post(url, info, {
+        params_to_json: false,
+        header: nil
+      })
 
-          return if uploaded_info[:is_completed]
+      return if uploaded_info[:is_completed]
 
-          logger.error "Uploading app #{postfix} failed"
-          exit 1
-        end
-      METHOD
+      logger.error "Uploading app #{postfix} failed"
+      exit 1
     end
 
     def uploading_icon_info

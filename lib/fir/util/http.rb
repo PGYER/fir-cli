@@ -1,30 +1,20 @@
-# encoding: utf-8
+
+# frozen_string_literal: true
+
+require 'api_tools'
 
 module FIR
   module Http
-    MAX_RETRIES = 5
+    include ApiTools::DefaultRestModule
 
-    %w(get post patch put).each do |_m|
-      class_eval <<-METHOD, __FILE__, __LINE__ + 1
-        def #{_m}(url, params = {})
-          query = :#{_m} == :get ? { params: params } : params
-          begin
-            res = ::RestClient.#{_m}(url, query)
-          rescue => e
-            @retries ||= 0
-            logger.error(e.message.to_s)
-            if @retries < MAX_RETRIES
-              @retries += 1
-              logger.info("Retry \#{@retries} times......")
-              sleep 2
-              retry
-            else
-              exit 1
-            end
-          end
-          JSON.parse(res.body.force_encoding('UTF-8'), symbolize_names: true)
-        end
-      METHOD
+    alias old_default_options default_options
+    def default_options
+      @default_options = old_default_options
+      unless ENV['UPLOAD_VERIFY_SSL']
+        @default_options.merge!(other_base_execute_option: {
+                                  verify_ssl: OpenSSL::SSL::VERIFY_NONE
+                                })
+      end
     end
   end
 end
