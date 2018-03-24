@@ -6,8 +6,7 @@ module FIR
 
     def build_ipa(*args, options)
 
-      logger.warn "fir cli 已经停止支持 build ipa, 倾向用户使用 fir publish xxx.ipa, 请安装使用 fastlane gym build 进行更个性化的编译 ipa 文件 "
-
+      logger.warn "fir build ipa 即将过期, 请及时迁移打包部分, 推荐使用 fastlane gym"
       initialize_build_common_options(args, options)
 
       @build_tmp_dir = Dir.mktmpdir
