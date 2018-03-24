@@ -5,6 +5,7 @@ else
   source 'http://gems.ruby-china.org'
 end
 
+# gem 'byebug'
 # Specify your gem's dependencies in fir.gemspec
 gemspec
 

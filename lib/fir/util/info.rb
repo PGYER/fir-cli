@@ -25,7 +25,6 @@ module FIR
       ipa  = FIR::Parser::Ipa.new(ipa_path)
       app  = ipa.app
       info = app.full_info(options)
-
       ipa.cleanup
       info
     end

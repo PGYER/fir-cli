@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'thor'
+# require 'byebug'
 require 'logger'
 require 'yaml'
 require 'rest-client'

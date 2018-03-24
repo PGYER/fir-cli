@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  - 忽略了证书错误
+  - 推荐用户使用 fastlane gym build ipa文件 
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
   )
@@ -42,6 +42,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rest-client',    '~> 2.0'
   spec.add_dependency 'ruby_android',   '~> 0.7.7'
   spec.add_dependency 'rqrcode',        '~> 0.7'
-  spec.add_dependency 'xcodeproj',      '~> 1.5'
-  spec.add_dependency 'api_tools'
+  spec.add_dependency 'api_tools'       
+  spec.add_dependency 'xcodeproj'
 end
