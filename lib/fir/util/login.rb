@@ -2,7 +2,6 @@
 
 module FIR
   module Login
-
     def login(token)
       check_token_cannot_be_blank token
 

@@ -94,6 +94,7 @@ module FIR
     long_desc <<-LONGDESC
       `publish` command will publish your app file to fir.im, also the command support to publish app's short & changelog.
 
+
       Example:
 
       $ fir p <app file path> [-c <changelog> -s <custom short link> -Q -T <your api token>]
@@ -106,6 +107,8 @@ module FIR
     method_option :short,       type: :string,  aliases: '-s', desc: 'Set custom short link'
     method_option :changelog,   type: :string,  aliases: '-c', desc: 'Set changelog'
     method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
+    method_option :show_release_id,      type: :boolean, aliases: '-r', desc: 'show release id'
+    
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
     method_option :proj,        type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
     method_option :open,        type: :boolean, desc: 'true/false if open for everyone'

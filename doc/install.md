@@ -22,16 +22,16 @@ $ gem install fir-cli
 
 - 出现 `Gem::RemoteFetcher::FetchError` 相关错误:
 
-  更换 Ruby 的淘宝源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem
+  更换 Ruby 的源(由于国内网络原因, 你懂的), 并升级下系统自带的 gem
 
   ```sh
   $ gem sources --remove https://rubygems.org/
-  $ gem sources -a https://ruby.taobao.org/
+  $ gem sources -a https://gems.ruby-china.org/
   $ gem sources -l
   *** CURRENT SOURCES ***
 
-  https://ruby.taobao.org
-  # 请确保只有 ruby.taobao.org, 如果有其他的源, 请 remove 掉
+  https://gems.ruby-china.org
+  # 请确保只有 gems.ruby-china.org, 如果有其他的源, 请 remove 掉
 
   gem update --system
   gem install fir-cli

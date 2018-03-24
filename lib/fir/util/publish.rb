@@ -19,6 +19,11 @@ module FIR
       logger_info_app_short_and_qrcode
 
       upload_mapping_file_with_publish(options)
+      if options[:show_release_id]
+        sleep 2
+        release_info = fetch_release_id
+        logger.info "release id = #{release_info[:id]}"
+      end
       logger_info_blank_line
     end
 
@@ -40,7 +45,10 @@ module FIR
       upload_app_binary
       upload_device_info
       update_app_info
+
       fetch_app_info
+     
+     
     end
      
     %w(binary icon).each do |word|
@@ -68,7 +76,6 @@ module FIR
     def uploading_icon_info
       large_icon_path     = @app_info[:icons].max_by { |f| File.size(f) }
       uncrushed_icon_path = convert_icon(large_icon_path)
-
       {
         key:   @icon_cert[:key],
         token: @icon_cert[:token],
@@ -119,6 +126,10 @@ module FIR
       post fir_api[:app_url], type:      @app_info[:type],
                               bundle_id: @app_info[:identifier],
                               api_token: @token
+    end
+
+    def fetch_release_id
+      get "#{fir_api[:base_url]}/apps/#{@app_id}/releases/find_release_by_key", api_token: @token, key: @binary_cert[:key]
     end
 
     def fetch_app_info
