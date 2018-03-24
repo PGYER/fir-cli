@@ -37,6 +37,21 @@ $ gem install fir-cli
   gem install fir-cli
   ```
 
+- \- 出现 `ERROR:  While executing gem ... (OpenSSL::SSL::SSLError)` 相关错误:
+
+  ssl证书出错
+
+  需要把https的淘宝源换成http的，
+
+  ```
+  $ gem sources --remove https://ruby.taobao.org/
+  $ gem sources -a http://gems.ruby-china.org
+  $ gem sources -l
+  *** CURRENT SOURCES ***
+
+  http://gems.ruby-china.org
+  ```
+
 - Mac OS X 10.11 以后的版本, 由于10.11引入了 `rootless`, 无法直接安装 fir-cli, 有以下三种解决办法:
 
   1\. 使用 [Homebrew](http://brew.sh/) 及 [RVM](https://rvm.io/) 安装 Ruby, 再安装 fir-cli(推荐)
