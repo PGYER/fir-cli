@@ -4,6 +4,7 @@ module FIR
   module BuildApk
 
     def build_apk(*args, options)
+      logger.warn "build 在 fir-cli 即将过期, 推荐使用 gradlew 打包 apk文件后 后再使用 fir 工具上传生成的apk 文件"
       initialize_build_common_options(args, options)
       set_flavor(options)
 

@@ -1,5 +1,11 @@
 ## 更新记录 
 
+### fir-cli 1.6.4
+- 修复证书问题
+
+### fir-cli 1.6.3
+- 修复bugs
+
 ### fir-cli 1.6.2.1
 - 修正解压 android apk warning 的问题
 
