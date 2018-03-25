@@ -24,7 +24,22 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 - [fir publish 发布应用到 fir.im](https://github.com/FIRHQ/fir-cli/blob/master/doc/publish.md)
 - [fir upgrade 升级相关](https://github.com/FIRHQ/fir-cli/blob/master/doc/upgrade.md)
 
-## Docker 使用 fir-cli
+## Docker 运行 fir-cli 
+
+
+### 准备工作
+1. 将自己需要的文件挂载到 docker 中, 之后即可直接运行
+2. 将自己的 API_TOKEN 以环境变量的形式传入container 
+
+### 如何运行
+
+假设 我需要上传桌面的  1.apk 
+
+```
+docker run firhq/fir-cli:latest -e API_TOKEN=1111111111111111111111 -v ./1.apk:1.apk publish 1.apk
+```
+
+## 在 flow.ci 中的 Docker 使用 fir-cli
 ```
 # 方便之处是: 不需要安装 Ruby 环境只需要安装Docker环境就行把镜像 flowci/fir-cli 拉下来就能跑
 # 不方便之处是: 不能使用 xcode 或者 gradle 编译代码，只能 publish 编译好的文件
