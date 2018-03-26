@@ -14,8 +14,10 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 重要提示
+- 新功能会首先添加到pre版本, 可使用 `gem install fir-cli --pre` 进行安装,稳定后将打入正式版
 - 由于部分地区上传时遇到的证书问题, 新版本默认忽略证书校验. 如需打开, 请在命令前加入`UPLOAD_VERIFY_SSL=1`
 - 介于在ios 等编译越来越复杂化, fir-cli 自带的 `build_ipa` 编译功能较为简单, 不能很好的满足用户需求, 推荐用户使用 fastlane (fastlane gym)进行打包,生成好 ipa 文件后,再使用 `fir publish` 上传生成的ipa
+- 现已添加 docker 版本, 具体请见 `Docker 运行 fir-cli ` 说明
 
 ## 文档
 
@@ -38,7 +40,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 假设 我需要上传桌面的  1.apk 
 
 ```
-docker run firhq/fir-cli:latest -e API_TOKEN=1111111111111111111111 -v ./1.apk:1.apk publish 1.apk
+docker run firhq/fir-cli:latest -e API_TOKEN=XXXX -v ./1.apk:1.apk publish 1.apk
 ```
 
 ## 在 flow.ci 中的 Docker 使用 fir-cli
@@ -52,11 +54,6 @@ chmod +x /usr/local/bin/fir
 fir login token
 fir help
 ```
-## 近期计划(2018年03-04月)
-- 集成 fastlane gym ,取代原有的 build_ipa 功能
-- 增加上传完毕后反馈 release_id 
-- 修复 changelog 不能换行的问题
-- 完善docker 版本, 用户可以直接挂载文件目录上传
 
 ## 提交反馈
 
