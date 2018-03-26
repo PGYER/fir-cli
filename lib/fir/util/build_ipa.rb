@@ -5,7 +5,6 @@ module FIR
   module BuildIpa
 
     def build_ipa(*args, options)
-
       logger.warn "fir build ipa 即将过期, 请及时迁移打包部分, 推荐使用 fastlane gym"
       initialize_build_common_options(args, options)
 

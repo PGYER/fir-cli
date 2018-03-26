@@ -1,8 +1,12 @@
 FROM ruby:2.4.2
-
+RUN gem install bundler
+ENV LANG=C.UTF-8 
 ENV WORKDIR=/fir-cli
 ENV HOME=/fir-cli
-RUN gem install fir-cli
 RUN mkdir -p $WORKDIR
+ADD ./ $HOME
 WORKDIR $WORKDIR
+RUN ["bundle", "install"]
+RUN ["touch", "README.md"]
+RUN ["rake", "install"]
 ENTRYPOINT ["fir"]

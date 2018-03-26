@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
+  - publish 指令增加 -r 参数, 会返回 release_id 信息 (预览版, 使用 gem install fir-cli --pre 安装)
   - 推荐用户使用 fastlane gym build ipa文件 
   - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
