@@ -9,7 +9,7 @@ module FIR
 
     alias old_default_options default_options
     def default_options
-      @default_options = old_default_options
+      @default_options = old_default_options.merge(timeout: 300)
       unless ENV['UPLOAD_VERIFY_SSL']
         @default_options.merge!(other_base_execute_option: {
                                   verify_ssl: OpenSSL::SSL::VERIFY_NONE
