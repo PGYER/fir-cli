@@ -10,7 +10,7 @@ module FIR
     alias old_default_options default_options
     def default_options
       @default_options = old_default_options.merge(timeout: 300)
-      unless ENV['FIR_TIMEOUT']
+      if ENV['FIR_TIMEOUT']
         @default_options[:timeout] = ENV['FIR_TIMEOUT'].to_i
       end
       unless ENV['UPLOAD_VERIFY_SSL']
