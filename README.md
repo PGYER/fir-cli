@@ -18,6 +18,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 - 由于部分地区上传时遇到的证书问题, 新版本默认忽略证书校验. 如需打开, 请在命令前加入`UPLOAD_VERIFY_SSL=1`
 - 介于在ios 等编译越来越复杂化, fir-cli 自带的 `build_ipa` 编译功能较为简单, 不能很好的满足用户需求, 推荐用户使用 fastlane (fastlane gym)进行打包,生成好 ipa 文件后,再使用 `fir publish` 上传生成的ipa
 - 现已添加 docker 版本, 具体请见 `Docker 运行 fir-cli ` 说明
+- 关于因为境外到境内网络不佳的而在上传出现 `stream closed`的问题, 我们已经联系了 CDN 厂商处理, 并将超时时间改为了 300 (秒), 如需修改, 可传入环境变量 `FIR_TIMEOUT=xxx` 
 
 ## 文档
 

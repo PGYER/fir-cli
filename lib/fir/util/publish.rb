@@ -68,6 +68,7 @@ module FIR
       })
 
       return if uploaded_info[:is_completed]
+      
 
       logger.error "Uploading app #{postfix} failed"
       exit 1
