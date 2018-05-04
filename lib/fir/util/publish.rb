@@ -149,6 +149,7 @@ module FIR
 
       post fir_api[:app_url], type:      @app_info[:type],
                               bundle_id: @app_info[:identifier],
+                              manual_callback: true,
                               api_token: @token
     end
 

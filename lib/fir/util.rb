@@ -59,7 +59,6 @@ module FIR
         return unless token.blank?
 
         logger.error 'Token can not be blank'
-        exit 1
       end
 
       def check_logined
