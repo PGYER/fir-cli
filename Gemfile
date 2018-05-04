@@ -8,5 +8,5 @@ end
 # gem 'byebug'
 # Specify your gem's dependencies in fir.gemspec
 gemspec
-
+gem 'byebug'
 gem 'codeclimate-test-reporter', group: :test, require: nil

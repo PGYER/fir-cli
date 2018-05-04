@@ -1,15 +1,15 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module FIR
   module Publish
-
     def publish(*args, options)
       initialize_publish_options(args, options)
       check_supported_file_and_token
 
       logger_info_publishing_message
 
-      @app_info       = send("#{@file_type}_info", @file_path, full_info: true)
+      @app_info = send("#{@file_type}_info", @file_path, full_info: true)
+      @user_info      = fetch_user_info(@token)
       @uploading_info = fetch_uploading_info
       @app_id         = @uploading_info[:id]
 
@@ -20,9 +20,7 @@ module FIR
 
       upload_mapping_file_with_publish(options)
       if options[:show_release_id]
-        sleep 2
-        release_info = fetch_release_id
-        logger.info "release id = #{release_info[:id]}"
+        logger.info "release id = #{answer[:release_id]}"
       end
       logger_info_blank_line
     end
@@ -42,18 +40,17 @@ module FIR
       @binary_cert = @uploading_info[:cert][:binary]
 
       upload_app_icon unless @app_info[:icons].blank?
-      upload_app_binary
+      answer = upload_app_binary
       upload_device_info
       update_app_info
-
       fetch_app_info
-     
-     
     end
-     
-    %w(binary icon).each do |word|
+
+    %w[binary icon].each do |word|
       define_method("upload_app_#{word}") do
         upload_file(word)
+        storage = ENV['SOTRAGE_NAME'] || 'qiniu'
+        post("#{fir_api[:base_url]}/auth/#{storage}/callback", send("#{word}_information"))
       end
     end
 
@@ -62,27 +59,53 @@ module FIR
       url = @uploading_info[:cert][postfix.to_sym][:upload_url]
       info = send("uploading_#{postfix}_info")
       logger.debug "url = #{url}, info = #{info}"
-      uploaded_info = post(url, info, {
-        params_to_json: false,
-        header: nil
-      })
-
-      return if uploaded_info[:is_completed]
-      
-
+      uploaded_info = post(url, info.merge(manual_callback: true),
+                           params_to_json: false,
+                           header: nil)
+    rescue StandardError
       logger.error "Uploading app #{postfix} failed"
       exit 1
     end
 
     def uploading_icon_info
-      large_icon_path     = @app_info[:icons].max_by { |f| File.size(f) }
-      uncrushed_icon_path = convert_icon(large_icon_path)
+      large_icon_path = @app_info[:icons].max_by { |f| File.size(f) }
+      @uncrushed_icon_path = convert_icon(large_icon_path)
       {
         key:   @icon_cert[:key],
         token: @icon_cert[:token],
-        file:  File.new(uncrushed_icon_path, 'rb'),
+        file:  File.new(@uncrushed_icon_path, 'rb'),
         'x:is_converted' => '1'
       }
+    end
+
+    def icon_information
+      {
+        key:   @icon_cert[:key],
+        token: @icon_cert[:token],
+        origin: 'fir-cli',
+        parent_id: @app_id,
+        fsize: File.size(@uncrushed_icon_path),
+        fname: 'blob'
+      }
+    end
+
+    def binary_information
+      {
+        build: @app_info[:build],
+        fname: File.basename(@file_path),
+        key: @binary_cert[:key],
+        name: @app_info[:display_name] || @app_info[:name],
+        origin: 'fir-cli',
+        parent_id: @app_id,
+        release_tag: 'develop',
+        fsize: File.size(@file_path),
+        release_type: @app_info[:release_type],
+        distribution_name: @app_info[:distribution_name],
+        token: @binary_cert[:token],
+        version: @app_info[:version],
+        changelog: @changelog,
+        user_id: @user_info[:id]
+      }.reject { |x| x.nil? || x == '' }
     end
 
     def uploading_binary_info
@@ -108,14 +131,14 @@ module FIR
       post fir_api[:udids_url], key:       @binary_cert[:key],
                                 udids:     @app_info[:devices].join(','),
                                 api_token: @token
-    end
+      end
 
     def update_app_info
       update_info = { short: @short, passwd: @passwd, is_opened: @is_opened }.compact
 
       return if update_info.blank?
 
-      logger.info "Updating app info......"
+      logger.info 'Updating app info......'
 
       patch fir_api[:app_url] + "/#{@app_id}", update_info.merge(api_token: @token)
     end
@@ -190,7 +213,7 @@ module FIR
       fetch_user_info(@token)
     end
 
-    def convert_icon origin_path
+    def convert_icon(origin_path)
       logger.info "Converting app's icon......"
 
       if @app_info[:type] == 'ios'
