@@ -41,6 +41,7 @@ module FIR
 
       upload_app_icon unless @app_info[:icons].blank?
       answer = upload_app_binary
+      logger.debug "release_id = #{answer[:release_id]}"
       upload_device_info
       update_app_info
       fetch_app_info
