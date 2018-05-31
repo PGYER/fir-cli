@@ -19,9 +19,7 @@ module FIR
       logger_info_app_short_and_qrcode
 
       upload_mapping_file_with_publish(options)
-      if options[:show_release_id]
-        logger.info "release id = #{answer[:release_id]}"
-      end
+
       logger_info_blank_line
     end
 
@@ -40,8 +38,9 @@ module FIR
       @binary_cert = @uploading_info[:cert][:binary]
 
       upload_app_icon unless @app_info[:icons].blank?
-      answer = upload_app_binary
-      logger.debug "release_id = #{answer[:release_id]}"
+      @app_uploaded_callback_data = upload_app_binary
+      logger.info "App id is #{@app_id}"
+      logger.info "Release id is #{@app_uploaded_callback_data[:release_id]}"
       upload_device_info
       update_app_info
       fetch_app_info

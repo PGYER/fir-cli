@@ -27,10 +27,11 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录 
-  - (1.6.9) 取消了依赖 CFPropertyList 的具体版本号
+  - (1.6.10) 增加显示release_id 以及 app_id
+  - (1.6.9) 取消了依赖 cfpropertylist 的具体版本号
   - (1.6.8) 取消了远端回调, 改为本地callback
   - (1.6.8) fir-cli 也支持了私有部署模式
-  - [fir-cli](https://github.com/FIRHQ/fir-cli) 已经开源
+  - [fir-cli](https://github.com/firhq/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
   )
 

@@ -107,7 +107,6 @@ module FIR
     method_option :short,       type: :string,  aliases: '-s', desc: 'Set custom short link'
     method_option :changelog,   type: :string,  aliases: '-c', desc: 'Set changelog'
     method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
-    method_option :show_release_id,      type: :boolean, aliases: '-r', desc: 'show release id'
     
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
     method_option :proj,        type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
