@@ -2,7 +2,7 @@
 if ENV['USE_OFFICIAL_GEM_SOURCE']
   source 'https://rubygems.org'
 else
-  source 'http://gems.ruby-china.org'
+  source 'http://gems.ruby-china.com'
 end
 
 # gem 'byebug'

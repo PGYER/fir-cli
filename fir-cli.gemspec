@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录 
+  - (1.6.11) 变化了 ruby gem 仓库地址
   - (1.6.10) 增加显示release_id 以及 app_id
   - (1.6.9) 取消了依赖 cfpropertylist 的具体版本号
   - (1.6.8) 取消了远端回调, 改为本地callback
