@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录 
+  - (1.6.12) 修复了部分机器没有默认安装 byebug 的问题
   - (1.6.11) 变化了 ruby gem 仓库地址
   - (1.6.10) 增加显示release_id 以及 app_id
   - (1.6.9) 取消了依赖 cfpropertylist 的具体版本号
@@ -47,5 +48,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rqrcode',        '~> 0.7'
   spec.add_dependency 'CFPropertyList'
   spec.add_dependency 'api_tools'
+  spec.add_dependency 'byebug'
   spec.add_dependency 'xcodeproj'
 end
