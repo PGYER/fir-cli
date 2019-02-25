@@ -8,7 +8,7 @@ module FIR
     class_option :quiet,   type: :boolean, aliases: '-q', desc: 'Silence commands'
     class_option :help,    type: :boolean, aliases: '-h', desc: 'Show this help message and quit'
 
-    desc 'build_ipa BUILD_DIR [options] [settings]', 'Build iOS app (alias: `bi`).'
+    desc '(EXPIRED, PLEASE use fastlane instead) build_ipa BUILD_DIR [options] [settings]', 'Build iOS app (alias: `bi`).'
     long_desc <<-LONGDESC
       `build_ipa` command will auto build your project/workspace to an ipa package
       and it also can auto publish your built ipa to fir.im if use `-p` option.
@@ -132,24 +132,6 @@ module FIR
       prepare :me
 
       FIR.me
-    end
-
-    desc 'mapping MAPPING_FILE_PATH', 'Upload app mapping file to BugHD.com (aliases: `m`).'
-    long_desc <<-LONGDESC
-      `mapping` command will upload your app's mapping file to BugHD.com if you have the same app/project in BugHD.com.
-
-      Example:
-
-      $ fir m <mapping file path> -P <bughd project id> -v <app version> -b <app build> -T <your fir api token>
-    LONGDESC
-    map 'm' => :mapping
-    method_option :proj,    type: :string, aliases: '-P', desc: 'Project id in BugHD.com'
-    method_option :version, type: :string, aliases: '-v', desc: 'App version'
-    method_option :build,   type: :string, aliases: '-b', desc: 'App build'
-    def mapping(*args)
-      prepare :mapping
-
-      FIR.mapping(*args, options)
     end
 
     desc 'upgrade', 'Upgrade fir-cli and quit (aliases: `u`).'

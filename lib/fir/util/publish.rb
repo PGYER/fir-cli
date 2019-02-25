@@ -217,6 +217,9 @@ module FIR
     end
 
     def convert_icon(origin_path)
+      # 兼容性不太好, 蔽掉转化图标
+      return origin_path
+      
       logger.info "Converting app's icon......"
 
       if @app_info[:type] == 'ios'
