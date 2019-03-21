@@ -1,5 +1,5 @@
 # encoding: utf-8
 
 module FIR
-  VERSION = '1.6.13'
+  VERSION = '1.7.0'
 end

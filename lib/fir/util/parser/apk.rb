@@ -1,7 +1,8 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 require_relative './common'
 
+require 'byebug'
 module FIR
   module Parser
     class Apk
@@ -13,30 +14,34 @@ module FIR
       end
 
       def full_info(options)
-        if options.fetch(:full_info, false)
-          basic_info.merge!(icons: tmp_icons)
-        end
+        basic_info[:icons] = tmp_icons if options.fetch(:full_info, false)
 
         basic_info
       end
 
       def basic_info
         @basic_info ||= {
-          type:       'android',
+          type: 'android',
+          name: fetch_label,
           identifier: @apk.manifest.package_name,
-          name:       @apk.label,
-          build:      @apk.manifest.version_code.to_s,
-          version:    @apk.manifest.version_name.to_s
+          build: @apk.manifest.version_code.to_s,
+          version: @apk.manifest.version_name.to_s
         }
+        @basic_info.reject! { |_k, v| v.nil? }
+        @basic_info
       end
 
       # @apk.icon is a hash, { icon_name: icon_binary_data }
       def tmp_icons
-        begin
-          @apk.icon.map { |_, data| generate_tmp_icon(data, :apk) }
-        rescue
-          []
-        end
+        @apk.icon.map { |_, data| generate_tmp_icon(data, :apk) }
+      rescue StandardError
+        []
+      end
+
+      def fetch_label
+        @apk.label
+      rescue NoMethodError
+        nil
       end
     end
   end
