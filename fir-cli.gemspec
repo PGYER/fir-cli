@@ -46,5 +46,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rqrcode',        '~> 0.7'
   spec.add_dependency 'CFPropertyList'
   spec.add_dependency 'api_tools'
-  spec.add_dependency 'byebug'
 end

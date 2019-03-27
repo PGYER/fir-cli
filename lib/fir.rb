@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'thor'
-# require 'byebug'
 require 'logger'
 require 'yaml'
 require 'rest-client'

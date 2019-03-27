@@ -1,4 +1,4 @@
-FROM ruby:2.4.2
+FROM ruby:2.6.1
 RUN gem install bundler
 ENV LANG=C.UTF-8 
 ENV WORKDIR=/fir-cli

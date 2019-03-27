@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require_relative './common'
-
-require 'byebug'
 module FIR
   module Parser
     class Apk
