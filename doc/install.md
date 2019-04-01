@@ -26,7 +26,7 @@ $ gem install fir-cli
 
   ```sh
   $ gem sources --remove https://rubygems.org/
-  $ gem sources -a https://gems.ruby-china.org/
+  $ gem source -a https://gems.ruby-china.com
   $ gem sources -l
   *** CURRENT SOURCES ***
 
