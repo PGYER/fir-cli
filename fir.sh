@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #  because fir-cli dependent ruby enviroment, this shell is dependent ruby docker
 #  so xcode and gradle not use
 #  this shell only use to publish apk or ipa , build is not run
