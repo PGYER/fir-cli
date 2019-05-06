@@ -5,7 +5,6 @@ else
   source 'https://rubygems.org'
 end
 
-# gem 'byebug'
 # Specify your gem's dependencies in fir.gemspec
 gemspec
 gem 'codeclimate-test-reporter', group: :test, require: nil

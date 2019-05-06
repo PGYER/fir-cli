@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module FIR
   module Publish
     def publish(*args, options)
@@ -16,10 +15,10 @@ module FIR
       upload_app
 
       logger_info_dividing_line
-      logger_info_app_short_and_qrcode
+      logger_info_app_short_and_qrcode(options)
 
+      dingtalk_notifier(options)
       upload_mapping_file_with_publish(options)
-
       logger_info_blank_line
     end
 
@@ -71,16 +70,16 @@ module FIR
       large_icon_path = @app_info[:icons].max_by { |f| File.size(f) }
       @uncrushed_icon_path = convert_icon(large_icon_path)
       {
-        key:   @icon_cert[:key],
+        key: @icon_cert[:key],
         token: @icon_cert[:token],
-        file:  File.new(@uncrushed_icon_path, 'rb'),
+        file: File.new(@uncrushed_icon_path, 'rb'),
         'x:is_converted' => '1'
       }
     end
 
     def icon_information
       {
-        key:   @icon_cert[:key],
+        key: @icon_cert[:key],
         token: @icon_cert[:token],
         origin: 'fir-cli',
         parent_id: @app_id,
@@ -110,15 +109,15 @@ module FIR
 
     def uploading_binary_info
       {
-        key:   @binary_cert[:key],
+        key: @binary_cert[:key],
         token: @binary_cert[:token],
-        file:  File.new(@file_path, 'rb'),
+        file: File.new(@file_path, 'rb'),
         # Custom variables
-        'x:name'              => @app_info[:display_name] || @app_info[:name],
-        'x:build'             => @app_info[:build],
-        'x:version'           => @app_info[:version],
-        'x:changelog'         => @changelog,
-        'x:release_type'      => @app_info[:release_type],
+        'x:name' => @app_info[:display_name] || @app_info[:name],
+        'x:build' => @app_info[:build],
+        'x:version' => @app_info[:version],
+        'x:changelog' => @changelog,
+        'x:release_type' => @app_info[:release_type],
         'x:distribution_name' => @app_info[:distribution_name]
       }
     end
@@ -128,8 +127,8 @@ module FIR
 
       logger.info 'Updating devices info......'
 
-      post fir_api[:udids_url], key:       @binary_cert[:key],
-                                udids:     @app_info[:devices].join(','),
+      post fir_api[:udids_url], key: @binary_cert[:key],
+                                udids: @app_info[:devices].join(','),
                                 api_token: @token
       end
 
@@ -147,7 +146,7 @@ module FIR
       logger.info "Fetching #{@app_info[:identifier]}@fir.im uploading info......"
       logger.info "Uploading app: #{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
 
-      post fir_api[:app_url], type:      @app_info[:type],
+      post fir_api[:app_url], type: @app_info[:type],
                               bundle_id: @app_info[:identifier],
                               manual_callback: true,
                               api_token: @token
@@ -170,26 +169,42 @@ module FIR
 
       logger_info_blank_line
 
-      mapping options[:mappingfile], proj:    options[:proj],
-                                     build:   @app_info[:build],
+      mapping options[:mappingfile], proj: options[:proj],
+                                     build: @app_info[:build],
                                      version: @app_info[:version],
-                                     token:   @token
+                                     token: @token
     end
 
-    def logger_info_app_short_and_qrcode
-      short = "#{fir_api[:domain]}/#{@fir_app_info[:short]}"
+    def logger_info_app_short_and_qrcode(options)
+      @download_url = "#{fir_api[:domain]}/#{@fir_app_info[:short]}"
+      @download_url += "?release_id=#{@app_uploaded_callback_data[:release_id]}" if !!options[:need_release_id]
 
-      logger.info "Published succeed: #{short}"
+      logger.info "Published succeed: #{@download_url}"
 
-      if @export_qrcode
-        qrcode_path = "#{File.dirname(@file_path)}/fir-#{@app_info[:name]}.png"
-        FIR.generate_rqrcode(short, qrcode_path)
+      @qrcode_path = "#{File.dirname(@file_path)}/fir-#{@app_info[:name]}.png"
+      FIR.generate_rqrcode(@qrcode_path, @qrcode_path)
 
-        logger.info "Local qrcode file: #{qrcode_path}"
-      end
+      logger.info "Local qrcode file: #{@qrcode_path}" if @export_qrcode
     end
 
     private
+
+    def dingtalk_notifier(options)
+      if options[:dingtalk_access_token]
+        title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
+        payload = {
+          "msgtype": 'markdown',
+          "markdown": {
+            "title": "#{title} uploaded",
+            "text": "#{title} uploaded at #{Time.now}\nurl: #{@download_url}\n ![app二维码](data:image/png;base64,#{Base64.strict_encode64(File.read(open(@qrcode_path)))})"
+          }
+        }
+        url = "https://oapi.dingtalk.com/robot/send?access_token=#{options[:dingtalk_access_token]}"
+        DefaultRest.post(url, payload)
+      end
+    rescue StandardError => e
+      logger.warn "Dingtalk send error #{e.message}"
+    end
 
     def initialize_publish_options(args, options)
       @file_path     = File.absolute_path(args.first.to_s)
@@ -204,6 +219,7 @@ module FIR
 
     def read_changelog(changelog)
       return if changelog.blank?
+
       File.exist?(changelog) ? File.read(changelog) : changelog
     end
 
@@ -217,7 +233,7 @@ module FIR
     def convert_icon(origin_path)
       # 兼容性不太好, 蔽掉转化图标
       return origin_path
-      
+
       logger.info "Converting app's icon......"
 
       if @app_info[:type] == 'ios'

@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module FIR
   class CLI < Thor
@@ -24,7 +24,7 @@ module FIR
 
       $ fir bi <workspace dir> -w -S <scheme name> [-C <configuration>] [-t <target name>] [-o <ipa output dir>] [settings] [-c <changelog>] [-p -Q -T <your api token>]
     LONGDESC
-    map ['b', 'bi'] => :build_ipa
+    map %w[b bi] => :build_ipa
     method_option :branch,        type: :string,  aliases: '-B', desc: 'Set branch if project is a git repo, the default is `master`'
     method_option :workspace,     type: :boolean, aliases: '-w', desc: 'true/false if build workspace'
     method_option :scheme,        type: :string,  aliases: '-S', desc: 'Set the scheme NAME if build workspace'
@@ -32,7 +32,7 @@ module FIR
     method_option :destination,   type: :string,  aliases: '-d', desc: 'Set the destination specifier'
     method_option :target,        type: :string,  aliases: '-t', desc: 'Build the target specified by target name'
     method_option :export_method, type: :string,  aliases: '-E', desc: 'for exportOptionsPlist method, ad-hoc as default'
-    method_option :optionPlistPath, type: :string,  aliases: '-O', desc: 'User defined exportOptionsPlist path'
+    method_option :optionPlistPath, type: :string, aliases: '-O', desc: 'User defined exportOptionsPlist path'
     method_option :profile,       type: :string,  aliases: '-f', desc: 'Set the export provisioning profile'
     method_option :output,        type: :string,  aliases: '-o', desc: 'IPA output path, the default is: BUILD_DIR/fir_build_ipa'
     method_option :publish,       type: :boolean, aliases: '-p', desc: 'true/false if publish to fir.im'
@@ -107,9 +107,11 @@ module FIR
     method_option :short,       type: :string,  aliases: '-s', desc: 'Set custom short link'
     method_option :changelog,   type: :string,  aliases: '-c', desc: 'Set changelog'
     method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
-    
+    method_option :need_release_id, type: :boolean, aliases: '-R', desc: 'Add release id with fir url (WARNING: FIR ONLY SAVED 30 releases recently per app'
+
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
-    method_option :proj,        type: :string,  aliases: '-P', desc: 'Project id in BugHD.com if upload app mapping file'
+    method_option :dingtalk_access_token, type: :string, aliases: '-D', desc: 'Send msg to dingtalk, only need access_token, not whole url'
+
     method_option :open,        type: :boolean, desc: 'true/false if open for everyone'
     method_option :password,    type: :string,  desc: 'Set password for app'
     def publish(*args)
@@ -171,7 +173,7 @@ module FIR
     def prepare(task)
       if options.help?
         help(task.to_s)
-        fail SystemExit
+        raise SystemExit
       end
       $DEBUG = true if ENV['DEBUG']
     end
