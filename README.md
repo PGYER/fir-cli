@@ -63,6 +63,12 @@ fir help
 - (1.6.11) 变化了 ruby gem 仓库地址
 - (1.6.10) 增加显示release_id 以及 app_id
 
+## 二级制文件(仅实验性质)
+
+如不想装ruby 环境, 可以直接上二进制
+### mac 
+可试用 [fir-macos](https://ali-static.fir.im/fir-cli/fir-macos-1.7.1)
+
 ## 提交反馈
 
 - 联系微信 `atpking` 
