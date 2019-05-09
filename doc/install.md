@@ -3,11 +3,13 @@
 fir-cli 使用 Ruby 构建, 无需编译, 只要安装相应 gem 即可.
 
 ```sh
-$ ruby -v # > 1.9.3
+$ ruby -v # > 2.6.1
 $ gem install fir-cli
 ```
 
 #### 常见的安装问题
+
+- ruby 要求最低版本为 2.3
 
 - 使用系统自带的 Ruby 安装, 需确保 ruby-dev 已被正确的安装:
 
@@ -26,12 +28,12 @@ $ gem install fir-cli
 
   ```sh
   $ gem sources --remove https://rubygems.org/
-  $ gem sources -a https://gems.ruby-china.org/
+  $ gem sources -a https://gems.ruby-china.com/
   $ gem sources -l
   *** CURRENT SOURCES ***
 
-  https://gems.ruby-china.org
-  # 请确保只有 gems.ruby-china.org, 如果有其他的源, 请 remove 掉
+  https://gems.ruby-china.com
+  # 请确保只有 gems.ruby-china.com, 如果有其他的源, 请 remove 掉
 
   gem update --system
   gem install fir-cli
