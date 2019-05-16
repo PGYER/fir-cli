@@ -20,6 +20,7 @@ module FIR
       dingtalk_notifier(options)
       upload_mapping_file_with_publish(options)
       logger_info_blank_line
+      clean_files
     end
 
     def logger_info_publishing_message
@@ -182,12 +183,16 @@ module FIR
       logger.info "Published succeed: #{@download_url}"
 
       @qrcode_path = "#{File.dirname(@file_path)}/fir-#{@app_info[:name]}.png"
-      FIR.generate_rqrcode(@qrcode_path, @qrcode_path)
+      FIR.generate_rqrcode(@download_url, @qrcode_path)
 
       logger.info "Local qrcode file: #{@qrcode_path}" if @export_qrcode
     end
 
     private
+
+    def clean_files
+      File.delete(@qrcode_path) unless @export_qrcode
+    end
 
     def dingtalk_notifier(options)
       if options[:dingtalk_access_token]

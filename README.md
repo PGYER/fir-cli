@@ -55,12 +55,6 @@ fir login token
 fir help
 ```
 
-## 二级制文件(仅实验性质)
-
-如不想装ruby 环境, 可以直接上二进制
-### mac 
-可试用 [fir-macos](https://ali-static.fir.im/fir-cli/fir-macos-1.7.1)
-
 ## 提交反馈
 
 - 联系微信 `atpking` 
