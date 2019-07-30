@@ -61,3 +61,7 @@ fir help
 
 - 使用 Github 的 [Issue](https://github.com/FIRHQ/fir-cli/issues) 
 
+## 特别感谢 
+
+- 感谢 sparkrico 提供修正的 https://github.com/sparkrico/ruby_apk 解决了 android 解析的问题
+
