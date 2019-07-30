@@ -44,7 +44,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'thor',           '~> 0.19'
   spec.add_dependency 'rest-client',    '~> 2.0'
-  spec.add_dependency 'ruby_android',   '~> 0.7.7'
+  spec.add_dependency 'ruby_android_apk',   '~> 0.7.7.1'
   spec.add_dependency 'rqrcode',        '~> 0.7'
   spec.add_dependency 'CFPropertyList'
   spec.add_dependency 'api_tools', '~> 0.1.0'
