@@ -25,6 +25,10 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ## 热门问题
 
+### 日志换行有问题
+
+可以将日志先输出成一个文本, 之后 --changelog=这个本文   即可实现changlog换行
+
 ### 图标解析有问题
 
 可以在 publish 的时候使用 --specify_icon_file_path=xxx  来自己指定图标文件 或者使用  --skip_update_icon  来跳过图标文件的上传
