@@ -14,15 +14,36 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 最近更新
-- publish 支持 新参数 force_pin_history, 可以 将上传的版本, 固定在下载页面上(当大于最大固定版本数后, 会挤掉最老的固定版本) 
-- publish 支持 新参数 specify_icon_file_path, 可以直接指定 app 的 icon 图标文件 
-- publish 支持 新参数 skip_update_icon, 可以略过更新app图标
+- publish 支持 新参数 force_pin_history, 可以 将上传的版本, 固定在下载页面上(当大于最大固定版本数后, 会挤掉最老的固定版本) [2019年11月18日]
+- publish 支持 新参数 specify_icon_file_path, 可以直接指定 app 的 icon 图标文件 [2019年11月18日]
+- publish 支持 新参数 skip_update_icon, 可以略过更新app图标 [2019年11月18日]
 - 官方支持 钉钉推送, 使用方法为 在publish 中增加 --dingtalk_access_token=xxxxxxxxxxxxxxxxxxx (或者 -D=xxxxxxx)  [2019年05月06日]
 - 官方支持 上传完毕后, 返回精确的版本的下载地址, 使用方案为 在 publish 后增加 --need_release_id (特定版本支持近期30个以内的任意版本. 如有更多历史版本需要回溯, 可向线上客服或者 微信 atpking 进行申请特殊处理某app, 我们会根据使用情况酌情增加) [2019年05月06日]
 - 已过期 build_ipa 功能, 推荐用户使用 fastlane (fastlane gym)进行打包,生成好 ipa 文件后,再使用 `fir publish` 上传生成的ipa [2019年03月21日]
 - 由于部分地区上传时遇到的证书问题, 新版本默认忽略证书校验. 如需打开, 请在命令前加入`UPLOAD_VERIFY_SSL=1`
 - 现已添加 docker 版本, 具体请见 `Docker 运行 fir-cli ` 说明
-- 关于因为境外到境内网络不佳的而在上传出现 `stream closed`的问题, 我们已经联系了 CDN 厂商处理, 并将超时时间改为了 300 (秒), 如需修改, 可传入环境变量 `FIR_TIMEOUT=xxx` 
+
+## 热门问题
+
+### 图标解析有问题
+
+可以在 publish 的时候使用 --specify_icon_file_path=xxx  来自己指定图标文件 或者使用  --skip_update_icon  来跳过图标文件的上传
+
+### 我想将 我上传的版本展示在下载的页面上
+
+可以在 publish 的时候使用 --force_pin_history   这样 这个上传的版本即成为 "历史版本", 会在下载页面里一直显示. 当有新的版本上传后, 这个版本会作为 "历史版本" 在下载页面中展示. 
+
+当版本设置为历史版本后, 用户可以直接下载指定的版本, 由于因成本原因, 一个 app 最多的 "历史版本" 为 30 个, 如果有用户有特殊需求, 可以与我们取得联系进行单独修改
+
+当达到上限后, 如果继续标记 force_pin_history, 则历史版本的最老版本(以上传时间为准)会被移出历史版本列表
+
+### 境外上传老出现 stream closed 
+
+因为网络时延问题, 可传入环境变量 `FIR_TIMEOUT=xxx` 进行超时时间设置
+
+### 愿意做持续集成,但技术上遇到较大阻碍
+
+可以联系微信 `atpking`
 
 ## 文档
 
@@ -32,7 +53,6 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 - [fir upgrade 升级相关](https://github.com/FIRHQ/fir-cli/blob/master/doc/upgrade.md)
 
 ## Docker 运行 fir-cli 
-
 
 ### 准备工作
 1. 将自己需要的文件挂载到 docker 中, 之后即可直接运行
@@ -44,18 +64,6 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ```
 docker run firhq/fir-cli:latest -e API_TOKEN=XXXX -v ./1.apk:1.apk publish 1.apk
-```
-
-## 在持续集成工具 flow.ci 中的 Docker 使用 fir-cli
-```
-# 方便之处是: 不需要安装 Ruby 环境只需要安装Docker环境就行把镜像 flowci/fir-cli 拉下来就能跑
-# 不方便之处是: 不能使用 xcode 或者 gradle 编译代码，只能 publish 编译好的文件
-
-curl https://raw.githubusercontent.com/FIRHQ/fir-cli/master/fir.sh -o /usr/local/bin/fir
-chmod +x /usr/local/bin/fir
-
-fir login token
-fir help
 ```
 
 ## 提交反馈
