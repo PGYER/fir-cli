@@ -3,22 +3,25 @@ module FIR
   module Publish
     def publish(*args, options)
       initialize_publish_options(args, options)
+      @options = options
       check_supported_file_and_token
 
       logger_info_publishing_message
 
       @app_info = send("#{@file_type}_info", @file_path, full_info: true)
-      @user_info      = fetch_user_info(@token)
+      @user_info = fetch_user_info(@token)
       @uploading_info = fetch_uploading_info
-      @app_id         = @uploading_info[:id]
+      @app_id = @uploading_info[:id]
 
+      logger.info "begin to upload ..."
       upload_app
+      logger.info "end upload "
 
       logger_info_dividing_line
-      logger_info_app_short_and_qrcode(options)
+      logger_info_app_short_and_qrcode
 
-      dingtalk_notifier(options)
-      upload_mapping_file_with_publish(options)
+      dingtalk_notifier
+      upload_mapping_file_with_publish
       logger_info_blank_line
       clean_files
     end
@@ -34,11 +37,20 @@ module FIR
     end
 
     def upload_app
+
       @icon_cert   = @uploading_info[:cert][:icon]
       @binary_cert = @uploading_info[:cert][:binary]
-
-      upload_app_icon unless @app_info[:icons].blank?
+      logger.debug "in upload app begin to upload icon"
+      upload_app_icon unless @skip_update_icon
+      logger.debug "in upload icon finished"
+     
+      logger.debug "in upload app begin to upload binary"
       @app_uploaded_callback_data = upload_app_binary
+      logger.debug "in upload binary"
+      @release_id = @app_uploaded_callback_data[:release_id]
+
+      force_pin_release if @force_pin_history
+
       logger.info "App id is #{@app_id}"
       logger.info "Release id is #{@app_uploaded_callback_data[:release_id]}"
       upload_device_info
@@ -62,14 +74,14 @@ module FIR
       uploaded_info = post(url, info.merge(manual_callback: true),
                            params_to_json: false,
                            header: nil)
-    rescue StandardError
+    rescue StandardError => e
       logger.error "Uploading app #{postfix} failed"
       exit 1
     end
 
     def uploading_icon_info
       large_icon_path = @app_info[:icons].max_by { |f| File.size(f) }
-      @uncrushed_icon_path = convert_icon(large_icon_path)
+      @uncrushed_icon_path = @specify_icon_file_path || convert_icon(large_icon_path)
       {
         key: @icon_cert[:key],
         token: @icon_cert[:token],
@@ -149,6 +161,7 @@ module FIR
 
       post fir_api[:app_url], type: @app_info[:type],
                               bundle_id: @app_info[:identifier],
+                              skip_icon_upload: @options[:skip_update_icon],
                               manual_callback: true,
                               api_token: @token
     end
@@ -165,7 +178,7 @@ module FIR
       @fir_app_info
     end
 
-    def upload_mapping_file_with_publish(options)
+    def upload_mapping_file_with_publish
       return if !options[:mappingfile] || !options[:proj]
 
       logger_info_blank_line
@@ -176,7 +189,7 @@ module FIR
                                      token: @token
     end
 
-    def logger_info_app_short_and_qrcode(options)
+    def logger_info_app_short_and_qrcode
       @download_url = "#{fir_api[:domain]}/#{@fir_app_info[:short]}"
       @download_url += "?release_id=#{@app_uploaded_callback_data[:release_id]}" if !!options[:need_release_id]
 
@@ -190,11 +203,20 @@ module FIR
 
     private
 
+    def options
+      @options
+    end
+
+    def force_pin_release
+      post "#{fir_api[:base_url]}/apps/#{@app_id}/releases/#{@release_id}/force_set_history",
+           api_token: @token
+    end
+
     def clean_files
       File.delete(@qrcode_path) unless @export_qrcode
     end
 
-    def dingtalk_notifier(options)
+    def dingtalk_notifier
       if options[:dingtalk_access_token]
         title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
         payload = {
@@ -220,6 +242,10 @@ module FIR
       @passwd        = options[:password].to_s
       @is_opened     = @passwd.blank? ? options[:open] : false
       @export_qrcode = !!options[:qrcode]
+
+      @force_pin_history = options[:force_pin_history]
+      @skip_update_icon = options[:skip_update_icon]
+      @specify_icon_file_path = File.absolute_path(options[:specify_icon_file]) unless options[:specify_icon_file].blank?
     end
 
     def read_changelog(changelog)

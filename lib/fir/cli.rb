@@ -109,6 +109,10 @@ module FIR
     method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
     method_option :need_release_id, type: :boolean, aliases: '-R', desc: 'Add release id with fir url (WARNING: FIR ONLY SAVED 30 releases recently per app'
 
+    method_option :force_pin_history, type: :boolean, default: false,  desc: 'pin this release to the download page by force'
+    method_option :skip_update_icon, type: :boolean, default: false,  desc: 'skip update app icon'
+    method_option :specify_icon_file, type: :string, desc: 'specify icon file'
+
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
     method_option :dingtalk_access_token, type: :string, aliases: '-D', desc: 'Send msg to dingtalk, only need access_token, not whole url'
 
@@ -163,7 +167,7 @@ module FIR
         logfile = '/dev/null' if options[:quiet]
 
         FIR.logger       = Logger.new(logfile)
-        FIR.logger.level = options[:verbose] ? Logger::INFO : Logger::ERROR
+        FIR.logger.level = options[:verbose] ? Logger::DEBUG : Logger::ERROR
         super
       end
     end
