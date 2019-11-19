@@ -24,6 +24,11 @@ module FIR
       upload_mapping_file_with_publish
       logger_info_blank_line
       clean_files
+      {
+        app_id: @app_id,
+        release_id: @release_id,
+        short: @fir_app_info[:short]
+      }
     end
 
     def logger_info_publishing_message

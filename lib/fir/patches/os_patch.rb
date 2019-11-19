@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module OS
+class OS
   class << self
 
     def windows?
