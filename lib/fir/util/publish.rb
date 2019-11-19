@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# require 'byebug'
 module FIR
   module Publish
     def publish(*args, options)
@@ -67,7 +68,8 @@ module FIR
       define_method("upload_app_#{word}") do
         upload_file(word)
         storage = ENV['SOTRAGE_NAME'] || 'qiniu'
-        post("#{fir_api[:base_url]}/auth/#{storage}/callback", send("#{word}_information"))
+        information = send("#{word}_information")
+        post("#{fir_api[:base_url]}/auth/#{storage}/callback", information) unless information.blank?
       end
     end
 
@@ -81,7 +83,7 @@ module FIR
                            header: nil)
     rescue StandardError => e
       logger.error "Uploading app #{postfix} failed"
-      exit 1
+      exit 1 if postfix != 'icon'
     end
 
     def uploading_icon_info
@@ -96,6 +98,7 @@ module FIR
     end
 
     def icon_information
+      return {} if @uncrushed_icon_path.nil?  
       {
         key: @icon_cert[:key],
         token: @icon_cert[:token],
