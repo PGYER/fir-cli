@@ -14,7 +14,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 最近更新
-- 支持了在fastlane 直接调用, 具体请参见 ![https://github.com/FIRHQ/fastlane-plugin-fir_cli](https://github.com/FIRHQ/fastlane-plugin-fir_cli)
+- 支持了在fastlane 直接调用, 具体请参见 [https://github.com/FIRHQ/fastlane-plugin-fir_cli](https://github.com/FIRHQ/fastlane-plugin-fir_cli)
 - publish 支持 新参数 force_pin_history, 可以 将上传的版本, 固定在下载页面上(当大于最大固定版本数后, 会挤掉最老的固定版本) [2019年11月18日]
 - publish 支持 新参数 specify_icon_file_path, 可以直接指定 app 的 icon 图标文件 [2019年11月18日]
 - publish 支持 新参数 skip_update_icon, 可以略过更新app图标 [2019年11月18日]
@@ -28,7 +28,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ### 可以在fastlane 里用么?
 
-可以直接在命令行里调用,也可以安装 fastlane 的配套插件 fir_cli 具体请参见 ![https://github.com/FIRHQ/fastlane-plugin-fir_cli](https://github.com/FIRHQ/fastlane-plugin-fir_cli)
+可以直接在命令行里调用,也可以安装 fastlane 的配套插件 fir_cli 具体请参见 [https://github.com/FIRHQ/fastlane-plugin-fir_cli](https://github.com/FIRHQ/fastlane-plugin-fir_cli)
 
 
 ### 日志换行有问题
