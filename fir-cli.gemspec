@@ -27,7 +27,8 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-update users set status = "active" where id = 1;  - (1.7.4) 配合 fastlane-plugin-fir_cli 做了一些小优化
+  - (2.0.0) 增加了一条新的上传线路   
+  - (1.7.4) 配合 fastlane-plugin-fir_cli 做了一些小优化
   - (1.7.3) 新增了 上传指定图标, 不上传图标 以及 将版本固定显示在下载页上
   - (1.7.2) 修正了无论是否加参数都固定出现二维码图片的bug
   - (1.7.1) 增加了 钉钉推送 , 增加了返回指定版本下载地址
@@ -41,10 +42,10 @@ update users set status = "active" where id = 1;  - (1.7.4) 配合 fastlane-plug
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'byebug'
+  # spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'minitest', '~> 5.7'
   spec.add_development_dependency 'pry',      '~> 0.10'
-
+  
   spec.add_dependency 'thor',           '~> 0.19'
   spec.add_dependency 'rest-client',    '~> 2.0'
   spec.add_dependency 'ruby_android_apk',   '~> 0.7.7.1'

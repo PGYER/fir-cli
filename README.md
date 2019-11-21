@@ -78,7 +78,7 @@ docker run firhq/fir-cli:latest -e API_TOKEN=XXXX -v ./1.apk:1.apk publish 1.apk
 
 ## 提交反馈
 
-- 联系微信 `atpking` 
+- 联系微信 `atpking`, 请注明 "fir-cli 交流"
 
 - 使用 Github 的 [Issue](https://github.com/FIRHQ/fir-cli/issues) 
 
@@ -86,3 +86,9 @@ docker run firhq/fir-cli:latest -e API_TOKEN=XXXX -v ./1.apk:1.apk publish 1.apk
 
 - 感谢 sparkrico 提供修正的 https://github.com/sparkrico/ruby_apk 解决了 android 解析的问题
 
+
+## 鼓励维护
+
+感谢支持
+
+![luckin](luckin_coffee.png)

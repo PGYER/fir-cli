@@ -3,6 +3,8 @@
 # require 'byebug'
 require_relative './qiniu_uploader'
 
+require_relative './ali_uploader'
+
 module FIR
   module Publish
     def publish(*args, options)
@@ -47,7 +49,13 @@ module FIR
     end
 
     def upload_app
-      app_uploaded_callback_data = QiniuUploader.new(@app_info, @user_info, @uploading_info, @options).upload
+      
+      app_uploaded_callback_data = if @options[:switch_to_qiniu] 
+        QiniuUploader.new(@app_info, @user_info, @uploading_info, @options).upload
+      else 
+        AliUploader.new(@app_info, @user_info, @uploading_info, @options).upload
+      end
+
       release_id = app_uploaded_callback_data[:release_id]
 
       logger.info "App id is #{@app_id}"
@@ -84,16 +92,23 @@ module FIR
       patch fir_api[:app_url] + "/#{@app_id}", update_info.merge(api_token: @token)
     end
 
-    # 获得 上传文件的授权信息 
+    # 获得 上传文件的授权信息
     def fetch_uploading_info
       logger.info "Fetching #{@app_info[:identifier]}@fir.im uploading info......"
       logger.info "Uploading app: #{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
 
-      post fir_api[:app_url], type: @app_info[:type],
-                              bundle_id: @app_info[:identifier],
-                              skip_icon_upload: @options[:skip_update_icon],
-                              manual_callback: true,
-                              api_token: @token
+      post fir_api[:app_url],
+           {  type: @app_info[:type],
+              bundle_id: @app_info[:identifier],
+              fname: @file_path.split('/').last,
+              force_upload: options[:switch_to_qiniu] ? 'qiniu' : 'ali',
+              skip_icon_upload: @options[:skip_update_icon],
+              manual_callback: true,
+              protocol: 'https',
+              api_token: @token },
+           header: {
+             user_agent: 'new-cli'
+           }
     end
 
     def fetch_app_info
@@ -173,7 +188,7 @@ module FIR
       @export_qrcode = !!options[:qrcode]
       @app_info = send("#{@file_type}_info", @file_path, full_info: true)
       @user_info = fetch_user_info(@token)
-      @uploading_info = fetch_uploading_info
+      @uploading_info = fetch_uploading_info # 获得上传信息
       @app_id = @uploading_info[:id]
 
       @skip_update_icon = options[:skip_update_icon]
