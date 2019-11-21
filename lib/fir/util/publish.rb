@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 # require 'byebug'
+require_relative './qiniu_uploader'
+
 module FIR
   module Publish
     def publish(*args, options)
       initialize_publish_options(args, options)
-      @options = options
       check_supported_file_and_token
 
       logger_info_publishing_message
@@ -44,14 +45,17 @@ module FIR
 
     def upload_app
 
-      @icon_cert   = @uploading_info[:cert][:icon]
-      @binary_cert = @uploading_info[:cert][:binary]
-      logger.debug "in upload app begin to upload icon"
-      upload_app_icon unless @skip_update_icon
-      logger.debug "in upload icon finished"
+      # @icon_cert   = @uploading_info[:cert][:icon]
+      # @binary_cert = @uploading_info[:cert][:binary]
+      # logger.debug "in upload app begin to upload icon"
+      # upload_app_icon unless @skip_update_icon
+      # logger.debug "in upload icon finished"
      
-      logger.debug "in upload app begin to upload binary"
-      @app_uploaded_callback_data = upload_app_binary
+      # logger.debug "in upload app begin to upload binary"
+      
+      # @app_uploaded_callback_data = upload_app_binary
+      @app_uploaded_callback_data = QiniuUploader.new(@app_info, @user_info, @uploading_info, @options).upload
+
       logger.debug "in upload binary"
       @release_id = @app_uploaded_callback_data[:release_id]
 
@@ -242,7 +246,9 @@ module FIR
     end
 
     def initialize_publish_options(args, options)
-      @file_path     = File.absolute_path(args.first.to_s)
+      options[:file_path] = File.absolute_path(args.first.to_s)
+      @file_path     = options[:file_path]
+
       @file_type     = File.extname(@file_path).delete('.')
       @token         = options[:token] || current_token
       @changelog     = read_changelog(options[:changelog]).to_s.to_utf8
@@ -254,6 +260,7 @@ module FIR
       @force_pin_history = options[:force_pin_history]
       @skip_update_icon = options[:skip_update_icon]
       @specify_icon_file_path = File.absolute_path(options[:specify_icon_file]) unless options[:specify_icon_file].blank?
+      @options = options
     end
 
     def read_changelog(changelog)
