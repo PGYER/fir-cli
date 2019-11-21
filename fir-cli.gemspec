@@ -41,7 +41,7 @@ update users set status = "active" where id = 1;  - (1.7.4) 配合 fastlane-plug
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
-  # spec.add_development_dependency 'byebug'
+  spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'minitest', '~> 5.7'
   spec.add_development_dependency 'pry',      '~> 0.10'
 

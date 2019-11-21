@@ -1,6 +1,7 @@
 module FIR
   class AppUploader
     include ApiTools::DefaultRestModule
+    include Config
 
     attr_accessor :app_info, :user_info, :uploading_info, :options
     def initialize(app_info, user_info, uploading_info, options)
@@ -18,6 +19,12 @@ module FIR
     end
 
     protected
+
+    def callback_to_api(callback_url, callback_binary_information)
+      return if callback_binary_information.blank?
+
+      post callback_url, callback_binary_information
+    end
 
     def icon_file_path
       if options[:specify_icon_file].blank?
@@ -48,7 +55,7 @@ module FIR
     end
 
     def file_path
-      options[:file_path]
+      app_info[:file_path]
     end
 
     def try_to_action(action, &block)
@@ -94,6 +101,10 @@ module FIR
         changelog: read_changelog,
         user_id: user_info[:id]
       }.reject { |x| x.nil? || x == '' }
+    end
+
+    def logger
+      FIR.logger
     end
     
   end

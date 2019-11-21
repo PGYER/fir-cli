@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './app_uploader'
+require 'byebug'
 
 module FIR
   class QiniuUploader < AppUploader
@@ -28,7 +29,7 @@ module FIR
     end
 
     def upload_binary
-      try_to_action 'upload binary' do
+      try_to_action 'upload binary ...' do
         binary_url = uploading_info[:cert][:binary][:upload_url]
         binary_info = uploading_binary_info
 
