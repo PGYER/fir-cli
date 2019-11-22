@@ -21,7 +21,7 @@ class PublishTest < Minitest::Test
     update_info = { short: short, open: is_opened }
     FIR.publish(default_ipa, @options.merge(update_info))
 
-    info = FIR.send :fetch_app_info
+    info = FIR.fetch_app_info
 
     assert_equal short, info[:short]
     assert_equal is_opened, info[:is_opened]
