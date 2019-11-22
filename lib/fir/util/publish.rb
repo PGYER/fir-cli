@@ -38,6 +38,16 @@ module FIR
       }
     end
 
+    def fetch_app_info
+      logger.info 'Fetch app info from fir.im'
+
+      fir_app_info = get(fir_api[:app_url] + "/#{@app_id}", api_token: @token)
+      write_app_info(id: fir_app_info[:id],
+                     short: fir_app_info[:short],
+                     name: fir_app_info[:name])
+      fir_app_info
+    end
+
     protected
 
     def logger_info_publishing_message
@@ -76,8 +86,8 @@ module FIR
       return if @app_info[:devices].blank?
 
       logger.info 'Updating devices info......'
-
-      post fir_api[:udids_url], key: @binary_cert[:key],
+      key = @uploading_info[:cert][:binary][:key]
+      post fir_api[:udids_url], key: key,
                                 udids: @app_info[:devices].join(','),
                                 api_token: @token
     end
@@ -111,15 +121,7 @@ module FIR
            }
     end
 
-    def fetch_app_info
-      logger.info 'Fetch app info from fir.im'
 
-      fir_app_info = get(fir_api[:app_url] + "/#{@app_id}", api_token: @token)
-      write_app_info(id: fir_app_info[:id],
-                     short: fir_app_info[:short],
-                     name: fir_app_info[:name])
-      fir_app_info
-    end
 
     def upload_mapping_file_with_publish
       return if !options[:mappingfile] || !options[:proj]
