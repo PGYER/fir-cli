@@ -26,12 +26,14 @@ module FIR
       app  = ipa.app
       info = app.full_info(options)
       ipa.cleanup
+      info[:file_path] = ipa_path
       info
     end
 
     def apk_info(apk_path, options = {})
       apk  = FIR::Parser::Apk.new(apk_path)
       info = apk.full_info(options)
+      info[:file_path] = apk_path
       info
     end
   end
