@@ -36,7 +36,7 @@ module FIR
 
     # 是否跳过 icon 上传
     def skip_update_icon?
-      options[:skip_icon_upload].to_s == 'true'
+      options[:skip_update_icon].to_s == 'true'
     end
 
     def read_changelog
