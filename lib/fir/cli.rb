@@ -113,10 +113,13 @@ module FIR
     method_option :skip_update_icon, type: :boolean, aliases: '-S', default: false, desc: 'skip update app icon'
     method_option :specify_icon_file, type: :string, desc: 'specify icon file'
 
+    method_option :specify_app_display_name, type: :string, desc: 'specify app display name'
+
     method_option :switch_to_qiniu, type: :boolean, default: false, aliases: '-N', desc: 'if app upload slowly, u can switch this option'
 
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
     method_option :dingtalk_access_token, type: :string, aliases: '-D', desc: 'Send msg to dingtalk, only need access_token, not whole url'
+    method_option :dingtalk_custom_message, type: :string, desc: 'add custom message to dingtalk'
 
     method_option :open,        type: :boolean, desc: 'true/false if open for everyone'
     method_option :password,    type: :string,  desc: 'Set password for app'

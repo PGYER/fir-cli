@@ -59,12 +59,17 @@ module FIR
     end
 
     def upload_app
-      
-      app_uploaded_callback_data = if @options[:switch_to_qiniu] 
-        QiniuUploader.new(@app_info, @user_info, @uploading_info, @options).upload
-      else 
-        AliUploader.new(@app_info, @user_info, @uploading_info, @options).upload
-      end
+      time1 = Time.now.to_i
+      app_uploaded_callback_data = if @options[:switch_to_qiniu]
+                                     QiniuUploader.new(@app_info, @user_info, @uploading_info, @options).upload
+                                   else
+                                     AliUploader.new(@app_info, @user_info, @uploading_info, @options).upload
+                                   end
+
+      during_seconds = Time.now.to_i - time1
+      speed = File.size(@app_info[:file_path]) / during_seconds / 1024
+
+      logger.info "File uploaded. During: #{during_seconds} seconds, Upload Speed: #{speed} KB/s "
 
       release_id = app_uploaded_callback_data[:release_id]
 
@@ -121,8 +126,6 @@ module FIR
            }
     end
 
-
-
     def upload_mapping_file_with_publish
       return if !options[:mappingfile] || !options[:proj]
 
@@ -165,7 +168,7 @@ module FIR
         "msgtype": 'markdown',
         "markdown": {
           "title": "#{title} uploaded",
-          "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n ![app二维码](data:image/png;base64,#{Base64.strict_encode64(File.read(open(qrcode_path)))})"
+          "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:dingtalk_custom_message]}\n![app二维码](data:image/png;base64,#{Base64.strict_encode64(File.read(open(qrcode_path)))})"
         }
       }
       url = "https://oapi.dingtalk.com/robot/send?access_token=#{options[:dingtalk_access_token]}"
@@ -195,7 +198,9 @@ module FIR
 
       @skip_update_icon = options[:skip_update_icon]
       @force_pin_history = options[:force_pin_history]
-      @specify_icon_file_path = File.absolute_path(options[:specify_icon_file]) unless options[:specify_icon_file].blank?
+      unless options[:specify_icon_file].blank?
+        @specify_icon_file_path = File.absolute_path(options[:specify_icon_file])
+      end
     end
 
     def read_changelog(changelog)

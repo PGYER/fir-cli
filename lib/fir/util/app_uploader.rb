@@ -89,7 +89,7 @@ module FIR
         build: app_info[:build],
         fname: File.basename(file_path),
         key: binary_cert[:key],
-        name: app_info[:display_name] || app_info[:name],
+        name: options[:specify_app_display_name] || app_info[:display_name] || app_info[:name],
         origin: 'fir-cli',
         parent_id: app_id,
         release_tag: 'develop',
