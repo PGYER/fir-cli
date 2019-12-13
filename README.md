@@ -31,7 +31,17 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ## 热门问题
 
-### 可以在fastlane 里用么?
+### 在 Circle CI, Travis CI 或 Github Actions 等境外服务上, 有概率超时, 能否解决?
+
+由于监管要求, 我们必须将服务于存储放置在境内. 由于众所周知的原因, 国内外连通性的表现不太好, 虽然我们的存储服务商 阿里云 提供了 OSS 境外加速服务, 但是高达 1.25 元/GB 的传输成本确实我们也没办法负担. 
+
+目前我们提供三种临时解决方案来缓解问题: 
+
+1. 设置较长的超时时间 如 `FIR_TIMEOUT=300 fir publish xxxx`, 则可将超时时间设置为 300 秒.
+2. 如果fir-cli 版本 >= 2.0.0, 也可在出现超时后, 使用 `--switch-to-qiniu` 来切换到我们的另外一条存储线路. 如 `fir publish xxxx.apk --switch-to-qiniu`, 多一条线路备选.
+3. 如果确实对这方面服务要求很高, 则可购买我们的私有部署服务. 我们可以在 aws 上部署一套专供您使用, 具体情况可以与客服或者加我微信进行沟通.
+
+### 可以在 fastlane 里用么?
 
 可以直接在命令行里调用,也可以安装 fastlane 的配套插件 fir_cli 具体请参见 [https://github.com/FIRHQ/fastlane-plugin-fir_cli](https://github.com/FIRHQ/fastlane-plugin-fir_cli)
 
