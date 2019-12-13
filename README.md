@@ -41,6 +41,8 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 2. 如果fir-cli 版本 >= 2.0.0, 也可在出现超时后, 使用 `--switch-to-qiniu` 来切换到我们的另外一条存储线路. 如 `fir publish xxxx.apk --switch-to-qiniu`, 多一条线路备选.
 3. 如果确实对这方面服务要求很高, 则可购买我们的私有部署服务. 我们可以在 aws 上部署一套专供您使用, 具体情况可以与客服或者加我微信进行沟通.
 
+更多细节请参考 [https://github.com/FIRHQ/fir-cli/issues/260](https://github.com/FIRHQ/fir-cli/issues/260)
+
 ### 可以在 fastlane 里用么?
 
 可以直接在命令行里调用,也可以安装 fastlane 的配套插件 fir_cli 具体请参见 [https://github.com/FIRHQ/fastlane-plugin-fir_cli](https://github.com/FIRHQ/fastlane-plugin-fir_cli)
