@@ -14,7 +14,11 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 最近更新
-- publish 使用更快的存储商, 加速上传速度, 若感觉没以前可使用 switch_to_qiniu 恢复
+- (2.0.1) publish 支持 新参数 `specify_app_display_name`, 指定 app 显示名称
+- (2.0.1) publish 支持 新参数 `need_ansi_qrcode`, 在控制台直接打印二维码, jenkins 用户可能需要使用 `AnsiColor Plugin` 插件配合
+- (2.0.1) publish 支持 新参数 `dingtalk_custom_message`, 可以在钉钉通知里增加自定义消息, 此命令需配合 `dingtalk_access_token` 使用
+- (2.0.1) publish 支持 新参数 `skip_fir_cli_feedback`, 可禁止 fir-cli 发送统计信息
+- publish 使用更快的存储商, 加速上传速度, 若感觉没以前可使用 参数 `switch_to_qiniu` 恢复
 - 支持了在fastlane 直接调用, 具体请参见 [https://github.com/FIRHQ/fastlane-plugin-fir_cli](https://github.com/FIRHQ/fastlane-plugin-fir_cli)
 - publish 支持 新参数 force_pin_history, 可以 将上传的版本, 固定在下载页面上(当大于最大固定版本数后, 会挤掉最老的固定版本) [2019年11月18日]
 - publish 支持 新参数 specify_icon_file_path, 可以直接指定 app 的 icon 图标文件 [2019年11月18日]

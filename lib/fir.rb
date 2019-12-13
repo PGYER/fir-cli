@@ -4,6 +4,7 @@ require 'thor'
 require 'logger'
 require 'yaml'
 require 'rest-client'
+require 'admqr_knife'
 require 'json'
 require 'securerandom'
 require 'fileutils'
@@ -23,6 +24,7 @@ require 'fir/util'
 require 'fir/version'
 require 'fir/cli'
 
+AdmqrKnife.init('fir-cli')
 module FIR
   include Util
 end

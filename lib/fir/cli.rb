@@ -107,11 +107,14 @@ module FIR
     method_option :short,       type: :string,  aliases: '-s', desc: 'Set custom short link'
     method_option :changelog,   type: :string,  aliases: '-c', desc: 'Set changelog'
     method_option :qrcode,      type: :boolean, aliases: '-Q', desc: 'Generate qrcode'
+    method_option :need_ansi_qrcode, type: :boolean, default: false, desc: 'Generate qrcode'
     method_option :need_release_id, type: :boolean, aliases: '-R', default: false, desc: 'Add release id with fir url (WARNING: FIR ONLY SAVED 30 releases recently per app'
 
     method_option :force_pin_history, type: :boolean, aliases: '-H', default: false, desc: 'pin this release to the download page by force'
     method_option :skip_update_icon, type: :boolean, aliases: '-S', default: false, desc: 'skip update app icon'
     method_option :specify_icon_file, type: :string, desc: 'specify icon file'
+
+    method_option :skip_fir_cli_feedback, type: :boolean, default: false, desc: 'skip fir-cli usage info feedback'
 
     method_option :specify_app_display_name, type: :string, desc: 'specify app display name'
 

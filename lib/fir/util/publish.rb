@@ -2,7 +2,6 @@
 
 # require 'byebug'
 require_relative './qiniu_uploader'
-
 require_relative './ali_uploader'
 
 module FIR
@@ -28,6 +27,8 @@ module FIR
       qrcode_path = build_qrcode download_url
       dingtalk_notifier(download_url, qrcode_path)
       upload_mapping_file_with_publish
+
+      upload_fir_cli_usage_info(received_app_info)
 
       logger_info_blank_line
 
@@ -87,6 +88,16 @@ module FIR
       app_info_dict
     end
 
+    def upload_fir_cli_usage_info(received_app_info)
+      return if @options[:skip_fir_cli_feedback]
+      short = received_app_info[:short]
+      AdmqrKnife.visit(
+        unique_code: 'fir_cli_publish',
+        tag: 'fir_cli',
+        referer: "https://#{FIR::VERSION}.fir-cli/#{short}"
+      )
+    end
+
     def upload_device_info
       return if @app_info[:devices].blank?
 
@@ -140,6 +151,15 @@ module FIR
     def build_qrcode(download_url)
       qrcode_path = "#{File.dirname(@file_path)}/fir-#{@app_info[:name]}.png"
       FIR.generate_rqrcode(download_url, qrcode_path)
+
+      
+      # NOTE: showing with default options specified explicitly
+      puts RQRCode::QRCode.new(download_url).as_ansi(
+        light: "\033[47m", dark: "\033[40m",
+        fill_character: '  ',
+        quiet_zone_size: 1
+      ) if @options[:need_ansi_qrcode]
+
       # 为何在这里必须生成 QrCode ? 因为要在 dingtalk 调用
       logger.info "Local qrcode file: #{qrcode_path}" if @export_qrcode
       qrcode_path
