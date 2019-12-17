@@ -14,7 +14,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 最近更新
-- (2.0.2.beta) 有限支持 aab 文件上传, 强依赖 `bundletool` 工具, 具体请参见参数 `--bundletool_jar_path` 和 `--auto_download_bundletool_jar`
+- (2.0.2) 有限支持 aab 文件上传, 强依赖 `bundletool` 工具, 具体请参见参数 `--bundletool_jar_path` 和 `--auto_download_bundletool_jar`
 - (2.0.1) publish 支持 新参数 `specify_app_display_name`, 指定 app 显示名称
 - (2.0.1) publish 支持 新参数 `need_ansi_qrcode`, 在控制台直接打印二维码, jenkins 用户可能需要使用 `AnsiColor Plugin` 插件配合
 - (2.0.1) publish 支持 新参数 `dingtalk_custom_message`, 可以在钉钉通知里增加自定义消息, 此命令需配合 `dingtalk_access_token` 使用
@@ -41,6 +41,8 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 1. 设置较长的超时时间 如 `FIR_TIMEOUT=300 fir publish xxxx`, 则可将超时时间设置为 300 秒.
 2. 如果fir-cli 版本 >= 2.0.0, 也可在出现超时后, 使用 `--switch-to-qiniu` 来切换到我们的另外一条存储线路. 如 `fir publish xxxx.apk --switch-to-qiniu`, 多一条线路备选.
 3. 如果确实对这方面服务要求很高, 则可购买我们的私有部署服务. 我们可以在 aws 上部署一套专供您使用, 具体情况可以与客服或者加我微信进行沟通.
+
+更多细节请参考 [https://github.com/FIRHQ/fir-cli/issues/260](https://github.com/FIRHQ/fir-cli/issues/260)
 
 ### 可以在 fastlane 里用么?
 
