@@ -211,7 +211,7 @@ module FIR
       @passwd = options[:password].to_s
       @is_opened = @passwd.blank? ? options[:open] : false
       @export_qrcode = !!options[:qrcode]
-      @app_info = send("#{@file_type}_info", @file_path, full_info: true)
+      @app_info = send("#{@file_type}_info", @file_path, options.merge(full_info: true))
       @user_info = fetch_user_info(@token)
       @uploading_info = fetch_uploading_info # 获得上传信息
       @app_id = @uploading_info[:id]

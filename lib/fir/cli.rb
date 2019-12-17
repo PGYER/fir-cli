@@ -126,6 +126,9 @@ module FIR
 
     method_option :open,        type: :boolean, desc: 'true/false if open for everyone'
     method_option :password,    type: :string,  desc: 'Set password for app'
+
+    method_option :bundletool_jar_path, type: :string, desc: "upload aab file command:  to specify bundletool.jar if command bundletool can not run directly"
+    method_option :auto_download_bundletool_jar, type: :boolean, default: false, desc: "upload aab file command: would download bundletool when invoke bundletool failure"
     def publish(*args)
       prepare :publish
 

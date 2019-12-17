@@ -14,6 +14,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 最近更新
+- (2.0.2.beta) 有限支持 aab 文件上传, 强依赖 `bundletool` 工具, 具体请参见参数 `--bundletool_jar_path` 和 `--auto_download_bundletool_jar`
 - (2.0.1) publish 支持 新参数 `specify_app_display_name`, 指定 app 显示名称
 - (2.0.1) publish 支持 新参数 `need_ansi_qrcode`, 在控制台直接打印二维码, jenkins 用户可能需要使用 `AnsiColor Plugin` 插件配合
 - (2.0.1) publish 支持 新参数 `dingtalk_custom_message`, 可以在钉钉通知里增加自定义消息, 此命令需配合 `dingtalk_access_token` 使用
@@ -53,6 +54,17 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 ### 图标解析有问题
 
 可以在 publish 的时候使用 --specify_icon_file_path=xxx  来自己指定图标文件 或者使用  --skip_update_icon  来跳过图标文件的上传
+
+### aab 文件能否上传?
+
+能, 但是 aab 文件手机上并不能直接安装, 需要通过桌面使用 `bundletool` 工具来生成对应手机的 `apk` 包.
+
+fir-cli 提供对 aab 文件有限程度支持的上传与下载. 在使用 fir-cli 上传 aab 文件时, 需要满足三个条件任意一条
+
+1. 系统本身已经通过 `brew install bundletool` 等手段, 可以在命令行里直接调用 `bundletool`
+2. 上传时指定了 `--bundletool_jar_path` 参数, 参数给出了 bundletool.jar 包的地址, 且命令行可以直接调用 `java` 指令
+3. 能够保证 `https://github.com/google/bundletool/releases/download/#{version}/bundletool-all-#{version}.jar` 地址不被墙, 使用`--auto_download_bundletool_jar` 可以下载 `bundletool`
+
 
 ### 我想将 我上传的版本展示在下载的页面上
 

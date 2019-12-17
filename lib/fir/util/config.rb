@@ -6,7 +6,7 @@ module FIR
     APP_INFO_PATH = "#{ENV['HOME']}/.fir-cli-app"
     API_YML_PATH  = ENV['API_YML_PATH'] || File.expand_path('../../', __FILE__) + '/api.yml'
     XCODE_WRAPPER_PATH  = File.expand_path('../../', __FILE__) + '/xcode_wrapper.sh'
-    APP_FILE_TYPE = %w(.ipa .apk).freeze
+    APP_FILE_TYPE = %w(.ipa .apk .aab).freeze
 
     def fir_api
       @fir_api ||= YAML.load_file(API_YML_PATH).deep_symbolize_keys[:fir]

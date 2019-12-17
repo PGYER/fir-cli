@@ -30,6 +30,15 @@ module FIR
       info
     end
 
+    def aab_info(aab_path, options = {})
+      bundletool_jar_path = options[:bundletool_jar_path]
+      auto_download_bundletool_jar = options[:auto_download_bundletool_jar] || false
+      s = FIR::Parser::AabAnalysis.new(aab_path, bundletool_jar_path, auto_download_bundletool_jar)
+      info = s.info
+      info[:file_path] = aab_path
+      info
+    end
+
     def apk_info(apk_path, options = {})
       apk  = FIR::Parser::Apk.new(apk_path)
       info = apk.full_info(options)
