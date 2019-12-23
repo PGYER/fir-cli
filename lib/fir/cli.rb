@@ -119,6 +119,7 @@ module FIR
     method_option :specify_app_display_name, type: :string, desc: 'specify app display name'
 
     method_option :switch_to_qiniu, type: :boolean, default: false, aliases: '-N', desc: 'if app upload slowly, u can switch this option'
+    method_option :oversea_turbo, type: :boolean, default: false, desc: 'speed up uploading to oversea users'
 
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
     method_option :dingtalk_access_token, type: :string, aliases: '-D', desc: 'Send msg to dingtalk, only need access_token, not whole url'

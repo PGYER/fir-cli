@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# require 'byebug'
+require 'byebug'
 require_relative './qiniu_uploader'
 require_relative './ali_uploader'
 
@@ -130,6 +130,7 @@ module FIR
               force_upload: options[:switch_to_qiniu] ? 'qiniu' : 'ali',
               skip_icon_upload: @options[:skip_update_icon],
               manual_callback: true,
+              oversea_turbo: @options[:oversea_turbo],
               protocol: 'https',
               api_token: @token },
            header: {
