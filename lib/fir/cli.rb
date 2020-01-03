@@ -124,6 +124,8 @@ module FIR
     method_option :mappingfile, type: :string,  aliases: '-m', desc: 'App mapping file'
     method_option :dingtalk_access_token, type: :string, aliases: '-D', desc: 'Send msg to dingtalk, only need access_token, not whole url'
     method_option :dingtalk_custom_message, type: :string, desc: 'add custom message to dingtalk'
+    method_option :dingtalk_at_phones, type: :string, desc: 'at some phones, split by , eg: 13111111111,13111111112'
+    method_option :dingtalk_at_all, type: :boolean,  default: false
 
     method_option :open,        type: :boolean, desc: 'true/false if open for everyone'
     method_option :password,    type: :string,  desc: 'Set password for app'

@@ -90,6 +90,7 @@ module FIR
 
     def upload_fir_cli_usage_info(received_app_info)
       return if @options[:skip_fir_cli_feedback]
+
       short = received_app_info[:short]
       AdmqrKnife.visit(
         unique_code: 'fir_cli_publish',
@@ -153,13 +154,14 @@ module FIR
       qrcode_path = "#{File.dirname(@file_path)}/fir-#{@app_info[:name]}.png"
       FIR.generate_rqrcode(download_url, qrcode_path)
 
-      
       # NOTE: showing with default options specified explicitly
-      puts RQRCode::QRCode.new(download_url).as_ansi(
-        light: "\033[47m", dark: "\033[40m",
-        fill_character: '  ',
-        quiet_zone_size: 1
-      ) if @options[:need_ansi_qrcode]
+      if @options[:need_ansi_qrcode]
+        puts RQRCode::QRCode.new(download_url).as_ansi(
+          light: "\033[47m", dark: "\033[40m",
+          fill_character: '  ',
+          quiet_zone_size: 1
+        )
+      end
 
       # 为何在这里必须生成 QrCode ? 因为要在 dingtalk 调用
       logger.info "Local qrcode file: #{qrcode_path}" if @export_qrcode
@@ -190,8 +192,10 @@ module FIR
         "markdown": {
           "title": "#{title} uploaded",
           "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:dingtalk_custom_message]}\n![app二维码](data:image/png;base64,#{Base64.strict_encode64(File.read(open(qrcode_path)))})"
+          # "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:dingtalk_custom_message]}\n"
         }
       }
+      build_dingtalk_at_info(payload)
       url = "https://oapi.dingtalk.com/robot/send?access_token=#{options[:dingtalk_access_token]}"
 
       # 用完了二维码, 就删了
@@ -235,6 +239,18 @@ module FIR
       check_supported_file(@file_path)
       check_token_cannot_be_blank(@token)
       fetch_user_info(@token)
+    end
+
+    def build_dingtalk_at_info(payload)
+      answer = {}
+      answer[:isAtAll] = options[:dingtalk_at_all]
+
+      unless options[:dingtalk_at_phones].blank?
+        answer[:atMobiles] = options[:dingtalk_at_phones].split(',')
+        payload[:markdown][:text] += options[:dingtalk_at_phones].split(',').map { |x| "@#{x}" }.join(',')
+      end
+
+      payload[:at] = answer
     end
   end
 end
