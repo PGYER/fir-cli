@@ -27,9 +27,9 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
-  - (2.0.3.beta) 增加 dingtalk_at_phones, 钉钉通知可 at 用户手机号, 以逗号,分割.  此命令需配合 `dingtalk_access_token` 使用
-  - (2.0.3.beta) 增加 dingtalk_at_all, 钉钉通知可 at 所有人, 此命令需配合 `dingtalk_access_token` 使用
-  - (2.0.3.alpha) publish 增加海外加速参数 --oversea_turbo
+  - (2.0.3) 增加 dingtalk_at_phones, 钉钉通知可 at 用户手机号, 以逗号,分割.  此命令需配合 `dingtalk_access_token` 使用
+  - (2.0.3) 增加 dingtalk_at_all, 钉钉通知可 at 所有人, 此命令需配合 `dingtalk_access_token` 使用
+  - (2.0.3) publish 增加海外加速参数 --oversea_turbo
   - (2.0.2) 有限支持 aab 文件上传, 强依赖`bundletool`工具, 具体请参见参数 `--bundletool_jar_path` 和 `auto_download_bundletool_jar`
   - (2.0.1) publish 支持 新参数 `specify_app_display_name`, 指定 app 显示名称
   - (2.0.1) publish 支持 新参数 `need_ansi_qrcode`, 在控制台直接打印二维码, jenkins 用户可能需要使用 `AnsiColor Plugin` 插件配合
@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'byebug'
+  # spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'minitest', '~> 5.7'
   spec.add_development_dependency 'pry',      '~> 0.10'
   

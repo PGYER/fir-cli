@@ -14,9 +14,9 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 最近更新
-- (2.0.3.beta) 增加 dingtalk_at_phones, 钉钉通知可 at 用户手机号, 以逗号,分割.  此命令需配合 `dingtalk_access_token` 使用
-- (2.0.3.beta) 增加 dingtalk_at_all, 钉钉通知可 at 所有人, 此命令需配合 `dingtalk_access_token` 使用
-- (2.0.3.alpha) 增加海外加速参数 --oversea_turbo, 需要使用该功能的小伙伴请微信联系我, 我来开通
+- (2.0.3) 增加 dingtalk_at_phones, 钉钉通知可 at 用户手机号, 以逗号,分割.  此命令需配合 `dingtalk_access_token` 使用
+- (2.0.3) 增加 dingtalk_at_all, 钉钉通知可 at 所有人, 此命令需配合 `dingtalk_access_token` 使用
+- (2.0.3) 增加海外加速参数 --oversea_turbo, 需要使用该功能的小伙伴请微信联系我, 我来开通
 - (2.0.2) 有限支持 aab 文件上传, 强依赖 `bundletool` 工具, 具体请参见参数 `--bundletool_jar_path` 和 `--auto_download_bundletool_jar`
 - (2.0.1) publish 支持 新参数 `specify_app_display_name`, 指定 app 显示名称
 - (2.0.1) publish 支持 新参数 `need_ansi_qrcode`, 在控制台直接打印二维码, jenkins 用户可能需要使用 `AnsiColor Plugin` 插件配合
