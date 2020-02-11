@@ -36,7 +36,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ### 如何配合 jenkins 使用? 
 
-参见 blog (http://blog.fir.im/use-fir-cli-in-jenkins/)[http://blog.fir.im/use-fir-cli-in-jenkins/]
+参见 blog [http://blog.fir.im/use-fir-cli-in-jenkins/](http://blog.fir.im/use-fir-cli-in-jenkins/)
 
 ### 在 Circle CI, Travis CI 或 Github Actions 等境外服务上, 有概率超时, 能否解决?
 
