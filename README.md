@@ -34,6 +34,10 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ## 热门问题
 
+### 如何配合 jenkins 使用? 
+
+参见 blog (http://blog.fir.im/use-fir-cli-in-jenkins/)[http://blog.fir.im/use-fir-cli-in-jenkins/]
+
 ### 在 Circle CI, Travis CI 或 Github Actions 等境外服务上, 有概率超时, 能否解决?
 
 2.0.3 版本 及其以上, 可以申请海外加速内测资格, 开启后可以使用海外加速上传
@@ -54,7 +58,6 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 ### 可以在 fastlane 里用么?
 
 可以直接在命令行里调用,也可以安装 fastlane 的配套插件 fir_cli 具体请参见 [https://github.com/FIRHQ/fastlane-plugin-fir_cli](https://github.com/FIRHQ/fastlane-plugin-fir_cli)
-
 
 ### 日志换行有问题
 
