@@ -1,7 +1,7 @@
 fir:
-  domain:    'http://fir.im'
-  base_url:  'http://api.fir.im'
-  user_url:  'http://api.fir.im/user'
-  app_url:   'http://api.fir.im/apps'
-  udids_url: 'http://api.fir.im/devices/multi_udid'
+  domain:    'https://www.jappstore.com'
+  base_url:  'https://api.jappstore.com'
+  user_url:  'https://api.jappstore.com/user'
+  app_url:   'https://api.jappstore.com/apps'
+  udids_url: 'https://api.jappstore.com/devices/multi_udid'
   

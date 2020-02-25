@@ -16,9 +16,7 @@ module FIR
         icon_info = uploading_icon_info
 
         logger.debug "icon_url = #{icon_url}, icon_info = #{icon_info}"
-
         put_file(icon_url, uploading_icon_info, uploading_info[:cert][:icon][:custom_headers])
-     
         callback_to_api(callback_url, callback_icon_information)
       end
     rescue StandardError => e
@@ -43,7 +41,6 @@ module FIR
 
         logger.debug headers_copy
         put_file(binary_url, binary_info, headers_copy)
-
         callback_to_api(callback_url, callback_binary_information)
       end
     rescue StandardError => e
