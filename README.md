@@ -14,12 +14,8 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 最近更新
-<<<<<<< HEAD
 - (2.0.3.2) 将返回下载地址转化为了绑定的域名
-- (2.0.3.1) 切换到了临时的域名
-=======
 - (2.0.3.1) 因为域名问题, fir-cli切换到了备用域名上.  老版本用户 运行 `gem update fir-cli` 即可
->>>>>>> 05db9310451f9b3e297d253eeb2f9cfdcc0f0f23
 - (2.0.3) 增加 dingtalk_at_phones, 钉钉通知可 at 用户手机号, 以逗号,分割.  此命令需配合 `dingtalk_access_token` 使用
 - (2.0.3) 增加 dingtalk_at_all, 钉钉通知可 at 所有人, 此命令需配合 `dingtalk_access_token` 使用
 - (2.0.3) 增加海外加速参数 --oversea_turbo, 需要使用该功能的小伙伴请微信联系我, 我来开通
