@@ -1,7 +1,7 @@
 fir:
-  domain:    'https://www.jappstore.com'
-  base_url:  'https://api.jappstore.com'
-  user_url:  'https://api.jappstore.com/user'
-  app_url:   'https://api.jappstore.com/apps'
-  udids_url: 'https://api.jappstore.com/devices/multi_udid'
+  domain:    'http://www.betaqr.com'
+  base_url:  'http://api.bq04.com'
+  user_url:  'http://api.bq04.com/user'
+  app_url:   'http://api.bq04.com/apps'
+  udids_url: 'http://api.bq04.com/devices/multi_udid'
   

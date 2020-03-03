@@ -15,13 +15,14 @@ module FIR
       received_app_info = upload_app
 
       short = received_app_info[:short]
+      download_domain = received_app_info[:download_domain]
       release_id = received_app_info[:release_id]
 
       logger.info 'end upload'
 
       logger_info_dividing_line
 
-      download_url = build_download_url(short, release_id)
+      download_url = build_download_url(download_domain, short, release_id)
       logger.info "Published succeed: #{download_url}"
 
       qrcode_path = build_qrcode download_url
@@ -168,8 +169,8 @@ module FIR
       qrcode_path
     end
 
-    def build_download_url(short, release_id)
-      url = "#{fir_api[:domain]}/#{short}"
+    def build_download_url(download_domain, short, release_id)
+      url = "http://#{download_domain}/#{short}"
       url += "?release_id=#{release_id}" if options[:need_release_id]
       url
     end
