@@ -123,7 +123,7 @@ module FIR
 
       logger.info 'Updating app info......'
 
-      patch fir_api[:app_url] + "/#{@app_id}", update_info.merge(api_token: @token)
+      put fir_api[:app_url] + "/#{@app_id}", update_info.merge(api_token: @token)
     end
 
     # 获得 上传文件的授权信息
