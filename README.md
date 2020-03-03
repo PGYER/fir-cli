@@ -14,6 +14,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 
 # 最近更新
+- (2.0.3.3) 试图打印出错的body内容
 - (2.0.3.2) 将返回下载地址转化为了绑定的域名
 - (2.0.3.1) 因为域名问题, fir-cli切换到了备用域名上.  老版本用户 运行 `gem update fir-cli` 即可
 - (2.0.3) 增加 dingtalk_at_phones, 钉钉通知可 at 用户手机号, 以逗号,分割.  此命令需配合 `dingtalk_access_token` 使用
@@ -38,7 +39,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ### 如何配合 jenkins 使用? 
 
-参见 blog [http://blog.fir.im/use-fir-cli-in-jenkins/](http://blog.fir.im/use-fir-cli-in-jenkins/)
+参见 blog [http://blog.betaqr.com/use-fir-cli-in-jenkins/](http://blog.betaqr.com/use-fir-cli-in-jenkins/)
 
 ### 在 Circle CI, Travis CI 或 Github Actions 等境外服务上, 有概率超时, 能否解决?
 

@@ -87,6 +87,12 @@ module FIR
       app_info_dict[:release_id] = release_id
 
       app_info_dict
+    rescue StandardError => e
+      puts e.message
+      if e.respond_to?(e.response) && e.respond_to?(e.response.body)
+        puts e.response.body
+      end
+      raise e
     end
 
     def upload_fir_cli_usage_info(received_app_info)
