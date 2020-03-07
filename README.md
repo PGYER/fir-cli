@@ -12,6 +12,10 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ![fir-cli](http://7rf35s.com1.z0.glb.clouddn.com/fir-cli-new.gif)
 
+# 重大提醒
+- fir.im 更换域名后, 需要升级至 fir-cli >=2.0.4 有部分用户反馈 2.0.2 无法升级到2.0.4, 则可以尝试卸载后重新安装  `gem uninstall fir-cli` 后 `gem install fir-cli` 
+- 深信服 的 上网行为管理AC 的域名黑名单误将 api.bq04.com 加入了黑名单, 我们已经联系了 深信服, 他们的回答是 `收到！已反馈！预计在3月17日左右的规则库更新，辛苦当时暂时需要使用的话先临时放通下，等规则库更新及时使用设备联网更新最新的规则库，有什么疑问您在及时反馈，感谢您的支持。
+`    我们也会临时切换 fir-cli version 2.0.5 的 api 地址
 
 # 最近更新
 - (2.0.4) 修复了 cdn 不支持 patch 方法透传, 导致在修改 app 信息的时候返回的 400 错误
