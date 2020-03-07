@@ -1,7 +1,7 @@
 fir:
   domain:    'http://www.betaqr.com'
-  base_url:  'http://api.bq04.com'
-  user_url:  'http://api.bq04.com/user'
-  app_url:   'http://api.bq04.com/apps'
-  udids_url: 'http://api.bq04.com/devices/multi_udid'
+  base_url:  'http://fir-api.admqr.com'
+  user_url:  'http://fir-api.admqr.com/user'
+  app_url:   'http://fir-api.admqr.com/apps'
+  udids_url: 'http://fir-api.admqr.com/devices/multi_udid'
   
