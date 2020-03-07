@@ -13,8 +13,8 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 ![fir-cli](http://7rf35s.com1.z0.glb.clouddn.com/fir-cli-new.gif)
 
 # 重大提醒
-- fir.im 更换域名后, 需要升级至 fir-cli >=2.0.4 有部分用户反馈 2.0.2 无法升级到2.0.4, 则可以尝试卸载后重新安装  `gem uninstall fir-cli` 后 `gem install fir-cli` 
-- 深信服 的 上网行为管理AC 的域名黑名单误将 api.bq04.com 加入了黑名单, 我们已经联系了 深信服, 他们的回答是 `收到！已反馈！预计在3月17日左右的规则库更新，辛苦当时暂时需要使用的话先临时放通下，等规则库更新及时使用设备联网更新最新的规则库，有什么疑问您在及时反馈，感谢您的支持。
+- fir.im 更换域名后, 需要升级至 `fir-cli` >= `2.0.4` 有部分用户反馈 2.0.2 无法直接使用 `gem update fir-cli` 升级到 2.0.4, 则可以尝试卸载后重新安装, 即 `gem uninstall fir-cli` 后 `gem install fir-cli` 
+- 深信服 的 上网行为管理AC 的域名黑名单误将 fir-cli version 2.0.4 版本使用的 api.bq04.com 加入了黑名单, 我们已经联系了 深信服, 他们的回答是 `收到！已反馈！预计在3月17日左右的规则库更新，辛苦当时暂时需要使用的话先临时放通下，等规则库更新及时使用设备联网更新最新的规则库，有什么疑问您在及时反馈，感谢您的支持。
 `    我们也会临时切换 fir-cli version 2.0.5 的 api 地址
 
 # 最近更新
@@ -142,6 +142,4 @@ docker run -e API_TOKEN=您的token -v 您的上传文件的目录的绝对路�
 
 ## 鼓励维护
 
-感谢支持
-
-![luckin](luckin_coffee.png)
+挂了好久没都人鼓励维护, 想想算了吧 
