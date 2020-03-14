@@ -219,9 +219,10 @@ module FIR
 
       check_file_exist(@file_path)
       check_supported_file(@file_path)
-      check_token_cannot_be_blank(@token)
-
+      
       @token = options[:token] || current_token
+      check_token_cannot_be_blank(@token)
+      
       @changelog = read_changelog(options[:changelog]).to_s.to_utf8
       @short = options[:short].to_s
       @passwd = options[:password].to_s
