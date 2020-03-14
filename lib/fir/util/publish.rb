@@ -8,7 +8,6 @@ module FIR
   module Publish
     def publish(*args, options)
       initialize_publish_options(args, options)
-      check_supported_file_and_token
       logger_info_publishing_message
 
       logger.info 'begin to upload ...'
@@ -217,6 +216,11 @@ module FIR
       @options = options
       @file_path = File.absolute_path(args.first.to_s)
       @file_type = File.extname(@file_path).delete('.')
+
+      check_file_exist(@file_path)
+      check_supported_file(@file_path)
+      check_token_cannot_be_blank(@token)
+
       @token = options[:token] || current_token
       @changelog = read_changelog(options[:changelog]).to_s.to_utf8
       @short = options[:short].to_s
@@ -241,12 +245,7 @@ module FIR
       File.exist?(changelog) ? File.read(changelog) : changelog
     end
 
-    def check_supported_file_and_token
-      check_file_exist(@file_path)
-      check_supported_file(@file_path)
-      check_token_cannot_be_blank(@token)
-      fetch_user_info(@token)
-    end
+
 
     def build_dingtalk_at_info(payload)
       answer = {}

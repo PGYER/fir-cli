@@ -44,7 +44,7 @@ module FIR
       def check_file_exist(path)
         return if File.file?(path)
 
-        logger.error 'File does not exist'
+        logger.error "File does not exist: #{path}"
         exit 1
       end
 
