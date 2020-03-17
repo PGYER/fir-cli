@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
+  - (2.0.8) publish 支持 飞书通知, 可使用 `feishu_access_token` 和 `feishu_custom_message`, 详情见 `fir publish --help`
   - (2.0.7) 修复了提示 token 有问题的错误
   - (2.0.6) 将校验文件是否存在提前
   - (2.0.5) 更换了上传域名, 避免与 深信服的设备冲突

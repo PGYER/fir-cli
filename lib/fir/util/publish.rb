@@ -25,7 +25,10 @@ module FIR
       logger.info "Published succeed: #{download_url}"
 
       qrcode_path = build_qrcode download_url
+      
       dingtalk_notifier(download_url, qrcode_path)
+      feishu_notifier(download_url)
+
       upload_mapping_file_with_publish
 
       upload_fir_cli_usage_info(received_app_info)
@@ -210,6 +213,17 @@ module FIR
       DefaultRest.post(url, payload)
     rescue StandardError => e
       logger.warn "Dingtalk send error #{e.message}"
+    end
+
+    def feishu_notifier(download_url)
+      return if options[:feishu_access_token].blank?
+      title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
+      url = "https://open.feishu.cn/open-apis/bot/hook/#{options[:feishu_access_token]}"
+      payload = {
+        "title": "#{title} uploaded",
+        "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:feishu_custom_message]}\n"
+      }
+      DefaultRest.post(url, payload) 
     end
 
     def initialize_publish_options(args, options)

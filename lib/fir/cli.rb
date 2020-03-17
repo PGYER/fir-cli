@@ -127,6 +127,9 @@ module FIR
     method_option :dingtalk_at_phones, type: :string, desc: 'at some phones, split by , eg: 13111111111,13111111112'
     method_option :dingtalk_at_all, type: :boolean,  default: false
 
+    method_option :feishu_access_token, type: :string, desc: 'Send msg to feishu, need access_token, not whole url'
+    method_option :feishu_custom_message, type: :string, desc: 'add custom message to feishu'
+
     method_option :open,        type: :boolean, desc: 'true/false if open for everyone'
     method_option :password,    type: :string,  desc: 'Set password for app'
 
