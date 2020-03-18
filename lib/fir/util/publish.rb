@@ -28,6 +28,7 @@ module FIR
       
       dingtalk_notifier(download_url, qrcode_path)
       feishu_notifier(download_url)
+      wxwork_notifier(download_url)
 
       upload_mapping_file_with_publish
 
@@ -224,6 +225,23 @@ module FIR
         "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:feishu_custom_message]}\n"
       }
       DefaultRest.post(url, payload) 
+    end
+
+    def wxwork_notifier(download_url)
+      return if options[:wxwork_webhook].blank?
+      title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
+      payload = {
+        "msgtype": "news",
+        "news": {
+          "articles": [{
+            "title": "#{title} uploaded",
+            "description": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:wxwork_custom_message]}\n",
+            "url": download_url,
+            "picurl": options[:wxwork_pic_url]
+          }],
+        },
+      }
+      DefaultRest.post(options[:wxwork_webhook], payload)
     end
 
     def initialize_publish_options(args, options)
