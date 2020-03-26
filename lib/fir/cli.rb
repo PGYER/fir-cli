@@ -130,7 +130,8 @@ module FIR
     method_option :feishu_access_token, type: :string, desc: 'Send msg to feishu, need access_token, not whole url'
     method_option :feishu_custom_message, type: :string, desc: 'add custom message to feishu'
 
-    method_option :wxwork_webhook, type: :string, desc: 'Send msg to wxwork group, need group bot webhook, whole url'
+    method_option :wxwork_webhook, type: :string, desc: 'wxwork webhook url (optional)'
+    method_option :wxwork_access_token, type: :string, desc: 'Send msg to wxwork group, need group bot webhook, not whole url'
     method_option :wxwork_custom_message, type: :string, desc: 'add custom message to wxwork group'
     method_option :wxwork_pic_url, type: :string, desc: 'message background image, best size is 1068x455'
 

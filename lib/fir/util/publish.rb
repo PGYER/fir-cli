@@ -228,7 +228,10 @@ module FIR
     end
 
     def wxwork_notifier(download_url)
-      return if options[:wxwork_webhook].blank?
+      webhook_url = options[:wxwork_webhook]
+      webhook_url ||= "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=#{options[:wxwork_access_token]}"
+      return if webhook_url.blank?
+
       title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
       payload = {
         "msgtype": "news",
@@ -241,7 +244,7 @@ module FIR
           }],
         },
       }
-      DefaultRest.post(options[:wxwork_webhook], payload)
+      DefaultRest.post(webhook_url, payload)
     end
 
     def initialize_publish_options(args, options)

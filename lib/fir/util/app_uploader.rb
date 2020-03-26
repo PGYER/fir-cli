@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FIR
   class AppUploader
     include ApiTools::DefaultRestModule
@@ -14,6 +16,8 @@ module FIR
     def upload
       upload_icon
       binary_callback_info = upload_binary
+      raise binary_callback_info if binary_callback_info.is_a? StandardError
+
       # 将 binary 的callback信息返回
       binary_callback_info
     end
@@ -21,9 +25,12 @@ module FIR
     protected
 
     def callback_to_api(callback_url, callback_binary_information)
+      logger.debug 'begin to callback api'
       return if callback_binary_information.blank?
 
-      post callback_url, callback_binary_information
+      answer = post callback_url, callback_binary_information, timeout: 20
+      logger.debug 'callback api finished'
+      answer
     end
 
     def icon_file_path
@@ -74,6 +81,7 @@ module FIR
 
     def callback_icon_information
       return {} if icon_file_path.nil?
+
       {
         key: icon_cert[:key],
         token: icon_cert[:token],
@@ -106,6 +114,5 @@ module FIR
     def logger
       FIR.logger
     end
-    
   end
 end
