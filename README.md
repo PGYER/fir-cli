@@ -14,8 +14,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 # 重大提醒
 - fir.im 更换域名后, 需要升级至 `fir-cli` >= `2.0.4` 有部分用户反馈 2.0.2 无法直接使用 `gem update fir-cli` 升级到 2.0.4, 则可以尝试卸载后重新安装, 即 `gem uninstall fir-cli` 后 `gem install fir-cli` 
-- 深信服 的 上网行为管理AC 的域名黑名单误将 fir-cli version 2.0.4 版本使用的 api.bq04.com 加入了黑名单, 我们已经联系了 深信服, 他们的回答是 `收到！已反馈！预计在3月17日左右的规则库更新，辛苦当时暂时需要使用的话先临时放通下，等规则库更新及时使用设备联网更新最新的规则库，有什么疑问您在及时反馈，感谢您的支持。
-当然还有种解决办法是 更新 `fir-cli` 至 `2.0.5`, 这个版本换到了备用域名 
+
 
 # 最近更新
 - (2.0.9) publish 支持了 企业微信通知 可以使用 --wxwork_access_token 或 --wxwork_webhook, 增加了回调超时时间至20秒
@@ -50,6 +49,20 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 ### 如何配合 jenkins 使用? 
 
 参见 blog [http://blog.betaqr.com/use-fir-cli-in-jenkins/](http://blog.betaqr.com/use-fir-cli-in-jenkins/)
+
+这里有个快速检查脚本, 可以在 jenkins 中新建一个 脚本, 进行检查
+
+```
+#!/bin/bash --login
+
+rvm list   # 确保 rvm 正确安装, 如果直接通过系统安装ruby, 可以注释此行
+ruby -v  # 查看 ruby 的版本, 请确保大于 2.4.0
+gem install fir-cli  # 现场安装fir-cli , 如果安装过, 则会略过
+fir -v  # 查看 fir-cli 的版本
+
+# 在这里执行 fir publish xxxxx
+```
+
 
 ### 在 Circle CI, Travis CI 或 Github Actions 等境外服务上, 有概率超时, 能否解决?
 
@@ -146,4 +159,4 @@ docker run -e API_TOKEN=您的token -v 您的上传文件的目录的绝对路�
 
 ## 鼓励维护
 
-挂了好久没都人鼓励维护, 想想算了吧 
+hia~ hia~ hia~
