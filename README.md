@@ -46,6 +46,27 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ## 热门问题
 
+### 啥是 钉钉 / 企业微信 / 飞书 的 `access_token` ?
+
+就是回调地址中的长得最像 access_token 的东西
+
+```
+钉钉: https://oapi.dingtalk.com/robot/send?access_token=xxxxx   
+就是 xxx 那部分
+
+企业微信: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxx-xxxx-xxxx-xxxx-xxxxx
+就是 xxxxx-xxxx-xxxx-xxxx-xxxxx  那部分
+
+https://open.feishu.cn/open-apis/bot/hook/xxxxxxxxxxxxxxxxxxx
+
+就是 xxxxxxxxxxxxxxxx 那部分
+
+```
+
+
+
+
+
 ### 如何配合 jenkins 使用? 
 
 参见 blog [http://blog.betaqr.com/use-fir-cli-in-jenkins/](http://blog.betaqr.com/use-fir-cli-in-jenkins/)
