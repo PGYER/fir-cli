@@ -2,6 +2,7 @@ fir:
   domain:    'http://www.betaqr.com'
   base_url:  'http://fir-api.admqr.com'
   user_url:  'http://fir-api.admqr.com/user'
+  user_feishu_access_token:  'http://fir-api.admqr.com/user/fetch_feishu_v3_token'
   app_url:   'http://fir-api.admqr.com/apps'
   udids_url: 'http://fir-api.admqr.com/devices/multi_udid'
   

@@ -3,6 +3,7 @@
 # require 'byebug'
 require_relative './qiniu_uploader'
 require_relative './ali_uploader'
+require_relative '../util/feishu_helper'
 
 module FIR
   module Publish
@@ -27,7 +28,7 @@ module FIR
       qrcode_path = build_qrcode download_url
       
       dingtalk_notifier(download_url, qrcode_path)
-      feishu_notifier(download_url)
+      feishu_notifier(download_url, qrcode_path)
       wxwork_notifier(download_url)
 
       upload_mapping_file_with_publish
@@ -216,15 +217,8 @@ module FIR
       logger.warn "Dingtalk send error #{e.message}"
     end
 
-    def feishu_notifier(download_url)
-      return if options[:feishu_access_token].blank?
-      title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
-      url = "https://open.feishu.cn/open-apis/bot/hook/#{options[:feishu_access_token]}"
-      payload = {
-        "title": "#{title} uploaded",
-        "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:feishu_custom_message]}\n"
-      }
-      DefaultRest.post(url, payload) 
+    def feishu_notifier(download_url, qrcode_path)
+      FeishuHelper.new(@app_info, options, qrcode_path, download_url).send_msg
     end
 
     def wxwork_notifier(download_url)
