@@ -1,5 +1,5 @@
 ✈ fir.im-cli
-----    
+----
 
 ![Build Status Images](https://travis-ci.org/FIRHQ/fir-cli.svg)
 [![Code Climate](https://codeclimate.com/github/FIRHQ/fir-cli/badges/gpa.svg)](https://codeclimate.com/github/FIRHQ/fir-cli)
@@ -13,10 +13,11 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 ![fir-cli](http://7rf35s.com1.z0.glb.clouddn.com/fir-cli-new.gif)
 
 # 重大提醒
-- fir.im 更换域名后, 需要升级至 `fir-cli` >= `2.0.4` 有部分用户反馈 2.0.2 无法直接使用 `gem update fir-cli` 升级到 2.0.4, 则可以尝试卸载后重新安装, 即 `gem uninstall fir-cli` 后 `gem install fir-cli` 
+- fir.im 更换域名后, 需要升级至 `fir-cli` >= `2.0.4` 有部分用户反馈 2.0.2 无法直接使用 `gem update fir-cli` 升级到 2.0.4, 则可以尝试卸载后重新安装, 即 `gem uninstall fir-cli` 后 `gem install fir-cli`
 
 
 # 最近更新
+- (2.0.11) 兼容了 ruby 3.0
 - (2.0.10) 飞书支持了 V2 版本的机器人推送
 - (2.0.9) publish 支持了 企业微信通知 可以使用 --wxwork_access_token 或 --wxwork_webhook, 增加了回调超时时间至20秒
 - (2.0.8) publish 支持 飞书通知, 可使用 `feishu_access_token` 和 `feishu_custom_message`, 详情见 `fir publish --help`
@@ -52,7 +53,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 就是回调地址中的长得最像 access_token 的东西
 
 ```
-钉钉: https://oapi.dingtalk.com/robot/send?access_token=xxxxx   
+钉钉: https://oapi.dingtalk.com/robot/send?access_token=xxxxx
 就是 xxx 那部分
 
 企业微信: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxx-xxxx-xxxx-xxxx-xxxxx
@@ -68,7 +69,7 @@ https://open.feishu.cn/open-apis/bot/hook/xxxxxxxxxxxxxxxxxxx
 
 
 
-### 如何配合 jenkins 使用? 
+### 如何配合 jenkins 使用?
 
 参见 blog [http://blog.betaqr.com/use-fir-cli-in-jenkins/](http://blog.betaqr.com/use-fir-cli-in-jenkins/)
 
@@ -118,13 +119,13 @@ fir-cli 提供对 aab 文件有限程度支持的上传与下载. 在使用 fir-
 
 ### 我想将 我上传的版本展示在下载的页面上
 
-可以在 publish 的时候使用 --force_pin_history   这样 这个上传的版本即成为 "历史版本", 会在下载页面里一直显示. 当有新的版本上传后, 这个版本会作为 "历史版本" 在下载页面中展示. 
+可以在 publish 的时候使用 --force_pin_history   这样 这个上传的版本即成为 "历史版本", 会在下载页面里一直显示. 当有新的版本上传后, 这个版本会作为 "历史版本" 在下载页面中展示.
 
 当版本设置为历史版本后, 用户可以直接下载指定的版本, 由于因成本原因, 一个 app 最多的 "历史版本" 为 30 个, 如果有用户有特殊需求, 可以与我们取得联系进行单独修改
 
 当达到上限后, 如果继续标记 force_pin_history, 则历史版本的最老版本(以上传时间为准)会被移出历史版本列表
 
-### 境外上传老出现 stream closed 
+### 境外上传老出现 stream closed
 
 因为网络时延问题, 可传入环境变量 `FIR_TIMEOUT=xxx` 进行超时时间设置
 
@@ -139,22 +140,22 @@ fir-cli 提供对 aab 文件有限程度支持的上传与下载. 在使用 fir-
 - [fir publish 发布应用到 fir.im](https://github.com/FIRHQ/fir-cli/blob/master/doc/publish.md)
 - [fir upgrade 升级相关](https://github.com/FIRHQ/fir-cli/blob/master/doc/upgrade.md)
 
-## Docker 运行 fir-cli 
+## Docker 运行 fir-cli
 
 ### 准备工作
 1. 将自己需要的文件挂载到 docker 中, 之后即可直接运行
-2. 将自己的 API_TOKEN 以环境变量的形式传入container 
+2. 将自己的 API_TOKEN 以环境变量的形式传入container
 
 ### 如何运行
 
-假设 我需要上传桌面的  1.apk 
+假设 我需要上传桌面的  1.apk
 
 ```
-docker run -e API_TOKEN=您的token -v 您的上传文件的目录的绝对路径:/tmp firhq/fir-cli:latest publish /tmp/你的文件 
+docker run -e API_TOKEN=您的token -v 您的上传文件的目录的绝对路径:/tmp firhq/fir-cli:latest publish /tmp/你的文件
 
 # 如 `docker run -e API_TOKEN=xxxxxxxe -v /Users/atpking/Desktop:/tmp firhq/fir-cli:latest publish  /tmp/1.apk`
 
-# 实际含义是把我的桌面挂载到 docker 里的 /tmp 目录  之后上传 docker 文件里的 /tmp/1.apk   
+# 实际含义是把我的桌面挂载到 docker 里的 /tmp 目录  之后上传 docker 文件里的 /tmp/1.apk
 # 也可以修改为其他目录
 ```
 
@@ -162,12 +163,12 @@ docker run -e API_TOKEN=您的token -v 您的上传文件的目录的绝对路�
 
 - 联系微信 `atpking`, 请注明 "fir-cli 交流"
 
-- 使用 Github 的 [Issue](https://github.com/FIRHQ/fir-cli/issues) 
+- 使用 Github 的 [Issue](https://github.com/FIRHQ/fir-cli/issues)
 
-## 特别感谢 
+## 特别感谢
 
 - 感谢 sparkrico 提供修正的 https://github.com/sparkrico/ruby_apk 解决了 android 解析的问题
-- 感谢 fabcz 同学对企业微信的通知的支持 https://github.com/FIRHQ/fir-cli/pull/277 
+- 感谢 fabcz 同学对企业微信的通知的支持 https://github.com/FIRHQ/fir-cli/pull/277
 
 ## 鼓励维护
 
