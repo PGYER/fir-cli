@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # require 'byebug'
+
 require_relative './qiniu_uploader'
 require_relative './ali_uploader'
 require_relative '../util/feishu_helper'
@@ -12,6 +13,7 @@ module FIR
       logger_info_publishing_message
 
       logger.info 'begin to upload ...'
+      logger.info "fir-cli version #{FIR::VERSION} (#{RUBY_VERSION} @ #{RUBY_PLATFORM})"
       received_app_info = upload_app
 
       short = received_app_info[:short]
@@ -26,7 +28,7 @@ module FIR
       logger.info "Published succeed: #{download_url}"
 
       qrcode_path = build_qrcode download_url
-      
+
       dingtalk_notifier(download_url, qrcode_path)
       feishu_notifier(download_url, qrcode_path)
       wxwork_notifier(download_url)
@@ -248,10 +250,10 @@ module FIR
 
       check_file_exist(@file_path)
       check_supported_file(@file_path)
-      
+
       @token = options[:token] || current_token
       check_token_cannot_be_blank(@token)
-      
+
       @changelog = read_changelog(options[:changelog]).to_s.to_utf8
       @short = options[:short].to_s
       @passwd = options[:password].to_s

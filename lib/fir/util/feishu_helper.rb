@@ -23,7 +23,8 @@ class FeishuHelper
   def v2_request
     url = "https://open.feishu.cn/open-apis/bot/v2/hook/#{feishu_access_token}"
     x = build_v2_info
-    DefaultRest.post(url, x)
+    # byebug
+    DefaultRest.post(url, x, {timeout: ENV['FEISHU_TIMEOUT'] ? ENV['FEISHU_TIMEOUT'].to_i : 30 })
   end
 
   def v1_request
@@ -32,7 +33,7 @@ class FeishuHelper
       "title": "#{title} uploaded",
       "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:feishu_custom_message]}\n"
     }
-    DefaultRest.post(url, payload)
+    DefaultRest.post(url, payload, {timeout: ENV['FEISHU_TIMEOUT'] ? ENV['FEISHU_TIMEOUT'].to_i : 30 })
   end
 
   private

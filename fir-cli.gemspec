@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
+  - (2.0.11) 兼容了 ruby 3.0 版本, 增加了环境变量FEISHU_TIMEOUT，可以多给飞书一些超时时间
   - (2.0.10) 飞书支持了 V2 版本的机器人推送
   - (2.0.9) publish 支持了 企业微信通知 可以使用 --wxwork_access_token 或 --wxwork_webhook, 增加了回调超时时间至20秒
   - (2.0.8) publish 支持 飞书通知, 可使用 `feishu_access_token` 和 `feishu_custom_message`, 详情见 `fir publish --help`
@@ -52,12 +53,13 @@ Gem::Specification.new do |spec|
   # spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'minitest', '~> 5.7'
   spec.add_development_dependency 'pry',      '~> 0.10'
-  
+
   spec.add_dependency 'admqr_knife',    '~> 0.1.5'
   spec.add_dependency 'thor',           '~> 0.19'
   spec.add_dependency 'rest-client',    '~> 2.0'
   spec.add_dependency 'ruby_android_apk',   '~> 0.7.7.1'
   spec.add_dependency 'rqrcode',        '~> 0.7'
+  spec.add_dependency 'rexml'
   spec.add_dependency 'CFPropertyList'
-  spec.add_dependency 'api_tools', '~> 0.1.0'
+  spec.add_dependency 'api_tools', '~> 0.1.1'
 end
