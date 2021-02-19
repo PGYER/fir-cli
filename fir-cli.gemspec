@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
+  - (2.0.12) 修复因为钉钉机器人不再支持base64导致无法显示二维码，另外开始支持钉钉加签方式的鉴权， 参数为 --dingtalk_secret
   - (2.0.11) 兼容了 ruby 3.0 版本, 增加了环境变量FEISHU_TIMEOUT，可以多给飞书一些超时时间
   - (2.0.10) 飞书支持了 V2 版本的机器人推送
   - (2.0.9) publish 支持了 企业微信通知 可以使用 --wxwork_access_token 或 --wxwork_webhook, 增加了回调超时时间至20秒

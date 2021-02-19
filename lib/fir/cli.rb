@@ -125,7 +125,8 @@ module FIR
     method_option :dingtalk_access_token, type: :string, aliases: '-D', desc: 'Send msg to dingtalk, only need access_token, not whole url'
     method_option :dingtalk_custom_message, type: :string, desc: 'add custom message to dingtalk'
     method_option :dingtalk_at_phones, type: :string, desc: 'at some phones, split by , eg: 13111111111,13111111112'
-    method_option :dingtalk_at_all, type: :boolean,  default: false
+    method_option :dingtalk_at_all, type: :boolean, default: false
+    method_option :dingtalk_secret, type: :string, desc: 'dingtalk bot secret code (eg: SEC********)'
 
     method_option :feishu_access_token, type: :string, desc: 'Send msg to feishu, need access_token, not whole url'
     method_option :feishu_custom_message, type: :string, desc: 'add custom message to feishu'

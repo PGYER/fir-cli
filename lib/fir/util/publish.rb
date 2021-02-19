@@ -5,6 +5,7 @@
 require_relative './qiniu_uploader'
 require_relative './ali_uploader'
 require_relative '../util/feishu_helper'
+require_relative '../util/dingtalk_helper'
 
 module FIR
   module Publish
@@ -15,6 +16,7 @@ module FIR
       logger.info 'begin to upload ...'
       logger.info "fir-cli version #{FIR::VERSION} (#{RUBY_VERSION} @ #{RUBY_PLATFORM})"
       received_app_info = upload_app
+
 
       short = received_app_info[:short]
       download_domain = received_app_info[:download_domain]
@@ -197,26 +199,7 @@ module FIR
     end
 
     def dingtalk_notifier(download_url, qrcode_path)
-      return if options[:dingtalk_access_token].blank?
-
-      title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
-      payload = {
-        "msgtype": 'markdown',
-        "markdown": {
-          "title": "#{title} uploaded",
-          "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:dingtalk_custom_message]}\n![app二维码](data:image/png;base64,#{Base64.strict_encode64(File.read(open(qrcode_path)))})"
-          # "text": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:dingtalk_custom_message]}\n"
-        }
-      }
-      build_dingtalk_at_info(payload)
-      url = "https://oapi.dingtalk.com/robot/send?access_token=#{options[:dingtalk_access_token]}"
-
-      # 用完了二维码, 就删了
-      File.delete(qrcode_path) unless @export_qrcode
-
-      DefaultRest.post(url, payload)
-    rescue StandardError => e
-      logger.warn "Dingtalk send error #{e.message}"
+      DingtalkHelper.new(@app_info, options, qrcode_path, download_url).send_msg
     end
 
     def feishu_notifier(download_url, qrcode_path)
@@ -265,7 +248,10 @@ module FIR
       @app_id = @uploading_info[:id]
 
       @skip_update_icon = options[:skip_update_icon]
+
       @force_pin_history = options[:force_pin_history]
+
+      @app_info[:api_url] = fir_api[:base_url]
       unless options[:specify_icon_file].blank?
         @specify_icon_file_path = File.absolute_path(options[:specify_icon_file])
       end
@@ -278,17 +264,5 @@ module FIR
     end
 
 
-
-    def build_dingtalk_at_info(payload)
-      answer = {}
-      answer[:isAtAll] = options[:dingtalk_at_all]
-
-      unless options[:dingtalk_at_phones].blank?
-        answer[:atMobiles] = options[:dingtalk_at_phones].split(',')
-        payload[:markdown][:text] += options[:dingtalk_at_phones].split(',').map { |x| "@#{x}" }.join(',')
-      end
-
-      payload[:at] = answer
-    end
   end
 end
