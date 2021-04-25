@@ -17,7 +17,6 @@ module FIR
       logger.info "fir-cli version #{FIR::VERSION} (#{RUBY_VERSION} @ #{RUBY_PLATFORM})"
       received_app_info = upload_app
 
-
       short = received_app_info[:short]
       download_domain = received_app_info[:download_domain]
       release_id = received_app_info[:release_id]
@@ -97,9 +96,7 @@ module FIR
       app_info_dict
     rescue StandardError => e
       puts e.message
-      if e.respond_to?(e.response) && e.respond_to?(e.response.body)
-        puts e.response.body
-      end
+      puts e.response.body if e.respond_to?(e.response) && e.respond_to?(e.response.body)
       raise e
     end
 
@@ -207,21 +204,22 @@ module FIR
     end
 
     def wxwork_notifier(download_url)
+      return if options[:wxwork_webhook].blank? && options[:wxwork_access_token].blank?
+
       webhook_url = options[:wxwork_webhook]
       webhook_url ||= "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=#{options[:wxwork_access_token]}"
-      return if webhook_url.blank?
 
       title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
       payload = {
-        "msgtype": "news",
+        "msgtype": 'news',
         "news": {
           "articles": [{
             "title": "#{title} uploaded",
             "description": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:wxwork_custom_message]}\n",
             "url": download_url,
             "picurl": options[:wxwork_pic_url]
-          }],
-        },
+          }]
+        }
       }
       DefaultRest.post(webhook_url, payload)
     end
@@ -262,7 +260,5 @@ module FIR
 
       File.exist?(changelog) ? File.read(changelog) : changelog
     end
-
-
   end
 end
