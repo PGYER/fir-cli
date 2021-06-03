@@ -10,7 +10,8 @@ class FeishuHelper
     @feishu_access_token = @options[:feishu_access_token]
     @qrcode_path = qrcode_path
     @download_url = download_url
-    @title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
+
+    @title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]}) #{@app_info[:type]}"
   end
 
   def send_msg

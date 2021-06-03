@@ -20,7 +20,7 @@ class DingtalkHelper
     return if options[:dingtalk_access_token].blank?
 
     api_domain = @app_info[:api_url]
-    title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
+    title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]}) #{@app_info[:type]}"
     payload = {
       "msgtype": 'markdown',
       "markdown": {

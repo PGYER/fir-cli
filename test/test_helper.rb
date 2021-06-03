@@ -1,9 +1,6 @@
 # encoding: utf-8
 
 # CodeClimate::TestReporter.start
-require 'codeclimate-test-reporter'
-require 'simplecov'
-SimpleCov.start
 
 
 require 'minitest/autorun'
@@ -80,7 +77,7 @@ end
 
 # 跑完测试之后再发结果到Codelimate
 # 测试CODECLIMATE_REPO_TOKEN: c454b9a54151b3ed3e18949279aec49d6a25bf507706815f99a919f1c01679ed
-Minitest.after_run do  
+Minitest.after_run do
   COVERAGE_FILE = "coverage/.resultset.json".freeze
   if (repo_token = ENV["CODECLIMATE_REPO_TOKEN"]) && !repo_token.empty?
     if File.exist?(COVERAGE_FILE)

@@ -2,6 +2,7 @@
 
 # require 'byebug'
 
+require_relative './third_notifier_module'
 require_relative './qiniu_uploader'
 require_relative './ali_uploader'
 require_relative '../util/feishu_helper'
@@ -9,6 +10,7 @@ require_relative '../util/dingtalk_helper'
 
 module FIR
   module Publish
+    include FIR::ThirdNotifierModule
     def publish(*args, options)
       initialize_publish_options(args, options)
       logger_info_publishing_message
@@ -30,9 +32,7 @@ module FIR
 
       qrcode_path = build_qrcode download_url
 
-      dingtalk_notifier(download_url, qrcode_path)
-      feishu_notifier(download_url, qrcode_path)
-      wxwork_notifier(download_url)
+      notify_to_thirds(download_url, qrcode_path)
 
       upload_mapping_file_with_publish
 
@@ -195,34 +195,6 @@ module FIR
            api_token: @token
     end
 
-    def dingtalk_notifier(download_url, qrcode_path)
-      DingtalkHelper.new(@app_info, options, qrcode_path, download_url).send_msg
-    end
-
-    def feishu_notifier(download_url, qrcode_path)
-      FeishuHelper.new(@app_info, options, qrcode_path, download_url).send_msg
-    end
-
-    def wxwork_notifier(download_url)
-      return if options[:wxwork_webhook].blank? && options[:wxwork_access_token].blank?
-
-      webhook_url = options[:wxwork_webhook]
-      webhook_url ||= "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=#{options[:wxwork_access_token]}"
-
-      title = "#{@app_info[:name]}-#{@app_info[:version]}(Build #{@app_info[:build]})"
-      payload = {
-        "msgtype": 'news',
-        "news": {
-          "articles": [{
-            "title": "#{title} uploaded",
-            "description": "#{title} uploaded at #{Time.now}\nurl: #{download_url}\n#{options[:wxwork_custom_message]}\n",
-            "url": download_url,
-            "picurl": options[:wxwork_pic_url]
-          }]
-        }
-      }
-      DefaultRest.post(webhook_url, payload)
-    end
 
     def initialize_publish_options(args, options)
       @options = options
