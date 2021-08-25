@@ -45,7 +45,7 @@ class FeishuHelper
       content: {
         post: {
           zh_cn: {
-            title: title,
+            title: options[:feishu_custom_title] ? options[:feishu_custom_title] : title,
             content: [build_info_tags, [build_image_tag]]
           }
         }

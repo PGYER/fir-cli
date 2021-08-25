@@ -25,7 +25,8 @@ Options:
       [--dingtalk-at-phones=DINGTALK_AT_PHONES]                              # 钉钉  at 某人手机号
       [--dingtalk-at-all], [--no-dingtalk-at-all]
       [--feishu-access-token=FEISHU_ACCESS_TOKEN]                            # 飞书的webhook 的access_token
-      [--feishu-custom-message=FEISHU_CUSTOM_MESSAGE]                        # 自定义飞书消息
+      [--feishu-custom-title=FEISHU_CUSTOM_TITLE]                            # 自定义飞书消息标题
+      [--feishu-custom-message=FEISHU_CUSTOM_MESSAGE]                        # 自定义飞书消息内容
       [--wxwork-webhook=WXWORK_WEBHOOK]                                      # 企业微信的 webhook 地址 (注意这里与 access_token 只需要填写一个参数即可)
       [--wxwork-access-token=WXWORK_ACCESS_TOKEN]                            # 企业微信的 webhook access_token (注意这里与 access_token 只需要填写一个参数即可)
       [--wxwork-custom-message=WXWORK_CUSTOM_MESSAGE]                        # 企业微信 的自定义消息

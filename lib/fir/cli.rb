@@ -129,6 +129,7 @@ module FIR
     method_option :dingtalk_secret, type: :string, desc: 'dingtalk bot secret code (eg: SEC********)'
 
     method_option :feishu_access_token, type: :string, desc: 'Send msg to feishu, need access_token, not whole url'
+    method_option :feishu_custom_title, type: :string, desc: 'add custom title to feishu'
     method_option :feishu_custom_message, type: :string, desc: 'add custom message to feishu'
 
     method_option :wxwork_webhook, type: :string, desc: 'wxwork webhook url (optional)'
