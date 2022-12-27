@@ -18,6 +18,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 - 现也有一个go 版本的 go-fir-cli 供大家使用, 无需安装依赖, 可以直接使用. 具体请访问  [https://github.com/PGYER/go-fir-cli](https://github.com/PGYER/go-fir-cli). 注意! 该版本功能并不与fir-cli 完全重合.
 
 # 最近更新
+- (2.0.16) 更新了 thor 
 - (2.0.15) 更换了 API 域名
 - (2.0.14) 第三方通知加入了 app 类型, 第三方报错将忽略异常继续运行
 - (2.0.13) 修正了企业微信通知的bug
