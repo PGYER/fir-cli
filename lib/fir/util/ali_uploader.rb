@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative './app_uploader'
-require 'net/http/uploadprogress'
 
 
 module FIR

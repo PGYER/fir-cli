@@ -49,7 +49,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry',      '~> 0.10'
 
   spec.add_dependency 'admqr_knife',    '~> 0.1.5'
-  spec.add_dependency "net-http-uploadprogress"
   spec.add_dependency 'thor',           '~> 1.2.1'
   spec.add_dependency 'rest-client',    '~> 2.0'
   spec.add_dependency 'ruby_android_apk',   '~> 0.7.7.1'
