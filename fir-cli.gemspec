@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
     /_/   /___/_/ |_|      \____/_____/___/
 
   ## 更新记录
+  - (2.0.17) 增加了上传百分比显示
   - (2.0.16) 更新了 thor
   - (2.0.15) 修改了API域名
   - (2.0.14) 第三方通知加入了 app 类型, 第三方报错将不再直接报出异常
@@ -48,6 +49,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry',      '~> 0.10'
 
   spec.add_dependency 'admqr_knife',    '~> 0.1.5'
+  spec.add_dependency "net-http-uploadprogress"
   spec.add_dependency 'thor',           '~> 1.2.1'
   spec.add_dependency 'rest-client',    '~> 2.0'
   spec.add_dependency 'ruby_android_apk',   '~> 0.7.7.1'
