@@ -78,7 +78,7 @@ class FeishuHelper
   end
 
   def fetch_image_access_token
-    answer = DefaultRest.post(fir_api[:fetch_feishu_v3_token] || 'http://fir-api.admqr.com/user/fetch_feishu_v3_token', {})
+    answer = DefaultRest.post(fir_api[:user_feishu_access_token] || 'http://api.appmeta.cn/user/fetch_feishu_v3_token', {})
     answer[:feishu_v3_token]
   end
 

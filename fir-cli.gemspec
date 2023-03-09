@@ -26,20 +26,10 @@ Gem::Specification.new do |spec|
      / __/ _/ // _, _/_____/ /___/ /____/ /
     /_/   /___/_/ |_|      \____/_____/___/
 
-  ## 更新记录
-  - (2.0.17) 增加了上传百分比显示
-  - (2.0.16) 更新了 thor
-  - (2.0.15) 修改了API域名
-  - (2.0.14) 第三方通知加入了 app 类型, 第三方报错将不再直接报出异常
-  - (2.0.13) 修复了无法跳过企业微信通知逻辑的bug
-  - (2.0.12) 修复因为钉钉机器人不再支持base64导致无法显示二维码，另外开始支持钉钉加签方式的鉴权， 参数为 --dingtalk_secret
-  - (2.0.11) 兼容了 ruby 3.0 版本, 增加了环境变量FEISHU_TIMEOUT，可以多给飞书一些超时时间
-  - (2.0.10) 飞书支持了 V2 版本的机器人推送
-  - (2.0.9) publish 支持了 企业微信通知 可以使用 --wxwork_access_token 或 --wxwork_webhook, 增加了回调超时时间至20秒
-  - (2.0.8) publish 支持 飞书通知, 可使用 `feishu_access_token` 和 `feishu_custom_message`, 详情见 `fir publish --help`
-  - (2.0.7) 修复了提示 token 有问题的错误
+  ##
   - [fir-cli](https://github.com/firhq/fir-cli) 已经开源
   - 欢迎 fork, issue 和 pull request
+  - 同时提供 go 版本的 fir-cli 二进制版本无依赖  [fir-cli-go](https://github.com/PGYER/go-fir-cli/releases)
   )
 
   spec.add_development_dependency 'bundler'
