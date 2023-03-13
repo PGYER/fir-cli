@@ -19,7 +19,7 @@ jobs:
       
     - name: get version Number
       id: show-version
-      run: VERSION=$(docker run firhq/fir-cli:latest version | awk '{print $3}') && echo $VERSION
+      run: echo $(docker run firhq/fir-cli:latest version | awk '{print $3}')
       
     - name: Tag image
       run: docker tag firhq/fir-cli:latest firhq/fir-cli:${{ steps.show-version.outputs.result }}
