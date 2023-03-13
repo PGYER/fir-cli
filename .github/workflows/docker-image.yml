@@ -17,8 +17,8 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag firhq/fir-cli:latest
       
-    - name: Publish Docker
-      uses: elgohr/Publish-Docker-Github-Action@v5
-      with:
-        username: atpking
-        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+    - name: Login Docker
+      run: docker login -u atpking -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      
+    - name: Publish docker
+      run: docker push firhq/fir-cli:latest
