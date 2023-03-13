@@ -19,7 +19,7 @@ jobs:
       
     - name: get version Number
       id: show-version
-      run: echo $(docker run firhq/fir-cli:latest version | awk '{print $3}')
+      run: echo "::set-output name=result::$(docker run firhq/fir-cli:latest version | awk '{print $3}')"
     
     - name: check version number
       run: echo "the version is ${{ steps.show-version.outputs.result }}"
