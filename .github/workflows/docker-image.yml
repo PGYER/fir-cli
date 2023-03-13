@@ -19,5 +19,6 @@ jobs:
       
     - name: Publish Docker
       uses: elgohr/Publish-Docker-Github-Action@v5
-      username: atpking
-      password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      with:
+        username: atpking
+        password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
