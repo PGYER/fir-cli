@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag firhq/fir-cli:latest
+      run: docker buildx build --platform=linux/arm64,linux/amd64 . --file Dockerfile --tag firhq/fir-cli:latest
       
     - name: get version Number
       id: show-version
