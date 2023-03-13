@@ -18,13 +18,7 @@ jobs:
       run: docker build . --file Dockerfile --tag firhq/fir-cli:latest
       
     - name: get version Number
-      run: VERSION=$(docker run firhq/fir-cli:latest version | awk '{print $3}')
-    
-    - name: Tag image
-      run: docker tag firhq/fir-cli:latest firhq/fir-cli:$VERSION
-    
-    - name: Login Docker
-      run: docker login -u atpking -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      run: VERSION=$(docker run firhq/fir-cli:latest version | awk '{print $3}') && echo $VERSION
       
-    - name: Publish docker
-      run: docker push firhq/fir-cli:latest && docker push firhq/fir-cli:$VERSION
+    
+    
