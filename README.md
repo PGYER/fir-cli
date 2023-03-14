@@ -1,19 +1,15 @@
 ✈ fir.im-cli
 ----
 
-![Build Status Images](https://travis-ci.org/FIRHQ/fir-cli.svg)
-[![Code Climate](https://codeclimate.com/github/FIRHQ/fir-cli/badges/gpa.svg)](https://codeclimate.com/github/FIRHQ/fir-cli)
-[![Test Coverage](https://codeclimate.com/github/FIRHQ/fir-cli/badges/coverage.svg)](https://codeclimate.com/github/FIRHQ/fir-cli/coverage)
-[![Gem Version](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/FIRHQ/fir-cli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/FIRHQ/fir-cli/master/LICENSE.txt)
+[![最新版本的版本号](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli)
 
 fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 ![fir-cli](http://7rf35s.com1.z0.glb.clouddn.com/fir-cli-new.gif)
 
-# 重大提醒
-- fir.im 更换域名至 betaqr.com 后, 需要升级至 `fir-cli` >= `2.0.4` 有部分用户反馈 2.0.2 无法直接使用 `gem update fir-cli` 升级到 2.0.4, 则可以尝试卸载后重新安装, 即 `gem uninstall fir-cli` 后 `gem install fir-cli`
+# 请注意
+- 如果您遇到了任何fir-cli 使用上的问题, 建议您首先使用 `gem install fir-cli ` 升级到最新版本的 fir-cli, 目前最新版本是 [![最新版本的版本号](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli), 您要是不确定的话, 可以使用 fir version 查看当前版本号
 
 - 现也有一个go 版本的 go-fir-cli 供大家使用, 无需安装依赖, 可以直接使用. 具体请访问  [https://github.com/PGYER/go-fir-cli](https://github.com/PGYER/go-fir-cli). 注意! 该版本功能并不与fir-cli 完全重合.
 
