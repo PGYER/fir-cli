@@ -11,10 +11,11 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 # 请注意
 - 如果您遇到了任何fir-cli 使用上的问题, 建议您首先使用 `gem install fir-cli ` 升级到最新版本的 fir-cli, 目前最新版本是 [![最新版本的版本号](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli), 您要是不确定的话, 可以使用 `fir version` 查看当前版本号
 
-- 如果您在安装 fir-cli 过程中出现了各种问题, 但是着急使用的话, 现也有一个go 版本的 go-fir-cli 供大家使用, 无需安装依赖, 可以直接使用. 具体请访问  [https://github.com/PGYER/go-fir-cli](https://github.com/PGYER/go-fir-cli). 注意! 该版本功能并不与fir-cli 完全重合, 具体使用方式请参考该项目的 readme 文件. 
+- 如果您在安装 fir-cli 过程中出现了各种问题, 但是着急使用的话, 现也有一个go 版本的 go-fir-cli 供大家使用, 无需安装依赖, 可以直接使用. 具体请访问  [https://github.com/PGYER/go-fir-cli](https://github.com/PGYER/go-fir-cli). 注意! 该版本功能并不与fir-cli 完全重合, 具体使用方式请参考该项目的 readme 文件.
 - 我们也提供 docker 版本的 fir-cli, 具体使用方式参见 **Docker 运行 fir-cli** 章节
 
 # 最近更新
+- (2.0.19) 修正了上传的图标不显示的问题
 - (2.0.18) 修复域名导致的飞书发送失败的问题
 - (2.0.17) 增加了上传百分比显示
 - (2.0.16) 更新了 thor
