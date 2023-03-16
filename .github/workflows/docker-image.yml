@@ -15,4 +15,21 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag firhq/fir-cli:latest
+      run: docker buildx create --use && docker buildx build --platform=linux/arm64,linux/amd64 . --file Dockerfile --tag firhq/fir-cli:latest
+      
+    - name: get version Number
+      id: show-version
+      run: echo "::set-output name=result::$(docker run firhq/fir-cli:latest version | awk '{print $3}')"
+    
+    - name: check version number
+      run: echo "the version is ${{ steps.show-version.outputs.result }}"
+    
+    - name: Tag image
+      run: docker tag firhq/fir-cli:latest firhq/fir-cli:${{ steps.show-version.outputs.result }}
+    
+    - name: Login Docker
+      run: docker login -u atpking -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      
+    - name: Publish docker
+      run: docker push firhq/fir-cli:latest && docker push firhq/fir-cli:${{ steps.show-version.outputs.result }}
+    
