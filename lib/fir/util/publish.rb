@@ -17,6 +17,8 @@ module FIR
 
       logger.info 'begin to upload ...'
       logger.info "fir-cli version #{FIR::VERSION} (#{RUBY_VERSION} @ #{RUBY_PLATFORM})"
+      # 开始上传
+
       received_app_info = upload_app
 
       short = received_app_info[:short]

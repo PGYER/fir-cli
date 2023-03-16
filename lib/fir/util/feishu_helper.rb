@@ -24,7 +24,6 @@ class FeishuHelper
   def v2_request
     url = "https://open.feishu.cn/open-apis/bot/v2/hook/#{feishu_access_token}"
     x = build_v2_info
-    # byebug
     DefaultRest.post(url, x, {timeout: ENV['FEISHU_TIMEOUT'] ? ENV['FEISHU_TIMEOUT'].to_i : 30 })
   end
 

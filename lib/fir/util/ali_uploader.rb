@@ -53,10 +53,10 @@ module FIR
     def put_file(url, file, headers, need_progress = true)
 
       uri = URI(url)
-      hostname = uri.hostname 
+      hostname = uri.hostname
 
 
-      File.open(file_path, 'rb') do |io|
+      File.open(file.path, 'rb') do |io|
         t = Time.now
         http = Net::HTTP.new(hostname, 443)
         http.use_ssl = true
