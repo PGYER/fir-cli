@@ -26,3 +26,4 @@ Gemfile.lock
 lib/.byebug_history
 TAGS
 .vscode
+fir-cli-answer.json
