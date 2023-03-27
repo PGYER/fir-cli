@@ -54,6 +54,8 @@ module FIR
         write_uploaded_info(answer)
       end
 
+      answer
+
     end
 
     def fetch_app_info
