@@ -15,7 +15,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 
 # 请注意
 - 如果您遇到了任何fir-cli 使用上的问题, 建议您首先使用 `gem install fir-cli ` 升级到最新版本的 fir-cli, 目前最新版本是 [![最新版本的版本号](https://badge.fury.io/rb/fir-cli.svg)](http://badge.fury.io/rb/fir-cli), 您要是不确定的话, 可以使用 `fir version` 查看当前版本号
-
+- 请注意， 请尽快将 fir-cli 的版本升级至 2.0.15 以上， 旧有 api 即将过期
 - 我们也提供 docker 版本的 fir-cli, 具体使用方式参见 **Docker 运行 fir-cli** 章节
 
 # 最近更新
