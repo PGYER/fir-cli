@@ -19,6 +19,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 - 我们也提供 docker 版本的 fir-cli, 具体使用方式参见 **Docker 运行 fir-cli** 章节
 
 # 最近更新
+- (2.0.22) 支持自定义下载文件名称 --user_download_file_name=具体文件名称  注意， 此参数无法与switch_to_qiniu 一起使用
 - (2.0.21) 修正 publish 的结果不返回导致 fastlane-plugin-fir_cli 命令执行结果为nil 的问题
 - (2.0.20) 新增参数 --save_uploaded_info, 可以将上传的结果存入当前目录下的 fir-cli-upload-info.json 文件中, 方便集成其他功能
 - (2.0.19) 修正了上传的图标不显示的问题
