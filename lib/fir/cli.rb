@@ -144,9 +144,10 @@ module FIR
     method_option :auto_download_bundletool_jar, type: :boolean, default: false, desc: "upload aab file command: would download bundletool when invoke bundletool failure"
 
     method_option :save_uploaded_info, type: :boolean, default: false, desc: 'save uploaded info to local file named fir-cli-answer.json'
+
+    method_option :user_download_file_name, type: :string, desc:  'set user download file name, (not support with params switch_to_qiniu)'
     def publish(*args)
       prepare :publish
-
       FIR.publish(*args, options)
     end
 

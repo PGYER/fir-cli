@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'uri'
 require_relative './app_uploader'
 
 
@@ -38,6 +39,15 @@ module FIR
           'x-oss-date' => headers[:"x-oss-date"],
           'authorization' => headers[:authorization]
         }
+
+        if @options[:user_download_file_name] != nil
+          # 处理中文问题, 使之支持 CONTENT-DISPOSITION 的要求
+
+
+          headers_copy["CONTENT-DISPOSITION"] = "attachment; filename=#{URI.encode_www_form_component @options[:user_download_file_name]}"
+
+
+        end
 
         logger.debug headers_copy
         put_file(binary_url, binary_info, headers_copy)
