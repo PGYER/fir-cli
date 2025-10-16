@@ -70,6 +70,10 @@ module FIR
         t = Time.now
         http = Net::HTTP.new(hostname, 443)
         http.use_ssl = true
+        # 根据环境变量配置SSL证书验证
+        unless ENV['UPLOAD_VERIFY_SSL']
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
         req = Net::HTTP::Put.new(uri.request_uri, headers)
         req.content_length = io.size
         req.body_stream = io
