@@ -27,3 +27,5 @@ lib/.byebug_history
 TAGS
 .vscode
 fir-cli-answer.json
+mise.toml
+.claude/

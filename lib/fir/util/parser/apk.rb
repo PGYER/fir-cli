@@ -1,6 +1,25 @@
 # frozen_string_literal: true
 
 require_relative './common'
+
+# Monkey patch to fix illegal character issues in AXML parsing
+# Some APKs contain control characters in strings that REXML cannot handle
+module Android
+  class AXMLParser
+    alias_method :original_parse_strings, :parse_strings
+
+    def parse_strings
+      original_parse_strings
+      # Remove illegal XML control characters from strings
+      @strings = @strings.map do |str|
+        next str unless str.is_a?(String)
+        # Keep only valid XML characters: #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+        str.gsub(/[^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD]/, '')
+      end
+    end
+  end
+end
+
 module FIR
   module Parser
     class Apk
@@ -18,13 +37,18 @@ module FIR
       end
 
       def basic_info
-        @basic_info ||= {
-          type: 'android',
-          name: fetch_label,
-          identifier: @apk.manifest.package_name,
-          build: @apk.manifest.version_code.to_s,
-          version: @apk.manifest.version_name.to_s
-        }
+        @basic_info ||= begin
+          manifest = @apk.manifest
+          raise 'Failed to parse AndroidManifest.xml. The APK may be corrupted, repacked, or contain unsupported characters.' unless manifest
+
+          {
+            type: 'android',
+            name: fetch_label,
+            identifier: manifest.package_name,
+            build: manifest.version_code.to_s,
+            version: manifest.version_name.to_s
+          }
+        end
         @basic_info.reject! { |_k, v| v.nil? }
         @basic_info
       end
