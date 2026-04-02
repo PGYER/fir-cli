@@ -46,11 +46,23 @@ module FIR
         return if @contents
         @contents = "#{Dir.tmpdir}/ipa_files-#{Time.now.to_i}"
 
+        # 兼容 rubyzip 2.x 和 3.x
+        # rubyzip 3.x 改变了 extract 方法签名，需要使用 destination_directory 参数
+        rubyzip_v3 = Gem::Version.new(Zip::VERSION) >= Gem::Version.new('3.0.0')
+
         Zip::File.open(@path) do |zip_file|
           zip_file.each do |f|
             f_path = File.join(@contents, f.name)
             FileUtils.mkdir_p(File.dirname(f_path))
-            zip_file.extract(f, f_path) unless File.exist?(f_path)
+            next if File.exist?(f_path)
+
+            if rubyzip_v3
+              # rubyzip 3.x: extract(entry_name, destination_directory: dir)
+              zip_file.extract(f.name, destination_directory: @contents)
+            else
+              # rubyzip 2.x: extract(entry, dest_path)
+              zip_file.extract(f, f_path)
+            end
           end
         end
 
