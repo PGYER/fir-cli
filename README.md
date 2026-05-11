@@ -19,6 +19,7 @@ fir.im-cli 可以通过指令查看, 上传, iOS/Android 应用.
 - 我们也提供 docker 版本的 fir-cli, 具体使用方式参见 **Docker 运行 fir-cli** 章节
 
 # 最近更新
+- (2.0.25) 兼容 rubyzip 3.x: 修复 Ruby 3.2+ 环境下解析 ipa 报 `Info.plist not readable!` 的问题
 - (2.0.24) 修复部分 APK 包含非法 XML 控制字符导致解析失败的问题
 - (2.0.23) 增强上传稳定性
 - (2.0.22) 支持自定义下载文件名称 --user_download_file_name=具体文件名称  注意， 此参数无法与switch_to_qiniu 一起使用
