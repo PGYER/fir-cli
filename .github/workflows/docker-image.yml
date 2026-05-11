@@ -40,7 +40,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push to GHCR
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -52,3 +52,28 @@ jobs:
             ghcr.io/pgyer/fir-cli:${{ steps.version.outputs.result }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # docker.io is best-effort: if DOCKER_ACCESS_TOKEN isn't set yet,
+      # the login below fails and the next step is skipped, but GHCR push
+      # above still succeeds and the workflow remains green.
+      - name: Login to Docker Hub
+        id: dockerhub_login
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        uses: docker/login-action@v3
+        with:
+          username: atpking
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Build and push to Docker Hub
+        if: github.event_name != 'pull_request' && steps.dockerhub_login.outcome == 'success'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            firhq/fir-cli:latest
+            firhq/fir-cli:${{ steps.version.outputs.result }}
+          cache-from: type=gha
