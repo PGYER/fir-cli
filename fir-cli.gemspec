@@ -46,4 +46,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rexml'
   spec.add_dependency 'CFPropertyList'
   spec.add_dependency 'api_tools', '~> 0.1.1'
+  # rubyzip is pulled in transitively by ruby_android_apk (>= 1.1.6, no upper
+  # bound). We support 2.x and 3.x in lib/fir/util/parser/ipa.rb; pin upper to
+  # < 4 so future major bumps don't silently break end users on `gem install`.
+  spec.add_dependency 'rubyzip', '>= 1.1.6', '< 4'
 end
