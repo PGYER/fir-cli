@@ -169,13 +169,15 @@ fir-cli 提供对 aab 文件有限程度支持的上传与下载. 在使用 fir-
 假设 我需要上传桌面的  1.apk
 
 ```
-docker run -e API_TOKEN=您的token -v 您的上传文件的目录的绝对路径:/tmp firhq/fir-cli:latest publish /tmp/你的文件
+docker run -e API_TOKEN=您的token -v 您的上传文件的目录的绝对路径:/tmp ghcr.io/pgyer/fir-cli:latest publish /tmp/你的文件
 
-# 如 `docker run -e API_TOKEN=xxxxxxxe -v /Users/atpking/Desktop:/tmp firhq/fir-cli:latest publish  /tmp/1.apk`
+# 如 `docker run -e API_TOKEN=xxxxxxxe -v /Users/atpking/Desktop:/tmp ghcr.io/pgyer/fir-cli:latest publish  /tmp/1.apk`
 
 # 实际含义是把我的桌面挂载到 docker 里的 /tmp 目录  之后上传 docker 文件里的 /tmp/1.apk
 # 也可以修改为其他目录
 ```
+
+> 注: 历史镜像 `docker.io/firhq/fir-cli` 停留在 2023 年的 2.0.18, 不再更新。请改用 `ghcr.io/pgyer/fir-cli:latest`。
 
 ## 提交反馈
 
