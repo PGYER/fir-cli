@@ -46,11 +46,22 @@ module FIR
         return if @contents
         @contents = "#{Dir.tmpdir}/ipa_files-#{Time.now.to_i}"
 
+        # rubyzip 3.x changed Zip::File#extract: the second positional arg is now
+        # the entry path; the destination dir moved to a keyword arg. Detect by
+        # signature so we don't depend on Zip::VERSION (not auto-loaded in 2.x).
+        zip3 = Zip::File.instance_method(:extract).parameters.any? { |_t, n| n == :destination_directory }
+
         Zip::File.open(@path) do |zip_file|
           zip_file.each do |f|
             f_path = File.join(@contents, f.name)
+            next if File.exist?(f_path)
+
             FileUtils.mkdir_p(File.dirname(f_path))
-            zip_file.extract(f, f_path) unless File.exist?(f_path)
+            if zip3
+              f.extract(File.basename(f.name), destination_directory: File.dirname(f_path))
+            else
+              zip_file.extract(f, f_path)
+            end
           end
         end
 
